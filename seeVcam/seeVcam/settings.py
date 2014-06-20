@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 import os
 import json
 from django.core.exceptions import ImproperlyConfigured
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -22,6 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 #JSON secret module
 with open("secrets.json") as f:
     secrets = json.loads(f.read())
+
 
 def get_secret(setting, secrets=secrets):
     try:
@@ -43,16 +45,23 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-INSTALLED_APPS = (
+DEFAULT_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # DB migration
-    'south'
 )
+THIRD_PARTY_APPS = (
+    # DB migration
+    'south',
+)
+LOCAL_APPS = (
+
+)
+
+INSTALLED_APPS = DEFAULT_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
