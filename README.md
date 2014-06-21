@@ -13,7 +13,7 @@ I added them to `~/.bash_profile`, remember you have to reload the startup file 
 
 ```sh
 export WORKON_HOME=$HOME/.virtualenvs
-export PROJECT_HOME=$HOME/directory-you-do-development-in
+export PROJECT_HOME=$HOME/'directory-you-do-development-in'
 source /usr/local/bin/virtualenvwrapper.sh
 ```
 to create a new virtualenv:
@@ -21,6 +21,8 @@ to create a new virtualenv:
 mkvirtualenv django_project
 ```
 And to activate/deactivate the virtualenv use `workon django_project` and `deactivate`.
+
+Virtualenvs are saved on Mac into `/Users/[user_name]/.virtualenvs/[env_name]/`, check it with `echo $VIRTUAL_ENV/$` inside the virtualenv.
 
 
 Requirements and Dependencies
@@ -64,6 +66,31 @@ python manage.py shell --settings=seeVcam.settings.[environment]
 # Run the server with the settings/'environment.py' configuration
 python manage.py runserver --settings=seeVcam.settings.[environment]
 ```
+If you wish to avoid using the --settings in EVERY command:
+```sh
+# reach the virtualenv
+cd `/Users/[user_name]/.virtualenvs/[env_name]/`
+
+# access the activate file
+vi bin/activate
+
+# add the following
+DJANGO_SETTINGS_MODULE="seeVcam.settings.local"
+export DJANGO_SETTINGS_MODULE"
+```
+when you run the server you should see something like the following:
+
+```sh
+$ ./manage.py runserver 8080
+Validating models...
+
+0 errors found
+June 21, 2014 - 11:23:39
+Django version 1.6.5, using settings 'seeVcam.settings.local'
+Starting development server at http://127.0.0.1:8080/
+Quit the server with CONTROL-C.
+```
+*Note that "seeVcam.settings.local" has to be modified to match the correct environment.*
 
 Install PostgreSQL
 ===
@@ -108,3 +135,4 @@ This configuration shouldn't require username and password for the database beca
 
 [1]:https://gist.github.com/panuta/1852087
 [postgres_recipe]:http://braumeister.org/formula/postgresql
+[Migration issues]:http://stackoverflow.com/questions/14645675/cant-perform-data-migrations-using-django-1-5-custom-user-class

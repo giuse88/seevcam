@@ -1,6 +1,7 @@
 # settings.local.py
 from .base import *
 
+# Debug options
 DEBUG = True
 
 # SECURITY WARNING: don't run with debug turned on in production!
