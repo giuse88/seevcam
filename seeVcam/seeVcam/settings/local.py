@@ -28,3 +28,9 @@ DATABASES = {
 }
 
 INSTALLED_APPS += ("debug_toolbar",)
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# allauth settings
+
+# Determines whether or not an e-mail address is automatically confirmed by a mere GET request. default(=False)
+ACCOUNT_CONFIRM_EMAIL_ON_GET= True

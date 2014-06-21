@@ -9,4 +9,5 @@ urlpatterns = patterns('',
                        # allauth package doesn't provide e profile page
                        url(r'^$', views.home, name='home'),
                        url(r'^accounts/profile/$', views.welcome, name='welcome'),
+                       url(r'^accounts/only_verified/$', views.verified_users_only_view, name='only_virified'),
 )

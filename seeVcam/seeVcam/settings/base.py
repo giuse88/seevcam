@@ -121,3 +121,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# allauth settings
+ACCOUNT_USER_MODEL_USERNAME_FIELD = 'username'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION ="mandatory"
+# An integer specifying the minimum allowed length of a username. default (=1)
+ACCOUNT_USERNAME_MIN_LENGTH = 3
+
+# An integer specifying the minimum password length. default (=6)
+ACCOUNT_PASSWORD_MIN_LENGTH =8

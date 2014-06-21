@@ -6,6 +6,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 # Create your views here.
 
+from allauth.account.decorators import verified_email_required
+
 
 @login_required
 def welcome(request):
@@ -19,6 +21,12 @@ def home(request):
     context = {}
     return render(request, template, context)
 
+
+@verified_email_required
+def verified_users_only_view(request):
+    template = 'login/verified_email.html'
+    context = {}
+    return render(request, template, context)
 
 # def user_login(request):
 #     # Obtain the context for the user's request.
