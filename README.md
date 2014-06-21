@@ -76,7 +76,7 @@ vi bin/activate
 
 # add the following
 DJANGO_SETTINGS_MODULE="seeVcam.settings.local"
-export DJANGO_SETTINGS_MODULE"
+export DJANGO_SETTINGS_MODULE
 ```
 when you run the server you should see something like the following:
 
@@ -127,9 +127,7 @@ pg_ctl -D /usr/local/var/postgres stop -s -m fast
 # to access the database console.
 psql seeVcamDb
 ```
-Note
----
-This configuration shouldn't require username and password for the database becayse in [the mentioned link][1] we assign rights to the db as for the user in the system.
+*NOTE: This configuration shouldn't require username and password for the database becayse in [the mentioned link][1] we assign rights to the db as for the user in the system.*
 
 
 
