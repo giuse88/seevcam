@@ -55,6 +55,7 @@ THIRD_PARTY_APPS = (
     'south',
 )
 LOCAL_APPS = (
+    'login',
 
 )
 
@@ -74,8 +75,8 @@ ROOT_URLCONF = 'seeVcam.urls'
 WSGI_APPLICATION = 'seeVcam.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/1.6/ref/settings/#databases
+# Auth
+AUTH_USER_MODEL = 'login.SeevUser'
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
