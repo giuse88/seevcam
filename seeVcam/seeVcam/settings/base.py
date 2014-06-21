@@ -55,7 +55,7 @@ DEFAULT_APPS = (
 THIRD_PARTY_APPS = (
     # DB migration
     'south',
-    # allauth
+    # allauth applications
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -65,27 +65,26 @@ LOCAL_APPS = (
 
 )
 
-INSTALLED_APPS = DEFAULT_APPS + THIRD_PARTY_APPS + LOCAL_APPS
-
+INSTALLED_APPS = DEFAULT_APPS + LOCAL_APPS + THIRD_PARTY_APPS
+# INSTALLED_APPS = DEFAULT_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 TEMPLATE_CONTEXT_PROCESSORS = (
-# Required by allauth template tags
-"django.core.context_processors.request",
-# allauth specific context processors
-"allauth.account.context_processors.account",
-"allauth.socialaccount.context_processors.socialaccount",
-'django.contrib.auth.context_processors.auth',
+    # Required by allauth template tags
+    "django.core.context_processors.request",
+    'django.contrib.auth.context_processors.auth',
+    # allauth specific context processors
+    "allauth.account.context_processors.account",
+    "allauth.socialaccount.context_processors.socialaccount",
+
 )
 
 AUTHENTICATION_BACKENDS = (
-# Needed to login by username in Django admin, regardless of `allauth`
-"django.contrib.auth.backends.ModelBackend",
+    # Needed to login by username in Django admin, regardless of `allauth`
+    "django.contrib.auth.backends.ModelBackend",
 
-# `allauth` specific authentication methods, such as login by e-mail
-"allauth.account.auth_backends.AuthenticationBackend",
+    # `allauth` specific authentication methods, such as login by e-mail
+    "allauth.account.auth_backends.AuthenticationBackend",
 )
-
-
 
 SITE_ID = 1
 
@@ -102,7 +101,6 @@ ROOT_URLCONF = 'seeVcam.urls'
 
 WSGI_APPLICATION = 'seeVcam.wsgi.application'
 
-
 # Auth
 AUTH_USER_MODEL = 'login.SeevUser'
 
@@ -118,7 +116,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
