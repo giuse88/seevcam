@@ -12,7 +12,7 @@
   {{ request.user.username }}
   {% endif %}
 
-  {% if request.user.profile.account_verified %}
+  {% if request.user.account_verified %}
   (verified)
   {% else %}
   (unverified)
