@@ -12,8 +12,10 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 import os
 import json
 from django.core.exceptions import ImproperlyConfigured
+from unipath import Path
 
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+# BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+BASE_DIR = Path(__file__).ancestor(3)
 
 
 # Quick-start development settings - unsuitable for production
@@ -117,10 +119,24 @@ USE_L10N = True
 
 USE_TZ = True
 
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
-STATIC_URL = '/static/'
+# STATIC_PATH = os.path.join(BASE_DIR, 'static')
+#
+STATIC_URL = os.path.join(BASE_DIR, '/static/')
+
+# MEDIA_ROOT = BASE_DIR.child("media")
+# STATIC_ROOT = BASE_DIR.child("static")
+
+STATICFILES_DIRS = (
+    BASE_DIR.child('static'),
+)
+TEMPLATE_DIRS = (
+    BASE_DIR.child('templates'),
+)
+
 
 # allauth settings
 ACCOUNT_USER_MODEL_USERNAME_FIELD = 'username'
