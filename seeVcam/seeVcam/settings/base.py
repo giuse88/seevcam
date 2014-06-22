@@ -125,13 +125,13 @@ USE_TZ = True
 
 # STATIC_PATH = os.path.join(BASE_DIR, 'static')
 #
-STATIC_URL = os.path.join(BASE_DIR, '/static/')
+STATIC_URL = os.path.join(BASE_DIR, '/assets/')
 
 # MEDIA_ROOT = BASE_DIR.child("media")
 # STATIC_ROOT = BASE_DIR.child("static")
 
 STATICFILES_DIRS = (
-    BASE_DIR.child('static'),
+    BASE_DIR.child('assets'),
 )
 TEMPLATE_DIRS = (
     BASE_DIR.child('templates'),

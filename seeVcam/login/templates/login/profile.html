@@ -1,11 +1,7 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title></title>
-</head>
-<body>
-
-<div>Hi,
+{% extends "login/base_login.html" %}
+{% block content %}
+<div>
+Hi,
   {% if request.user.first_name or request.user.last_name %}
   {{ request.user.first_name }} {{ request.user.last_name }}
   {% else %}
@@ -22,5 +18,4 @@
 
 
 <div>you can logout here: <a href="{% url 'account_logout' %}">Logout</a></div>
-</body>
-</html>
+{% endblock content %}

@@ -1,10 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title></title>
-</head>
-<body>
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Home{% endblock title %}
 
+
+{% block content %}
 
 <div>This is a public page, everyone can access it </div>
 
@@ -16,6 +15,4 @@
   {% endif %}
 </div>
 
-
-</body>
-</html>
+{% endblock content %}

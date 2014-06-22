@@ -1,0 +1,444 @@
+!!!
+%html
+  %head
+    %title Title Goes Here
+    %meta{:content => "text/html;charset=UTF-8", "http-equiv" => "content-type"}/
+    %meta{:charset => "utf-8"}/
+    %meta{:content => "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no", :name => "viewport"}/
+    %meta{:content => "", :name => "description"}/
+    %meta{:content => "", :name => "author"}/
+    / NEED TO WORK ON
+    %link{:href => "assets/plugins/pace/pace-theme-flash.css", :media => "screen", :rel => "stylesheet", :type => "text/css"}/
+    %link{:href => "assets/plugins/jquery-slider/css/jquery.sidr.light.css", :media => "screen", :rel => "stylesheet", :type => "text/css"}/
+    %link{:href => "assets/plugins/boostrapv3/css/bootstrap.min.css", :rel => "stylesheet", :type => "text/css"}/
+    %link{:href => "assets/plugins/boostrapv3/css/bootstrap-theme.min.css", :rel => "stylesheet", :type => "text/css"}/
+    %link{:href => "assets/plugins/font-awesome/css/font-awesome.css", :rel => "stylesheet", :type => "text/css"}/
+    %link{:href => "assets/css/animate.min.css", :rel => "stylesheet", :type => "text/css"}/
+    %link{:href => "assets/css/style.css", :rel => "stylesheet", :type => "text/css"}/
+    %link{:href => "assets/css/responsive.css", :rel => "stylesheet", :type => "text/css"}/
+    %link{:href => "assets/css/custom-icon-set.css", :rel => "stylesheet", :type => "text/css"}/
+    / BEGIN CORE JS FRAMEWORK
+    %script{:src => "assets/plugins/jquery-1.8.3.min.js", :type => "text/javascript"}
+    %script{:src => "assets/plugins/jquery-ui/jquery-ui-1.10.1.custom.min.js", :type => "text/javascript"}
+    %script{:src => "assets/plugins/boostrapv3/js/bootstrap.min.js", :type => "text/javascript"}
+    %script{:src => "assets/plugins/breakpoints.js", :type => "text/javascript"}
+    %script{:src => "assets/plugins/jquery-unveil/jquery.unveil.min.js", :type => "text/javascript"}
+    %script{:src => "assets/plugins/jquery-block-ui/jqueryblockui.js", :type => "text/javascript"}
+    / END CORE JS FRAMEWORK
+    / BEGIN PAGE LEVEL JS
+    %script{:src => "assets/plugins/jquery-slider/jquery.sidr.min.js", :type => "text/javascript"}
+    %script{:src => "assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js", :type => "text/javascript"}
+    %script{:src => "assets/plugins/pace/pace.min.js", :type => "text/javascript"}
+    %script{:src => "assets/plugins/jquery-numberAnimate/jquery.animateNumbers.js", :type => "text/javascript"}
+    / END PAGE LEVEL PLUGINS
+    / BEGIN CORE TEMPLATE JS
+    %script{:src => "assets/js/core.js", :type => "text/javascript"}
+    %script{:src => "assets/js/chat.js", :type => "text/javascript"}
+    %script{:src => "assets/js/demo.js", :type => "text/javascript"}
+    / END CORE TEMPLATE JS
+    / END NEED TO WORK ON
+  %body
+    / BEGIN HEADER
+    .header.navbar.navbar-inverse
+      / BEGIN TOP NAVIGATION BAR
+      .navbar-inner
+        / BEGIN NAVIGATION HEADER
+        .header-seperation
+          / BEGIN MOBILE HEADER
+          %ul#main-menu-toggle-wrapper.nav.pull-left.notifcation-center{:style => "display:none"}
+            %li.dropdown
+              %a#main-menu-toggle{:href => "#main-menu"}
+                .iconset.top-menu-toggle-white
+          / END MOBILE HEADER
+          / BEGIN LOGO
+          %a{:href => "#"}
+            %img.logo{:alt => "", "data-src" => "assets/img/logo.png", "data-src-retina" => "assets/img/logo2x.png", :height => "21", :src => "assets/img/logo.png", :width => "106"}/
+          / END LOGO
+          / BEGIN LOGO NAV BUTTONS
+          %ul.nav.pull-right.notifcation-center
+            %li#header_task_bar.dropdown
+              %a.dropdown-toggle.active{"data-toggle" => "", :href => "#"}
+                .iconset.top-home
+            %li#header_inbox_bar.dropdown
+              %a.dropdown-toggle{:href => "#"}
+                .iconset.top-messages
+                %span#msgs-badge.badge 2
+            / BEGIN MOBILE CHAT TOGGLER
+            %li#portrait-chat-toggler.dropdown{:style => "display:none"}
+              %a.chat-menu-toggle{:href => "#sidr"}
+                .iconset.top-chat-white
+            / END MOBILE CHAT TOGGLER
+          / END LOGO NAV BUTTONS
+        / END NAVIGATION HEADER
+        / BEGIN CONTENT HEADER
+        .header-quick-nav
+          / BEGIN HEADER LEFT SIDE SECTION
+          .pull-left
+            / BEGIN SLIM NAVIGATION TOGGLE
+            %ul.nav.quick-section
+              %li.quicklinks
+                %a#layout-condensed-toggle{:href => "#"}
+                  .iconset.top-menu-toggle-dark
+            / END SLIM NAVIGATION TOGGLE
+            / BEGIN HEADER QUICK LINKS
+            %ul.nav.quick-section
+              %li.quicklinks
+                %a{:href => "#"}
+                  .iconset.top-reload
+              %li.quicklinks
+                %span.h-seperate
+              %li.quicklinks
+                %a{:href => "#"}
+                  .iconset.top-tiles
+              / BEGIN SEARCH BOX
+              %li.m-r-10.input-prepend.inside.search-form.no-boarder
+                %span.add-on
+                  %span.iconset.top-search
+                %input.no-boarder{:name => "", :placeholder => "Search Dashboard", :style => "width:250px;", :type => "text"}
+              / END SEARCH BOX
+            / BEGIN HEADER QUICK LINKS
+          / END HEADER LEFT SIDE SECTION
+          / BEGIN HEADER RIGHT SIDE SECTION
+          .pull-right
+            .chat-toggler
+              / BEGIN NOTIFICATION CENTER
+              %a#my-task-list.dropdown-toggle{"data-content" => "", "data-original-title" => "Notifications", "data-placement" => "bottom", "data-toggle" => "dropdown", :href => "#"}
+                .user-details
+                  .username
+                    %span.badge.badge-important> 3
+                    \&nbsp;John
+                    %span.bold &nbsp;Smith
+                .iconset.top-down-arrow
+              #notification-list{:style => "display:none"}
+                %div{:style => "width:300px"}
+                  / BEGIN NOTIFICATION MESSAGE
+                  .notification-messages.info
+                    .user-profile
+                      %img{:alt => "", "data-src" => "assets/img/profiles/d.jpg", "data-src-retina" => "assets/img/profiles/d2x.jpg", :height => "35", :src => "assets/img/profiles/d.jpg", :width => "35"}
+                    .message-wrapper
+                      .heading Title of Notification
+                      .description Description...
+                      .date.pull-left A min ago
+                    .clearfix
+                  / END NOTIFICATION MESSAGE
+              / END NOTIFICATION CENTER
+              / BEGIN PROFILE PICTURE
+              .profile-pic
+                %img{:alt => "", "data-src" => "assets/img/profiles/avatar_small.jpg", "data-src-retina" => "assets/img/profiles/avatar_small2x.jpg", :height => "35", :src => "assets/img/profiles/avatar_small.jpg", :width => "35"}/
+              / END PROFILE PICTURE
+            / BEGIN HEADER NAV BUTTONS
+            %ul.nav.quick-section
+              / BEGIN SETTINGS
+              %li.quicklinks
+                %a#user-options.dropdown-toggle.pull-right{"data-toggle" => "dropdown", :href => "#"}
+                  .iconset.top-settings-dark
+                %ul.dropdown-menu.pull-right{"aria-labelledby" => "user-options", :role => "menu"}
+                  %li
+                    %a{:href => "#"} Normal Link
+                  %li
+                    %a{:href => "#"}
+                      Badge Link&nbsp;&nbsp;
+                      %span.badge.badge-important.animated.bounceIn 2
+                  %li.divider
+                  %li
+                    %a{:href => "#"}
+                      %i.fa.fa-power-off>
+                      \&nbsp;&nbsp;Separated Link
+              / END SETTINGS
+              %li.quicklinks
+                %span.h-seperate
+              / BEGIN CHAT SIDEBAR TOGGLE
+              %li.quicklinks
+                %a#chat-menu-toggle.chat-menu-toggle{:href => "#sidr"}
+                  .iconset.top-chat-dark
+                    %span#chat-message-count.badge.badge-important.hide 1
+                / BEGIN OPTIONAL RECENT CHAT POP UP NOTIFICATION
+                .simple-chat-popup.chat-menu-toggle.hide
+                  .simple-chat-popup-arrow
+                  .simple-chat-popup-inner
+                    %div{:style => "width:100px"}
+                      .semi-bold Name
+                      .message Message...
+                / END OPTIONAL RECENT CHAT POP UP NOTIFICATION
+              / END CHAT SIDEBAR TOGGLE
+            / END HEADER NAV BUTTONS
+          / END HEADER RIGHT SIDE SECTION
+        / END CONTENT HEADER
+      / END TOP NAVIGATION BAR
+    / END HEADER
+    / BEGIN CONTENT
+    .page-container.row-fluid
+      / BEGIN SIDEBAR
+      / BEGIN MENU
+      #main-menu.page-sidebar
+        #main-menu-wrapper.page-sidebar-wrapper
+          / BEGIN MINI-PROFILE
+          .user-info-wrapper
+            .profile-wrapper
+              %img{:alt => "", "data-src" => "assets/img/profiles/avatar.jpg", "data-src-retina" => "assets/img/profiles/avatar2x.jpg", :height => "69", :src => "assets/img/profiles/avatar.jpg", :width => "69"}/
+            .user-info
+              .greeting Welcome
+              .username
+                John
+                %span.semi-bold Smith
+              .status
+                Status
+                %a{:href => "#"}
+                  .status-icon.green>
+                  Online
+          / END MINI-PROFILE
+          / BEGIN SIDEBAR MENU
+          %p.menu-title
+            BROWSE
+            %span.pull-right
+              %a{:href => "javascript:;"}
+                %i.fa.fa-refresh
+          %ul
+            / BEGIN SELECTED LINK
+            %li.start.active
+              %a{:href => "#"}
+                %i.icon-custom-home
+                %span.title Link 1
+                %span.selected
+                %span.badge.badge-important.pull-right 5
+            / END SELECTED LINK
+            / BEGIN BADGE LINK
+            %li
+              %a{:href => "#"}
+                %i.fa.fa-envelope
+                %span.title Link 2
+                %span.badge.badge-disable.pull-right 203
+            / END BADGE LINK
+            / BEGIN SINGLE LINK
+            %li
+              %a{:href => "#"}
+                %i.fa.fa-flag
+                %span.title Link 3
+            / END SINGLE LINK
+            / BEGIN ONE LEVEL MENU
+            %li
+              %a{:href => "javascript:;"}
+                %i.icon-custom-ui
+                %span.title Link 4
+                %span.arrow
+              %ul.sub-menu
+                %li
+                  %a{:href => "#"} Sub Link 1
+            / END ONE LEVEL MENU
+            / BEGIN TWO LEVEL MENU
+            %li
+              %a{:href => "javascript:;"}
+                %i.fa.fa-folder-open
+                %span.title Link 5
+                %span.arrow
+              %ul.sub-menu
+                %li
+                  %a{:href => "javascript:;"} Sub Link 1
+                %li
+                  %a{:href => "javascript:;"}
+                    %span.title Sub Link 2
+                    %span.arrow
+                  %ul.sub-menu
+                    %li
+                      %a{:href => "javascript:;"} Sub Link 1
+            / END TWO LEVEL MENU
+          / END SIDEBAR MENU
+          / BEGIN SIDEBAR WIDGETS
+          .side-bar-widgets
+            / BEGIN FOLDER WIDGET
+            %p.menu-title
+              FOLDER
+              %span.pull-right
+                %a.create-folder{:href => "#"}
+                  %i.icon-plus
+            %ul.folders
+              %li
+                %a{:href => "#"}
+                  .status-icon.green>
+                  Task 1
+              / BEGIN HIDDEN INPUT BOX (FOR ADD FOLDER LINK)
+              %li.folder-input{:style => "display:none"}
+                %input#folder-name.no-boarder.folder-name{:name => "", :placeholder => "Name of folder", :type => "text"}
+              / END HIDDEN INPUT BOX (FOR ADD FOLDER LINK)
+            / END FOLDER WIDGET
+            / BEGIN PROJECTS WIDGET
+            %p.menu-title PROJECTS
+            / BEGIN EXAMPLE 1
+            .status-widget
+              .status-widget-wrapper
+                .title
+                  Project Title
+                  %a.remove-widget{:href => "#"}
+                    %i.icon-custom-cross
+                %p Project Description
+            / END EXAMPLE 1
+            / END PROJECTS WIDGET
+          .clearfix
+          / END SIDEBAR WIDGETS
+      / BEGIN SCROLL UP HOVER
+      %a.scrollup{:href => "#"} Scroll
+      / END SCROLL UP HOVER
+      / END MENU
+      / BEGIN SIDEBAR FOOTER WIDGET
+      .footer-widget
+        .progress.transparent.progress-small.no-radius.no-margin
+          .progress-bar.progress-bar-success.animate-progress-bar{"data-percentage" => "79%"}
+        .pull-right
+          .details-status
+            %span.animate-number{"data-animation-duration" => "560", "data-value" => "86"}>
+            \%
+          %a{:href => "#"}
+            %i.fa.fa-power-off
+      / END SIDEBAR FOOTER WIDGET
+      / END SIDEBAR
+      / BEGIN PAGE CONTAINER
+      .page-content
+        .content
+          / BEGIN PAGE TITLE
+          .page-title
+            %h3 Master Page
+          / END PAGE TITLE
+          / BEGIN PlACE PAGE CONTENT HERE
+          / END PLACE PAGE CONTENT HERE
+      / END PAGE CONTAINER
+    / END CONTENT
+    / BEGIN CHAT
+    #sidr.chat-window-wrapper
+      #main-chat-wrapper
+        #chat-users.chat-window-wrapper.fadeIn
+          / BEGIN CHAT HEADER
+          .chat-header
+            / BEGIN CHAT SEARCH BAR
+            .pull-left
+              %input{:placeholder => "search", :type => "text"}
+            / END CHAT SEARCH BAR
+            / BEGIN CHAT QUICKLINKS
+            .pull-right
+              %a{:href => "#"}
+                .iconset.top-settings-dark
+            / END CHAT QUICKLINKS
+          / END CHAT HEADER
+          / BEGIN GROUP WIDGET
+          .side-widget
+            .side-widget-title group chats
+            .side-widget-content
+              #groups-list
+                %ul.groups
+                  %li
+                    %a{:href => "#"}
+                      .status-icon.green>
+                      Group Chat 1
+          / END GROUP WIDGET
+          / BEGIN FAVORITES WIDGET
+          .side-widget.fadeIn
+            .side-widget-title favorites
+            .side-widget-content
+              / BEGIN SAMPLE CHAT
+              .user-details-wrapper.active{"data-chat-status" => "online", "data-chat-user-pic" => "assets/img/profiles/d.jpg", "data-chat-user-pic-retina" => "assets/img/profiles/d2x.jpg", "data-user-name" => "Jane Smith"}
+                / BEGIN PROFILE PIC
+                .user-profile
+                  %img{:alt => "", "data-src" => "assets/img/profiles/d.jpg", "data-src-retina" => "assets/img/profiles/d2x.jpg", :height => "35", :src => "assets/img/profiles/d.jpg", :width => "35"}
+                / END PROFILE PIC
+                / BEGIN MESSAGE
+                .user-details
+                  .user-name Jane Smith
+                  .user-more Message...
+                / END MESSAGE
+                / BEGIN MESSAGES BADGE
+                .user-details-status-wrapper
+                  %span.badge.badge-important 3
+                / END MESSAGES BADGE
+                / BEGIN STATUS
+                .user-details-count-wrapper
+                  .status-icon.green
+                / END STATUS
+                .clearfix
+              / END SAMPLE CHAT
+          / END FAVORITES WIDGET
+          / BEGIN MORE FRIENDS WIDGET
+          .side-widget
+            .side-widget-title more friends
+            #friends-list.side-widget-content
+              / BEGIN SAMPLE CHAT
+              .user-details-wrapper{"data-chat-status" => "online", "data-chat-user-pic" => "assets/img/profiles/d.jpg", "data-chat-user-pic-retina" => "assets/img/profiles/d2x.jpg", "data-user-name" => "Jane Smith"}
+                / BEGIN PROFILE PIC
+                .user-profile
+                  %img{:alt => "", "data-src" => "assets/img/profiles/d.jpg", "data-src-retina" => "assets/img/profiles/d2x.jpg", :height => "35", :src => "assets/img/profiles/d.jpg", :width => "35"}
+                / END PROFILE PIC
+                / BEGIN MESSAGE
+                .user-details
+                  .user-name Jane Smith
+                  .user-more Message...
+                / END MESSAGE
+                / BEGIN MESSAGES BADGE
+                .user-details-status-wrapper
+                  %span.badge.badge-important 3
+                / END MESSAGES BADGE
+                / BEGIN STATUS
+                .user-details-count-wrapper
+                  .status-icon.green
+                / END STATUS
+                .clearfix
+              / END SAMPLE CHAT
+          / END MORE FRIENDS WIDGET
+        / BEGIN DUMMY CHAT CONVERSATION
+        #messages-wrapper.chat-window-wrapper.fadeIn{:style => "display:none"}
+          / BEGIN CHAT HEADER BAR
+          .chat-header
+            / BEGIN SEARCH BAR
+            .pull-left
+              %input{:placeholder => "search", :type => "text"}
+            / END SEARCH BAR
+            / BEGIN CLOSE TOGGLE
+            .pull-right
+              %a{:href => "#"}
+                .iconset.top-settings-dark
+            / END CLOSE TOGGLE
+          .clearfix
+          / END CHAT HEADER BAR
+          / BEGIN CHAT BODY
+          .chat-messages-header
+            .status.online
+            %span.semi-bold Jane Smith(Typing..)
+            %a.chat-back{:href => "#"}
+              %i.icon-custom-cross
+          / BEGIN CHAT MESSAGES CONTAINER
+          .chat-messages
+            / BEGIN TIME STAMP EXAMPLE
+            .sent_time Yesterday 11:25pm
+            / END TIME STAMP EXAMPLE
+            / BEGIN EXAMPLE CHAT MESSAGE
+            .user-details-wrapper
+              / BEGIN MESSENGER PROFILE
+              .user-profile
+                %img{:alt => "", "data-src" => "assets/img/profiles/d.jpg", "data-src-retina" => "assets/img/profiles/d2x.jpg", :height => "35", :src => "assets/img/profiles/d.jpg", :width => "35"}
+              / END MESSENGER PROFILE
+              / BEGIN MESSENGER MESSAGE
+              .user-details
+                .bubble Hello, You there?
+              / END MESSENGER MESSAGE
+              .clearfix
+              / BEGIN TIMESTAMP ON CLICK TOGGLE
+              .sent_time.off Yesterday 11:25pm
+              / END TIMESTAMP ON CLICK TOGGLE
+            / END EXAMPLE CHAT MESSAGE
+            / BEGIN TIME STAMP EXAMPLE
+            .sent_time Today 11:25pm
+            / BEGIN TIME STAMP EXAMPLE
+            / BEGIN EXAMPLE CHAT MESSAGE (FROM SELF)
+            .user-details-wrapper.pull-right
+              / BEGIN MESSENGER MESSAGE
+              .user-details
+                .bubble.sender Let me know when you free
+              / END MESSENGER MESSAGE
+              .clearfix
+              / BEGIN TIMESTAMP ON CLICK TOGGLE
+              .sent_time.off Sent On Tue, 2:45pm
+              / END TIMESTAMP ON CLICK TOGGLE
+            / END EXAMPLE CHAT MESSAGE (FROM SELF)
+          / END CHAT MESSAGES CONTAINER
+        .chat-input-wrapper{:style => "display:none"}
+          %textarea#chat-message-input{:placeholder => "Type your message", :rows => "1"}
+        .clearfix
+        / END DUMMY CHAT CONVERSATION
+    / END CHAT
