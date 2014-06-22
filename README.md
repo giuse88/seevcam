@@ -14,6 +14,7 @@ I added them to `~/.bash_profile`, remember you have to reload the startup file 
 ```sh
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/'directory-you-do-development-in'
+export VIRTUALENVWRAPPER_PYTHON='directory-python-executable-file' (e.g. /usr/local/bin/python2 )
 source /usr/local/bin/virtualenvwrapper.sh
 ```
 to create a new virtualenv:
