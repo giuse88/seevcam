@@ -131,6 +131,21 @@ psql seeVcamDb
 *NOTE: This configuration shouldn't require username and password for the database becayse in [the mentioned link][1] we assign rights to the db as for the user in the system.*
 
 
+South
+===
+
+```sh
+# create a new app
+./manage.py startapp 'myapp'
+
+# initial migration of the app
+./manage.py schemamigration 'myapp' --initial
+
+# migration for the app
+./manage.py migrate interviews
+```
+
+
 
 [1]:https://gist.github.com/panuta/1852087
 [postgres_recipe]:http://braumeister.org/formula/postgresql

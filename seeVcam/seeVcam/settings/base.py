@@ -64,6 +64,8 @@ THIRD_PARTY_APPS = (
 )
 LOCAL_APPS = (
     'login',
+    'interviews',
+    'questions',
 
 )
 
