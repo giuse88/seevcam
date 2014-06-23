@@ -1,4 +1,6 @@
 $(document).ready(function () {
+//	quick and dirty fix to take out the sidebar
+	$("body").toggleMenu();
     calculateHeight();
     $(".remove-widget").click(function () {
         $(this).parent().parent().parent().addClass('animated fadeOut');
