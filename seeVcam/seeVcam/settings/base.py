@@ -3,9 +3,8 @@ Django settings for seeVcam project.
 """
 
 import os
-from unipath import Path
 
-BASE_DIR = Path(__file__).ancestor(3)
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
 ALLOWED_HOSTS = []
 
@@ -79,29 +78,23 @@ USE_L10N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.6/howto/static-files/
-
-# STATIC_PATH = os.path.join(BASE_DIR, 'static')
-#
 STATIC_URL = os.path.join(BASE_DIR, '/assets/')
 
-# MEDIA_ROOT = BASE_DIR.child("media")
-# STATIC_ROOT = BASE_DIR.child("static")
+STATIC_PATH = os.path.join(BASE_DIR,    'static')
+ASSETS_PATH = os.path.join(BASE_DIR,    'assets')
+TEMPLATE_PATH = os.path.join(BASE_DIR,  'templates')
 
 STATICFILES_DIRS = (
-    BASE_DIR.child('assets'),
+    STATIC_PATH,
+    ASSETS_PATH,
 )
 TEMPLATE_DIRS = (
-    BASE_DIR.child('templates'),
+    TEMPLATE_PATH,
 )
 
 # allauth settings
 ACCOUNT_USER_MODEL_USERNAME_FIELD = 'username'
 ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION ="mandatory"
-# An integer specifying the minimum allowed length of a username. default (=1)
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 ACCOUNT_USERNAME_MIN_LENGTH = 3
-# An integer specifying the minimum password length. default (=6)
-ACCOUNT_PASSWORD_MIN_LENGTH =8
+ACCOUNT_PASSWORD_MIN_LENGTH = 8
