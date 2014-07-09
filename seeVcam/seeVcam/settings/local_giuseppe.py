@@ -21,5 +21,6 @@ DATABASES = {
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-# Determines whether or not an e-mail address is automatically confirmed by a mere GET request. default(=False)
-ACCOUNT_CONFIRM_EMAIL_ON_GET= True
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+
+

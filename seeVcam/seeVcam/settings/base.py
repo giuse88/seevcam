@@ -98,3 +98,78 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 ACCOUNT_USERNAME_MIN_LENGTH = 3
 ACCOUNT_PASSWORD_MIN_LENGTH = 8
+
+LOG_FOLDER = os.path.join(BASE_DIR, 'log')
+REQUEST_LOGGER_FILE = os.path.join(LOG_FOLDER, 'requests.log')
+GENERAL_LOGGER_FILE = os.path.join(LOG_FOLDER, 'django.log')
+DB_LOGGER_FILE = os.path.join(LOG_FOLDER, 'db.log')
+
+
+#Temponary
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+    'formatters': {
+        'standard': {
+            'format' : "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
+            'datefmt' : "%d/%b/%Y %H:%M:%S"
+        },
+    },
+    'handlers': {
+        'null': {
+            'level': 'DEBUG',
+            'class': 'django.utils.log.NullHandler',
+        },
+        'request_log_file': {
+            'level': 'INFO',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': REQUEST_LOGGER_FILE,
+            'maxBytes': 50000,
+            'backupCount': 2,
+            'formatter': 'standard',
+        },
+        'db_log_file': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': DB_LOGGER_FILE,
+            'maxBytes': 50000,
+            'backupCount': 2,
+            'formatter': 'standard',
+            },
+        'general_log_file': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': GENERAL_LOGGER_FILE,
+            'maxBytes': 50000,
+            'backupCount': 2,
+            'formatter': 'standard',
+            },
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'standard'
+        },
+        'mail_admins': {
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler',
+            'formatter': 'standard'
+        }
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console', 'general_log_file'],
+            'propagate': False,
+            'level': 'DEBUG',
+        },
+        'django.db.backends': {
+            'handlers': ['console', 'db_log_file'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+        'django.request': {
+            'handlers': ['console', 'request_log_file', 'email_admins'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+    }
+}
