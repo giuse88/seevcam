@@ -5,12 +5,12 @@ from login.models import SeevUser
 
 
 class QuestionCatalogueTest(TestCase):
-    # #############################################################################
+    ##############################################################################
     #                                PROPERTIES                                  #
     ##############################################################################
 
     mock_catalogue_name = "catalogue_name"
-    mock_catalogue_scope = "catalogue_scope"
+    mock_catalogue_scope = QuestionCatalogue.PRIVATE_SCOPE
     mock_username_1 = "catalogue_owner_1"
     mock_username_2 = "catalogue_owner_2"
     mock_user_1 = None
@@ -41,13 +41,12 @@ class QuestionCatalogueTest(TestCase):
         self.assertEqual(catalogue.catalogue_scope, self.mock_catalogue_scope)
         self.assertEqual(catalogue.catalogue_owner.username, self.mock_username_1)
 
-
     def test_filtering_catalogues_by_users(self):
         """
         Test that there are exactly 10 catalogues belonging to each mock user
         """
-        self.verify_user_catalogues(self.mock_user_1, self.how_many_catalogues)
-        self.verify_user_catalogues(self.mock_user_2, 5)
+        self._verify_user_catalogues(self.mock_user_1, self.how_many_catalogues)
+        self._verify_user_catalogues(self.mock_user_2, 5)
 
     ##############################################################################
     #                                   PRIVATE                                  #
@@ -65,7 +64,7 @@ class QuestionCatalogueTest(TestCase):
                                              pk=i)
         return mock_user
 
-    def verify_user_catalogues(self, user, how_many_catalogues):
+    def _verify_user_catalogues(self, user, how_many_catalogues):
         catalogues = QuestionCatalogue.objects.filter(catalogue_owner=user)
         self.assertEqual(catalogues.count(), how_many_catalogues)
         for catalogue in catalogues:
