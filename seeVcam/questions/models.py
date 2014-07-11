@@ -19,8 +19,8 @@ class QuestionCatalogue(models.Model):
 
 
 class Question(models.Model):
-    question_text = models.TextField()
-    question_catalogue = models.ForeignKey(QuestionCatalogue)
+    question_text = models.TextField(null=False, blank=False)
+    question_catalogue = models.ForeignKey(QuestionCatalogue, null=False, blank=False)
 
     def __unicode__(self):
         return self.question_text
