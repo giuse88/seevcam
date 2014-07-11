@@ -9,9 +9,10 @@ class QuestionCatalogue(models.Model):
         (PRIVATE_SCOPE, 'Private'),
         (SEEVCAM_SCOPE, 'SeeVcam'),
     )
-    catalogue_scope = models.CharField(max_length=255, choices=CATALOGUE_SCOPES, default=PRIVATE_SCOPE, null=False, blank=False)
+    catalogue_scope = models.CharField(max_length=255, choices=CATALOGUE_SCOPES, default=PRIVATE_SCOPE, null=False,
+                                       blank=False)
     catalogue_name = models.CharField(max_length=255, null=False, blank=False)
-    catalogue_owner = models.ForeignKey(settings.AUTH_USER_MODEL)
+    catalogue_owner = models.ForeignKey(settings.AUTH_USER_MODEL, null=True)
 
     def __unicode__(self):
         return self.catalogue_name

@@ -1,3 +1,4 @@
+from unittest import skip
 from django.test import TestCase
 
 from questions.models import QuestionCatalogue
@@ -5,7 +6,7 @@ from login.models import SeevUser
 
 
 class QuestionCatalogueTest(TestCase):
-    ##############################################################################
+    # #############################################################################
     #                                PROPERTIES                                  #
     ##############################################################################
 
@@ -47,6 +48,19 @@ class QuestionCatalogueTest(TestCase):
         """
         self._verify_user_catalogues(self.mock_user_1, self.how_many_catalogues)
         self._verify_user_catalogues(self.mock_user_2, 5)
+
+    @skip('scope can assume any value so far. Need to find a better mechanism to enforce this concept')
+    def test_incorrect_value_set_in_the_scope(self):
+        QuestionCatalogue.objects.create(catalogue_scope="error",
+                                         catalogue_name=self.mock_catalogue_name,
+                                         catalogue_owner=self.mock_user_1,
+                                         pk=90)
+
+    def test_null_user_value_for_seevcam_catalogues(self):
+        QuestionCatalogue.objects.create(catalogue_name=self.mock_catalogue_name,
+                                         catalogue_scope=QuestionCatalogue.SEEVCAM_SCOPE, pk=90)
+        catalogue = QuestionCatalogue.objects.get(pk=90)
+        self.assertIsNone(catalogue.catalogue_owner)
 
     ##############################################################################
     #                                   PRIVATE                                  #
