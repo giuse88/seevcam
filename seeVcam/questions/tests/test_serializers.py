@@ -66,6 +66,5 @@ class QuestionSerializerTest(TestCase):
         self.assertEqual(data['id'], 1)
         self.assertEqual(data['question_text'], "text")
         self.assertEqual(data['question_catalogue'], self.question_catalogue.id)
-        question_json = JSONRenderer().render(data)
-        self.assertEqual(question_json, question_json)
+        self.assertEqual(JSONRenderer().render(data), question_json)
 
