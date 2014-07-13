@@ -11,7 +11,7 @@ class QuestionCatalogueSerializer(serializers.ModelSerializer):
         Check that the scope specified is one of the two values allowed
         """
         value = attrs[source]
-        if value.upper() not in QuestionCatalogue.CATALOGUE_SCOPES:
+        if value.upper() not in (QuestionCatalogue.SEEVCAM_SCOPE, QuestionCatalogue.PRIVATE_SCOPE):
             raise serializers.ValidationError("Invalid catalogue scope specified")
         return attrs
 

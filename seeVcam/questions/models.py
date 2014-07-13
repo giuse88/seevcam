@@ -6,8 +6,8 @@ class QuestionCatalogue(models.Model):
     PRIVATE_SCOPE = 'PRIVATE'
     SEEVCAM_SCOPE = 'SEEVCAM'
     CATALOGUE_SCOPES = (
-        (PRIVATE_SCOPE, 'Private'),
-        (SEEVCAM_SCOPE, 'SeeVcam'),
+        (PRIVATE_SCOPE, 'private'),
+        (SEEVCAM_SCOPE, 'seevcam'),
     )
     catalogue_scope = models.CharField(max_length=255, choices=CATALOGUE_SCOPES, default=PRIVATE_SCOPE, null=False,
                                        blank=False)
