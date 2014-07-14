@@ -1,10 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 
-from models import QuestionCatalogue
-from serializers import QuestionCatalogueSerializer
-from permissions import IsCatalogueOwner
+from models import QuestionCatalogue, Question
+from serializers import QuestionCatalogueSerializer, QuestionSerializer
+from permissions import IsOwner, IsCatalogueOwner
+
+
+
 
 
 # TODO REMOVE
@@ -15,11 +18,9 @@ def quest_list(request):
     return render(request, template, context)
 
 
-#TODO : there is logic shared between the two following  classes. This logic should be in a generic class
-
 class QuestionCatalogueList(generics.ListCreateAPIView):
     serializer_class = QuestionCatalogueSerializer
-    permission_classes = (IsAuthenticated, IsCatalogueOwner,)
+    permission_classes = (IsAuthenticated, IsOwner,)
 
     def pre_save(self, obj):
         obj.catalogue_owner = self.request.user
@@ -30,10 +31,8 @@ class QuestionCatalogueList(generics.ListCreateAPIView):
 
 
 class QuestionCatalogueDetail(generics.RetrieveUpdateDestroyAPIView):
-
-    queryset = QuestionCatalogue.objects.all()
     serializer_class = QuestionCatalogueSerializer
-    permission_classes = (IsAuthenticated, IsCatalogueOwner,)
+    permission_classes = (IsAuthenticated, IsOwner,)
 
     def pre_save(self, obj):
         obj.catalogue_owner = self.request.user
@@ -43,3 +42,20 @@ class QuestionCatalogueDetail(generics.RetrieveUpdateDestroyAPIView):
         return QuestionCatalogue.objects.filter(catalogue_owner=user)
 
 
+class QuestionList(generics.ListCreateAPIView):
+    serializer_class = QuestionSerializer
+    permission_classes = (IsAuthenticated, IsCatalogueOwner,)
+
+    def post(self, request, *args, **kwargs):
+        request.DATA[u'question_catalogue'] = kwargs['question_catalogue']
+        return super(QuestionList, self).post(request, args, kwargs)
+
+    def get_queryset(self):
+        pk = self.kwargs['question_catalogue']
+        return Question.objects.filter(question_catalogue=pk)
+
+
+class QuestionDetails(generics.RetrieveUpdateDestroyAPIView):
+    lookup_url_kwarg = 'question_catalogue'
+    serializer_class = QuestionSerializer
+    permission_classes = (IsAuthenticated, IsCatalogueOwner,)

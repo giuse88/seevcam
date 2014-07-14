@@ -2,7 +2,7 @@ from rest_framework import status
 from rest_framework.test import APITestCase, APIRequestFactory, APIClient
 
 from login.models import SeevUser
-from questions.models import QuestionCatalogue
+from questions.models import QuestionCatalogue, Question
 
 
 class QuestionCatalogueViewTests(APITestCase):
@@ -13,10 +13,16 @@ class QuestionCatalogueViewTests(APITestCase):
         self.factory = APIRequestFactory()
         self.client = APIClient()
         self.CATALOG_PATH = '/questions/catalogue/'
+        self.QUESTION_PATH_LIST = '/questions/catalogue/{0}/list/'
+        self.QUESTION_PATH_DETAILS = '/questions/catalogue/{0}/list/{1}/'
         self.user_1 = QuestionCatalogueViewTests._create_user('user_1')
         self.user_2 = QuestionCatalogueViewTests._create_user('user_2')
         QuestionCatalogueViewTests._create_catalogues(self.user_1, 10)
         QuestionCatalogueViewTests._create_catalogues(self.user_2, 5)
+        QuestionCatalogueViewTests._create_questions(QuestionCatalogue.objects.get(pk=1), 10)
+        QuestionCatalogueViewTests._create_questions(QuestionCatalogue.objects.get(pk=2), 3)
+        QuestionCatalogueViewTests._create_questions(QuestionCatalogue.objects.get(pk=11), 5)
+        QuestionCatalogueViewTests._create_questions(QuestionCatalogue.objects.get(pk=12), 6)
 
     def test_unauthenticated_user(self):
         response = self.client.get(self.CATALOG_PATH)
@@ -85,7 +91,7 @@ class QuestionCatalogueViewTests(APITestCase):
         self.assertEqual(response.data['catalogue_scope'], QuestionCatalogue.PRIVATE_SCOPE)
 
     def test_user_cannot_access_catalogues_belonging_to_another_user(self):
-        #the following calls return 404 because the object requested doesn't belong to
+        # the following calls return 404 because the object requested doesn't belong to
         #to the user query set
         # user 1
         self.client.force_authenticate(user=self.user_1)
@@ -111,10 +117,33 @@ class QuestionCatalogueViewTests(APITestCase):
         question_catalogue = QuestionCatalogue.objects.get(pk=1, catalogue_owner=self.user_1)
         self.assertEqual(question_catalogue.catalogue_name, updated_name)
 
+    def test_user_can_access_questions_within_a_catalogue(self):
+        #first catalogue
+        self.client.force_authenticate(user=self.user_1)
+        self._verify_response_question_list(1, 10)
+        self._verify_response_question_list(2, 3)
+        #second catalogue
+        self.client.force_authenticate(user=self.user_2)
+        self._verify_response_question_list(11, 5)
+        self._verify_response_question_list(12, 6)
 
-    #############################################################################
-    #                                   PRIVATE                                 #
-    #############################################################################
+    def test_user_can_access_only_questions_that_are_in_its_own_catalogues(self):
+        #first catalogue
+        self.client.force_authenticate(user=self.user_1)
+        self._verified_forbidden_access_list(11)
+        self._verified_forbidden_access_list(12)
+        #second catalogue
+        self.client.force_authenticate(user=self.user_2)
+        self._verified_forbidden_access_list(1)
+        self._verified_forbidden_access_list(2)
+
+    def test_user_can_append_a_question_to_a_catalogue(self):
+        self.client.force_authenticate(user=self.user_1)
+        path = self.QUESTION_PATH_LIST.format(3)
+        data = {"question_text": "question"}
+        response = self.client.post(path, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self._verify_response_question_list(3, 1)
 
     @staticmethod
     def _create_user(username):
@@ -129,3 +158,23 @@ class QuestionCatalogueViewTests(APITestCase):
                                   catalogue_scope=QuestionCatalogue.PRIVATE_SCOPE)
             q.save()
 
+    @staticmethod
+    def _create_questions(catalogue, how_many):
+        for i in range(how_many):
+            q = Question(question_text="question text", question_catalogue=catalogue)
+            q.save()
+
+    def _verify_response_question_list(self,  cat, how_many):
+        path = self.QUESTION_PATH_LIST.format(cat)
+        response = self.client.get(path)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        question_counter = 0
+        for question_dict in response.data:
+            question_counter += 1
+            self.assertEqual(question_dict['question_catalogue'], cat)
+        self.assertEqual(question_counter, how_many)
+
+    def _verified_forbidden_access_list(self, cat):
+        path = self.QUESTION_PATH_LIST.format(cat)
+        response = self.client.get(path)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
