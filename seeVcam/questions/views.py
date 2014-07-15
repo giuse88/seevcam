@@ -1,13 +1,10 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 
 from models import QuestionCatalogue, Question
 from serializers import QuestionCatalogueSerializer, QuestionSerializer
 from permissions import IsOwner, IsCatalogueOwner
-
-
-
 
 
 # TODO REMOVE
@@ -18,6 +15,7 @@ def quest_list(request):
     return render(request, template, context)
 
 
+# TODO : There are two pattern in this view which can be generalised
 class QuestionCatalogueList(generics.ListCreateAPIView):
     serializer_class = QuestionCatalogueSerializer
     permission_classes = (IsAuthenticated, IsOwner,)
@@ -56,6 +54,14 @@ class QuestionList(generics.ListCreateAPIView):
 
 
 class QuestionDetails(generics.RetrieveUpdateDestroyAPIView):
-    lookup_url_kwarg = 'question_catalogue'
     serializer_class = QuestionSerializer
     permission_classes = (IsAuthenticated, IsCatalogueOwner,)
+    model = Question
+
+    def put(self, request, *args, **kwargs):
+        request.DATA[u'question_catalogue'] = kwargs['question_catalogue']
+        return super(QuestionDetails, self).put(request, args, kwargs)
+
+    def get_queryset(self):
+        question_catalogue = self.kwargs['question_catalogue']
+        return Question.objects.filter(question_catalogue=question_catalogue)

@@ -145,6 +145,50 @@ class QuestionCatalogueViewTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self._verify_response_question_list(3, 1)
 
+    def test_user_can_access_to_a_question_details_that_belong_to_him(self):
+        self.client.force_authenticate(user=self.user_1)
+        path = self.QUESTION_PATH_DETAILS.format(1, 1)
+        response = self.client.get(path)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_user_gets_404_when_try_to_access_a_question_that_is_not_in_his_catalogues(self):
+        self.client.force_authenticate(user=self.user_1)
+        path = self.QUESTION_PATH_DETAILS.format(1, 12)
+        response = self.client.get(path)
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_user_receives_403_when_try_to_access_a_question_that_does_not_belong_to_him(self):
+        self.client.force_authenticate(user=self.user_1)
+        path = self.QUESTION_PATH_DETAILS.format(12, 1)
+        response = self.client.get(path)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+    def test_user_can_delete_a_question_to_a_specific_catalogue(self):
+        self.client.force_authenticate(user=self.user_1)
+        path = self.QUESTION_PATH_DETAILS.format(1, 1)
+        response = self.client.delete(path)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        self._verify_response_question_list(1, 9)
+        response = self.client.get(path)
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_user_can_update_a_question(self):
+        text = "updated_text"
+        data = {"question_text": text}
+        #
+        self.client.force_authenticate(user=self.user_1)
+        path = self.QUESTION_PATH_DETAILS.format(1, 1)
+        response = self.client.put(path, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        #
+        response = self.client.get(path)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['question_text'], text)
+
+    #############################################################
+    #                          PRIVATE                          #
+    #############################################################
+
     @staticmethod
     def _create_user(username):
         user = SeevUser(username=username, email='test@email.com')
