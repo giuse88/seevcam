@@ -67,11 +67,15 @@ USE_L10N = True
 
 USE_TZ = True
 
+DASHBOARD_URL = '/dashboard/'
+LOGIN_URL = '/'
+LOGIN_REDIRECT_URL = DASHBOARD_URL
+LOGOUT_URL = DASHBOARD_URL + 'logout'
 STATIC_URL = os.path.join(BASE_DIR, '/assets/')
 
-STATIC_PATH = os.path.join(BASE_DIR,    'static')
-ASSETS_PATH = os.path.join(BASE_DIR,    'assets')
-TEMPLATE_PATH = os.path.join(BASE_DIR,  'templates')
+STATIC_PATH = os.path.join(BASE_DIR, 'static')
+ASSETS_PATH = os.path.join(BASE_DIR, 'assets')
+TEMPLATE_PATH = os.path.join(BASE_DIR, 'templates')
 
 STATICFILES_DIRS = (
     STATIC_PATH,
@@ -88,14 +92,14 @@ GENERAL_LOGGER_FILE = os.path.join(LOG_FOLDER, 'django.log')
 DB_LOGGER_FILE = os.path.join(LOG_FOLDER, 'db.log')
 
 
-#Temponary
+# Temponary
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': True,
     'formatters': {
         'standard': {
-            'format' : "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
-            'datefmt' : "%d/%b/%Y %H:%M:%S"
+            'format': "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
+            'datefmt': "%d/%b/%Y %H:%M:%S"
         },
     },
     'handlers': {
@@ -118,7 +122,7 @@ LOGGING = {
             'maxBytes': 50000,
             'backupCount': 2,
             'formatter': 'standard',
-            },
+        },
         'general_log_file': {
             'level': 'DEBUG',
             'class': 'logging.handlers.RotatingFileHandler',
@@ -126,7 +130,7 @@ LOGGING = {
             'maxBytes': 50000,
             'backupCount': 2,
             'formatter': 'standard',
-            },
+        },
         'console': {
             'level': 'INFO',
             'class': 'logging.StreamHandler',
