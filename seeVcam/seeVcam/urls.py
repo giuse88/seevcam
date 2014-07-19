@@ -4,8 +4,10 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-                       url(r'^$', include('dashboard.urls')),
+                       # url(r'^$', TemplateView.),
                        url(r'^admin/$', include(admin.site.urls)),
+
+                       url(r'^dashoboard/$', include('dashboard.urls')),
                        url(r'^interviews/', include('interviews.urls')),
                        url(r'^questions/', include('questions.urls')),
 )
