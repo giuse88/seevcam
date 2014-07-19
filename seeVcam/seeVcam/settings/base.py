@@ -15,41 +15,29 @@ DEFAULT_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # The Django sites framework is required by allauth
     'django.contrib.sites',
 )
 THIRD_PARTY_APPS = (
     # DB migration
     'south',
-    # allauth applications
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
     'rest_framework',
 )
 LOCAL_APPS = (
-    'login',
     'interviews',
     'questions',
-
+    'authentication',
+    'dashboard',
 )
 
 INSTALLED_APPS = DEFAULT_APPS + LOCAL_APPS + THIRD_PARTY_APPS
 
 TEMPLATE_CONTEXT_PROCESSORS = (
-    # Required by allauth templates tags
     "django.core.context_processors.request",
     'django.contrib.auth.context_processors.auth',
-    # allauth specific context processors
-    "allauth.account.context_processors.account",
-    "allauth.socialaccount.context_processors.socialaccount",
 )
 
 AUTHENTICATION_BACKENDS = (
-    # Needed to login by username in Django admin, regardless of `allauth`
     "django.contrib.auth.backends.ModelBackend",
-    # `allauth` specific authentication methods, such as login by e-mail
-    "allauth.account.auth_backends.AuthenticationBackend",
 )
 
 SITE_ID = 1
@@ -67,7 +55,7 @@ ROOT_URLCONF = 'seeVcam.urls'
 
 WSGI_APPLICATION = 'seeVcam.wsgi.application'
 
-AUTH_USER_MODEL = 'login.SeevUser'
+AUTH_USER_MODEL = 'authentication.SeevcamUser'
 
 LANGUAGE_CODE = 'en-us'
 
@@ -94,12 +82,6 @@ TEMPLATE_DIRS = (
 )
 
 # allauth settings
-ACCOUNT_USER_MODEL_USERNAME_FIELD = 'username'
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION = "mandatory"
-ACCOUNT_USERNAME_MIN_LENGTH = 3
-ACCOUNT_PASSWORD_MIN_LENGTH = 8
-
 LOG_FOLDER = os.path.join(BASE_DIR, 'log')
 REQUEST_LOGGER_FILE = os.path.join(LOG_FOLDER, 'requests.log')
 GENERAL_LOGGER_FILE = os.path.join(LOG_FOLDER, 'django.log')

@@ -2,7 +2,7 @@ from rest_framework import status
 from rest_framework.test import APITestCase, APIRequestFactory, APIClient
 from unittest import skip
 
-from login.models import SeevUser
+from authentication.models import SeevcamUser
 from questions.models import QuestionCatalogue, Question
 
 
@@ -226,7 +226,7 @@ class QuestionCatalogueViewTests(APITestCase):
 
     @staticmethod
     def _create_user(username, admin=False):
-        user = SeevUser(username=username, email='test@email.com')
+        user = SeevcamUser(username=username, email='test@email.com')
         user.is_staff = admin
         user.save()
         return user

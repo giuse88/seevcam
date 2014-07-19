@@ -1,10 +1,9 @@
 from django.test import TestCase
 from rest_framework.compat import BytesIO
 from rest_framework.parsers import JSONParser
-from rest_framework.renderers import JSONRenderer
 
 from questions.serializers import QuestionSerializer
-from questions.models import Question, QuestionCatalogue
+from questions.models import QuestionCatalogue
 
 
 class QuestionSerializerTest(TestCase):

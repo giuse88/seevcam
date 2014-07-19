@@ -2,7 +2,7 @@ from unittest import skip
 from django.test import TestCase
 
 from questions.models import QuestionCatalogue
-from login.models import SeevUser
+from authentication.models import SeevcamUser
 
 
 class QuestionCatalogueTest(TestCase):
@@ -70,7 +70,7 @@ class QuestionCatalogueTest(TestCase):
         """
         Create a user and his private catalogue
         """
-        mock_user = SeevUser.objects.create(username=username)
+        mock_user = SeevcamUser.objects.create(username=username)
         for i in keys_range:
             QuestionCatalogue.objects.create(catalogue_scope=self.mock_catalogue_scope,
                                              catalogue_name=self.mock_catalogue_name,
