@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>{% block title %} SeeVcam {% endblock %}</title>
+</head>
+
+<body>
+    <div id="navigation_bar">
+        {% block navigation_bar %}
+            <span><a href="{% url "home" %}">Home</a></span>
+            <span><a href="{% url "about" %}"> About us</a></span>
+            <span><a href="{% url "contact" %}"> Contact us</a></span>
+            <span><a href="{% url "recoverInterview" %}"> Recover Interview link</a></span>
+            <span><a href="{% url "login" %}">Login</a></span>
+        {% endblock %}
+    </div>
+
+    <div id="container">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
