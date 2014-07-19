@@ -37,7 +37,7 @@ LOCAL_APPS = (
 INSTALLED_APPS = DEFAULT_APPS + LOCAL_APPS + THIRD_PARTY_APPS
 
 TEMPLATE_CONTEXT_PROCESSORS = (
-    # Required by allauth template tags
+    # Required by allauth templates tags
     "django.core.context_processors.request",
     'django.contrib.auth.context_processors.auth',
     # allauth specific context processors
