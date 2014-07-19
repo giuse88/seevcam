@@ -5,9 +5,9 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
                        # url(r'^$', TemplateView.),
-                       url(r'^admin/$', include(admin.site.urls)),
+                       url(r'^admin/', include(admin.site.urls)),
 
-                       url(r'^dashoboard/$', include('dashboard.urls')),
+                       url(r'^dashoboard/', include('dashboard.urls')),
                        url(r'^interviews/', include('interviews.urls')),
                        url(r'^questions/', include('questions.urls')),
 )
