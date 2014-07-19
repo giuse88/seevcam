@@ -13,11 +13,11 @@ class QuestionCatalogueViewTests(APITestCase):
     def setUp(self):
         self.factory = APIRequestFactory()
         self.client = APIClient()
-        self.CATALOG_PATH = '/questions/catalogue/'
+        self.CATALOG_PATH = '/dashboard/questions/catalogue/'
         self.CATALOG_PATH_WITH_PRIVATE_SCOPE = self.CATALOG_PATH + '?scope=private'
         self.SEEVCAM_CATALOGUE_PATH = self.CATALOG_PATH + 'seevcam/'
-        self.QUESTION_PATH_LIST = '/questions/catalogue/{0}/list/'
-        self.QUESTION_PATH_DETAILS = '/questions/catalogue/{0}/list/{1}/'
+        self.QUESTION_PATH_LIST = '/dashboard/questions/catalogue/{0}/list/'
+        self.QUESTION_PATH_DETAILS = '/dashboard/questions/catalogue/{0}/list/{1}/'
         self.user_1 = QuestionCatalogueViewTests._create_user('user_1')
         self.user_2 = QuestionCatalogueViewTests._create_user('user_2')
         self.admin = QuestionCatalogueViewTests._create_user('admin', True)
