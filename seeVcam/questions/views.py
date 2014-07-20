@@ -1,4 +1,6 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
+from django.utils.decorators import method_decorator
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 
@@ -8,6 +10,7 @@ from permissions import IsOwner, IsCatalogueOwnerOrSeevcamScope, ReadOnly
 
 # TODO REMOVE
 # Create your views here.
+@method_decorator(login_required)
 def quest_list(request):
     template = 'questions/quest_list.html'
     context = {}
