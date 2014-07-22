@@ -1,12 +1,73 @@
 <!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title>SeeVcam Dashboard </title>
+{% load staticfiles %}
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>SeeVcam</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href= "{% static "bower_components/html5-boilerplate/css/normalize.css" %}">
+  <link rel="stylesheet" href="{% static "bower_components/html5-boilerplate/css/main.css" %}">
+  <link rel="stylesheet" href="{% static "bower_components/bootstrap/dist/css/bootstrap.css" %}">
+  <link rel="stylesheet" href="{% static "bower_components/bootstrap/dist/css/bootstrap-theme.css" %}">
+  <link rel="stylesheet" href="{%  static "app/css/app.css" %}"/>
+  <script src="{% static "bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js" %}" ></script>
 </head>
-<body>
-    <h1> Welcome to seevcam dashboard</h1>
-    <h2> This page is accessible only if you are logged in</h2>
-    <a href="{% url "logout" %}"> Logout</a
+
+  <body>
+    <div id="navigation_bar">
+    </div>
+
+    {% block navigation_bar %}
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">SeeVcam</a>
+            </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="{% url "interviews" %}">Interviews</a></li>
+                <li><a href="{% url "questions" %}">Questions</a></li>
+                <li><a href="{% url "reports" %}">Reports</a></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"> {{ user.username }} <span class="caret"></span></a>
+                 <ul class="dropdown-menu" role="menu">
+                    <li><a href="{% url "user_profile" %}">User Profile</a></li>
+                    <li class="divider"></li>
+                    <li><a href="{% url "logout" %}">Logout</a></li>
+                 </ul>
+                </li>
+            </ul>
+
+        </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+    {% endblock %}
+
+    <div id="container">
+        {% block content %}{% endblock %}
+    </div>
+
+    <script src="{% static "bower_components/jquery/dist/jquery.min.js" %}"></script>
+    <script src="{% static "bower_components/jquery-pjax/jquery.pjax.js" %}"></script>
+    <script src="{% static "bower_components/bootstrap/dist/js/bootstrap.js" %}"></script>
+
+  <script type="text/javascript">
+        $(document).ready(function() {
+            $(document).pjax('a', '#container');
+            $(document).on('submit','form', function(event) {
+                event.preventDefault();
+                console.log("submit");
+                $.pjax.submit(event, '#container')
+            })
+            console.log("Pjax activated");
+        });
+  </script>
+
 </body>
 </html>

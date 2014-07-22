@@ -4,7 +4,7 @@ from questions import views
 
 
 urlpatterns = patterns('',
-                       url(r'^quest_list/$', views.quest_list, name='quest_list'),
+                       url(r'^$', views.quest_list, name='questions'),
                        url(r'^catalogue/$', views.QuestionCatalogueList.as_view()),
                        # Seevcam Scope
                        url(r'^catalogue/seevcam/$', views.QuestionCatalogueSeevcam.as_view()),

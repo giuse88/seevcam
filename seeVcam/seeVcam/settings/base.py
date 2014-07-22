@@ -18,9 +18,9 @@ DEFAULT_APPS = (
     'django.contrib.sites',
 )
 THIRD_PARTY_APPS = (
-    # DB migration
     'south',
     'rest_framework',
+    'easy_pjax',
 )
 LOCAL_APPS = (
     'interviews',
@@ -51,6 +51,11 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+)
+
 ROOT_URLCONF = 'seeVcam.urls'
 
 WSGI_APPLICATION = 'seeVcam.wsgi.application'
@@ -71,18 +76,23 @@ DASHBOARD_URL = '/dashboard/'
 LOGIN_URL = '/'
 LOGIN_REDIRECT_URL = DASHBOARD_URL
 LOGOUT_URL = DASHBOARD_URL + 'logout'
-STATIC_URL = os.path.join(BASE_DIR, '/assets/')
 
-STATIC_PATH = os.path.join(BASE_DIR, 'static')
-ASSETS_PATH = os.path.join(BASE_DIR, 'assets')
 TEMPLATE_PATH = os.path.join(BASE_DIR, 'templates')
+STATIC_PATH = os.path.join(BASE_DIR, 'static')
+STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
     STATIC_PATH,
-    ASSETS_PATH,
 )
+
+
 TEMPLATE_DIRS = (
     TEMPLATE_PATH,
+    os.path.join(BASE_DIR, 'questions/templates'),
+    os.path.join(BASE_DIR, 'dashboard/templates'),
+    os.path.join(BASE_DIR, 'reports/templates'),
+    os.path.join(BASE_DIR, 'userprofile/templates'),
+    os.path.join(BASE_DIR, 'interviews/templates'),
 )
 
 # allauth settings
