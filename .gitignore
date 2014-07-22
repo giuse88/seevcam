@@ -10,3 +10,6 @@ secrets.json
 atlassian-ide-plugin.xml
 seeVcam/log/
 migration/
+seeVcam/static/node_modules/*
+seeVcam/static/bower_components/*
+*/node_modules/*

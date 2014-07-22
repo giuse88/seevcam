@@ -9,10 +9,8 @@ from serializers import QuestionCatalogueSerializer, QuestionSerializer
 from permissions import IsOwner, IsCatalogueOwnerOrSeevcamScope, ReadOnly
 
 # TODO REMOVE
-# Create your views here.
-@method_decorator(login_required)
 def quest_list(request):
-    template = 'questions/quest_list.html'
+    template = 'questions.html'
     context = {}
     return render(request, template, context)
 
