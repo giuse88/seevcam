@@ -1,6 +1,4 @@
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
-from django.utils.decorators import method_decorator
+from django.views.generic import TemplateView
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 
@@ -8,11 +6,9 @@ from models import QuestionCatalogue, Question
 from serializers import QuestionCatalogueSerializer, QuestionSerializer
 from permissions import IsOwner, IsCatalogueOwnerOrSeevcamScope, ReadOnly
 
-# TODO REMOVE
-def quest_list(request):
-    template = 'questions.html'
-    context = {}
-    return render(request, template, context)
+
+class QuestionsView(TemplateView):
+    template_name = 'questions.html'
 
 
 class QuestionCatalogueSeevcam(generics.ListAPIView):

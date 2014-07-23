@@ -1,0 +1,19 @@
+{% extends "dashboard.html"|pjax:request %}
+{% block content %}
+    <div class="row">
+	    <div id="catalogue" class="col-md-3 col-md-push-1 pull-left">
+            {%  block catalgoues  %}
+            <div id="catalogue_container">
+            <ul>
+                <li><a class="inner-pjax" href="/dashboard/questions/1?scope=private">Questions</a></li>
+            </ul>
+            </div>
+            {% endblock catalgoues %}
+        </div>
+	    <div class="col-md-9 pull-right">
+            <div id="inner-container">
+            {% block questions %} {% endblock questions %}
+            </div>
+        </div>
+    </div>
+{% endblock content %}
