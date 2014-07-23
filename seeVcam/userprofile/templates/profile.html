@@ -1,4 +1,21 @@
 {% extends "dashboard.html"|pjax:request %}
 {% block content %}
-    <p>This is the profile page of {{  user.username }}</p>
+  <p>This is the profile page of {{ user.username }}</p>
+
+  <div class="row">
+    <div class="col-lg-4">
+      <div class="list-group">
+        <a href="{% url "profile_update" request.user.pk %}" class="list-group-item active pjax-inner">
+          User Details
+        </a>
+        <a href="{% url "profile_settings" request.user.pk %}" class="list-group-item pjax-inner">Settings - {{request.user}}</a>
+      </div>
+    </div>
+    <div class="col-lg-8">
+      <div id="inner-container">
+      {% block content_profile %}{% endblock content_profile %}
+      </div>
+    </div>
+  </div>
+
 {% endblock content %}

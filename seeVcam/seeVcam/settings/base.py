@@ -27,6 +27,7 @@ LOCAL_APPS = (
     'questions',
     'authentication',
     'dashboard',
+    'userprofile'
 )
 
 INSTALLED_APPS = DEFAULT_APPS + LOCAL_APPS + THIRD_PARTY_APPS
