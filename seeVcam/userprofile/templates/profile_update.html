@@ -2,11 +2,11 @@
 
 {%  block title  %} Profile/Update {% endblock %}
 
-{% block content_profile %}
+{% block inner_content %}
 <form action="" method="post">{% csrf_token %}
   {{ form.as_p }}
   <input type="submit" value="Submit" />
 </form>
 
   {{ object.pk }}
-{% endblock content_profile %}
+{% endblock inner_content %}

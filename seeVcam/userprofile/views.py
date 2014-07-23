@@ -8,6 +8,7 @@ from authentication.models import SeevcamUser
 
 
 class UserProfileView(TemplateView):
+    template_name = 'profile.html'
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
