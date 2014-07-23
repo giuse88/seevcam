@@ -1,4 +1,4 @@
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 
@@ -7,8 +7,58 @@ from serializers import QuestionCatalogueSerializer, QuestionSerializer
 from permissions import IsOwner, IsCatalogueOwnerOrSeevcamScope, ReadOnly
 
 
-class QuestionsView(TemplateView):
-    template_name = 'questions.html'
+class CatalogueView(ListView):
+    model = QuestionCatalogue
+    template_name = 'questions_base.html'
+
+    def get_queryset(self):
+        if self._is_seevcam_scope():
+            return self._seevcam_catalogue_queryset()
+        return self._user_catalogue_queryset()
+
+    def get_context_data(self, **kwargs):
+        context = super(CatalogueView, self).get_context_data(**kwargs)
+        context['scope'] = self._get_request_scope()
+        return context
+
+    def _is_seevcam_scope(self):
+        scope = self.request.GET.get('scope')
+        if scope is None:
+            return False
+        return scope.lower() == QuestionCatalogue.SEEVCAM_SCOPE.lower()
+
+    def _get_request_scope(self):
+        scope = self.request.GET.get('scope')
+        if scope is None or scope.lower() == QuestionCatalogue.PRIVATE_SCOPE.lower():
+            return QuestionCatalogue.PRIVATE_SCOPE
+        return QuestionCatalogue.SEEVCAM_SCOPE
+
+    def _user_catalogue_queryset(self):
+        return QuestionCatalogue.objects.filter(catalogue_owner=self.request.user)
+
+    def _seevcam_catalogue_queryset(self):
+        return QuestionCatalogue.objects.filter(catalogue_scope=QuestionCatalogue.SEEVCAM_SCOPE)
+
+
+class QuestionsListView(CatalogueView):
+    model = Question
+    template_name = 'questions_list.html'
+
+    def get_queryset(self):
+        pk = self.kwargs['pk']
+        return Question.objects.filter(question_catalogue=pk)
+
+    def get_context_data(self, **kwargs):
+        context = super(QuestionsListView, self).get_context_data(**kwargs)
+        print self.request.GET.get('_pjax')
+        # context['questioncatalogue_list'] = self._get_request_scope()
+        return context
+
+    # def _get_catalogues
+
+#####
+### REST
+#####
 
 
 class QuestionCatalogueSeevcam(generics.ListAPIView):

@@ -16,9 +16,10 @@ from questions import views
 #                        url(r'^catalogue/(?P<question_catalogue>[0-9]+)/list/(?P<pk>[0-9]+)/$',
 #                            views.QuestionDetails.as_view()),
 # )
-from questions.views import QuestionsView
+from questions.views import QuestionsListView, CatalogueView
+
 
 urlpatterns = patterns('',
-                       # url(r'^$', RedirectView.as_view(url='questions'  ), name='dashboard'),
-                       url(r'^(?P<question_catalogue>[0-9]+)/$', QuestionsView.as_view(), name='questions'),
+                       url(r'^$', CatalogueView.as_view(), name='questions'),
+                       url(r'^(?P<pk>[0-9]+)/$', QuestionsListView.as_view(), name='questions_list'),
                        )

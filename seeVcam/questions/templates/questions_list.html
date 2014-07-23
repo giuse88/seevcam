@@ -1,0 +1,12 @@
+{% extends "questions_base.html"|pjax:request %}
+{% block inner_content %}
+     <div id="questions_container" class="list-group margin-10">
+     <table class="table table-bordered table-striped">
+         {% for question in question_list %}
+             <tr><td>{{ question.question_text }}</td></tr>
+         {%  empty %}
+             <tr><td> No questions</td></tr>
+         {% endfor %}
+     </table>
+     </div>
+{% endblock inner_content %}
