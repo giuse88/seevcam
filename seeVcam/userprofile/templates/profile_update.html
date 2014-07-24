@@ -1,12 +1,10 @@
-{% extends "profile.html"|pjax:request %}
-
-{%  block title  %} Profile/Update {% endblock %}
-
-{% block inner_content %}
-<form action="" method="post">{% csrf_token %}
-  {{ form.as_p }}
-  <input type="submit" value="Submit" />
-</form>
-
-  {{ object.pk }}
-{% endblock inner_content %}
+{#{% extends "profile.html"|pjax:request %}#}
+{##}
+{#{% block title %} Profile/Update {% endblock %}#}
+{##}
+{#{% block inner_content %}#}
+  <form enctype="multipart/form-data" action="" method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Submit"/>
+  </form>
+{#{% endblock inner_content %}#}

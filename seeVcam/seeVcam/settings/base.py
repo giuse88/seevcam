@@ -27,7 +27,8 @@ LOCAL_APPS = (
     'questions',
     'authentication',
     'dashboard',
-    'userprofile'
+    'userprofile',
+    'reports'
 )
 
 INSTALLED_APPS = DEFAULT_APPS + LOCAL_APPS + THIRD_PARTY_APPS
@@ -63,6 +64,9 @@ WSGI_APPLICATION = 'seeVcam.wsgi.application'
 
 AUTH_USER_MODEL = 'authentication.SeevcamUser'
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_URL = '/media/'
+
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -85,7 +89,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     STATIC_PATH,
 )
-
 
 TEMPLATE_DIRS = (
     TEMPLATE_PATH,
