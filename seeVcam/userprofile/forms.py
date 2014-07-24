@@ -5,4 +5,4 @@ from authentication.models import SeevcamUser
 class UserprofileForm(ModelForm):
     class Meta:
         model = SeevcamUser
-        fields = ['username', 'email', 'first_name', 'last_name', 'job_title', 'picture']
+        fields = ['username', 'email', 'first_name', 'last_name', 'job_title', 'pic']

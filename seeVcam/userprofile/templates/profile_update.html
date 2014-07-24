@@ -1,10 +1,17 @@
 {#{% extends "profile.html"|pjax:request %}#}
-{##}
-{#{% block title %} Profile/Update {% endblock %}#}
-{##}
-{#{% block inner_content %}#}
-  <form enctype="multipart/form-data" action="" method="post">{% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Submit"/>
-  </form>
-{#{% endblock inner_content %}#}
+{% extends "profile.html" %}
+
+{% block title %} Profile/Update {% endblock %}
+
+{% block inner_content %}
+<form enctype="multipart/form-data" action="" method="post">{% csrf_token %}
+  {{ form.as_p }}
+  <input type="submit" value="Submit"/>
+
+  {% if object.pic %}
+    <img src="{{ object.pic.url }}" alt="{{ object.username }}_profile_pic" class="img-circle img-responsive">
+  {% else %}
+    <img src="{{ MEDIA_URL }}/profile_pictures/no-profile-img.gif" alt="default_profile_pic" class="img-circle img-responsive">
+  {% endif %}
+</form>
+{% endblock inner_content %}

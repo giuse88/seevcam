@@ -36,6 +36,7 @@ INSTALLED_APPS = DEFAULT_APPS + LOCAL_APPS + THIRD_PARTY_APPS
 TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.request",
     'django.contrib.auth.context_processors.auth',
+    "django.core.context_processors.media",
 )
 
 AUTHENTICATION_BACKENDS = (
@@ -64,7 +65,7 @@ WSGI_APPLICATION = 'seeVcam.wsgi.application'
 
 AUTH_USER_MODEL = 'authentication.SeevcamUser'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 LANGUAGE_CODE = 'en-us'
