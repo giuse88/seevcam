@@ -31,6 +31,7 @@ class UserProfileUpdate(UpdateView):
             raise Http404
         return obj
 
+
     def get_success_url(self):
         success_url = '/dashboard/profile/' + str(self.request.user.pk) + '/update/'
         return success_url
