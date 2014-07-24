@@ -4,14 +4,44 @@
 {% block title %} Profile/Update {% endblock %}
 
 {% block inner_content %}
-<form enctype="multipart/form-data" action="" method="post">{% csrf_token %}
-  {{ form.as_p }}
-  <input type="submit" value="Submit"/>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Profile</h3>
+    </div>
+    <div class="panel-body">
 
-  {% if object.pic %}
-    <img src="{{ object.pic.url }}" alt="{{ object.username }}_profile_pic" class="img-thumbnail img-responsive" style="width: 140px; height: 140px">
-  {% else %}
-    <img src="{{ MEDIA_URL }}/profile_pictures/no-profile-img.gif" alt="default_profile_pic" class="img-thumbnail img-responsive">
-  {% endif %}
-</form>
+
+      <form enctype="multipart/form-data" action="" method="post" role="form">{% csrf_token %}
+        <div class="row">
+          <div class="col-lg-3">
+            {% if object.pic %}
+              <img src="{{ object.pic.url }}" alt="{{ object.username }}_profile_pic"
+                   class="img-thumbnail img-responsive"
+                   style="width: 140px; height: 140px">
+            {% else %}
+              <img src="{{ MEDIA_URL }}/profile_pictures/no-profile-img.gif" alt="default_profile_pic"
+                   class="img-thumbnail img-responsive">
+            {% endif %}
+          </div>
+          <div class="col-lg-8">
+            {{ form.pic }}
+          </div>
+        </div>
+        {{ form.non_field_errors }}
+
+        {% for field in form %}
+          {% if field.html_name not in 'pic' %}
+            <div class="fieldWrapper">
+              {{ field.errors }}
+              <label for="{{ field.id_for_label }}"> {{ field.label }}</label>
+              <input type="text" class="form-control" id="{{ field.html_name }}" value="{{ field.value }}">
+            </div>
+          {% endif %}
+        {% endfor %}
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+      </form>
+    </div>
+  </div>
 {% endblock inner_content %}
+
