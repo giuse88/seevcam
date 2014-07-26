@@ -7,4 +7,4 @@ class UserprofileForm(ModelForm):
 
     class Meta:
         model = SeevcamUser
-        fields = ['username', 'email', 'first_name', 'last_name', 'job_title', 'pic']
+        fields = ['username', 'email', 'first_name', 'last_name', 'job_title', 'pic', 'country']
