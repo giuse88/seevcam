@@ -28,7 +28,7 @@ class TestPJAXResponseMixin(TestCase):
         self.assertEqual(response.template_name[0], self.TEMPLATE_NAME_WITH_PJAX)
 
     def test_pjax_request_with_container(self):
-        pjax_request = self.request_factory.get('/', HTTP_X_PJAX=True, HTTP_X_PJAX_Container="#container")
+        pjax_request = self.request_factory.get('/', HTTP_X_PJAX=True, HTTP_X_PJAX_CONTAINER="#container")
         response = self._make_request(pjax_request)
         self.assertEqual(response.template_name[0], self.TEMPLATE_NAME_WITH_PJAX_WITH_CONTAINER)
 

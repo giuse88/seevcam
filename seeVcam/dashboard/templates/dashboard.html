@@ -65,6 +65,9 @@
 
   <script type="text/javascript">
         $(document).ready(function() {
+
+             $.pjax.defaults.timeout = 3000;
+
             $(document).pjax('a.pjax', '#container');
             $(document).pjax('a.pjax-inner', '#inner-container');
             $(document).on('submit','form', function(event) {

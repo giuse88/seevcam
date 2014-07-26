@@ -1,5 +1,4 @@
-{% extends "dashboard.html"|pjax:request %}
-{% block content %}
+{% block contenair %}
 
     <div id="questions">
     <ul class="nav nav-tabs" role="tablist">
@@ -13,14 +12,14 @@
 
     <div class="row">
         <div id="catalogue" class="col-md-3 pull-left ">
-             {% include "catalogue_list.html" %}
+             {% include "questions-catalogue-pjax.html" %}
         </div>
-        <div class="col-md-9 pull-right">
-            <div id="inner-container" class="margin-10">
-                {% block inner_content %} Select a catalogue  {% endblock inner_content %}
-            </div>
-        </div>
+{#        <div class="col-md-9 pull-right">#}
+{#            <div id="inner-container" class="margin-10">#}
+{#                {% block inner_content %} Select a catalogue  {% endblock inner_content %}#}
+{#            </div>#}
+{#        </div>#}
     </div>
     </div>
 
-{% endblock content %}
+{% endblock contenair %}
