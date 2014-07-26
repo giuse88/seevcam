@@ -1,90 +1,42 @@
 <!DOCTYPE html>
+
 {% load staticfiles %}
+
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>SeeVcam</title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href= "{% static "bower_components/html5-boilerplate/css/normalize.css" %}">
-  <link rel="stylesheet" href="{% static "bower_components/html5-boilerplate/css/main.css" %}">
-  <link rel="stylesheet" href="{% static "bower_components/bootstrap/dist/css/bootstrap.css" %}">
-  <link rel="stylesheet" href="{% static "bower_components/bootstrap/dist/css/bootstrap-theme.css" %}">
-  <link rel="stylesheet" href="{%  static "app/css/app.css" %}"/>
-{#    <script src="{% static "bower_components/angular/angular.js" %}"></script>#}
-{#    <script src="{% static "bower_components/angular-resource/angular-resource.js" %}"></script>#}
-{#    <script src="{% static "app/js/services.js" %}"></script>#}
-{#    <script src="{% static "app/js/controllers.js" %}"></script>#}
-{#    <script src="{% static "app/js/app.js" %}"></script>#}
-  <script src="{% static "bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js" %}" ></script>
+
+    <title>{% block title %} SeeVcam {% endblock %}</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="{% static "bower_components/bootstrap/dist/css/bootstrap.css" %}">
+    <link rel="stylesheet" href="{% static "bower_components/bootstrap/dist/css/bootstrap-theme.css" %}">
+    <link rel="stylesheet" href="{% static "css/main.css" %}">
+
+    <script src="{% static "bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js" %}"></script>
+
 </head>
 
-  <body>
-    <div id="navigation_bar">
-    </div>
+<body>
 
     {% block navigation_bar %}
-    <nav class="navbar navbar-default" role="navigation">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand pjax" href="#">SeeVcam</a>
-            </div>
+        {% include "dashboard-navigation.html" %}
+    {% endblock navigation_bar %}
 
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-
-            <ul class="nav navbar-nav">
-                <li><a class="pjax" href="{% url "interviews" %}">Interviews</a></li>
-                <li><a class="pjax" href="{% url "questions" %}">Questions</a></li>
-                <li><a class="pjax" href="{% url "reports" %}">Reports</a></li>
-            </ul>
-
-            <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"> {{ user.username }} <span class="caret"></span></a>
-                 <ul class="dropdown-menu" role="menu">
-                    <li><a class="pjax" href="{% url "user_profile" %}">User Profile</a></li>
-                    <li class="divider"></li>
-                    <li><a href="{% url "logout" %}">Logout</a></li>
-                 </ul>
-                </li>
-            </ul>
-
-        </div><!-- /.navbar-collapse -->
-        </div><!-- /.container-fluid -->
-    </nav>
-    {% endblock %}
-
-    <div id="container">
-        {% block content %}{% endblock %}
+     <div id="container">
+        {% block content %}{% endblock content %}
     </div>
 
+    {# Libraries #}
     <script src="{% static "bower_components/jquery/dist/jquery.min.js" %}"></script>
     <script src="{% static "bower_components/jquery-pjax/jquery.pjax.js" %}"></script>
-
     <script src="{% static "bower_components/bootstrap/dist/js/bootstrap.js" %}"></script>
 
-  <script type="text/javascript">
-        $(document).ready(function() {
-
-             $.pjax.defaults.timeout = 3000;
-
-            $(document).pjax('a.pjax', '#container');
-            $(document).pjax('a.pjax-inner', '#inner-container');
-            $(document).on('submit','form', function(event) {
-                event.preventDefault();
-                console.log("submit");
-                $.pjax.submit(event, '#container')
-            })
-            console.log("Pjax activated");
-
-        $.ajaxSetup({
-            headers: { "X-CSRFToken":  '{{ csrf_token }}' }
-        });
-
-
-        });
-
-  </script>
+    {# SeeVcam code#}
+    <script src="{% static "js/initialization.js" %}"></script>
 
 </body>
+
 </html>

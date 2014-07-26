@@ -11,24 +11,5 @@
         <button id="add-category">Add</button>
     </div>
 </div>
-<script type="application/javascript">
-    $('#add-category').click(function(e) {
-    e.preventDefault();
-        $.pjax({
-            type: 'POST',
-            url: "/dashboard/questions/create/",
-            container: '#catalogue',
-            data:{'catalogue_name': $('#new-category').val()}
-         })
-    });
-    $('a.delete').click(function(event) {
-        event.preventDefault();
-        $.pjax({
-            type: 'POST',
-            url:  $(this).attr('href'),
-            container: '#catalogue'
-        })
-    });
-</script>
 {% endblock catalogue %}
 
