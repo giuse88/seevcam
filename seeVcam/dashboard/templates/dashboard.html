@@ -11,6 +11,11 @@
   <link rel="stylesheet" href="{% static "bower_components/bootstrap/dist/css/bootstrap.css" %}">
   <link rel="stylesheet" href="{% static "bower_components/bootstrap/dist/css/bootstrap-theme.css" %}">
   <link rel="stylesheet" href="{%  static "app/css/app.css" %}"/>
+{#    <script src="{% static "bower_components/angular/angular.js" %}"></script>#}
+{#    <script src="{% static "bower_components/angular-resource/angular-resource.js" %}"></script>#}
+{#    <script src="{% static "app/js/services.js" %}"></script>#}
+{#    <script src="{% static "app/js/controllers.js" %}"></script>#}
+{#    <script src="{% static "app/js/app.js" %}"></script>#}
   <script src="{% static "bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js" %}" ></script>
 </head>
 
@@ -55,6 +60,7 @@
 
     <script src="{% static "bower_components/jquery/dist/jquery.min.js" %}"></script>
     <script src="{% static "bower_components/jquery-pjax/jquery.pjax.js" %}"></script>
+
     <script src="{% static "bower_components/bootstrap/dist/js/bootstrap.js" %}"></script>
 
   <script type="text/javascript">
@@ -67,7 +73,14 @@
                 $.pjax.submit(event, '#container')
             })
             console.log("Pjax activated");
+
+        $.ajaxSetup({
+            headers: { "X-CSRFToken":  '{{ csrf_token }}' }
         });
+
+
+        });
+
   </script>
 
 </body>

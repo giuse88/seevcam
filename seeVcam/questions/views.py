@@ -1,4 +1,6 @@
-from django.views.generic import TemplateView, ListView
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+from django.views.generic import ListView, CreateView, DeleteView
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 
@@ -10,6 +12,10 @@ from permissions import IsOwner, IsCatalogueOwnerOrSeevcamScope, ReadOnly
 class CatalogueView(ListView):
     model = QuestionCatalogue
     template_name = 'questions_base.html'
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(CatalogueView, self).dispatch(*args, **kwargs)
 
     def get_queryset(self):
         if self._is_seevcam_scope():
@@ -34,11 +40,68 @@ class CatalogueView(ListView):
         return QuestionCatalogue.SEEVCAM_SCOPE
 
     def _user_catalogue_queryset(self):
-        return QuestionCatalogue.objects.filter(catalogue_owner=self.request.user)
+        return QuestionCatalogue.objects.filter(catalogue_owner=self.request.user.id)
 
     def _seevcam_catalogue_queryset(self):
         return QuestionCatalogue.objects.filter(catalogue_scope=QuestionCatalogue.SEEVCAM_SCOPE)
 
+
+class CatalogueView_(ListView):
+    model = QuestionCatalogue
+    template_name = 'catalogue_list.html'
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(CatalogueView_, self).dispatch(*args, **kwargs)
+
+    def get_queryset(self):
+        if self._is_seevcam_scope():
+            return self._seevcam_catalogue_queryset()
+        return self._user_catalogue_queryset()
+
+    def get_context_data(self, **kwargs):
+        context = super(CatalogueView_, self).get_context_data(**kwargs)
+        context['scope'] = self._get_request_scope()
+        return context
+
+    def _is_seevcam_scope(self):
+        scope = self.request.GET.get('scope')
+        if scope is None:
+            return False
+        return scope.lower() == QuestionCatalogue.SEEVCAM_SCOPE.lower()
+
+    def _get_request_scope(self):
+        scope = self.request.GET.get('scope')
+        if scope is None or scope.lower() == QuestionCatalogue.PRIVATE_SCOPE.lower():
+            return QuestionCatalogue.PRIVATE_SCOPE
+        return QuestionCatalogue.SEEVCAM_SCOPE
+
+    def _user_catalogue_queryset(self):
+        return QuestionCatalogue.objects.filter(catalogue_owner=self.request.user.id)
+
+    def _seevcam_catalogue_queryset(self):
+        return QuestionCatalogue.objects.filter(catalogue_scope=QuestionCatalogue.SEEVCAM_SCOPE)
+
+
+class CreateCatalogueView(CreateView):
+    success_url = '/dashboard/questions/get'
+    fields = ('catalogue_name',)
+    model = QuestionCatalogue
+    template_name = 'catalogue_list.html'
+
+    def form_valid(self, form):
+        form.instance.catalogue_owner = self.request.user
+        form.instance.catalogue_scope = QuestionCatalogue.PRIVATE_SCOPE
+        form.save()
+        return super(CreateCatalogueView, self).form_valid(form)
+
+class DeleteCatalogueView(DeleteView):
+    success_url = '/dashboard/questions/get'
+    model = QuestionCatalogue
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(DeleteCatalogueView, self).dispatch(*args, **kwargs)
 
 class QuestionsListView(CatalogueView):
     model = Question
@@ -54,10 +117,11 @@ class QuestionsListView(CatalogueView):
         # context['questioncatalogue_list'] = self._get_request_scope()
         return context
 
-    # def _get_catalogues
+        # def _get_catalogues
 
-#####
-### REST
+
+# ####
+# ## REST
 #####
 
 

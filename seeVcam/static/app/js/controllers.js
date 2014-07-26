@@ -2,10 +2,9 @@
 
 /* Controllers */
 
-angular.module('myApp.controllers', [])
-  .controller('questions', ['$scope', function($scope) {
+var questionsControllers = angular.module('questions.controllers', []);
 
-  }])
-  .controller('MyCtrl2', ['$scope', function($scope) {
-
-  }]);
+questionsControllers.controller('CatalogueListCtrl', ['$scope', 'Catalogue', function($scope, Catalogue) {
+  $scope.catalogues = Catalogue.query();
+    console.log($scope.catalogues);
+}]);

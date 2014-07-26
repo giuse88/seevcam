@@ -1,0 +1,34 @@
+{% block catalogue  %}
+<div id="catalogue_container" class="list-group margin-10">
+    {% for catalogue in questioncatalogue_list %}
+        <a class="list-group-item pjax-inner"
+           href="{% url "questions_list" catalogue.pk %}">{{ catalogue.catalogue_name }}</a>
+        <a class=" delete "
+           href="{% url "questions_delete" catalogue.pk %}">DD</a>
+    {% endfor %}
+    <div>
+        <input id="new-category" type="text" value="add catalogue"/>
+        <button id="add-category">Add</button>
+    </div>
+</div>
+<script type="application/javascript">
+    $('#add-category').click(function(e) {
+    e.preventDefault();
+        $.pjax({
+            type: 'POST',
+            url: "/dashboard/questions/create/",
+            container: '#catalogue',
+            data:{'catalogue_name': $('#new-category').val()}
+         })
+    });
+    $('a.delete').click(function(event) {
+        event.preventDefault();
+        $.pjax({
+            type: 'POST',
+            url:  $(this).attr('href'),
+            container: '#catalogue'
+        })
+    });
+</script>
+{% endblock catalogue %}
+

@@ -1,6 +1,7 @@
 {% extends "dashboard.html"|pjax:request %}
 {% block content %}
 
+    <div id="questions">
     <ul class="nav nav-tabs" role="tablist">
         <li {% if scope == 'PRIVATE' %} class="active" {% endif %} >
             <a class="pjax" href="{%  url 'questions' %}?scope=private">Private</a>
@@ -12,13 +13,7 @@
 
     <div class="row">
         <div id="catalogue" class="col-md-3 pull-left ">
-                <div id="catalogue_container" class="list-group margin-10">
-                    {% for catalogue in questioncatalogue_list %}
-                        <a class="list-group-item pjax-inner"
-                           href="{% url "questions_list" catalogue.pk %}">{{ catalogue.catalogue_name }}</a>
-                    {% endfor %}
-                    <a class="list-group-item " href="#">Add catalogue + </a>
-                </div>
+             {% include "catalogue_list.html" %}
         </div>
         <div class="col-md-9 pull-right">
             <div id="inner-container" class="margin-10">
@@ -26,4 +21,6 @@
             </div>
         </div>
     </div>
+    </div>
+
 {% endblock content %}

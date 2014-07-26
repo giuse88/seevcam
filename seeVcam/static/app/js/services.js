@@ -2,8 +2,11 @@
 
 /* Services */
 
+var catalogueServices = angular.module('CatalogueService', ['ngResource']);
 
-// Demonstrate how to register services
-// In this case it is a simple value service.
-angular.module('myApp.services', []).
-  value('version', '0.1');
+catalogueServices.factory('Catalogue', ['$resource',
+  function($resource){
+    return $resource('catalogue/seevcam/', {}, {
+      query: {method:'GET', isArray:true}
+    });
+  }]);
