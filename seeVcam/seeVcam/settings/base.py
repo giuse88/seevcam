@@ -20,8 +20,8 @@ DEFAULT_APPS = (
 THIRD_PARTY_APPS = (
     'south',
     'rest_framework',
-    'easy_pjax',
 )
+
 LOCAL_APPS = (
     'interviews',
     'questions',

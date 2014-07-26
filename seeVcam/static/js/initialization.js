@@ -24,7 +24,8 @@
                 type: 'POST',
                 url: "/dashboard/questions/create/",
                 container: '#catalogue',
-                data: {'catalogue_name': $('#new-category').val()}
+                data: {'catalogue_name': $('#new-category').val()},
+                push:false
             })
         });
 
