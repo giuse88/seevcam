@@ -29,6 +29,15 @@
         {% block content %}{% endblock content %}
     </div>
 
+    {#Communication from the server to the client #}
+    <script type="application/javascript">
+        var CONSTANTS = (function () {
+                    return {
+                            csrft_token : "{{ csrf_token }}"
+                            }
+                    }());
+    </script>
+
     {# Libraries #}
     <script src="{% static "bower_components/jquery/dist/jquery.min.js" %}"></script>
     <script src="{% static "bower_components/jquery-pjax/jquery.pjax.js" %}"></script>

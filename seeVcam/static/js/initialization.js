@@ -1,5 +1,4 @@
-(function ($) {
-
+(function ($, COSTANTS) {
 
     $(document).ready(function () {
 
@@ -15,7 +14,7 @@
         console.log("Pjax activated");
 
         $.ajaxSetup({
-            headers: { "X-CSRFToken": '{{ csrf_token }}' }
+            headers: { "X-CSRFToken": COSTANTS.csrft_token}
         });
 
 
@@ -41,4 +40,4 @@
         console.log("Configuration completed.")
     });
 
-})(jQuery)
+})(jQuery, CONSTANTS)
