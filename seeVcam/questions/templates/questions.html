@@ -1,10 +1,10 @@
 {% extends "dashboard.html" %}
 
-{%  block title  %}
-    Questions
-{%  endblock title  %}
+{% block title %}
+    {% include "questions-title.html" %}
+{% endblock title %}
 
-{% block content %}
+{%  block content %}
     {% include "questions-container-pjax.html" %}
 {% endblock content %}
 

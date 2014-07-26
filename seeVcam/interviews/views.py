@@ -1,8 +1,8 @@
-from django.shortcuts import render
+from django.views.generic import TemplateView
+from common.mixins.authorization import LoginRequired
+from common.mixins.pjax import PJAXResponseMixin
 
-# Create your views here.
 
-def int_list(request):
-    template = 'interviews.html'
-    context = {}
-    return render(request, template, context)
+class InterviewsView(LoginRequired, PJAXResponseMixin, TemplateView):
+    template_name = 'interviews.html'
+

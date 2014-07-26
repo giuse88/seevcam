@@ -1,8 +1,8 @@
-{%  block title  %}
-   <title> Questions </title>
-{%  endblock title  %}
+{%  if request.is_ajax  %}
+    <title> Questions </title>
+{% endif %}
 
-{% block contenair %}
+{% block content %}
 
     <div id="questions">
     <ul class="nav nav-tabs" role="tablist">
@@ -26,4 +26,4 @@
     </div>
     </div>
 
-{% endblock contenair %}
+{% endblock content %}

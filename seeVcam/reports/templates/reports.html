@@ -1,4 +1,10 @@
-{% extends "dashboard.html"|pjax:request %}
-{% block content %}
-    <p>This is the report page</p>
+{% extends "dashboard.html" %}
+
+{% block title %}
+    {% include "reports-title.html" %}
+{% endblock title %}
+
+{%  block content %}
+    {% include "reports-container-pjax.html" %}
 {% endblock content %}
+

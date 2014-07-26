@@ -4,7 +4,7 @@
 
 <head>
 
-    <title>{% block title %} SeeVcam {% endblock %}</title>
+    {% block title %} <title>SeeVcam</title> {% endblock title %}
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -26,7 +26,7 @@
     {% endblock navigation_bar %}
 
      <div id="container">
-        {% block content %}{% endblock content %}
+        {% block content %} Content {% endblock content %}
     </div>
 
     {#Communication from the server to the client #}
@@ -43,7 +43,7 @@
     <script src="{% static "bower_components/jquery-pjax/jquery.pjax.js" %}"></script>
     <script src="{% static "bower_components/bootstrap/dist/js/bootstrap.js" %}"></script>
 
-    {# SeeVcam code#}
+    {# Seevcam javascript codes goes here #}
     <script src="{% static "js/initialization.js" %}"></script>
 
 </body>

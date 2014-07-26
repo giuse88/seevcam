@@ -1,8 +1,6 @@
 from django.conf.urls import patterns, url
-from interviews import views
+from interviews.views import InterviewsView
 
 urlpatterns = patterns('',
-
-                       # allauth package doesn't provide e profile page
-                       url(r'^$', views.int_list, name='interviews'),
+                       url(r'^$', InterviewsView.as_view(), name='interviews'),
 )

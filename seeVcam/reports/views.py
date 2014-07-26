@@ -1,11 +1,7 @@
-from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
+from common.mixins.authorization import LoginRequired
+from common.mixins.pjax import PJAXResponseMixin
 
 
-class ReportView(TemplateView):
+class ReportView(LoginRequired, PJAXResponseMixin, TemplateView):
     template_name = "reports.html"
-
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        return super(ReportView, self).dispatch(*args, **kwargs)

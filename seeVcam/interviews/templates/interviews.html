@@ -1,25 +1,9 @@
-{% extends "dashboard.html"|pjax:request %}
+{% extends "dashboard.html" %}
 
-{% block title %} Interviews {% endblock %}
+{% block title %}
+    {% include "interviews-title.html" %}
+{% endblock title %}
 
-{% block content %}
-
-   <div id="interview" class="row">
-        <div id="" class="col-md-3 pull-left ">
-                <div id="interview-controller" class="margin-10">
-                    <ul>
-                        <li>  create new interview </li>
-                        <li>  search  </li>
-                        <li>  filter by  </li>
-                    </ul>
-                </div>
-        </div>
-        <div class="col-md-9 pull-right">
-            <div id="inner-container" class="margin-10">
-                <div> this should be the list of interviews</div>
-            </div>
-        </div>
-    </div>
-
+{%  block content %}
+    {% include "interviews-container-pjax.html" %}
 {% endblock content %}
-

@@ -33,7 +33,8 @@
             $.pjax({
                 type: 'POST',
                 url: $(this).attr('href'),
-                container: '#catalogue'
+                container: '#catalogue',
+                push:false
             })
         });
 
