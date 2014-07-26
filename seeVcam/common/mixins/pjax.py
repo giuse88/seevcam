@@ -3,21 +3,9 @@ import os
 from django.views.generic.base import TemplateResponseMixin
 
 
-def clean_container_name(name):
-    return name.replace('#', '')
-
-
-def _add_suffix(name, suffix):
-    if "." in name:
-        file_name, file_extension = os.path.splitext(name)
-        name = "{0}-{1}{2}".format(file_name, suffix, file_extension)
-    else:
-        name += "-{0}".fomat(suffix)
-    return name
-
-
 class PJAXResponseMixin(TemplateResponseMixin):
     pjax_template_name = None
+    pjax_suffix = "pjax"
 
     def get_template_names(self):
         names = super(PJAXResponseMixin, self).get_template_names()
@@ -39,5 +27,22 @@ class PJAXResponseMixin(TemplateResponseMixin):
         container = self.request.META.get('HTTP_X_PJAX_Container', False)
         if container is not False:
             name = _add_suffix(name, clean_container_name(container))
-        return _add_suffix(name, "pjax")
+        return _add_suffix(name, self.pjax_suffix)
 
+
+#################################################
+#               HELPER METHODS                  #
+#################################################
+
+
+def clean_container_name(name):
+    return name.replace('#', '')
+
+
+def _add_suffix(name, suffix):
+    if "." in name:
+        file_name, file_extension = os.path.splitext(name)
+        name = "{0}-{1}{2}".format(file_name, suffix, file_extension)
+    else:
+        name += "-{0}".fomat(suffix)
+    return name
