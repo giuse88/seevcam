@@ -1,21 +1,23 @@
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView, CreateView, DeleteView
+from django.views.generic.base import TemplateResponseMixin
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 
 from models import QuestionCatalogue, Question
 from serializers import QuestionCatalogueSerializer, QuestionSerializer
 from permissions import IsOwner, IsCatalogueOwnerOrSeevcamScope, ReadOnly
+from common.mixins.authorization import LoginRequired
 
 
-class CatalogueView(ListView):
+
+
+
+
+class CatalogueView(LoginRequired, ListView):
     model = QuestionCatalogue
     template_name = 'questions_base.html'
-
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        return super(CatalogueView, self).dispatch(*args, **kwargs)
 
     def get_queryset(self):
         if self._is_seevcam_scope():
