@@ -57,9 +57,8 @@ class CatalogueViewList(LoginRequired, PJAXResponseMixin, TemplateView):
                                       catalogue_scope=scope)
         context['catalogue'] = catalogue
         context['question_list'] = Question.objects.filter(question_catalogue=catalogue_pk)
-        context['questioncatalogue_list'] = CatalogueQuerySetHelper.user_catalogue_queryset(self.request.user.id)
+        context['questioncatalogue_list'] = CatalogueQuerySetHelper.user_catalogue_queryset(self.request.user.id).order_by('catalogue_name')
         context['scope'] = scope
-        print context
         return context
 
     def _get_request_scope(self):
@@ -69,8 +68,7 @@ class CatalogueViewList(LoginRequired, PJAXResponseMixin, TemplateView):
         return QuestionCatalogue.SEEVCAM_SCOPE
 
 
-
-class CreateCatalogueView(CreateView):
+class CreateCatalogueView(LoginRequired, CreateView):
     fields = ('catalogue_name',)
     model = QuestionCatalogue
     template_name = 'questions-catalogue-pjax.html'
@@ -85,13 +83,10 @@ class CreateCatalogueView(CreateView):
         return reverse('questions_list', args=[self.object.id])
 
 
-class DeleteCatalogueView(DeleteView):
+class DeleteCatalogueView(LoginRequired, DeleteView):
     success_url = '/dashboard/questions/'
     model = QuestionCatalogue
 
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        return super(DeleteCatalogueView, self).dispatch(*args, **kwargs)
 
 
 class QuestionsListView(CatalogueView):
