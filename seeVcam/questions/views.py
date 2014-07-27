@@ -14,11 +14,11 @@ class CatalogueView(LoginRequired, PJAXResponseMixin, ListView):
     model = QuestionCatalogue
     template_name = 'questions.html'
 
-    # def dispatch(self, request, *args, **kwargs):
-    #     catalogue = CatalogueQuerySetHelper.get_first_catalogue_or_none(self.request.user.id)
-    #     if catalogue is not None:
-    #         return redirect(reverse('questions_list', args=[catalogue.id]))
-    #     return super(CatalogueView, self).dispatch(request, *args, **kwargs)
+    def dispatch(self, request, *args, **kwargs):
+        catalogue = CatalogueQuerySetHelper.get_first_catalogue_or_none(self.request.user.id)
+        if catalogue is not None:
+            return redirect(reverse('questions_list', args=[catalogue.id]))
+        return super(CatalogueView, self).dispatch(request, *args, **kwargs)
 
     def get_queryset(self):
         if self._is_seevcam_scope():
@@ -47,7 +47,6 @@ class CatalogueView(LoginRequired, PJAXResponseMixin, ListView):
 
 
 class CatalogueViewList(LoginRequired, PJAXResponseMixin, TemplateView):
-
     template_name = 'questions.html'
 
     def get_context_data(self, **kwargs):
@@ -71,13 +70,7 @@ class CatalogueViewList(LoginRequired, PJAXResponseMixin, TemplateView):
 
 
 
-
-
-
-
-
 class CreateCatalogueView(CreateView):
-    success_url = '/dashboard/questions/'
     fields = ('catalogue_name',)
     model = QuestionCatalogue
     template_name = 'questions-catalogue-pjax.html'
@@ -87,6 +80,9 @@ class CreateCatalogueView(CreateView):
         form.instance.catalogue_scope = QuestionCatalogue.PRIVATE_SCOPE
         form.save()
         return super(CreateCatalogueView, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse('questions_list', args=[self.object.id])
 
 
 class DeleteCatalogueView(DeleteView):

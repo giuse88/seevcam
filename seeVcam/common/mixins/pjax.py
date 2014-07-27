@@ -16,6 +16,12 @@ class PJAXResponseMixin(TemplateResponseMixin):
                 names = self._pjaxify_template_var(names)
         return names
 
+    def get(self, request, *args, **kwargs):
+        response = super(PJAXResponseMixin, self).get(request, *args, **kwargs)
+        print self.request.path
+        response['X-PJAX-URL'] = self.request.path
+        return response
+
     def _pjaxify_template_var(self, template_var):
         if isinstance(template_var, (list, tuple)):
             template_var = type(template_var)(self._pjaxify_template_name(name) for name in template_var)

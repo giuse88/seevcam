@@ -30,9 +30,8 @@
             $.pjax({
                 type: 'POST',
                 url: "/dashboard/questions/create/",
-                container: '#catalogue',
-                data: {'catalogue_name': $('#new-category').val()},
-                push:false
+                container: '#container',
+                data: {'catalogue_name': $('#new-category').val()}
             })
         });
 
