@@ -14,7 +14,6 @@ class PJAXResponseMixin(TemplateResponseMixin):
                 names = [self.pjax_template_name]
             else:
                 names = self._pjaxify_template_var(names)
-        print names
         return names
 
     def _pjaxify_template_var(self, template_var):
@@ -25,9 +24,7 @@ class PJAXResponseMixin(TemplateResponseMixin):
         return template_var
 
     def _pjaxify_template_name(self, name):
-        print self.request.META
         container = self.request.META.get('HTTP_X_PJAX_CONTAINER', False)
-        print container
         if container is not False:
             name = _add_suffix(name, clean_container_name(container))
         return _add_suffix(name, self.pjax_suffix)
