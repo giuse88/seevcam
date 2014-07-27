@@ -3,8 +3,7 @@
 {% endif %}
 
 {% block content %}
-
-    <div id="questions">
+<div id="questions">
     <ul class="nav nav-tabs" role="tablist">
         <li {% if scope == 'PRIVATE' %} class="active" {% endif %} >
             <a class="pjax" href="{%  url 'questions' %}?scope=private">Private</a>
@@ -18,12 +17,21 @@
         <div id="catalogue" class="col-md-3 pull-left ">
              {% include "questions-catalogue-pjax.html" %}
         </div>
-{#        <div class="col-md-9 pull-right">#}
-{#            <div id="inner-container" class="margin-10">#}
-{#                {% block inner_content %} Select a catalogue  {% endblock inner_content %}#}
-{#            </div>#}
-{#        </div>#}
+        <div class="col-md-9 pull-right">
+            <div id="questions" class="panel panel-default margin-10">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Questions</h3>
+                </div>
+            <div class="panel-body">
+                    {{ catalogue_pk }}
+                {% if catalogue_pk %}
+                    {{ catalogue_pk }}
+                {% else  %}
+                    {% block question_list %} <div><p>No catalogue selected</p></div> {% endblock question_list %}
+                {% endif %}
+            </div>
+            </div>
+        </div>
     </div>
-    </div>
-
+</div>
 {% endblock content %}
