@@ -1,15 +1,26 @@
-
-
-
-{#{% extends "questions.html" %}#}
-{#{% block inner_content %}#}
-{#     <div id="questions_container" class="list-group margin-10">#}
-{#     <table class="table table-bordered table-striped">#}
-{#         {% for question in question_list %}#}
-{#             <tr><td>{{ question.question_text }}</td></tr>#}
-{#         {%  empty %}#}
-{#             <tr><td> No questions</td></tr>#}
-{#         {% endfor %}#}
-{#     </table>#}
-{#     </div>#}
-{#{% endblock inner_content %}#}
+<div id="questions-table" class="panel panel-default margin-10">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            {% if catalogue %}
+                {{ catalogue.catalogue_name }}
+            {% else %}
+                Questions
+            {% endif %}
+        </h3>
+    </div>
+    <div class="panel-body">
+        <div class="list-group margin-10">
+            <table class="table table-bordered table-striped">
+                {% for question in question_list %}
+                    <tr>
+                        <td>{{ question.question_text }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td> No questions</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>

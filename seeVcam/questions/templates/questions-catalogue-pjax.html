@@ -9,7 +9,7 @@
         <div id="catalogue-list" class="list-group">
           {% for catalogue in questioncatalogue_list %}
               <li class="list-group-item">
-              <a class="pjax-inner"
+              <a class="catalogue"
                  href="{% url "questions_list" catalogue.pk %}">
                  {{ catalogue.catalogue_name }}
               </a>

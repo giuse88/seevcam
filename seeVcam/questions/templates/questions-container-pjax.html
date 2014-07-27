@@ -18,20 +18,11 @@
              {% include "questions-catalogue-pjax.html" %}
         </div>
         <div class="col-md-9 pull-right">
-            <div id="questions" class="panel panel-default margin-10">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Questions</h3>
-                </div>
-            <div class="panel-body">
-                    {{ catalogue_pk }}
-                {% if catalogue_pk %}
-                    {{ catalogue_pk }}
-                {% else  %}
-                    {% block question_list %} <div><p>No catalogue selected</p></div> {% endblock question_list %}
-                {% endif %}
+                 <div id="list">
+                     {% include "questions-list-pjax.html" %}
+                 </div>
             </div>
-            </div>
-        </div>
+
     </div>
 </div>
 {% endblock content %}

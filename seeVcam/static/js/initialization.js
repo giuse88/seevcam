@@ -5,7 +5,6 @@
         $.pjax.defaults.timeout = 3000;
 
         $(document).pjax('a.pjax', '#container');
-        $(document).pjax('a.pjax-inner', '#inner-container');
         $(document).on('submit', 'form', function (event) {
             event.preventDefault();
             console.log("submit");
@@ -17,6 +16,14 @@
             headers: { "X-CSRFToken": COSTANTS.csrft_token}
         });
 
+        $('#container').on('click', 'a.catalogue', function (event) {
+            event.preventDefault();
+            $.pjax({
+                type: 'GET',
+                url: $(this).attr('href'),
+                container: '#list'
+            })
+        });
 
         $('#container').on('click', '#add-category', function (event) {
             event.preventDefault();
