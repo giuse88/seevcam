@@ -34,11 +34,11 @@ class CatalogueQuerySetHelper(object):
 
     @staticmethod
     def user_catalogue_queryset(user_id):
-        return QuestionCatalogue.objects.filter(catalogue_owner=user_id)
+        return QuestionCatalogue.objects.filter(catalogue_owner=user_id).order_by('catalogue_name')
 
     @staticmethod
     def seevcam_catalogue_queryset():
-        return QuestionCatalogue.objects.filter(catalogue_scope=QuestionCatalogue.SEEVCAM_SCOPE)
+        return QuestionCatalogue.objects.filter(catalogue_scope=QuestionCatalogue.SEEVCAM_SCOPE).order_by('catalogue_name')
 
     @staticmethod
     def user_catalogue_queryset_with_scope(user_id, scope):
@@ -47,6 +47,15 @@ class CatalogueQuerySetHelper(object):
     @staticmethod
     def get_first_catalogue_or_none(user_id):
         catalogues = CatalogueQuerySetHelper.user_catalogue_queryset(user_id)
+        return CatalogueQuerySetHelper._extract_first(catalogues)
+
+    @staticmethod
+    def get_first_catalogue_of_seevcam():
+        catalogues = CatalogueQuerySetHelper.seevcam_catalogue_queryset()
+        return CatalogueQuerySetHelper._extract_first(catalogues)
+
+    @staticmethod
+    def _extract_first(catalogues):
         catalogue = list(catalogues[:1])
         if catalogue:
             return catalogue[0]

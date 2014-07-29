@@ -1,7 +1,5 @@
-from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect, get_object_or_404
-from django.utils.decorators import method_decorator
 from django.views.generic import ListView, CreateView, DeleteView, TemplateView
 
 from models import QuestionCatalogue, Question
@@ -15,9 +13,13 @@ class CatalogueView(LoginRequired, PJAXResponseMixin, ListView):
     template_name = 'questions.html'
 
     def dispatch(self, request, *args, **kwargs):
-        catalogue = CatalogueQuerySetHelper.get_first_catalogue_or_none(self.request.user.id)
+        if self._is_seevcam_scope():
+            catalogue = CatalogueQuerySetHelper.get_first_catalogue_of_seevcam()
+        else:
+            catalogue = CatalogueQuerySetHelper.get_first_catalogue_or_none(self.request.user.id)
         if catalogue is not None:
-            return redirect(reverse('questions_list', args=[catalogue.id]))
+            # Todo get_absolute url
+            return redirect(reverse('questions_list', args=[catalogue.id]) + "?scope=" + catalogue.catalogue_scope)
         return super(CatalogueView, self).dispatch(request, *args, **kwargs)
 
     def get_queryset(self):
@@ -48,16 +50,24 @@ class CatalogueView(LoginRequired, PJAXResponseMixin, ListView):
 
 class CatalogueViewList(LoginRequired, PJAXResponseMixin, TemplateView):
     template_name = 'questions.html'
+    pjax_url = True
 
     def get_context_data(self, **kwargs):
         context = super(CatalogueViewList, self).get_context_data(**kwargs)
         scope = self._get_request_scope()
         catalogue_pk = self.kwargs['catalogue_pk']
-        catalogue = get_object_or_404(QuestionCatalogue, pk=catalogue_pk, catalogue_owner=self.request.user.id,
-                                      catalogue_scope=scope)
+        # TODO refacator
+        if self._is_seevcam_scope():
+            catalogue = get_object_or_404(QuestionCatalogue, pk=catalogue_pk, catalogue_scope=scope)
+            catalogue_list = CatalogueQuerySetHelper.seevcam_catalogue_queryset().order_by('catalogue_name')
+        else:
+            catalogue = get_object_or_404(QuestionCatalogue, pk=catalogue_pk, catalogue_scope=scope,
+                                          catalogue_owner=self.request.user.id)
+            catalogue_list = CatalogueQuerySetHelper.user_catalogue_queryset(self.request.user.id).order_by(
+                'catalogue_name')
         context['catalogue'] = catalogue
         context['question_list'] = Question.objects.filter(question_catalogue=catalogue_pk)
-        context['questioncatalogue_list'] = CatalogueQuerySetHelper.user_catalogue_queryset(self.request.user.id).order_by('catalogue_name')
+        context['questioncatalogue_list'] = catalogue_list
         context['scope'] = scope
         return context
 
@@ -67,7 +77,19 @@ class CatalogueViewList(LoginRequired, PJAXResponseMixin, TemplateView):
             return QuestionCatalogue.PRIVATE_SCOPE
         return QuestionCatalogue.SEEVCAM_SCOPE
 
+    def _is_seevcam_scope(self):
+        scope = self.request.GET.get('scope')
+        if scope is None:
+            return False
+        return scope.lower() == QuestionCatalogue.SEEVCAM_SCOPE.lower()
 
+    def get(self, request, *args, **kwargs):
+        response = super(PJAXResponseMixin, self).get(request, *args, **kwargs)
+        response['X-PJAX-URL'] = self.request.path + "?scope=" + self._get_request_scope().lower()
+        return response
+
+
+# They should be only ajax views
 class CreateCatalogueView(LoginRequired, CreateView):
     fields = ('catalogue_name',)
     model = QuestionCatalogue
@@ -82,10 +104,23 @@ class CreateCatalogueView(LoginRequired, CreateView):
     def get_success_url(self):
         return reverse('questions_list', args=[self.object.id])
 
-
 class DeleteCatalogueView(LoginRequired, DeleteView):
     success_url = '/dashboard/questions/'
     model = QuestionCatalogue
+
+
+class CreateQuestion(LoginRequired, CreateView):
+    fields = ('question_text',)
+    model = QuestionCatalogue
+    template_name = 'questions-catalogue-pjax.html'
+
+    def form_valid(self, form):
+        form.instance.question_catalogue = self.kwargs['catalogue_pk']
+        form.save()
+        return super(CreateCatalogueView, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse('questions_list', args=[self.object.id])
 
 
 

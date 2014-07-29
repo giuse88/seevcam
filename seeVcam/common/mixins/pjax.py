@@ -6,6 +6,7 @@ from django.views.generic.base import TemplateResponseMixin
 class PJAXResponseMixin(TemplateResponseMixin):
     pjax_template_name = None
     pjax_suffix = "pjax"
+    pjax_url = True
 
     def get_template_names(self):
         names = super(PJAXResponseMixin, self).get_template_names()
@@ -18,8 +19,8 @@ class PJAXResponseMixin(TemplateResponseMixin):
 
     def get(self, request, *args, **kwargs):
         response = super(PJAXResponseMixin, self).get(request, *args, **kwargs)
-        print self.request.path
-        response['X-PJAX-URL'] = self.request.path
+        if self.pjax_url :
+            response['X-PJAX-URL'] = self.request.path
         return response
 
     def _pjaxify_template_var(self, template_var):

@@ -5,12 +5,14 @@
             {% if scope == 'SEEVCAM' %}SeeVcam{% else %}{{ user.username }}{% endif %}'s catalogues
         </h3>
     </div>
-    <div class="panel-body">
-        <div id="catalogue-list" class="list-group">
+    <div class="panel-body height-500 scroll">
+        <div id="catalogue-list">
+            <lu  class="list-group">
           {% for catalogue in questioncatalogue_list %}
-              <li class="list-group-item">
+              <li class="list-group-item {{ if }} ">
+
               <a class="catalogue"
-                 href="{% url "questions_list" catalogue.pk %}">
+                 href="{% url "questions_list" catalogue.pk %}?scope={{catalogue.catalogue_scope | lower }}">
                  {{ catalogue.catalogue_name }}
               </a>
               <a class="delete pull-right"
@@ -19,11 +21,16 @@
               </a>
               </li>
           {% endfor %}
+            </lu>
         </div>
-        <div class="add-new-category-container">
-            <input id="new-category" type="text" value="add catalogue"/>
-            <button id="add-category">Add</button>
-        </div>
+    </div>
+    <div class="add-new-category-container panel-footer">
+        <div class="input-group">
+            <input id="new-category" type="text" class="form-control" placeholder="New catalogue">
+            <span class="input-group-btn">
+                <button id="add-category" class="btn btn-default" type="button">Add</button>
+            </span>
+        </div><!-- /input-group -->
     </div>
 </div>
 {% endblock catalogue %}
