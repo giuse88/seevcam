@@ -25,6 +25,8 @@
                 url: $(this).attr('href'),
                 container: '#list'
             })
+            $('.list-group-item.active').removeClass('active');
+            $(this).parent('li').addClass('active');
         });
 
         $('#container').on('click', 'a.tabs', function (event) {
