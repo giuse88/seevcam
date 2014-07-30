@@ -68,7 +68,7 @@ class CatalogueViewList(LoginRequired, PJAXResponseMixin, TemplateView):
                                           catalogue_owner=self.request.user.id)
             catalogue_list = CatalogueQuerySetHelper.user_catalogue_queryset(self.request.user.id).order_by(
                 'catalogue_name')
-        context['catalogue'] = catalogue
+        context['selected_catalogue'] = catalogue
         context['question_list'] = Question.objects.filter(question_catalogue=catalogue_pk)
         context['questioncatalogue_list'] = catalogue_list
         context['scope'] = scope

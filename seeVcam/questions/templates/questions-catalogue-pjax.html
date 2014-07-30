@@ -9,7 +9,7 @@
         <div id="catalogue-list">
             <lu  class="list-group">
           {% for catalogue in questioncatalogue_list %}
-              <li class="list-group-item {{ if }} ">
+              <li class="list-group-item {% if selected_catalogue.id == catalogue.id %} active {% endif %}">
 
               <a class="catalogue"
                  href="{% url "questions_list" catalogue.pk %}?scope={{catalogue.catalogue_scope | lower }}">
