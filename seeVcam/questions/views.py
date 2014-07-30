@@ -1,6 +1,9 @@
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect, get_object_or_404
-from django.views.generic import ListView, CreateView, DeleteView, TemplateView
+from django.views.generic import ListView, CreateView, DeleteView, TemplateView, UpdateView
+from django.views.generic.detail import BaseDetailView
+from django.views.generic.edit import DeletionMixin, BaseDeleteView
+from common.mixins.ajax import AJAXPost
 
 from models import QuestionCatalogue, Question
 from common.mixins.authorization import LoginRequired
@@ -84,13 +87,16 @@ class CatalogueViewList(LoginRequired, PJAXResponseMixin, TemplateView):
         return scope.lower() == QuestionCatalogue.SEEVCAM_SCOPE.lower()
 
     def get(self, request, *args, **kwargs):
-        response = super(PJAXResponseMixin, self).get(request, *args, **kwargs)
+        response = super(CatalogueViewList, self).get(request, *args, **kwargs)
         response['X-PJAX-URL'] = self.request.path + "?scope=" + self._get_request_scope().lower()
         return response
 
 
-# They should be only ajax views
-class CreateCatalogueView(LoginRequired, CreateView):
+#############################################################
+#               CRUD operations Catalogue                   #
+#############################################################
+
+class CreateCatalogueView(LoginRequired, AJAXPost, CreateView):
     fields = ('catalogue_name',)
     model = QuestionCatalogue
     template_name = 'questions-catalogue-pjax.html'
@@ -104,38 +110,45 @@ class CreateCatalogueView(LoginRequired, CreateView):
     def get_success_url(self):
         return reverse('questions_list', args=[self.object.id])
 
-class DeleteCatalogueView(LoginRequired, DeleteView):
-    success_url = '/dashboard/questions/'
+
+class DeleteCatalogueView(LoginRequired, AJAXPost, BaseDeleteView):
     model = QuestionCatalogue
 
-
-class CreateQuestion(LoginRequired, CreateView):
-    fields = ('question_text',)
-    model = QuestionCatalogue
-    template_name = 'questions-catalogue-pjax.html'
-
-    def form_valid(self, form):
-        form.instance.question_catalogue = self.kwargs['catalogue_pk']
-        form.save()
-        return super(CreateCatalogueView, self).form_valid(form)
+    def delete(self, request, *args, **kwargs):
+        catalogue = self.get_object()
+        Question.objects.filter(question_catalogue=catalogue).delete()
+        return super(DeleteCatalogueView, self).delete(request, *args, **kwargs)
 
     def get_success_url(self):
-        return reverse('questions_list', args=[self.object.id])
+        if int(self.kwargs['pk']) != int(self.object.id):
+            return reverse('questions_list', args=[self.object.id])
+        return reverse('questions')
+
+class UpdateCatalogueView(LoginRequired, AJAXPost, UpdateView):
+    pass
+
+#############################################################
+#               CRUD operations   Question                  #
+#############################################################
 
 
-
-class QuestionsListView(CatalogueView):
+class CreateQuestion(LoginRequired, AJAXPost, CreateView):
+    fields = ('question_text',)
     model = Question
     template_name = 'questions-list-pjax.html'
 
-    def get_queryset(self):
-        pk = self.kwargs['pk']
-        return Question.objects.filter(question_catalogue=pk)
+    def form_valid(self, form):
+        form.instance.question_catalogue = QuestionCatalogue.objects.get(pk=self.kwargs['catalogue_pk'])
+        form.save()
+        return super(CreateQuestion, self).form_valid(form)
 
-    def get_context_data(self, **kwargs):
-        context = super(QuestionsListView, self).get_context_data(**kwargs)
-        print self.request.GET.get('_pjax')
-        # context['questioncatalogue_list'] = self._get_request_scope()
-        return context
+    def get_success_url(self):
+        return reverse('questions_list', args=[self.kwargs['catalogue_pk']])
 
 
+class DeleteQuestionView(LoginRequired, AJAXPost, DeleteView):
+    pass
+
+
+class UpdateQuestionView(LoginRequired, AJAXPost, UpdateView):
+    pass

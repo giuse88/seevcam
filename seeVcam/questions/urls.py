@@ -16,7 +16,7 @@ from questions import views
 #                        url(r'^catalogue/(?P<question_catalogue>[0-9]+)/list/(?P<pk>[0-9]+)/$',
 #                            views.QuestionDetails.as_view()),
 # )
-from questions.views import QuestionsListView, CatalogueView, CreateCatalogueView, DeleteCatalogueView, \
+from questions.views import CatalogueView, CreateCatalogueView, DeleteCatalogueView, \
     CatalogueViewList, CreateQuestion
 
 
@@ -24,6 +24,6 @@ urlpatterns = patterns('',
                        url(r'^$', CatalogueView.as_view(), name='questions'),
                        url(r'^create/',CreateCatalogueView.as_view(), name='questions_create'),
                        url(r'^(?P<catalogue_pk>[0-9]+)/$', CatalogueViewList.as_view(), name='questions_list'),
-                       url(r'^(?P<catalogue_pk>[0-9]+)/create_question/$', CreateQuestion.as_view(), name='create_question'),
+                       url(r'^(?P<catalogue_pk>[0-9]+)/create_question/', CreateQuestion.as_view(), name='create_question'),
                        url(r'^delete/(?P<pk>\d+)/$', DeleteCatalogueView.as_view(), name='questions_delete'),
                        )

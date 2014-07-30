@@ -56,22 +56,29 @@
             event.preventDefault();
             $.pjax({
                 type: 'POST',
-                url: "/dashboard/questions/create/",
+                url: window.location.pathname + 'create_question/' ,
                 container: '#list',
-                data: {'catalogue_name': $('#new-question').val()},
+                push: false,
+                data: {'question_text': $('#new-question').val()},
                 success: function (i) {
                     console.log(i);
                 }
+
             })
         });
 
         $('#container').on('click', 'a.delete', function (event) {
+            var container = "#catalogue"
+            var current_item_id = window.location.pathname.split("/")[3];
+            var deleted_item_id = $(this).attr('href').split("/")[4];
+            if ( current_item_id === deleted_item_id)
+                container = "#container"
             event.preventDefault();
             $.pjax({
                 type: 'POST',
                 url: $(this).attr('href'),
-                container: '#catalogue',
-                push:false
+                container: container,
+                push:true
             })
         });
 

@@ -15,15 +15,20 @@
                  href="{% url "questions_list" catalogue.pk %}?scope={{catalogue.catalogue_scope | lower }}">
                  {{ catalogue.catalogue_name }}
               </a>
-              <a class="delete pull-right"
-                 href="{% url "questions_delete" catalogue.pk %}">
-                 <i class="glyphicon glyphicon-trash"></i>
-              </a>
+                 {% if scope != 'SEEVCAM' %}
+                    <a class="delete pull-right"
+                        href="{% url "questions_delete" catalogue.pk %}">
+                        <i class="glyphicon glyphicon-trash"></i>
+                  </a>
+                {% endif %}
               </li>
+              {% empty %}
+              <li class="list-group-item" > No catalogues </li>
           {% endfor %}
             </lu>
         </div>
     </div>
+    {% if scope != 'SEEVCAM' %}
     <div class="add-new-category-container panel-footer">
         <div class="input-group">
             <input id="new-category" type="text" class="form-control" placeholder="New catalogue">
@@ -32,6 +37,7 @@
             </span>
         </div><!-- /input-group -->
     </div>
+    {% endif %}
 </div>
 {% endblock catalogue %}
 

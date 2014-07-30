@@ -22,7 +22,7 @@ class QuestionCatalogueViewTests(APITestCase):
         # Create Catalogues
         QuestionCatalogueViewTests._create_catalogues(self.user_1, 10)
         QuestionCatalogueViewTests._create_catalogues(self.user_2, 5)
-        # QuestionCatalogueViewTests._create_questions(QuestionCatalogue.objects.get(pk=1), 10)
+        QuestionCatalogueViewTests._create_questions(QuestionCatalogue.objects.get(pk=1), 10)
         # QuestionCatalogueViewTests._create_questions(QuestionCatalogue.objects.get(pk=2), 3)
         # QuestionCatalogueViewTests._create_questions(QuestionCatalogue.objects.get(pk=11), 5)
         # QuestionCatalogueViewTests._create_questions(QuestionCatalogue.objects.get(pk=12), 6)
@@ -34,13 +34,13 @@ class QuestionCatalogueViewTests(APITestCase):
     def test_user_can_access_his_catalogue_list(self):
         # user_1
         self._log_in_dummy_user('user_1', 'password')
-        response = self.client.get(self.CATALOG_PATH)
+        response = self.client.get(self.CATALOG_PATH, None, follow=True)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.context['object_list']), 10)
         self.client.logout()
         # user_2
         self._log_in_dummy_user('user_2', 'password')
-        response = self.client.get(self.CATALOG_PATH)
+        response = self.client.get(self.CATALOG_PATH, follow=True)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.context['object_list']), 5)
 
@@ -58,6 +58,8 @@ class QuestionCatalogueViewTests(APITestCase):
         print response
         print QuestionCatalogue.objects.filter(catalogue_owner=self.user_1).count()
 
+    def test_user_can_update_a_catalogue(self):
+        pass
 
     # ############################################################
     #                          PRIVATE                          #

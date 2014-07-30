@@ -2,7 +2,7 @@
     <div class="panel-heading">
         <h3 class="panel-title">
             {% if catalogue %}
-                {{ catalogue.catalogue_name }}
+                Catalogue : {{ catalogue.catalogue_name }}
             {% else %}
                 Questions
             {% endif %}
@@ -23,12 +23,14 @@
             </table>
         </div>
     </div>
+    {% if scope != 'SEEVCAM' %}
      <div class="add-new-question panel-footer">
         <div class="input-group">
             <input id="new-question" type="text" class="form-control" placeholder="New Question">
             <span class="input-group-btn">
-                <button id="add-category" class="btn btn-default" type="button">Add</button>
+                <button id="add-question" class="btn btn-default" type="button">Add</button>
             </span>
         </div><!-- /input-group -->
     </div>
+    {% endif %}
 </div>
