@@ -1,3 +1,4 @@
+from django.test import Client
 from rest_framework import status
 from rest_framework.test import APITestCase, APIClient
 from django.conf import settings
@@ -11,11 +12,12 @@ class QuestionCatalogueViewTests(APITestCase):
     client = None
     CATALOG_PATH = '/dashboard/questions/'
     CATALOG_PATH_CREATE = '/dashboard/questions/create/'
-    CATALOG_PATH_DELETE = '/dashboard/questions/delete/'
+    CATALOG_PATH_DELETE = '/dashboard/questions/delete/%d/'
+    CATALOG_PATH_UPDATE = '/dashboard/questions/update/%d/'
     CATALOG_PATH_WITH_PRIVATE_SCOPE = CATALOG_PATH + '?scope=private'
 
     def setUp(self):
-        self.client = APIClient()
+        self.client = Client()
         # create mock users
         self.user_1 = self._create_dummy_user('user_1', 'password')
         self.user_2 = self._create_dummy_user('user_2', 'password')
@@ -34,32 +36,41 @@ class QuestionCatalogueViewTests(APITestCase):
     def test_user_can_access_his_catalogue_list(self):
         # user_1
         self._log_in_dummy_user('user_1', 'password')
-        response = self.client.get(self.CATALOG_PATH, None, follow=True)
+        response = self.client.get(self.CATALOG_PATH, data={}, follow=True)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.context['object_list']), 10)
+        self.assertEqual(len(response.context['questioncatalogue_list']), 10)
         self.client.logout()
-        # user_2
+        #user_2
         self._log_in_dummy_user('user_2', 'password')
         response = self.client.get(self.CATALOG_PATH, follow=True)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.context['object_list']), 5)
+        self.assertEqual(len(response.context['questioncatalogue_list']), 5)
 
     def test_user_can_add_a_new_catalogue_to_his_list(self):
         self._log_in_dummy_user('user_1', 'password')
-        response = self.client.post(self.CATALOG_PATH_CREATE, {'catalogue_name': 'test'}, follow=True)
-        print response.status_code
-        print response
-        print QuestionCatalogue.objects.filter(catalogue_owner=self.user_1).count()
+        response = self.client.post(self.CATALOG_PATH_CREATE, {'catalogue_name': 'test'}, follow=True,
+                                    HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEqual(len(response.context['questioncatalogue_list']), 11)
+        self.assertEqual(QuestionCatalogue.objects.filter(catalogue_owner=self.user_1).count(), 11)
 
-    def test_user_can_delete_a_new_catalogue_to_his_list(self):
+    def test_user_can_delete_a_catalogue_from_his_list(self):
         self._log_in_dummy_user('user_1', 'password')
-        response = self.client.post(self.CATALOG_PATH_DELETE + '1/', {}, follow=True)
-        print response.status_code
-        print response
-        print QuestionCatalogue.objects.filter(catalogue_owner=self.user_1).count()
+        self.assertEqual(Question.objects.filter(question_catalogue=1).count(), 10)
+        response = self.client.post(self.CATALOG_PATH_DELETE % 1, data={}, HTTP_X_REQUESTED_WITH='XMLHttpRequest', follow=True)
+        self.assertEqual(len(response.context['questioncatalogue_list']), 9)
+        self.assertEqual(QuestionCatalogue.objects.filter(catalogue_owner=self.user_1).count(), 9)
+        self.assertEqual(Question.objects.filter(question_catalogue=1).count(), 0)
 
     def test_user_can_update_a_catalogue(self):
-        pass
+        self._log_in_dummy_user('user_1', 'password')
+        response = self.client.post(self.CATALOG_PATH_UPDATE % 1, {'catalogue_name': 'test'}, follow=True,
+                                    HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEqual(QuestionCatalogue.objects.filter(catalogue_owner=self.user_1).count(), 10)
+        self.assertEqual(len(response.context['questioncatalogue_list']), 10)
+        self.assertEqual(response.context['questioncatalogue_list'][0].catalogue_name, "test")
+        updated_catalogue = QuestionCatalogue.objects.get(pk=1)
+        self.assertEqual(updated_catalogue.catalogue_name, "test")
+
 
     # ############################################################
     #                          PRIVATE                          #

@@ -6,10 +6,10 @@
 <div id="questions">
     <ul class="nav nav-tabs" role="tablist">
         <li {% if scope == 'PRIVATE' %} class="active" {% endif %} >
-            <a class="tabs" href="{%  url 'questions' %}?scope=private"> My catalogues</a>
+            <a class="tabs" href="{%  url 'catalogues' %}?scope=private"> My catalogues</a>
         </li>
         <li {% if scope == 'SEEVCAM' %} class="active" {% endif %} >
-            <a class="tabs" href="{% url 'questions' %}?scope=seevcam">Seevcam catalogues</a>
+            <a class="tabs" href="{% url 'catalogues' %}?scope=seevcam">Seevcam catalogues</a>
         </li>
     </ul>
 

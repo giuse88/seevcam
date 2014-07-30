@@ -17,13 +17,16 @@ from questions import views
 #                            views.QuestionDetails.as_view()),
 # )
 from questions.views import CatalogueView, CreateCatalogueView, DeleteCatalogueView, \
-    CatalogueViewList, CreateQuestion
+    CatalogueViewList, CreateQuestion, UpdateCatalogueView
 
 
 urlpatterns = patterns('',
-                       url(r'^$', CatalogueView.as_view(), name='questions'),
-                       url(r'^create/',CreateCatalogueView.as_view(), name='questions_create'),
+                       url(r'^$', CatalogueView.as_view(), name='catalogues'),
+                       url(r'^create/',CreateCatalogueView.as_view(), name='catalogue_create'),
+                       url(r'^delete/(?P<pk>\d+)/$', DeleteCatalogueView.as_view(), name='catalogue_delete'),
+                       url(r'^update/(?P<pk>\d+)/$', UpdateCatalogueView.as_view(), name='catalogue_update'),
+                       #TODO refactoring update name to conform to the catalogue model
                        url(r'^(?P<catalogue_pk>[0-9]+)/$', CatalogueViewList.as_view(), name='questions_list'),
                        url(r'^(?P<catalogue_pk>[0-9]+)/create_question/', CreateQuestion.as_view(), name='create_question'),
-                       url(r'^delete/(?P<pk>\d+)/$', DeleteCatalogueView.as_view(), name='questions_delete'),
+                       url(r'^(?P<catalogue_pk>[0-9]+)/update_question/', CreateQuestion.as_view(), name='update_question'),
                        )

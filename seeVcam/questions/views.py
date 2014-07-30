@@ -1,8 +1,7 @@
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect, get_object_or_404
 from django.views.generic import ListView, CreateView, DeleteView, TemplateView, UpdateView
-from django.views.generic.detail import BaseDetailView
-from django.views.generic.edit import DeletionMixin, BaseDeleteView
+from django.views.generic.edit import BaseDeleteView
 from common.mixins.ajax import AJAXPost
 
 from models import QuestionCatalogue, Question
@@ -122,10 +121,16 @@ class DeleteCatalogueView(LoginRequired, AJAXPost, BaseDeleteView):
     def get_success_url(self):
         if int(self.kwargs['pk']) != int(self.object.id):
             return reverse('questions_list', args=[self.object.id])
-        return reverse('questions')
+        return reverse('catalogues')
+
 
 class UpdateCatalogueView(LoginRequired, AJAXPost, UpdateView):
-    pass
+    model = QuestionCatalogue
+    fields = ('catalogue_name',)
+    template_name = 'questions-catalogue-pjax.html'
+
+    def get_success_url(self):
+        return reverse('questions_list', args=[self.object.id])
 
 #############################################################
 #               CRUD operations   Question                  #
