@@ -6,7 +6,8 @@ from django.views.generic import TemplateView
 from django.views.generic import UpdateView
 from authentication.models import SeevcamUser
 from django.shortcuts import render, redirect
-from userprofile.forms import UserprofileForm
+from userprofile.forms import UserprofileForm, NotificationForm
+from userprofile.models import UserNotifications
 
 
 class UserProfileView(TemplateView):
@@ -37,5 +38,11 @@ class UserProfileUpdate(UpdateView):
         return success_url
 
 
+class UserProfileNotifications(UpdateView):
+    form_class = NotificationForm
+    model = UserNotifications
+    template_name = 'profile_notifications.html'
+
+
 class UserProfileSettings(TemplateView):
-    template_name = 'profile_setting.html'
+    template_name = 'registration/password_change_form.html'

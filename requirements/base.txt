@@ -12,3 +12,4 @@ wsgiref==0.1.2
 django-easy-pjax==1.1.0
 Pillow==2.5.1
 django-countries==2.1.2
+pytz==2014.4
