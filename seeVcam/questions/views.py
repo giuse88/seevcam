@@ -1,9 +1,9 @@
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect, get_object_or_404
-from django.views.generic import ListView, CreateView, DeleteView, TemplateView, UpdateView
+from django.views.generic import ListView, CreateView, TemplateView, UpdateView
 from django.views.generic.edit import BaseDeleteView
-from common.mixins.ajax import AJAXPost
 
+from common.mixins.ajax import AJAXPost
 from models import QuestionCatalogue, Question
 from common.mixins.authorization import LoginRequired
 from common.mixins.pjax import PJAXResponseMixin
@@ -15,39 +15,28 @@ class CatalogueView(LoginRequired, PJAXResponseMixin, ListView):
     template_name = 'questions.html'
 
     def dispatch(self, request, *args, **kwargs):
-        if self._is_seevcam_scope():
-            catalogue = CatalogueQuerySetHelper.get_first_catalogue_of_seevcam()
-        else:
-            catalogue = CatalogueQuerySetHelper.get_first_catalogue_or_none(self.request.user.id)
+        catalogue = self._get_first_catalogue_according_to_scope()
         if catalogue is not None:
-            # Todo get_absolute url
             return redirect(reverse('questions_list', args=[catalogue.id]) + "?scope=" + catalogue.catalogue_scope)
         return super(CatalogueView, self).dispatch(request, *args, **kwargs)
 
     def get_queryset(self):
-        if self._is_seevcam_scope():
-            queryset = CatalogueQuerySetHelper.seevcam_catalogue_queryset()
-        else:
-            queryset = CatalogueQuerySetHelper.user_catalogue_queryset(self.request.user.id)
+        queryset = self._get_queryset_according_to_scope()
         return queryset.order_by('catalogue_name')
 
     def get_context_data(self, **kwargs):
         context = super(CatalogueView, self).get_context_data(**kwargs)
-        context['scope'] = self._get_request_scope()
+        context['scope'] = get_request_scope()
         context['question_list'] = None
         return context
 
-    def _is_seevcam_scope(self):
-        scope = self.request.GET.get('scope')
-        if scope is None:
-            return False
-        return scope.lower() == QuestionCatalogue.SEEVCAM_SCOPE.lower()
+    def _get_queryset_according_to_scope(self):
+        return is_seevcam_scope(self.request) if CatalogueQuerySetHelper.seevcam_catalogue_queryset() \
+            else CatalogueQuerySetHelper.user_catalogue_queryset(self.request.user.id)
 
-    def _get_request_scope(self):
-        scope = self.request.GET.get('scope')
-        if scope is None or scope.lower() == QuestionCatalogue.PRIVATE_SCOPE.lower():
-            return QuestionCatalogue.PRIVATE_SCOPE
-        return QuestionCatalogue.SEEVCAM_SCOPE
+    def _get_first_catalogue_according_to_scope(self):
+        return is_seevcam_scope(self.request) if CatalogueQuerySetHelper.get_first_catalogue_of_seevcam() \
+            else CatalogueQuerySetHelper.get_first_catalogue_or_none(self.request.user.id)
 
 
 class CatalogueViewList(LoginRequired, PJAXResponseMixin, TemplateView):
@@ -56,42 +45,31 @@ class CatalogueViewList(LoginRequired, PJAXResponseMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(CatalogueViewList, self).get_context_data(**kwargs)
-        scope = self._get_request_scope()
+        scope = get_request_scope(self.request)
         catalogue_pk = self.kwargs['catalogue_pk']
-        # TODO refacator
-        if self._is_seevcam_scope():
-            catalogue = get_object_or_404(QuestionCatalogue, pk=catalogue_pk, catalogue_scope=scope)
-            catalogue_list = CatalogueQuerySetHelper.seevcam_catalogue_queryset().order_by('catalogue_name')
-        else:
-            catalogue = get_object_or_404(QuestionCatalogue, pk=catalogue_pk, catalogue_scope=scope,
-                                          catalogue_owner=self.request.user.id)
-            catalogue_list = CatalogueQuerySetHelper.user_catalogue_queryset(self.request.user.id).order_by(
-                'catalogue_name')
-        context['selected_catalogue'] = catalogue
+        context['selected_catalogue'] = self._get_catalogue_according_to_scope(catalogue_pk, scope)
         context['question_list'] = Question.objects.filter(question_catalogue=catalogue_pk)
-        context['questioncatalogue_list'] = catalogue_list
+        context['questioncatalogue_list'] = self._get_queryset_according_to_scope().order_by('catalogue_name')
         context['scope'] = scope
         return context
 
-    def _get_request_scope(self):
-        scope = self.request.GET.get('scope')
-        if scope is None or scope.lower() == QuestionCatalogue.PRIVATE_SCOPE.lower():
-            return QuestionCatalogue.PRIVATE_SCOPE
-        return QuestionCatalogue.SEEVCAM_SCOPE
-
-    def _is_seevcam_scope(self):
-        scope = self.request.GET.get('scope')
-        if scope is None:
-            return False
-        return scope.lower() == QuestionCatalogue.SEEVCAM_SCOPE.lower()
-
     def get(self, request, *args, **kwargs):
         response = super(CatalogueViewList, self).get(request, *args, **kwargs)
-        response['X-PJAX-URL'] = self.request.path + "?scope=" + self._get_request_scope().lower()
+        response['X-PJAX-URL'] = self.request.path + "?scope=" + get_request_scope(self.request).lower()
         return response
 
+    def _get_catalogue_according_to_scope(self, catalogue_pk, scope):
+        return is_seevcam_scope(self.request) \
+            if get_object_or_404(QuestionCatalogue, pk=catalogue_pk, catalogue_scope=scope)\
+            else get_object_or_404(QuestionCatalogue, pk=catalogue_pk, catalogue_scope=scope,
+                                   catalogue_owner=self.request.user.id)
 
-#############################################################
+    def _get_queryset_according_to_scope(self):
+        return is_seevcam_scope(self.request) if CatalogueQuerySetHelper.seevcam_catalogue_queryset() \
+            else CatalogueQuerySetHelper.user_catalogue_queryset(self.request.user.id)
+
+
+# ############################################################
 #               CRUD operations Catalogue                   #
 #############################################################
 
@@ -130,7 +108,10 @@ class UpdateCatalogueView(LoginRequired, AJAXPost, UpdateView):
     template_name = 'questions-catalogue-pjax.html'
 
     def get_success_url(self):
-        return reverse('questions_list', args=[self.object.id])
+        if int(self.kwargs['pk']) != int(self.object.id):
+            return reverse('questions_list', args=[self.object.id])
+        return reverse('catalogues')
+
 
 #############################################################
 #               CRUD operations   Question                  #
@@ -165,3 +146,22 @@ class UpdateQuestionView(LoginRequired, AJAXPost, UpdateView):
 
     def get_success_url(self):
         return reverse('questions_list', args=[self.kwargs['catalogue_pk']])
+
+
+#############################################################
+#                   HELPER METHODS                          #
+#############################################################
+
+
+def is_seevcam_scope(request):
+    scope = request.GET.get('scope')
+    if scope is None:
+        return False
+    return scope.lower() == QuestionCatalogue.SEEVCAM_SCOPE.lower()
+
+
+def get_request_scope(request):
+    scope = request.GET.get('scope')
+    if scope is None or scope.lower() == QuestionCatalogue.PRIVATE_SCOPE.lower():
+        return QuestionCatalogue.PRIVATE_SCOPE
+    return QuestionCatalogue.SEEVCAM_SCOPE

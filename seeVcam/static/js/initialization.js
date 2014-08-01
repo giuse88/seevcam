@@ -100,12 +100,18 @@
 
         $('#container').on('submit', '#update-catalogue-form', function (event) {
             event.preventDefault();
+            var container = "#catalogue"
             var url = $(this).attr('action');
+            var current_item_id = window.location.pathname.split("/")[3];
+            var updated_item_id = url.split("/")[3];
+            debugger
+            if ( current_item_id === updated_item_id)
+                container = "#container"
             var text = $(this).children(':input').val();
             $.pjax({
                 type: 'POST',
                 url: url,
-                container: '#catalogue',
+                container: container,
                 push:false,
                 data: {'catalogue_name': text}
             })
