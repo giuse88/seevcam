@@ -1,21 +1,9 @@
 {% extends "dashboard.html" %}
+
+{%  block title%}
+    {% include "profile-title.html" %}
+{%  endblock title %}
+
 {% block content %}
-
-  <div class="row">
-    <div class="col-lg-2 col-lg-offset-1">
-      <div class="list-group margin-10">
-        <a href="{% url "profile_update" request.user.pk %}" class="list-group-item ">
-          Profile
-        </a>
-        <a href="{% url "profile_notifications" request.user.pk %}" class="list-group-item ">Account Settings</a>
-        <a href="{% url "profile_settings" request.user.pk %}" class="list-group-item ">Notification Center</a>
-      </div>
-    </div>
-    <div class="col-lg-8">
-      <div id="inner-container" class="margin-10">
-        {% block inner_content %} Please select tab {% endblock inner_content %}
-      </div>
-    </div>
-  </div>
-
+    {% include "profile-container-pjax.html" %}
 {% endblock content %}

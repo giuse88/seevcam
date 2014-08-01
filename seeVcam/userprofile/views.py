@@ -6,16 +6,14 @@ from django.views.generic import TemplateView
 from django.views.generic import UpdateView
 from authentication.models import SeevcamUser
 from django.shortcuts import render, redirect
+from common.mixins.authorization import LoginRequired
+from common.mixins.pjax import PJAXResponseMixin
 from userprofile.forms import UserprofileForm, NotificationForm
 from userprofile.models import UserNotifications
 
 
-class UserProfileView(TemplateView):
+class UserProfileView(LoginRequired, PJAXResponseMixin, TemplateView):
     template_name = 'profile.html'
-
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        return super(UserProfileView, self).dispatch(*args, **kwargs)
 
 
 class UserProfileUpdate(UpdateView):
