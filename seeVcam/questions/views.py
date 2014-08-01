@@ -26,17 +26,19 @@ class CatalogueView(LoginRequired, PJAXResponseMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super(CatalogueView, self).get_context_data(**kwargs)
-        context['scope'] = get_request_scope()
+        context['scope'] = get_request_scope(self.request)
         context['question_list'] = None
         return context
 
     def _get_queryset_according_to_scope(self):
-        return is_seevcam_scope(self.request) if CatalogueQuerySetHelper.seevcam_catalogue_queryset() \
-            else CatalogueQuerySetHelper.user_catalogue_queryset(self.request.user.id)
+        if is_seevcam_scope(self.request):
+            return CatalogueQuerySetHelper.seevcam_catalogue_queryset()
+        return CatalogueQuerySetHelper.user_catalogue_queryset(self.request.user.id)
 
     def _get_first_catalogue_according_to_scope(self):
-        return is_seevcam_scope(self.request) if CatalogueQuerySetHelper.get_first_catalogue_of_seevcam() \
-            else CatalogueQuerySetHelper.get_first_catalogue_or_none(self.request.user.id)
+        if is_seevcam_scope(self.request):
+            return CatalogueQuerySetHelper.get_first_catalogue_of_seevcam()
+        return CatalogueQuerySetHelper.get_first_catalogue_or_none(self.request.user.id)
 
 
 class CatalogueViewList(LoginRequired, PJAXResponseMixin, TemplateView):
@@ -59,18 +61,19 @@ class CatalogueViewList(LoginRequired, PJAXResponseMixin, TemplateView):
         return response
 
     def _get_catalogue_according_to_scope(self, catalogue_pk, scope):
-        return is_seevcam_scope(self.request) \
-            if get_object_or_404(QuestionCatalogue, pk=catalogue_pk, catalogue_scope=scope)\
-            else get_object_or_404(QuestionCatalogue, pk=catalogue_pk, catalogue_scope=scope,
-                                   catalogue_owner=self.request.user.id)
+        if is_seevcam_scope(self.request):
+            return get_object_or_404(QuestionCatalogue, pk=catalogue_pk, catalogue_scope=scope)
+        return get_object_or_404(QuestionCatalogue, pk=catalogue_pk, catalogue_scope=scope,
+                                     catalogue_owner=self.request.user.id)
 
     def _get_queryset_according_to_scope(self):
-        return is_seevcam_scope(self.request) if CatalogueQuerySetHelper.seevcam_catalogue_queryset() \
-            else CatalogueQuerySetHelper.user_catalogue_queryset(self.request.user.id)
+        if is_seevcam_scope(self.request):
+            return CatalogueQuerySetHelper.seevcam_catalogue_queryset()
+        return CatalogueQuerySetHelper.user_catalogue_queryset(self.request.user.id)
 
 
 # ############################################################
-#               CRUD operations Catalogue                   #
+# CRUD operations Catalogue                   #
 #############################################################
 
 class CreateCatalogueView(LoginRequired, AJAXPost, CreateView):
