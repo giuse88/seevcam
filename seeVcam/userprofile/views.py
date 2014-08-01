@@ -5,6 +5,9 @@ from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 from django.views.generic import UpdateView
 from authentication.models import SeevcamUser
+from django.shortcuts import render, redirect
+from userprofile.forms import UserprofileForm, NotificationForm
+from userprofile.models import UserNotifications
 
 
 class UserProfileView(TemplateView):
@@ -16,8 +19,11 @@ class UserProfileView(TemplateView):
 
 
 class UserProfileUpdate(UpdateView):
+    form_class = UserprofileForm
     model = SeevcamUser
-    fields = ['username', 'email', 'first_name', 'last_name', 'job_title']
+    # user_id = self.request
+    # success_url = '/dashboard/profile/'
+    # fields = ['username', 'email', 'first_name', 'last_name', 'job_title', 'picture']
     template_name = 'profile_update.html'
 
     def get_object(self, *args, **kwargs):
@@ -27,5 +33,16 @@ class UserProfileUpdate(UpdateView):
         return obj
 
 
+    def get_success_url(self):
+        success_url = '/dashboard/profile/' + str(self.request.user.pk) + '/update/'
+        return success_url
+
+
+class UserProfileNotifications(UpdateView):
+    form_class = NotificationForm
+    model = UserNotifications
+    template_name = 'profile_notifications.html'
+
+
 class UserProfileSettings(TemplateView):
-    template_name = 'profile_setting.html'
+    template_name = 'registration/password_change_form.html'

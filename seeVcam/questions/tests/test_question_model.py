@@ -9,7 +9,7 @@ from questions.models import QuestionCatalogue, Question
 
 class QuestionTest(TestCase):
     ##############################################################################
-    # PROPERTIES                                  #
+    # PROPERTIES                                                                 #
     ##############################################################################
 
     mock_catalogue_name = "catalogue_name"
