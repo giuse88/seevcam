@@ -137,7 +137,7 @@ class UpdateCatalogueView(LoginRequired, AJAXPost, UpdateView):
 #############################################################
 
 
-class CreateQuestion(LoginRequired, AJAXPost, CreateView):
+class CreateQuestionView(LoginRequired, AJAXPost, CreateView):
     fields = ('question_text',)
     model = Question
     template_name = 'questions-list-pjax.html'
@@ -145,7 +145,7 @@ class CreateQuestion(LoginRequired, AJAXPost, CreateView):
     def form_valid(self, form):
         form.instance.question_catalogue = QuestionCatalogue.objects.get(pk=self.kwargs['catalogue_pk'])
         form.save()
-        return super(CreateQuestion, self).form_valid(form)
+        return super(CreateQuestionView, self).form_valid(form)
 
     def get_success_url(self):
         return reverse('questions_list', args=[self.kwargs['catalogue_pk']])

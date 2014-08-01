@@ -1,3 +1,4 @@
+from unittest import skip
 from django.test import Client
 from rest_framework import status
 from rest_framework.test import APITestCase, APIClient
@@ -12,8 +13,11 @@ class QuestionCatalogueViewTests(APITestCase):
     client = None
     CATALOG_PATH = '/dashboard/questions/'
     CATALOG_PATH_CREATE = '/dashboard/questions/create/'
-    CATALOG_PATH_DELETE = '/dashboard/questions/delete/%d/'
+    CATALOG_PATH_DELETE = '/dashboard/questions/%d/delete/'
     CATALOG_PATH_UPDATE = '/dashboard/questions/%d/update/'
+    QUESTION_PATH_CREATE = '/dashboard/questions/%d/create_question/'
+    QUESTION_PATH_DELETE = '/dashboard/questions/%d/delete_question/%d/'
+    QUESTION_PATH_UPDATE = '/dashboard/questions/%d/update_question/%d/'
     CATALOG_PATH_WITH_PRIVATE_SCOPE = CATALOG_PATH + '?scope=private'
 
     def setUp(self):
@@ -29,6 +33,7 @@ class QuestionCatalogueViewTests(APITestCase):
         # QuestionCatalogueViewTests._create_questions(QuestionCatalogue.objects.get(pk=11), 5)
         # QuestionCatalogueViewTests._create_questions(QuestionCatalogue.objects.get(pk=12), 6)
 
+    @skip("Not implemented yet")
     def test_unauthenticated_user(self):
         response = self.client.get(self.CATALOG_PATH)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
@@ -71,6 +76,31 @@ class QuestionCatalogueViewTests(APITestCase):
         updated_catalogue = QuestionCatalogue.objects.get(pk=1)
         self.assertEqual(updated_catalogue.catalogue_name, "test")
 
+    def test_user_can_add_a_question_in_a_catalogue(self):
+        self._log_in_dummy_user('user_1', 'password')
+        response = self.client.post(self.QUESTION_PATH_CREATE % 1, {'question_text': 'question'}, follow=True,
+                                    HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEqual(Question.objects.filter(question_catalogue=1).count(), 11)
+        self.assertEqual(len(response.context['question_list']), 11)
+
+    def test_user_can_delete_a_question_in_a_catalogue(self):
+        self._log_in_dummy_user('user_1', 'password')
+        response = self.client.post(self.QUESTION_PATH_DELETE % (1, 1),{}, follow=True,
+                                    HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        print self.QUESTION_PATH_DELETE % (1, 1)
+        print response
+        self.assertEqual(Question.objects.filter(question_catalogue=1).count(), 9)
+        self.assertEqual(len(response.context['question_list']), 9)
+
+
+    def test_user_can_update_a_question_in_a_catalogue(self):
+        self._log_in_dummy_user('user_1', 'password')
+        response = self.client.post(self.QUESTION_PATH_UPDATE % (1, 1), {'question_text': 'question'}, follow=True,
+                                    HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEqual(Question.objects.filter(question_catalogue=1).count(), 10)
+        self.assertEqual(len(response.context['question_list']), 10)
+        updated_question = Question.objects.get(pk=1)
+        self.assertEqual(updated_question.question_text, "question")
 
     # ############################################################
     #                          PRIVATE                          #
