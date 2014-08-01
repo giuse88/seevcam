@@ -6,11 +6,11 @@
 
 
         $(document).pjax('a.pjax', '#container');
-        $(document).on('submit', 'form', function (event) {
-            event.preventDefault();
-            console.log("submit");
-            $.pjax.submit(event, '#container')
-        })
+//        $(document).on('submit', 'form', function (event) {
+//            event.preventDefault();
+//            console.log("submit");
+//            $.pjax.submit(event, '#container')
+//        })
         console.log("Pjax activated");
 
         $.ajaxSetup({
@@ -79,6 +79,35 @@
                 url: $(this).attr('href'),
                 container: container,
                 push:true
+            })
+        });
+
+
+        $('#container').on('click', 'a.update', function (event) {
+            event.preventDefault();
+            var value = $(this).siblings('.catalogue').text().trim();
+            var href = $(this).siblings('.catalogue').attr('href');
+            // TODO use a template
+            var url_parsed = UTILS.url_parser(href);
+            href = url_parsed.pathname + 'update/'
+            var inputHTML= '' +
+                '<form id="update-catalogue-form" class="input-group " action="' + href + '">' +
+                    '<input type="text" value="' + value +'" class="form-control">' +
+                    '<button class="btn btn-default" type="submit">Update</button>' +
+                '</form>'
+            $(this).parent('li').html(inputHTML)
+        });
+
+        $('#container').on('submit', '#update-catalogue-form', function (event) {
+            event.preventDefault();
+            var url = $(this).attr('action');
+            var text = $(this).children(':input').val();
+            $.pjax({
+                type: 'POST',
+                url: url,
+                container: '#catalogue',
+                push:false,
+                data: {'catalogue_name': text}
             })
         });
 

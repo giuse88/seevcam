@@ -151,9 +151,17 @@ class CreateQuestion(LoginRequired, AJAXPost, CreateView):
         return reverse('questions_list', args=[self.kwargs['catalogue_pk']])
 
 
-class DeleteQuestionView(LoginRequired, AJAXPost, DeleteView):
-    pass
+class DeleteQuestionView(LoginRequired, AJAXPost, BaseDeleteView):
+    model = Question
+
+    def get_success_url(self):
+        return reverse('questions_list', args=[self.kwargs['catalogue_pk']])
 
 
 class UpdateQuestionView(LoginRequired, AJAXPost, UpdateView):
-    pass
+    fields = ('question_text',)
+    model = Question
+    template_name = 'questions-list-pjax.html'
+
+    def get_success_url(self):
+        return reverse('questions_list', args=[self.kwargs['catalogue_pk']])

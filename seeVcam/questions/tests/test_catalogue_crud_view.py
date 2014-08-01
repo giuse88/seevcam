@@ -13,7 +13,7 @@ class QuestionCatalogueViewTests(APITestCase):
     CATALOG_PATH = '/dashboard/questions/'
     CATALOG_PATH_CREATE = '/dashboard/questions/create/'
     CATALOG_PATH_DELETE = '/dashboard/questions/delete/%d/'
-    CATALOG_PATH_UPDATE = '/dashboard/questions/update/%d/'
+    CATALOG_PATH_UPDATE = '/dashboard/questions/%d/update/'
     CATALOG_PATH_WITH_PRIVATE_SCOPE = CATALOG_PATH + '?scope=private'
 
     def setUp(self):

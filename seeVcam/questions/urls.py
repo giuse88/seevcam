@@ -24,9 +24,10 @@ urlpatterns = patterns('',
                        url(r'^$', CatalogueView.as_view(), name='catalogues'),
                        url(r'^create/',CreateCatalogueView.as_view(), name='catalogue_create'),
                        url(r'^delete/(?P<pk>\d+)/$', DeleteCatalogueView.as_view(), name='catalogue_delete'),
-                       url(r'^update/(?P<pk>\d+)/$', UpdateCatalogueView.as_view(), name='catalogue_update'),
+                       url(r'^(?P<pk>\d+)/update/$', UpdateCatalogueView.as_view(), name='catalogue_update'),
                        #TODO refactoring update name to conform to the catalogue model
                        url(r'^(?P<catalogue_pk>[0-9]+)/$', CatalogueViewList.as_view(), name='questions_list'),
-                       url(r'^(?P<catalogue_pk>[0-9]+)/create_question/', CreateQuestion.as_view(), name='create_question'),
-                       url(r'^(?P<catalogue_pk>[0-9]+)/update_question/', CreateQuestion.as_view(), name='update_question'),
+                       url(r'^(?P<catalogue_pk>[0-9]+)/create_question/', CreateQuestion.as_view(), name='question_create'),
+                       url(r'^(?P<catalogue_pk>[0-9]+)/update_question/(?P<pk>\d+)/$', CreateQuestion.as_view(), name='question_update'),
+                       url(r'^(?P<catalogue_pk>[0-9]+)/delete_question/(?P<pk>\d+)/$', CreateQuestion.as_view(), name='question_delete'),
                        )
