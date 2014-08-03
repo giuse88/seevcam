@@ -20,7 +20,7 @@
                             <span  class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a class="pjax" href="{% url "user_profile" %}">User Profile</a></li>
+                            <li><a class="pjax" href="{% url "profile_update" request.user.id %}  ">User Profile</a></li>
                             <li class="divider"></li>
                             <li><a href="{% url "logout" %}">Logout</a></li>
                         </ul>

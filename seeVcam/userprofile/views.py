@@ -1,12 +1,9 @@
-from django.contrib.auth.decorators import login_required
-from django.core.exceptions import PermissionDenied
+from django.core.urlresolvers import reverse
 from django.http import Http404
-from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 from django.views.generic import UpdateView
 from authentication.models import SeevcamUser
-from django.shortcuts import render, redirect
-from common.mixins.authorization import LoginRequired
+from common.mixins.authorization import LoginRequired, IsOwnerOr404
 from common.mixins.pjax import PJAXResponseMixin
 from userprofile.forms import UserprofileForm, NotificationForm
 from userprofile.models import UserNotifications
@@ -16,31 +13,26 @@ class UserProfileView(LoginRequired, PJAXResponseMixin, TemplateView):
     template_name = 'profile.html'
 
 
-class UserProfileUpdate(UpdateView):
+class UserProfileUpdate(LoginRequired, IsOwnerOr404, PJAXResponseMixin, UpdateView):
     form_class = UserprofileForm
     model = SeevcamUser
-    # user_id = self.request
-    # success_url = '/dashboard/profile/'
-    # fields = ['username', 'email', 'first_name', 'last_name', 'job_title', 'picture']
-    template_name = 'profile_update.html'
+    template_name = "profile.html"
+    pjax_template_name = "profile-update.html"
 
-    def get_object(self, *args, **kwargs):
-        obj = super(UserProfileUpdate, self).get_object(*args, **kwargs)
-        if not obj == self.request.user:
-            raise Http404
-        return obj
-
+    def get_template_names(self):
+        if self.request.GET.get('_pjax', None) == '#container':
+            self.pjax_template_name = None
+        return super(UserProfileUpdate, self).get_template_names()
 
     def get_success_url(self):
-        success_url = '/dashboard/profile/' + str(self.request.user.pk) + '/update/'
-        return success_url
+        return reverse('profile_update', args=[self.request.user.pk])
 
 
-class UserProfileNotifications(UpdateView):
-    form_class = NotificationForm
-    model = UserNotifications
-    template_name = 'profile_notifications.html'
+class UserProfileNotifications(LoginRequired, PJAXResponseMixin, TemplateView):
+    template_name = "profile.html"
+    pjax_template_name = "profile-notifications.html"
 
 
-class UserProfileSettings(TemplateView):
-    template_name = 'registration/password_change_form.html'
+class UserProfileSettings(LoginRequired, PJAXResponseMixin, TemplateView):
+    template_name = 'profile.html'
+    pjax_template_name = "profile-settings.html"

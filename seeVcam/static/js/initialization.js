@@ -104,7 +104,6 @@
             var url = $(this).attr('action');
             var current_item_id = window.location.pathname.split("/")[3];
             var updated_item_id = url.split("/")[3];
-            debugger
             if ( current_item_id === updated_item_id)
                 container = "#container"
             var text = $(this).children(':input').val();
@@ -114,6 +113,19 @@
                 container: container,
                 push:false,
                 data: {'catalogue_name': text}
+            })
+        });
+
+        $('#container').on('click', 'a.profile',function(event){
+            event.preventDefault();
+            debugger;
+            var container = "#profile-content";
+            var url = $(this).attr('href');
+            $.pjax({
+                type: 'GET',
+                url: url,
+                container: container,
+                push:true
             })
         });
 
