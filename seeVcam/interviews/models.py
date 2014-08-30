@@ -3,13 +3,6 @@ from django.conf import settings
 
 
 class Interview(models.Model):
-    interview_owner = models.ForeignKey(settings.AUTH_USER_MODEL, null=True)
-    #Job spec
-    #interview time
+    interview_owner = models.ForeignKey(settings.AUTH_USER_MODEL, null=False, )
+    is_interview_open = models.BooleanField(null=False, blank=False)
 
-
-class Candidate(models.Model):
-    #Candidate name
-    #Candidate email
-    #Candidate cv
-    pass
