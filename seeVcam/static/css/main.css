@@ -1,0 +1,14 @@
+.wrap {
+    background: url(../img/background_textureGray.gif) #ececec;
+    clear: both;
+    overflow: hidden;
+}
+
+.errorlist {
+    padding: 0;
+    color: #a94442;;
+}
+.errorlist li {
+    list-style-type: none;
+}
+

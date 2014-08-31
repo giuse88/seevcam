@@ -46,7 +46,7 @@ class QuestionCatalogueViewTests(APITestCase):
         response = self.client.get(self.CATALOG_PATH)
         self._verify_get_catalogue(response, "test_user_2", 5)
 
-    @skip("This test is meant to be used when the scope feature is activated")
+    @skip("This tests is meant to be used when the scope feature is activated")
     def test_user_can_access_his_catalogue_list_using_private_scope(self):
         # user 1
         self.client.force_authenticate(user=self.user_1)
@@ -201,7 +201,7 @@ class QuestionCatalogueViewTests(APITestCase):
 
     def test_user_cannot_create_catalogues_in_the_seevcam_scope(self):
         self.client.force_authenticate(user=self.user_1)
-        data = {"catalogue_name": "test", "catalogue_scope": QuestionCatalogue.SEEVCAM_SCOPE}
+        data = {"catalogue_name": "tests", "catalogue_scope": QuestionCatalogue.SEEVCAM_SCOPE}
         response = self.client.post(self.SEEVCAM_CATALOGUE_PATH, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
@@ -226,7 +226,7 @@ class QuestionCatalogueViewTests(APITestCase):
 
     @staticmethod
     def _create_user(username, admin=False):
-        user = SeevcamUser(username=username, email='test@email.com')
+        user = SeevcamUser(username=username, email='tests@email.com')
         user.is_staff = admin
         user.save()
         return user

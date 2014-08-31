@@ -53,7 +53,7 @@ class QuestionCatalogueViewTests(APITestCase):
 
     def test_user_can_add_a_new_catalogue_to_his_list(self):
         self._log_in_dummy_user('user_1', 'password')
-        response = self.client.post(self.CATALOG_PATH_CREATE, {'catalogue_name': 'test'}, follow=True,
+        response = self.client.post(self.CATALOG_PATH_CREATE, {'catalogue_name': 'tests'}, follow=True,
                                     HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertEqual(len(response.context['questioncatalogue_list']), 11)
         self.assertEqual(QuestionCatalogue.objects.filter(catalogue_owner=self.user_1).count(), 11)
@@ -68,13 +68,13 @@ class QuestionCatalogueViewTests(APITestCase):
 
     def test_user_can_update_a_catalogue(self):
         self._log_in_dummy_user('user_1', 'password')
-        response = self.client.post(self.CATALOG_PATH_UPDATE % 1, {'catalogue_name': 'test'}, follow=True,
+        response = self.client.post(self.CATALOG_PATH_UPDATE % 1, {'catalogue_name': 'tests'}, follow=True,
                                     HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertEqual(QuestionCatalogue.objects.filter(catalogue_owner=self.user_1).count(), 10)
         self.assertEqual(len(response.context['questioncatalogue_list']), 10)
-        self.assertEqual(response.context['questioncatalogue_list'][0].catalogue_name, "test")
+        self.assertEqual(response.context['questioncatalogue_list'][0].catalogue_name, "tests")
         updated_catalogue = QuestionCatalogue.objects.get(pk=1)
-        self.assertEqual(updated_catalogue.catalogue_name, "test")
+        self.assertEqual(updated_catalogue.catalogue_name, "tests")
 
     def test_user_can_add_a_question_in_a_catalogue(self):
         self._log_in_dummy_user('user_1', 'password')

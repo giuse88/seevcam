@@ -22,6 +22,7 @@ THIRD_PARTY_APPS = (
     'rest_framework',
     'easy_pjax',
     'django_countries',
+    'widget_tweaks'
 )
 
 LOCAL_APPS = (

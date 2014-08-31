@@ -25,8 +25,10 @@
         {% include "dashboard-navigation.html" %}
     {% endblock navigation_bar %}
 
-     <div id="container">
-        {% block content %} Content {% endblock content %}
+    <div id="content-wrap">
+        <div id="container">
+            {% block content %} Content {% endblock content %}
+        </div>
     </div>
 
     {#Communication from the server to the client #}
