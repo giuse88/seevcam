@@ -81,6 +81,8 @@ USE_L10N = True
 
 USE_TZ = True
 
+DATE_INPUT_FORMATS = ('%d-%m-%Y')
+
 DASHBOARD_URL = '/dashboard/'
 LOGIN_URL = '/'
 LOGIN_REDIRECT_URL = DASHBOARD_URL
