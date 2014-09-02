@@ -30,6 +30,7 @@ class TestInterviewModel(TestCase):
         self.assertEqual(interview.candidate_surname, db_interview.candidate_surname)
         self.assertEqual(interview.candidate_email, db_interview.candidate_email)
         self.assertEqual(interview.candidate_cv, db_interview.candidate_cv)
+        self.assertEqual(db_interview.interview_status, Interview.OPEN)
 
     def test_interview_creation_with_catalogue(self):
         interview = Interview(pk=1, interview_owner=self.user_1,

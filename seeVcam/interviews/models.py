@@ -5,10 +5,20 @@ from questions.models import QuestionCatalogue
 
 
 class Interview(models.Model):
-    # Hidden
+
+    # ask in stack overflow
+    ONGOING = 'ONGOING'
+    OPEN = 'OPEN'
+    CLOSED = 'CLOSED'
+    STATUS = (
+        (ONGOING, 'ongoing'),
+        (CLOSED, 'closed'),
+        (OPEN, 'open'),
+    )
+    interview_status = models.CharField(max_length=255, choices=STATUS, default=OPEN, null=False,
+                                       blank=False)
     interview_owner = models.ForeignKey(settings.AUTH_USER_MODEL, null=False, blank=False)
-    # this must become interview status
-    is_interview_open = models.BooleanField(null=False, blank=False, default=False)
+
 
     interview_date = models.DateField(null=False, blank=False)
     interview_time = models.TimeField(null=False, blank=False)
