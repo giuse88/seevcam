@@ -1,7 +1,12 @@
 from StringIO import StringIO
+from django.core.files.uploadedfile import SimpleUploadedFile
+
 from django.test import TestCase
 from django.conf import settings
+from rest_framework import status
+
 from authentication.models import SeevcamUser
+from interviews.models import Interview
 from questions.models import QuestionCatalogue
 
 
@@ -12,7 +17,8 @@ class InterviewFormTest(TestCase):
     def setUp(self):
         self.user_1 = self._create_dummy_user('user_1', 'test')
         self.user_2 = self._create_dummy_user('user_2', 'test')
-        self.test_file = self._create_file()
+        self.file_cv = self._create_upload_file()
+        self.file_job = self._create_upload_file()
         self.catalogue = self._create_dummy_catalogue("test", self.user_1)
 
     def test_user_can_create_an_interview(self):
@@ -21,16 +27,17 @@ class InterviewFormTest(TestCase):
             'candidate_email': "test@email.it",
             'candidate_name': "name",
             'candidate_surname': "surname",
-            'candidate_cv': self.test_file,
-            'interview_job_description': self.test_file,
+            'candidate_cv': self.file_cv,
+            'interview_job_description': self.file_job,
             'interview_catalogue': self.catalogue.id,
             'interview_description': "test",
             'interview_date': '2014-12-23',
             'interview_time': "11:30"
         }
         response = self.client.post(self.INTERVIEW_CREATE, data, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
-        print response.status_code
-        print response
+        self.assertEqual(response.status_code, status.HTTP_302_FOUND)
+        self.assertEqual(Interview.objects.count(), 1)
+        self.assertEqual(Interview.objects.get(pk=1).candidate_name, "name")
 
     def test_data_validation(self):
         pass
@@ -38,15 +45,12 @@ class InterviewFormTest(TestCase):
     def test_time_validation(self):
         pass
 
-    #Private
 
-    def _create_file(self):
-        test_file = StringIO('GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
-                             '\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;'
-                             '\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;'
-                             '\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
-        test_file.name = 'test.bin'
-        return test_file
+    #Private
+    def _create_upload_file(self):
+        raw_content = StringIO('GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
+                     '\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
+        return SimpleUploadedFile("test.txt", raw_content.read())
 
     def _log_in_dummy_user(self, username, password):
         self.client.post(settings.LOGIN_URL, {'username': username, 'password': password})
