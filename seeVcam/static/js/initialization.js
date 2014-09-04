@@ -133,7 +133,6 @@
             $('.scroll-pane').jScrollPane({
                 autoReinitialise: true
             });
-
         });
 
         $(document).on('pjax:complete', function () {
