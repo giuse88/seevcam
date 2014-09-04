@@ -1,3 +1,248 @@
+body {
+    font-size: 13px;
+}
+
+/** Adjusting Bootstrap classes */
+.container {
+    max-width: 1000px;
+}
+
+.panel-default > .panel-heading {
+    background-color: #F5F5F5;
+    background-image: none;
+    box-shadow: none;
+}
+
+.panel-heading h3 {
+    font-weight: bold;
+}
+
+label {
+    color: #666666;
+}
+
+[type=text],
+[type=password],
+[type=email],
+select.form-control {
+    background-color: #fafafa;
+    border-radius: 3px;
+}
+
+.list-group-item {
+    background-color: #fafafb;
+    border-top: 1px solid white;
+    border-bottom: 1px solid #eeeeee;
+    margin-bottom: auto;
+}
+
+a.list-group-item.active {
+    border-bottom-color: #eeeeee;
+    border-left: 2px solid #d26911 !important;
+    background-image: none;
+    background-color: #ffffff;
+    color: black;
+    text-shadow: none;
+    font-weight: bold;
+    cursor: default;
+}
+
+a.list-group-item.active:focus,
+a.list-group-item.active:hover {
+    background-image: none;
+    background-color: inherit;
+    border-bottom-color: #eeeeee;
+    color: black;
+    text-shadow: none;
+}
+
+a.list-group-item:hover,
+a.list-group-item:focus {
+    background-color: #fdfdfe;
+}
+
+/** Create Catalog Section */
+
+.create-interview-catalog-section {
+    margin-left: 20px;
+}
+
+.create-interview-catalog-section .panel {
+    background-color: white;
+    border: 1px solid #d0d0d0;
+    box-shadow: none;
+    border-radius: 0;
+}
+
+.create-interview-catalog-section .panel-heading {
+    background-color: #0f73c2;
+    color: white;
+    padding: 3px;
+    border-radius: 0;
+}
+
+.create-interview-catalog-section .panel-heading h4 {
+    margin: 0;
+    font-size: 16px;
+    height: 25px;
+    line-height: 25px;
+}
+
+.btn-panel {
+    color: white;
+    border-right: 1px solid #2782c3;
+    line-height: 25px;
+    height: 25px;
+    vertical-align: middle;
+    padding: 0 10px;
+}
+
+.catalog-labels ul {
+    margin: 0;
+    padding: 5px 0;
+    font-size: 0;
+}
+
+.catalog-labels li {
+    position: relative;
+    display: inline-block;
+    line-height: 15px;
+    font-size: 10px;
+    margin: 0 3px 0 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 0 7px 0 4px;
+    border-width: 1px 0;
+    border-radius: 0 2px 2px 0;
+    border-style: solid;
+}
+
+.catalog-labels li:before {
+    left: -7px;
+    top: -1px;
+    position: absolute;
+    content: " ";
+    background-image: url(../images/UI/label-mask.png);
+    width: 7px;
+    height: 17px;
+}
+
+.label-red {
+    background-color: #eb372d;
+    color: white;
+    border-color: #ee5e58;
+}
+
+.label-red:before {
+    background-color: #eb372d;
+}
+
+.label-blue {
+    background-color: #0f73c2;
+    color: white;
+    border-color: #5c94ce;
+}
+
+.label-blue:before {
+    background-color: #0f73c2;
+}
+
+.catalogs-list {
+    border-bottom: 1px solid #e6e6e6;
+    border-top: 1px solid #e6e6e6;
+    padding: 5px 0;
+    margin-bottom: 45px;
+}
+
+.catalogs-list ul {
+    display: block;
+    margin: 0 5px 0 0;
+    list-style: none;
+    height: 155px;
+    overflow: auto;
+}
+
+.catalogs-list li {
+    padding: 0 5px;
+    display: block;
+    overflow: auto;
+}
+
+.catalogs-list li a {
+    display: block;
+    line-height: 16px;
+    height: 16px;
+    font-size: 14px;
+    margin: 5px 0;
+    padding: 0 5px;
+    color: black;
+    text-decoration: none;
+    border-left-width: 6px;
+    border-left-style: solid;
+}
+
+.catalog-red a {
+    border-left-color: #eb372d;
+}
+
+.catalog-blue a {
+    border-left-color: #0f73c2;
+}
+
+.catalog-count {
+    font-size: 8px;
+    color: #928986;
+}
+
+.questions-list {
+    border-bottom: 1px solid #e6e6e6;
+    border-top: 1px solid #e6e6e6;
+}
+
+.questions-list ul {
+    padding: 0 10px;
+    margin: 5px 5px 5px 0;
+    height: 225px;
+}
+
+.questions-list li {
+    list-style: none;
+    max-width: 450px;
+}
+
+.questions-list li a {
+    color: #333f4d;
+    font-size: 14px;
+    text-decoration: none;
+    display: block;
+    padding: 0 10px;
+    line-height: 25px;
+    height: 25px;
+    border-bottom: 1px solid #d6d6d6;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+	overflow: hidden;
+}
+
+.questions-list li a:hover {
+    background-color: #efefef;
+}
+
+.jspVerticalBar {
+    width: 6px;
+    box-sizing: border-box;
+}
+
+.jspDrag {
+    background-color: #b5b5b5;
+}
+
+.jspTrack {
+    background-color: #e8e8e8;
+}
+
+/** End Create Catalog Section */
+
 .wrap {
     background: url(../img/background_textureGray.gif) #ececec;
     clear: both;
@@ -8,6 +253,7 @@
     padding: 0;
     color: #a94442;;
 }
+
 .errorlist li {
     list-style-type: none;
 }

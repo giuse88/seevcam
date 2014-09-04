@@ -1,12 +1,15 @@
 {
-  "name": "SeeVcam",
-  "description": "SeeVcam project front-end",
-  "version": "0.0.1",
-  "private": true,
-  "dependencies": {
-    "html5-boilerplate": "~4.3.0",
-    "bootstrap": "3.2.0",
-    "jquery" : "2.1.1",
-    "jquery-pjax": "1.9.2"
-  }
+    "name": "SeeVcam",
+    "description": "SeeVcam project front-end",
+    "version": "0.0.1",
+    "private": true,
+    "dependencies": {
+        "html5-boilerplate": "~4.3.0",
+        "bootstrap": "3.2.0",
+        "jquery": "2.1.1",
+        "jquery-pjax": "1.9.2",
+        "jquery-mousewheel": "3.1.12",
+        "jquery.jscrollpane": "2.0.14",
+        "bootstrap-form-helpers": "2.3.0"
+    }
 }

@@ -1,132 +1,182 @@
+{% load interviews_filters %}
 {% load widget_tweaks %}
 
-<form  class="form-horizontal" enctype="multipart/form-data" action="" method="post" role="form">
+<h1>New Interview</h1>
+
+<form class="form-horizontal" enctype="multipart/form-data" action="" method="post" role="form">
     {% csrf_token %}
 
     {{ form.non_field_errors }}
 
-    {#    TODO this should be a filter#}
-    <div class="form-group {% if form.candidate_name.errors %} has-error {% endif %}" >
-            <label class="control-label col-xs-3" for="{{  form.candidate_name.id_for_label }}">
-                {{ form.candidate_name.label }}
-            </label>
-            <div class="col-xs-9 ">
-                {{ form.candidate_name|add_class:"form-control"}}
-                <div class="error-form">
-                    {{ form.candidate_name.errors }}
-                </div>
-            </div>
-        </div>
+    <div class="row">
+        <div class="col-lg-6">
 
-    <div class="form-group {% if form.candidate_surname.errors %} has-error {% endif %}" >
-        <label class="control-label col-xs-3" for="{{  form.candidate_surname.id_for_label }}">
-            {{ form.candidate_surname.label }}
-        </label>
-        <div class="col-xs-9 ">
-            {{ form.candidate_surname|add_class:"form-control"}}
-            <div class="error-form">
-                {{ form.candidate_surname.errors }}
-            </div>
-        </div>
-    </div>
+            {% interviews_field form.candidate_name %}
+            {% interviews_field form.candidate_surname %}
+            {% interviews_field form.candidate_email %}
 
-    <div class="form-group {% if form.candidate_email.errors %} has-error {% endif %}" >
-        <label class="control-label col-xs-3" for="{{  form.candidate_email.id_for_label }}">
-            {{ form.candidate_email.label }}
-        </label>
-        <div class="col-xs-9 ">
-            {{ form.candidate_email|add_class:"form-control"}}
-            <div class="error-form">
-                {{ form.candidate_email.errors }}
-            </div>
-        </div>
-    </div>
+            <div class="form-group {% if form.candidate_cv.errors %} has-error {% endif %}">
+                <label class="control-label col-xs-3" for="{{ form.candidate_cv.id_for_label }}">
+                    {{ form.candidate_cv.label }}
+                </label>
 
-    <div class="form-group {% if form.candidate_cv.errors %} has-error {% endif %}" >
-        <label class="control-label col-xs-3" for="{{  form.candidate_cv.id_for_label }}">
-            {{ form.candidate_cv.label }}
-        </label>
-        <div class="col-xs-9 ">
-            {{ form.candidate_cv}}
-            <div class="error-form">
-                {{ form.candidate_cv.errors }}
-            </div>
-        </div>
-    </div>
-
-    <hr>
-        <div class="row">
-            <div class="col-xs-6">
-                <div class="form-group {% if form.interview_date.errors %} has-error {% endif %}" >
-                    <label class="control-label col-xs-3" for="{{  form.interview_date.id_for_label }}">
-                        {{ form.interview_date.label }}
-                    </label>
-                    <div class="col-xs-9 ">
-                        {{ form.interview_date|add_class:"form-control"}}
-                        <div class="error-form">
-                        {{ form.interview_date.errors }}
-                        </div>
+                <div class="col-xs-9 ">
+                    {{ form.candidate_cv }}
+                    <div class="error-form">
+                        {{ form.candidate_cv.errors }}
                     </div>
                 </div>
             </div>
-            <div class="col-xs-6">
-                <div class="form-group {% if form.interview_time.errors %} has-error {% endif %}" >
-                    <label class="control-label col-xs-3" for="{{  form.interview_time.id_for_label }}">
-                        {{ form.interview_time.label }}
-                    </label>
-                    <div class="col-xs-9 ">
-                        {{ form.interview_time|add_class:"form-control"}}
-                        <div class="error-form">
-                            {{ form.interview_time.errors }}
-                        </div>
+
+            <hr/>
+
+            <div class="row">
+                <div class="col-lg-5">
+                    {% datepicker_field form.interview_date %}
+                </div>
+                <div class="col-lg-5 col-lg-offset-2">
+                    {% timepicker_field form.interview_time %}
+                </div>
+            </div>
+
+            <hr/>
+
+            <div class="form-group {% if form.interview_job_description.errors %} has-error {% endif %}">
+                <label class="control-label col-xs-3" for="{{ form.interview_job_description.id_for_label }}">
+                    {{ form.interview_job_description.label }}
+                </label>
+
+                <div class="col-xs-9 ">
+                    {{ form.interview_job_description }}
+                    <div class="error-form">
+                        {{ form.interview_job_description.errors }}
                     </div>
                 </div>
             </div>
-        </div>
-    <hr>
 
-    <div class="form-group {% if form.interview_catalogue.errors %} has-error {% endif %}" >
-        <label class="control-label col-xs-3" for="{{  form.interview_catalogue.id_for_label }}">
-            {{ form.interview_catalogue.label }}
-        </label>
-        <div class="col-xs-9 ">
-            {{ form.interview_catalogue|add_class:"form-control"}}
-            <div class="error-form">
-                {{ form.interview_catalogue.errors }}
+            {% interviews_field form.interview_description %}
+
+
+            <div class="form-group {% if form.interview_catalogue.errors %} has-error {% endif %}">
+                <label class="control-label col-xs-3" for="{{ form.interview_catalogue.id_for_label }}">
+                    {{ form.interview_catalogue.label }}
+                </label>
+
+                <div class="col-xs-9 ">
+                    {{ form.interview_catalogue|add_class:"form-control" }}
+                    <div class="error-form">
+                        {{ form.interview_catalogue.errors }}
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
 
-    <hr>
+            <hr/>
 
-    <div class="form-group {% if form.interview_job_description.errors %} has-error {% endif %}" >
-        <label class="control-label col-xs-3" for="{{  form.interview_job_description.id_for_label }}">
-            {{ form.interview_job_description.label }}
-        </label>
-        <div class="col-xs-9 ">
-            {{ form.interview_job_description}}
-            <div class="error-form">
-                {{ form.interview_job_description.errors }}
+            <div class="">
+                <input class="btn btn-primary" type="submit" value="Create"/>
             </div>
-        </div>
-    </div>
 
-    <div class="form-group {% if form.interview_description.errors %} has-error {% endif %}" >
-        <label class="control-label col-xs-3" for="{{  form.interview_description.id_for_label }}">
-            {{ form.interview_description.label }}
-        </label>
-        <div class="col-xs-9 ">
-            {{ form.interview_description|add_class:"form-control"}}
-            <div class="error-form">
-                {{ form.interview_description.errors }}
+        </div>
+        <div class="col-lg-6">
+            <div class="create-interview-catalog-section">
+                <div class="row">
+                    <div class="panel">
+                        <div class="catalogs-picker">
+                            <div class="catalog-labels">
+                                <ul>
+                                    <li class="label-red">seeVcam</li>
+                                    <li class="label-blue">Library</li>
+                                </ul>
+                            </div>
+
+                            <div class="catalogs-list">
+                                <ul class="scroll-pane">
+                                    <li class="catalog-red"><a href="#">Common HR<span class="catalog-count">(17)</span></a>
+                                    </li>
+                                    <li class="catalog-red"><a href="#">French Worker<span
+                                            class="catalog-count">(12)</span></a></li>
+                                    <li class="catalog-blue"><a href="#">Human Qualities<span
+                                            class="catalog-count">(14)</span></a></li>
+                                    <li class="catalog-blue"><a href="#">Channel Manager<span
+                                            class="catalog-count">(14)</span></a></li>
+                                    <li class="catalog-blue"><a href="#">Marketing<span
+                                            class="catalog-count">(14)</span></a></li>
+                                    <li class="catalog-blue"><a href="#">Business Development<span
+                                            class="catalog-count">(14)</span></a></li>
+                                    <li class="catalog-blue"><a href="#">Human Qualities<span
+                                            class="catalog-count">(14)</span></a></li>
+                                    <li class="catalog-blue"><a href="#">Channel Manager<span
+                                            class="catalog-count">(14)</span></a></li>
+                                    <li class="catalog-blue"><a href="#">Marketing<span
+                                            class="catalog-count">(14)</span></a></li>
+                                    <li class="catalog-blue"><a href="#">Business Development<span
+                                            class="catalog-count">(14)</span></a></li>
+                                    <li class="catalog-blue"><a href="#">Human Qualities<span
+                                            class="catalog-count">(14)</span></a></li>
+                                    <li class="catalog-blue"><a href="#">Channel Manager<span
+                                            class="catalog-count">(14)</span></a></li>
+                                    <li class="catalog-blue"><a href="#">Marketing<span
+                                            class="catalog-count">(14)</span></a></li>
+                                    <li class="catalog-blue"><a href="#">Business Development<span
+                                            class="catalog-count">(14)</span></a></li>
+                                    <li class="catalog-blue"><a href="#">Human Qualities<span
+                                            class="catalog-count">(14)</span></a></li>
+                                    <li class="catalog-blue"><a href="#">Channel Manager<span
+                                            class="catalog-count">(14)</span></a></li>
+                                    <li class="catalog-blue"><a href="#">Marketing<span
+                                            class="catalog-count">(14)</span></a></li>
+                                    <li class="catalog-blue"><a href="#">Business Development<span
+                                            class="catalog-count">(14)</span></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="panel">
+                        <div class="panel-heading clearfix">
+                            <div class="btn-group pull-left">
+                                <a href="#" class="btn btn-panel btn-sm">Edit</a>
+                            </div>
+                            <div class="btn-group pull-right">
+                                <a href="#" class="btn btn-panel btn-sm">A</a>
+                                <a href="#" class="btn btn-panel btn-sm">B</a>
+                                <a href="#" class="btn btn-panel btn-sm">C</a>
+                            </div>
+                            <h4>Channel Manager</h4>
+                        </div>
+                        <div class="questions-list">
+                            <ul class="scroll-pane">
+                                <li>
+                                    <a href="#"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod est magna, nec pellentesque sapien ultricies ut.</span></a>
+                                    <a href="#"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod est magna, nec pellentesque sapien ultricies ut.</span></a>
+                                    <a href="#"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod est magna, nec pellentesque sapien ultricies ut.</span></a>
+                                    <a href="#"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod est magna, nec pellentesque sapien ultricies ut.</span></a>
+                                    <a href="#"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod est magna, nec pellentesque sapien ultricies ut.</span></a>
+                                    <a href="#"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod est magna, nec pellentesque sapien ultricies ut.</span></a>
+                                    <a href="#"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod est magna, nec pellentesque sapien ultricies ut.</span></a>
+                                    <a href="#"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod est magna, nec pellentesque sapien ultricies ut.</span></a>
+                                    <a href="#"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod est magna, nec pellentesque sapien ultricies ut.</span></a>
+                                    <a href="#"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod est magna, nec pellentesque sapien ultricies ut.</span></a>
+                                    <a href="#"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod est magna, nec pellentesque sapien ultricies ut.</span></a>
+                                    <a href="#"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod est magna, nec pellentesque sapien ultricies ut.</span></a>
+                                    <a href="#"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod est magna, nec pellentesque sapien ultricies ut.</span></a>
+                                    <a href="#"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod est magna, nec pellentesque sapien ultricies ut.</span></a>
+                                    <a href="#"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod est magna, nec pellentesque sapien ultricies ut.</span></a>
+                                    <a href="#"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod est magna, nec pellentesque sapien ultricies ut.</span></a>
+                                    <a href="#"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod est magna, nec pellentesque sapien ultricies ut.</span></a>
+                                    <a href="#"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod est magna, nec pellentesque sapien ultricies ut.</span></a>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
             </div>
+
         </div>
     </div>
 
-    <hr>
-
-    <div class="">
-        <input class="btn btn-primary" type="submit" value="Create" />
-    </div>
 
 </form>

@@ -56,7 +56,7 @@
             event.preventDefault();
             $.pjax({
                 type: 'POST',
-                url: window.location.pathname + 'create_question/' ,
+                url: window.location.pathname + 'create_question/',
                 container: '#list',
                 push: false,
                 data: {'question_text': $('#new-question').val()},
@@ -71,14 +71,14 @@
             var container = "#catalogue"
             var current_item_id = window.location.pathname.split("/")[3];
             var deleted_item_id = $(this).attr('href').split("/")[4];
-            if ( current_item_id === deleted_item_id)
+            if (current_item_id === deleted_item_id)
                 container = "#container"
             event.preventDefault();
             $.pjax({
                 type: 'POST',
                 url: $(this).attr('href'),
                 container: container,
-                push:true
+                push: true
             })
         });
 
@@ -90,10 +90,10 @@
             // TODO use a template
             var url_parsed = UTILS.url_parser(href);
             href = url_parsed.pathname + 'update/'
-            var inputHTML= '' +
+            var inputHTML = '' +
                 '<form id="update-catalogue-form" class="input-group " action="' + href + '">' +
-                    '<input type="text" value="' + value +'" class="form-control">' +
-                    '<button class="btn btn-default" type="submit">Update</button>' +
+                '<input type="text" value="' + value + '" class="form-control">' +
+                '<button class="btn btn-default" type="submit">Update</button>' +
                 '</form>'
             $(this).parent('li').html(inputHTML)
         });
@@ -104,19 +104,19 @@
             var url = $(this).attr('action');
             var current_item_id = window.location.pathname.split("/")[3];
             var updated_item_id = url.split("/")[3];
-            if ( current_item_id === updated_item_id)
+            if (current_item_id === updated_item_id)
                 container = "#container"
             var text = $(this).children(':input').val();
             $.pjax({
                 type: 'POST',
                 url: url,
                 container: container,
-                push:false,
+                push: false,
                 data: {'catalogue_name': text}
             })
         });
 
-        $('#container').on('click', 'a.profile',function(event){
+        $('#container').on('click', 'a.profile', function (event) {
             event.preventDefault();
             debugger;
             var container = "#profile-content";
@@ -125,13 +125,20 @@
                 type: 'GET',
                 url: url,
                 container: container,
-                push:true
+                push: true
             })
         });
 
-        $(document).on('pjax:complete', function() {
+        $(document).ready(function () {
+            $('.scroll-pane').jScrollPane({
+                autoReinitialise: true
+            });
+
+        });
+
+        $(document).on('pjax:complete', function () {
             console.log(this)
-        })
+        });
 
         console.log("Configuration completed.")
     });

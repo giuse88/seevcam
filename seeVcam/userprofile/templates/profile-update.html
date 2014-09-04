@@ -1,55 +1,61 @@
+{% load widget_tweaks %}
+
 {% block title %}
     <title> Profile/Update </title>
 {% endblock title %}
 
 {% block inner-content %}
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title">Profile</h3>
-    </div>
-    <div class="panel-body">
-
-      <div class="col-lg-3">
-        {% if object.pic %}
-          <img src="{{ object.pic.url }}" alt="{{ object.username }}_profile_pic"
-               class="img-thumbnail img-responsive"
-               style="width: 140px; height: 140px">
-        {% else %}
-          <img src="{{ MEDIA_URL }}/profile_pictures/no-profile-img.gif" alt="default_profile_pic"
-               class="img-thumbnail img-responsive">
-        {% endif %}
-      </div>
-      <form enctype="multipart/form-data" action="" method="post" role="form">
-        {% csrf_token %}
-        <div class="row">
-
-          <div class="col-lg-8">
-            {{ form.pic }}
-          </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Profile</h3>
         </div>
-        {{ form.non_field_errors }}
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="col-lg-3">
+                        {% if object.pic %}
+                            <img src="{{ object.pic.url }}" alt="{{ object.username }}_profile_pic"
+                                 class="img-thumbnail img-responsive">
+                        {% else %}
+                            <img src="{{ MEDIA_URL }}/profile_pictures/no-profile-img.gif" alt="default_profile_pic"
+                                 class="img-thumbnail img-responsive">
+                        {% endif %}
+                    </div>
+                    <form enctype="multipart/form-data" action="" method="post" role="form">
+                        {% csrf_token %}
+                        <div class="row">
 
-        {% for field in form %}
-          {% if field.html_name not in 'pic' and field.html_name not in 'country' %}
-            <div class="form-group ">
-              <label for="{{ field.id_for_label }}"> {{ field.label }}</label>
-              <input type="text" class="form-control" id="{{ field.id_for_label }}" name="{{ field.html_name }}"
-                     value="{{ field.value }}">
-              {{ field.errors }}
+                            <div class="col-lg-8">
+                                {{ form.pic }}
+                            </div>
+                        </div>
+                        {{ form.non_field_errors }}
+
+                        {% for field in form %}
+                            {% if field.html_name not in 'pic' and field.html_name not in 'country' %}
+                                <div class="form-group ">
+                                    <label for="{{ field.id_for_label }}"> {{ field.label }}</label>
+                                    <input type="text" class="form-control" id="{{ field.id_for_label }}"
+                                           name="{{ field.html_name }}"
+                                           value="{{ field.value }}">
+                                    {{ field.errors }}
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+
+                        <div class="form-group">
+                            {{ form.country.label_tag }}
+                            {{ form.country|add_class:"form-control" }}
+                            {{ form.country.errors }}
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-success">Save Changes</button>
+                        </div>
+                    </form>
+                </div>
             </div>
-          {% endif %}
-        {% endfor %}
 
-        <div class="form-group">
-          {{ form.country.label_tag }}
-          {{ form.country }}
-          {{ form.country.errors }}
         </div>
-        <div class="form-group">
-          <button type="submit" class="btn btn-primary">Save Changes</button>
-        </div>
-      </form>
     </div>
-  </div>
 {% endblock inner-content %}
 
