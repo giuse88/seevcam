@@ -75,7 +75,7 @@ a.list-group-item:focus {
 }
 
 .create-interview-catalog-section .panel-heading {
-    background-color: #0f73c2;
+    background-color: #999999;
     color: white;
     padding: 3px;
     border-radius: 0;
@@ -90,7 +90,6 @@ a.list-group-item:focus {
 
 .btn-panel {
     color: white;
-    border-right: 1px solid #2782c3;
     line-height: 25px;
     height: 25px;
     vertical-align: middle;
@@ -151,14 +150,13 @@ a.list-group-item:focus {
     border-bottom: 1px solid #e6e6e6;
     border-top: 1px solid #e6e6e6;
     padding: 5px 0;
-    margin-bottom: 45px;
 }
 
-.catalogs-list ul {
+.catalogs-list > ul {
     display: block;
     margin: 0 5px 0 0;
     list-style: none;
-    height: 155px;
+    height: 220px;
     overflow: auto;
 }
 
@@ -170,28 +168,97 @@ a.list-group-item:focus {
 
 .catalogs-list li a {
     display: block;
-    line-height: 16px;
-    height: 16px;
     font-size: 14px;
-    margin: 5px 0;
-    padding: 0 5px;
+    padding: 5px 10px;
     color: black;
     text-decoration: none;
-    border-left-width: 6px;
-    border-left-style: solid;
+    position: relative;
 }
 
-.catalog-red a {
-    border-left-color: #eb372d;
+.catalogs-list li a:before {
+    content: " ";
+    width: 6px;
+    position: absolute;
+    left: 0;
+    top: 5px;
+    bottom: 5px;
 }
 
-.catalog-blue a {
-    border-left-color: #0f73c2;
+.catalog-item-menu {
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: none;
+}
+
+.selected .catalog-item-menu {
+    display: block;
+}
+
+.catalog-list-item {
+    position: relative;
+}
+
+.catalog-red .catalog-item-name:before {
+    background-color: #eb372d;
+}
+
+.catalog-blue .catalog-item-name:before {
+    background-color: #0f73c2;
+}
+
+.catalog-red.selected .catalog-item-name {
+    background-color: #eb372d;
+    font-weight: bold;
+    color: white;
+}
+
+.catalog-blue.selected .catalog-item-name {
+    background-color: #0f73c2;
+    font-weight: bold;
+    color: white;
+}
+
+.catalog-item-menu i {
+    color: white;
+}
+
+.catalogs-list .selected .catalog-count {
+    display: none;
 }
 
 .catalog-count {
     font-size: 8px;
     color: #928986;
+}
+
+.catalog-questions-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.catalog-questions-list li {
+    max-width: 450px;
+    overflow: hidden;
+}
+
+.catalog-questions-list a:before {
+    display: none;
+}
+
+.catalog-questions-list li a {
+    color: #333f4d;
+    font-size: 14px;
+    text-decoration: none;
+    display: block;
+    padding: 0 5px;
+    line-height: 25px;
+    height: 25px;
+    border-bottom: 1px solid #d6d6d6;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .questions-list {
@@ -202,7 +269,7 @@ a.list-group-item:focus {
 .questions-list ul {
     padding: 0 10px;
     margin: 5px 5px 5px 0;
-    height: 225px;
+    height: 130px;
 }
 
 .questions-list li {
@@ -254,10 +321,10 @@ a.list-group-item:focus {
 .interview-item,
 .interview-item header {
     -webkit-transition: all 0.3s;
-    -moz-transition:    all 0.3s;
-    -ms-transition:     all 0.3s;
-    -o-transition:      all 0.3s;
-    transition:         all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
 }
 
 .interview-item:hover {
@@ -279,7 +346,7 @@ a.list-group-item:focus {
     padding: 2px 0;
     font-weight: bold;
     font-size: 16px;
-    text-shadow: 1px 1px 0 rgba(0,0,0,.2);
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, .2);
 }
 
 .interview-item header p {
