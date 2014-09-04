@@ -1,4 +1,5 @@
 from StringIO import StringIO
+import os
 from django.core.files.uploadedfile import SimpleUploadedFile
 
 from django.test import TestCase
@@ -38,13 +39,16 @@ class InterviewFormTest(TestCase):
         self.assertEqual(response.status_code, status.HTTP_302_FOUND)
         self.assertEqual(Interview.objects.count(), 1)
         self.assertEqual(Interview.objects.get(pk=1).candidate_name, "name")
+        #cleaning up
+        interview = Interview.objects.get(pk=1)
+        os.remove(interview.candidate_cv.path)
+        os.remove(interview.interview_job_description.path)
 
     def test_data_validation(self):
         pass
 
     def test_time_validation(self):
         pass
-
 
     #Private
     def _create_upload_file(self):
