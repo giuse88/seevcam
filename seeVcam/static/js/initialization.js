@@ -133,6 +133,8 @@
             $('.scroll-pane').jScrollPane({
                 autoReinitialise: true
             });
+
+            $('[data-toggle="tooltip"]').tooltip({container: 'body'});
         });
 
         $(document).on('pjax:complete', function () {
