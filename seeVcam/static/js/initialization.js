@@ -138,7 +138,12 @@
         });
 
         $(document).on('pjax:complete', function () {
-            console.log(this)
+            console.log(this);
+        });
+
+        $(document).on('pjax:end', function () {
+            // Todo: Merge pjax end and document ready initialization
+            $('[data-toggle="tooltip"]').tooltip({container: 'body'});
         });
 
         console.log("Configuration completed.")
