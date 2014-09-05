@@ -117,16 +117,23 @@
         });
 
         $('#container').on('click', 'a.profile', function (event) {
+            $this = $(this);
             event.preventDefault();
             debugger;
             var container = "#profile-content";
-            var url = $(this).attr('href');
+            var url = $this.attr('href');
             $.pjax({
                 type: 'GET',
                 url: url,
                 container: container,
-                push: true
-            })
+                push: true,
+                activeButton: $this
+            });
+        });
+
+        $("#container").on("pjax:success", "#profile-content", function (event, data, status, xhr, options) {
+            $("a.profile").removeClass("active");
+            options.activeButton.addClass("active");
         });
 
         $(document).ready(function () {

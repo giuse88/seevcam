@@ -1,3 +1,5 @@
+{% load base_extras %}
+
 {% block title %}
     {% include "profile-title.html" %}
 {% endblock title %}
@@ -12,10 +14,10 @@
                     </h3>
                 </div>
                 <div class="list-group">
-                    <a href="{% url "profile_update" request.user.pk %}" class="list-group-item profile active">Profile</a>
-                    <a href="{% url "profile_settings" request.user.pk %}" class="list-group-item profile">Account
+                    <a href="{% url "profile_update" request.user.pk %}" class="list-group-item profile {% current 'profile_update' %}">Profile</a>
+                    <a href="{% url "profile_settings" request.user.pk %}" class="list-group-item profile {% current 'profile_settings' %}">Account
                         Settings</a>
-                    <a href="{% url "profile_notifications" request.user.pk %}" class="list-group-item profile">Notification
+                    <a href="{% url "profile_notifications" request.user.pk %}" class="list-group-item profile {% current 'profile_notifications' %}">Notification
                         Center</a>
                 </div>
             </div>

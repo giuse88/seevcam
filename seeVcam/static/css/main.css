@@ -45,6 +45,11 @@ a.list-group-item.active {
     text-shadow: none;
     font-weight: bold;
     cursor: default;
+    border-top: 1px solid white;
+}
+
+a.list-group-item.active:hover {
+    border-top: 1px solid white;
 }
 
 a.list-group-item.active:focus,
