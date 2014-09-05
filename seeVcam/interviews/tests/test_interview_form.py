@@ -16,11 +16,17 @@ class InterviewFormTest(TestCase):
     INTERVIEW_CREATE = "/dashboard/interviews/create/"
 
     def setUp(self):
+        self.old_media_root = settings.MEDIA_ROOT
+        settings.MEDIA_ROOT = settings.MEDIA_ROOT.replace('media', '')
+        settings.MEDIA_ROOT = os.path.join(settings.MEDIA_ROOT, 'interviews', 'tests', 'test-file')
         self.user_1 = self._create_dummy_user('user_1', 'test')
         self.user_2 = self._create_dummy_user('user_2', 'test')
         self.file_cv = self._create_upload_file()
         self.file_job = self._create_upload_file()
         self.catalogue = self._create_dummy_catalogue("test", self.user_1)
+
+    def tearDown(self):
+        settings.MEDIA_ROOT = self.old_media_root
 
     def test_user_can_create_an_interview(self):
         self.client.login(username='user_1', password='test')
@@ -98,6 +104,7 @@ class InterviewFormTest(TestCase):
     def _remove_uploaded_files(self, interview):
         os.remove(interview.candidate_cv.path)
         os.remove(interview.interview_job_description.path)
-        os.rmdir(os.path.join(settings.MEDIA_ROOT, str(interview.interview_owner_id), 'cv'))
-        os.rmdir(os.path.join(settings.MEDIA_ROOT, str(interview.interview_owner_id), 'job'))
-        os.rmdir(os.path.join(settings.MEDIA_ROOT, str(interview.interview_owner_id)))
+        os.rmdir(os.path.join(settings.MEDIA_ROOT, str(interview.interview_owner_id), str(interview.id), 'cv'))
+        os.rmdir(os.path.join(settings.MEDIA_ROOT, str(interview.interview_owner_id), str(interview.id), 'job'))
+        os.rmdir(os.path.join(settings.MEDIA_ROOT, str(interview.id), str(interview.interview_owner_id)))
+        os.rmdir(os.path.join(settings.MEDIA_ROOT, str(interview.id)))

@@ -16,10 +16,11 @@ class CreateInterviewView(LoginRequired, CreateView):
               'interview_date', 'interview_time', 'interview_description', 'interview_catalogue',
               'interview_job_description']
 
+
     def form_valid(self, form):
         self.validate_date()
         self.validate_time()
-
+        self.validate_file_extension()
         form.instance.interview_owner = self.request.user
         form.interview_status = Interview.OPEN
         form.save()
@@ -31,4 +32,8 @@ class CreateInterviewView(LoginRequired, CreateView):
 
     def validate_time(self):
         #TODO when implement timezone
+        pass
+
+    def validate_file_extension(self):
+        #TODO
         pass

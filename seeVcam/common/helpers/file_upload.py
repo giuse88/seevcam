@@ -1,22 +1,16 @@
 import os
 from django.conf import settings
 
-def upload_to_user_folder(instance, folder_name):
+
+def upload_to_user_folder(instance, folder_name, filename):
     user_id = str(instance.interview_owner.id)
-    user_folder = os.path.join(settings.MEDIA_ROOT, user_id)
-    if not os.path.exists(user_folder):
-        os.makedirs(user_folder)
-    dest_folder = os.path.join(user_folder, folder_name)
-    if not os.path.exists(dest_folder):
-        os.makedirs(dest_folder)
-    return dest_folder
+    return os.path.join(settings.MEDIA_ROOT, user_id, str(instance.id), folder_name, filename)
 
 
 def upload_cv(instance, filename):
-    return upload_to_user_folder(instance, 'cv')
+    return upload_to_user_folder(instance, 'cv', filename)
+
 
 def upload_job_spec(instance, filename):
-    return upload_to_user_folder(instance, 'job')
+    return upload_to_user_folder(instance, 'job', filename)
 
-def upload_img(instance, filename):
-    return upload_to_user_folder(instance, 'img')

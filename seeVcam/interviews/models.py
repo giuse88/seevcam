@@ -28,4 +28,14 @@ class Interview(models.Model):
     candidate_email = models.EmailField(null=False, blank=False)
     candidate_cv = models.FileField(null=False, blank=False, upload_to=upload_cv)
 
+    def save(self, *args, **kwargs):
+        if self.pk is None:
+            interview_job_description = self.interview_job_description
+            candidate_cv = self.candidate_cv
+            self.candidate_cv = None
+            self.interview_job_description = None
+            super(Interview, self).save(*args, **kwargs)
+            self.interview_job_description = interview_job_description
+            self.candidate_cv = candidate_cv
+        super(Interview, self).save(*args, **kwargs)
 
