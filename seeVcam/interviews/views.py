@@ -4,7 +4,6 @@ from common.mixins.pjax import PJAXResponseMixin
 from interviews.models import Interview
 from django.core.urlresolvers import reverse_lazy, reverse
 
-
 class InterviewsView(LoginRequired, PJAXResponseMixin, TemplateView):
     template_name = 'interviews.html'
 
