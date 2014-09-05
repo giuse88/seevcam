@@ -2,7 +2,11 @@
 {% load interviews_filters %}
 
 <div class="form-group {% if field.errors %}has-error{% endif %}">
-    <div class="bfh-datepicker" data-name="{{ field.name }}">
+    <div class="bfh-datepicker"
+         data-name="{{ field.name }}"
+         data-min="{{ min }}"
+         data-format="{{ format }}"
+            >
     </div>
     <div class="error-form">
         {{ field.errors }}

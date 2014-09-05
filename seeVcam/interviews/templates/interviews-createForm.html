@@ -32,7 +32,7 @@
 
     <div class="row">
         <div class="col-lg-5">
-            {% datepicker_field form.interview_date %}
+            {% datepicker_field form.interview_date min='today' %}
         </div>
         <div class="col-lg-5 col-lg-offset-2">
             {% timepicker_field form.interview_time %}
