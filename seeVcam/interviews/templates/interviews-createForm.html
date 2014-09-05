@@ -3,7 +3,7 @@
 
 <h1>New Interview</h1>
 
-<form class="form-horizontal" enctype="multipart/form-data" action="" method="post" role="form">
+<form class="form-horizontal" enctype="multipart/form-data" action="" method="post" role="form" data-parsley-validate>
 {% csrf_token %}
 
 {{ form.non_field_errors }}
@@ -11,9 +11,9 @@
 <div class="row">
 <div class="col-lg-6">
 
-    {% interviews_field form.candidate_name %}
-    {% interviews_field form.candidate_surname %}
-    {% interviews_field form.candidate_email %}
+    {% interviews_field form.candidate_name|parsley:"required:true,data-parsley-trigger:focusout" %}
+    {% interviews_field form.candidate_surname|parsley:'required:true,data-parsley-trigger:focusout' %}
+    {% interviews_field form.candidate_email|parsley:'required:true,data-parsley-trigger:focusout' %}
 
     <div class="form-group {% if form.candidate_cv.errors %} has-error {% endif %}">
         <label class="control-label col-xs-3" for="{{ form.candidate_cv.id_for_label }}">
@@ -54,7 +54,7 @@
         </div>
     </div>
 
-    {% interviews_field form.interview_description %}
+    {% interviews_field form.interview_description|parsley:'required:true,data-parsley-trigger:focusout' %}
 
     <div class="form-group {% if form.interview_catalogue.errors %} has-error {% endif %}">
         <label class="control-label col-xs-3" for="{{ form.interview_catalogue.id_for_label }}">
@@ -62,7 +62,7 @@
         </label>
 
         <div class="col-xs-9 ">
-            {{ form.interview_catalogue|add_class:"form-control" }}
+            {{ form.interview_catalogue|parsley:'required:true,data-parsley-trigger:change'|add_class:"form-control" }}
             <div class="error-form">
                 {{ form.interview_catalogue.errors }}
             </div>

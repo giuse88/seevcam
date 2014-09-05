@@ -30,3 +30,17 @@ def timepicker_field(field, min='', max=''):
 def placeholder(value, text):
     value.field.widget.attrs["placeholder"] = text
     return value
+
+
+@register.filter
+def parsley(value, attributes):
+    attrs = value.field.widget.attrs
+    data = attributes.replace(' ', '')
+
+    kvs = data.split(',')
+
+    for string in kvs:
+        kv = string.split(':')
+        attrs[kv[0]] = kv[1]
+
+    return value

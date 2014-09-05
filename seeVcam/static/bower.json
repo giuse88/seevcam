@@ -10,6 +10,10 @@
         "jquery-pjax": "1.9.2",
         "jquery-mousewheel": "3.1.12",
         "jquery.jscrollpane": "2.0.14",
-        "bootstrap-form-helpers": "2.3.0"
+        "bootstrap-form-helpers": "2.3.0",
+        "parsleyjs": "2.0.5"
+    },
+    "resolutions": {
+        "bootstrap": "3.2.0"
     }
 }
