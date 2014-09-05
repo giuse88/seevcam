@@ -11,14 +11,24 @@ class InterviewsView(LoginRequired, PJAXResponseMixin, TemplateView):
 class CreateInterviewView(LoginRequired, CreateView):
     template_name = 'interviews-create.html'
     success_url = reverse_lazy('interviews')
+    model = Interview
+    fields = ['candidate_name', 'candidate_surname', 'candidate_email', 'candidate_cv',
+              'interview_date', 'interview_time', 'interview_description', 'interview_catalogue',
+              'interview_job_description']
 
     def form_valid(self, form):
+        self.validate_date()
+        self.validate_time()
+
         form.instance.interview_owner = self.request.user
         form.interview_status = Interview.OPEN
         form.save()
         return super(CreateInterviewView, self).form_valid(form)
 
-    model = Interview
-    fields = ['candidate_name', 'candidate_surname', 'candidate_email', 'candidate_cv',
-              'interview_date', 'interview_time', 'interview_description', 'interview_catalogue',
-              'interview_job_description']
+    def validate_date(self):
+        #TODO when implement timezone
+        pass
+
+    def validate_time(self):
+        #TODO when implement timezone
+        pass

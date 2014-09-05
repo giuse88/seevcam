@@ -56,9 +56,11 @@ class InterviewFormTest(TestCase):
         self._remove_uploaded_files(interview_2)
 
     def test_data_validation(self):
+        #TODO when implement timezone
         pass
 
     def test_time_validation(self):
+        #TODO when implement timezone
         pass
 
     # Private
