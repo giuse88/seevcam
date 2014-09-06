@@ -1,0 +1,9 @@
+{% load widget_tweaks %}
+{% load interviews_filters %}
+
+<div class="form-group {% if field.errors %}has-error{% endif %}">
+    {{ field|add_class:"form-control"|placeholder:field.label }}
+    <div class="error-form">
+        {{ field.errors }}
+    </div>
+</div>

@@ -1,0 +1,10 @@
+{% load widget_tweaks %}
+{% load interviews_filters %}
+
+<div class="form-group {% if field.errors %}has-error{% endif %}">
+    <div class="bfh-timepicker" data-name="{{ field.name }}" data-min="{{ min }}">
+    </div>
+    <div class="error-form">
+        {{ field.errors }}
+    </div>
+</div>
