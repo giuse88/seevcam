@@ -1,5 +1,6 @@
 from StringIO import StringIO
 import os
+import datetime
 
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
@@ -19,6 +20,9 @@ class InterviewFormTest(TestCase):
         self.old_media_root = settings.MEDIA_ROOT
         settings.MEDIA_ROOT = settings.MEDIA_ROOT.replace('media', '')
         settings.MEDIA_ROOT = os.path.join(settings.MEDIA_ROOT, 'interviews', 'tests', 'test-file')
+        self.valid_interview_date = (datetime.datetime.now() + datetime.timedelta(days=1)).date()
+        self.invalid_interview_time = (datetime.datetime.now() - datetime.timedelta(hours=1)).time()
+        self.valid_interview_time = "10:00"
         self.user_1 = self._create_dummy_user('user_1', 'test')
         self.user_2 = self._create_dummy_user('user_2', 'test')
         self.file_cv = self._create_upload_file()
@@ -30,7 +34,9 @@ class InterviewFormTest(TestCase):
 
     def test_user_can_create_an_interview(self):
         self.client.login(username='user_1', password='test')
-        response = self._create_interview(self.file_cv, self.file_job, self.catalogue.id)
+        response = self._create_interview(self.file_cv, self.file_job, self.catalogue.id,
+                                          self.valid_interview_date,
+                                          self.valid_interview_time)
         self.assertEqual(response.status_code, status.HTTP_302_FOUND)
         self.assertEqual(Interview.objects.filter(interview_owner=self.user_1).count(), 1)
         self.assertEqual(Interview.objects.count(), 1)
@@ -41,7 +47,8 @@ class InterviewFormTest(TestCase):
     def test_two_users_can_create_an_interview(self):
         #
         self.client.login(username='user_1', password='test')
-        response = self._create_interview(self.file_cv, self.file_job, self.catalogue.id)
+        response = self._create_interview(self.file_cv, self.file_job, self.catalogue.id, self.valid_interview_date,
+                                          self.valid_interview_time)
         self.assertEqual(response.status_code, status.HTTP_302_FOUND)
         self.assertEqual(Interview.objects.filter(interview_owner=self.user_1).count(), 1)
         self.assertEqual(Interview.objects.count(), 1)
@@ -51,7 +58,7 @@ class InterviewFormTest(TestCase):
         #
         self.client.login(username='user_2', password='test')
         response = self._create_interview(self._create_upload_file(), self._create_upload_file(),
-                                          self.catalogue.id)
+                                          self.catalogue.id, self.valid_interview_date, self.valid_interview_time)
         self.assertEqual(response.status_code, status.HTTP_302_FOUND)
         self.assertEqual(Interview.objects.filter(interview_owner=self.user_2).count(), 1)
         self.assertEqual(Interview.objects.count(), 2)
@@ -62,12 +69,19 @@ class InterviewFormTest(TestCase):
         self._remove_uploaded_files(interview_2)
 
     def test_data_validation(self):
-        #TODO when implement timezone
-        pass
+        self.client.login(username='user_1', password='test')
+        response = self._create_interview(self.file_cv, self.file_job, self.catalogue.id, "2003-12-12",
+                                          self.valid_interview_time)
+        self.assertTrue('Please check interview date' in response.content)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-    def test_time_validation(self):
-        #TODO when implement timezone
-        pass
+    def _test_time_validation(self):
+        self.client.login(username='user_1', password='test')
+        response = self._create_interview(self.file_cv, self.file_job, self.catalogue.id, self.valid_interview_date,
+                                          self.invalid_interview_time)
+        print self.invalid_interview_time
+        self.assertTrue('Please check interview time' in response.content)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     # Private
     def _create_upload_file(self):
@@ -86,7 +100,7 @@ class InterviewFormTest(TestCase):
         catalogue.save()
         return catalogue
 
-    def _create_interview(self, file_cv, file_job_dec, catalogue_id):
+    def _create_interview(self, file_cv, file_job_dec, catalogue_id, date, time):
         data = {
             'candidate_email': "test@email.it",
             'candidate_name': "name",
@@ -95,8 +109,8 @@ class InterviewFormTest(TestCase):
             'interview_job_description': file_job_dec,
             'interview_catalogue': catalogue_id,
             'interview_description': "test",
-            'interview_date': '2014-12-23',
-            'interview_time': "11:30"
+            'interview_date': date,
+            'interview_time': time
         }
         response = self.client.post(self.INTERVIEW_CREATE, data, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         return response
