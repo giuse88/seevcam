@@ -6,6 +6,15 @@ register = template.Library()
 def interviews_field(field):
     return {'field': field}
 
+@register.inclusion_tag("components/interviews-single.html")
+def interview_single_component(field):
+    return {
+        'name': field.candidate_name,
+        'surname': field.candidate_surname,
+        'position': field.interview_position,
+        'date': field.interview_date,
+        'time': field.interview_time
+    }
 
 @register.inclusion_tag("components/filter-datepickerField.html")
 def datepicker_field(field, min='', max='', format='y-m-d'):

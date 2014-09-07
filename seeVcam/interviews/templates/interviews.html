@@ -4,7 +4,10 @@
     Interviews
 {% endblock title %}
 
+
 {%  block content %}
+
+    {% load interviews_filters %}
 
     <div id="interview" class="row">
         <div class="col-md-3">
@@ -19,17 +22,9 @@
         </div>
         <div class="col-md-9">
             <div class="interview-items">
-            <ul>
-            {% for interview in object_list %}
-                <li>interview.candidate_name</li>
-            {% endfor %}
-            </ul>
-
-                <div class="row">
-                    {% for i in "x"|rjust:"6" %}
-                        {% include "components/interviews-single.html" %}
-                    {% endfor %}
-                </div>
+                {% for interview in object_list %}
+                    {% interview_single_component interview %}
+                {% endfor %}
             </div>
         </div>
     </div>

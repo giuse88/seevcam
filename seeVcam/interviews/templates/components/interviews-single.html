@@ -1,21 +1,24 @@
+{% load interviews_filters %}
+
 <div class="col-lg-4">
     <div class="interview-item">
         <header>
             <div class="row">
                 <div class="col-sm-9">
-                    <h4>John Smith</h4>
+                    <h4>{{  name }}  {{  surname }}</h4>
 
-                    <p>Sales Manager</p>
+                    <p> {{  job_position }}</p>
                 </div>
-                <div class="col-sm-3">
-                    <img class="img-rounded interview-candidate-avatar" src="{{ MEDIA_URL }}mock/candidate-avatar.jpg"/>
-                </div>
+                <!-- To be removed. With don't have a picture of a candidate -->
+{#                <div class="col-sm-3">#}
+{#                    <img class="img-rounded interview-candidate-avatar" src="{{ MEDIA_URL }}mock/candidate-avatar.jpg"/>#}
+{#                </div>#}
             </div>
         </header>
         <section class="interview-time">
-            <p class="interview-date">06/15</p>
+            <p class="interview-date">{{ date }}</p>
 
-            <p class="interview-hours">02:30 PM</p>
+            <p class="interview-hours">{{ time }}</p>
         </section>
         <footer>
             <div class="row">
