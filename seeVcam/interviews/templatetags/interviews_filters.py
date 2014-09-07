@@ -2,12 +2,12 @@ from django import template
 register = template.Library()
 
 
-@register.inclusion_tag("filter-singleField.html")
+@register.inclusion_tag("components/filter-singlefield.html")
 def interviews_field(field):
     return {'field': field}
 
 
-@register.inclusion_tag("filter-datepickerField.html")
+@register.inclusion_tag("components/filter-datepickerField.html")
 def datepicker_field(field, min='', max='', format='y-m-d'):
     return {
         'field': field,
@@ -17,7 +17,7 @@ def datepicker_field(field, min='', max='', format='y-m-d'):
     }
 
 
-@register.inclusion_tag("filter-timepickerField.html")
+@register.inclusion_tag("components/filter-timepickerField.html")
 def timepicker_field(field, min='', max=''):
     return {
         'field': field,

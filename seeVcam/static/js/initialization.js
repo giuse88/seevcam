@@ -119,7 +119,6 @@
         $('#container').on('click', 'a.profile', function (event) {
             $this = $(this);
             event.preventDefault();
-            debugger;
             var container = "#profile-content";
             var url = $this.attr('href');
             $.pjax({

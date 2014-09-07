@@ -1,9 +1,31 @@
-{% extends "dashboard.html" %}
+{% extends "dashboard.html"|pjax:request %}
 
 {% block title %}
-    {% include "interviews-title.html" %}
+    Interviews
 {% endblock title %}
 
 {%  block content %}
-    {% include "interviews-container-pjax.html" %}
+
+    <div id="interview" class="row">
+        <div class="col-md-3">
+            <div id="interview-controller">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="glyphicon glyphicon-search"></i>
+                    </span>
+                    <input type="text" class="form-control" placeholder="Search">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="interview-items">
+                <div class="row">
+                    {% for i in "x"|rjust:"6" %}
+                        {% include "components/interviews-single.html" %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock content %}
