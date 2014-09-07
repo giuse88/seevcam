@@ -6,7 +6,6 @@ from questions.models import QuestionCatalogue
 
 
 class TestInterviewModel(TestCase):
-
     def setUp(self):
         self.user_1 = self._create_dummy_user('user_1', 'password')
         self.catalogue = self._create_dummy_catalogue('catalogue', self.user_1)
@@ -20,6 +19,7 @@ class TestInterviewModel(TestCase):
                               candidate_surname="surname",
                               candidate_cv=self.file_path,
                               interview_job_description=self.file_path,
+                              interview_job_position="position",
                               interview_description="test",
                               interview_date="2014-12-23",
                               interview_time="11:30")
@@ -40,6 +40,7 @@ class TestInterviewModel(TestCase):
                               candidate_cv=self.file_path,
                               interview_job_description=self.file_path,
                               interview_catalogue=self.catalogue,
+                              interview_job_position="position",
                               interview_description="test",
                               interview_date="2014-12-23",
                               interview_time="11:30")
