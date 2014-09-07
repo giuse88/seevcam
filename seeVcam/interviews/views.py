@@ -10,6 +10,10 @@ from interviews.models import Interview
 class InterviewsView(LoginRequired, ListView):
     template_name = 'interviews.html'
 
+    def get_queryset(self):
+        return Interview.objects.filter(interview_owner=self.request.user.id).order_by('interview_date', 'interview_time')
+
+
 
 
 
