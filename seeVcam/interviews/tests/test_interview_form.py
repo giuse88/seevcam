@@ -107,6 +107,7 @@ class InterviewFormTest(TestCase):
             'candidate_surname': "surname",
             'candidate_cv': file_cv,
             'interview_job_description': file_job_dec,
+            'interview_position' : 'job',
             'interview_catalogue': catalogue_id,
             'interview_description': "test",
             'interview_date': date,

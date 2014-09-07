@@ -19,7 +19,7 @@ class TestInterviewModel(TestCase):
                               candidate_surname="surname",
                               candidate_cv=self.file_path,
                               interview_job_description=self.file_path,
-                              interview_job_position="position",
+                              interview_position="position",
                               interview_description="test",
                               interview_date="2014-12-23",
                               interview_time="11:30")
@@ -40,7 +40,7 @@ class TestInterviewModel(TestCase):
                               candidate_cv=self.file_path,
                               interview_job_description=self.file_path,
                               interview_catalogue=self.catalogue,
-                              interview_job_position="position",
+                              interview_position="position",
                               interview_description="test",
                               interview_date="2014-12-23",
                               interview_time="11:30")

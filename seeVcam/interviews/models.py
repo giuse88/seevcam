@@ -18,7 +18,7 @@ class Interview(models.Model):
     interview_owner = models.ForeignKey(settings.AUTH_USER_MODEL, null=False, blank=False)
     interview_date = models.DateField(null=False, blank=False)
     interview_time = models.TimeField(null=False, blank=False)
-    interview_job_position = models.CharField(max_length=255, null=False, blank=False)
+    interview_position = models.CharField(max_length=255, null=False, blank=False)
     interview_job_description = models.FileField(null=False, blank=False, upload_to=upload_job_spec)
     interview_catalogue = models.ForeignKey(QuestionCatalogue, null=True, blank=True)
     interview_description = models.CharField(max_length=1000, null=False, blank=True, default='')

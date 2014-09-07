@@ -19,6 +19,12 @@
         </div>
         <div class="col-md-9">
             <div class="interview-items">
+            <ul>
+            {% for interview in object_list %}
+                <li>interview.candidate_name</li>
+            {% endfor %}
+            </ul>
+
                 <div class="row">
                     {% for i in "x"|rjust:"6" %}
                         {% include "components/interviews-single.html" %}

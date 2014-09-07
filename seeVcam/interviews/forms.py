@@ -31,5 +31,5 @@ class CreateInterviewForm(forms.ModelForm):
     class Meta:
         model = Interview
         fields = ['candidate_name', 'candidate_surname', 'candidate_email', 'candidate_cv',
-                  'interview_date', 'interview_time', 'interview_description', 'interview_catalogue',
-                  'interview_job_description']
+                  'interview_date', 'interview_time', 'interview_description','interview_position',
+                  'interview_catalogue', 'interview_job_description']
