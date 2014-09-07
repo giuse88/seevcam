@@ -3,7 +3,7 @@ from questions.rest_views import QuestionCatalogueList, QuestionCatalogueDetail,
     QuestionDetails, QuestionListSeevcam, QuestionList
 
 from questions.views import CatalogueView, CreateCatalogueView, DeleteCatalogueView, \
-    CatalogueViewList, CreateQuestionView, UpdateCatalogueView, UpdateQuestionView, DeleteQuestionView
+    CatalogueViewList, CreateQuestionView, UpdateCatalogueView, UpdateQuestionView, DeleteQuestionView, CatalogueView_2
 
 
 rest_patterns = patterns('',
@@ -18,7 +18,7 @@ rest_patterns = patterns('',
 )
 
 urlpatterns = patterns('',
-                       url(r'^$', CatalogueView.as_view(), name='catalogues'),
+                       url(r'^$', CatalogueView_2.as_view(), name='catalogues'),
                        url(r'^create/',CreateCatalogueView.as_view(), name='catalogue_create'),
                        url(r'^(?P<pk>\d+)/delete/$', DeleteCatalogueView.as_view(), name='catalogue_delete'),
                        url(r'^(?P<pk>\d+)/update/$', UpdateCatalogueView.as_view(), name='catalogue_update'),

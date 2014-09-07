@@ -1,4 +1,5 @@
 from django.core.urlresolvers import reverse
+from django.db.models import Q
 from django.shortcuts import redirect, get_object_or_404
 from django.views.generic import ListView, CreateView, TemplateView, UpdateView
 from django.views.generic.edit import BaseDeleteView
@@ -8,6 +9,15 @@ from models import QuestionCatalogue, Question
 from common.mixins.authorization import LoginRequired
 from common.mixins.pjax import PJAXResponseMixin
 from questions.helpers import CatalogueQuerySetHelper
+
+
+class CatalogueView_2(LoginRequired, ListView):
+    model = QuestionCatalogue
+    template_name = 'questions-catalogue.html'
+
+    def get_queryset(self):
+        return QuestionCatalogue.objects.filter(Q(catalogue_scope=QuestionCatalogue.SEEVCAM_SCOPE) |
+                                                Q(catalogue_owner=self.request.user.id)).order_by('catalogue_name')
 
 
 class CatalogueView(LoginRequired, PJAXResponseMixin, ListView):
@@ -64,7 +74,7 @@ class CatalogueViewList(LoginRequired, PJAXResponseMixin, TemplateView):
         if is_seevcam_scope(self.request):
             return get_object_or_404(QuestionCatalogue, pk=catalogue_pk, catalogue_scope=scope)
         return get_object_or_404(QuestionCatalogue, pk=catalogue_pk, catalogue_scope=scope,
-                                     catalogue_owner=self.request.user.id)
+                                 catalogue_owner=self.request.user.id)
 
     def _get_queryset_according_to_scope(self):
         if is_seevcam_scope(self.request):
@@ -74,7 +84,7 @@ class CatalogueViewList(LoginRequired, PJAXResponseMixin, TemplateView):
 
 # ############################################################
 # CRUD operations Catalogue                   #
-#############################################################
+# ############################################################
 
 class CreateCatalogueView(LoginRequired, AJAXPost, CreateView):
     fields = ('catalogue_name',)
