@@ -37,6 +37,7 @@ class InterviewFormTest(TestCase):
         response = self._create_interview(self.file_cv, self.file_job, self.catalogue.id,
                                           self.valid_interview_date,
                                           self.valid_interview_time)
+        print response
         self.assertEqual(response.status_code, status.HTTP_302_FOUND)
         self.assertEqual(Interview.objects.filter(interview_owner=self.user_1).count(), 1)
         self.assertEqual(Interview.objects.count(), 1)
@@ -72,14 +73,15 @@ class InterviewFormTest(TestCase):
         self.client.login(username='user_1', password='test')
         response = self._create_interview(self.file_cv, self.file_job, self.catalogue.id, "2003-12-12",
                                           self.valid_interview_time)
+        print response
         self.assertTrue('Please check interview date' in response.content)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-    def _test_time_validation(self):
+    def test_time_validation(self):
         self.client.login(username='user_1', password='test')
-        response = self._create_interview(self.file_cv, self.file_job, self.catalogue.id, self.valid_interview_date,
+        response = self._create_interview(self._create_upload_file(), self._create_upload_file(),
+                                          self.catalogue.id, datetime.datetime.now().date(),
                                           self.invalid_interview_time)
-        print self.invalid_interview_time
         self.assertTrue('Please check interview time' in response.content)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 

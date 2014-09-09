@@ -17,7 +17,7 @@ class CreateInterviewForm(forms.ModelForm):
             raise ValidationError('You cannot create a interview in the past!', code='expired_datetime')
         # Validation time
         interview_date_and_time = datetime.combine(interview_date, interview_time)
-        if datetime.now() > interview_date_and_time:
+        if interview_date_and_time < datetime.now():
             self._errors["interview_time"] = self.error_class(["Please check interview time"])
             raise ValidationError('You cannot create a interview in the past!', code='expired_datetime')
         # Already booked
