@@ -27,7 +27,7 @@
                     </label>
 
                     <div class="col-xs-9 ">
-                        {{ form.candidate_cv }}
+                        {{ form.candidate_cv|add_class:"filestyle" }}
                         <div class="error-form">
                             {{ form.candidate_cv.errors }}
                         </div>

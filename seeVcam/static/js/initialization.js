@@ -141,6 +141,7 @@
             });
 
             $('[data-toggle="tooltip"]').tooltip({container: 'body'});
+            $(":file").filestyle({iconName: "glyphicon-inbox"});
         });
 
         $(document).on('pjax:complete', function () {
@@ -150,6 +151,10 @@
         $(document).on('pjax:end', function () {
             // Todo: Merge pjax end and document ready initialization
             $('[data-toggle="tooltip"]').tooltip({container: 'body'});
+
+            $('.bfh-datepicker').bfhdatepicker();
+            $('.bfh-timepicker').bfhtimepicker();
+            $(":file").filestyle({iconName: "glyphicon-inbox"});
         });
 
         console.log("Configuration completed.")
