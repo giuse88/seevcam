@@ -394,6 +394,14 @@ a.list-group-item:focus {
 
 /** End Interviews List Section */
 
+/** Custom file inputs */
+
+[type=file] + .parsley-errors-list {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+
 .wrap {
     background: url(../img/background_textureGray.gif) #ececec;
     clear: both;

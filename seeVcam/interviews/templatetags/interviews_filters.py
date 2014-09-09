@@ -35,6 +35,14 @@ def timepicker_field(field, min='', max=''):
     }
 
 
+@register.inclusion_tag("components/filter-fileField.html")
+def file_field(field, newLabel='Select File'):
+    return {
+        'field': field,
+        'newLabel': newLabel
+    }
+
+
 @register.filter
 def placeholder(value, text):
     value.field.widget.attrs["placeholder"] = text
