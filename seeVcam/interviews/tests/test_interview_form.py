@@ -37,6 +37,7 @@ class InterviewFormTest(TestCase):
         response = self._create_interview(self.file_cv, self.file_job, self.catalogue.id,
                                           self.valid_interview_date,
                                           self.valid_interview_time)
+        print response
         self.assertEqual(response.status_code, status.HTTP_302_FOUND)
         self.assertEqual(Interview.objects.filter(interview_owner=self.user_1).count(), 1)
         self.assertEqual(Interview.objects.count(), 1)
@@ -68,6 +69,23 @@ class InterviewFormTest(TestCase):
         self._remove_uploaded_files(interview_1)
         self._remove_uploaded_files(interview_2)
 
+    def test_a_users_cannot_schedule_two_interview_at_the_same_time(self):
+        #
+        self.client.login(username='user_1', password='test')
+        response = self._create_interview(self.file_cv, self.file_job, self.catalogue.id, "2030-1-1", "11:00")
+        self.assertEqual(response.status_code, status.HTTP_302_FOUND)
+        self.assertEqual(Interview.objects.filter(interview_owner=self.user_1).count(), 1)
+        self.assertEqual(Interview.objects.count(), 1)
+        interview_1 = Interview.objects.get(pk=1)
+        self.assertEqual(interview_1.candidate_name, "name")
+        self._remove_uploaded_files(interview_1)
+        #
+        response = self._create_interview(self.file_cv, self.file_job, self.catalogue.id, "2030-1-1", "11:00")
+        self.assertTrue('Please check interview date' in response.content)
+        self.assertTrue('Please check interview time' in response.content)
+        self.assertTrue('Another interview has already been scheduled for the date selected' in response.content)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
     def test_data_validation(self):
         self.client.login(username='user_1', password='test')
         response = self._create_interview(self.file_cv, self.file_job, self.catalogue.id, "2003-12-12",
@@ -75,11 +93,11 @@ class InterviewFormTest(TestCase):
         self.assertTrue('Please check interview date' in response.content)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-    def _test_time_validation(self):
+    def test_time_validation(self):
         self.client.login(username='user_1', password='test')
-        response = self._create_interview(self.file_cv, self.file_job, self.catalogue.id, self.valid_interview_date,
+        response = self._create_interview(self._create_upload_file(), self._create_upload_file(),
+                                          self.catalogue.id, datetime.datetime.now().date(),
                                           self.invalid_interview_time)
-        print self.invalid_interview_time
         self.assertTrue('Please check interview time' in response.content)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
@@ -107,7 +125,7 @@ class InterviewFormTest(TestCase):
             'candidate_surname': "surname",
             'candidate_cv': file_cv,
             'interview_job_description': file_job_dec,
-            'interview_position' : 'job',
+            'interview_position': 'job',
             'interview_catalogue': catalogue_id,
             'interview_description': "test",
             'interview_date': date,
