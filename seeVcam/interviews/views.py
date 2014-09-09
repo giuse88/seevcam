@@ -1,5 +1,4 @@
-
-from django.views.generic import TemplateView, CreateView, ListView
+from django.views.generic import CreateView, ListView
 from django.core.urlresolvers import reverse_lazy
 
 from common.mixins.authorization import LoginRequired
@@ -11,7 +10,7 @@ class InterviewsView(LoginRequired, ListView):
     template_name = 'interviews.html'
 
     def get_queryset(self):
-        return Interview.objects.filter(interview_owner=self.request.user.id).\
+        return Interview.objects.filter(interview_owner=self.request.user.id). \
             order_by('interview_date', 'interview_time')
 
 
@@ -26,3 +25,7 @@ class CreateInterviewView(LoginRequired, CreateView):
         form.save()
         return super(CreateInterviewView, self).form_valid(form)
 
+    def get_form_kwargs(self):
+        kwargs = super(CreateInterviewView, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
