@@ -9,8 +9,7 @@
 
     <h1>New Interview</h1>
 
-    <form class="form-horizontal" enctype="multipart/form-data" action="" method="post" role="form"
-          data-parsley-validate>
+    <form class="form-horizontal" enctype="multipart/form-data" action="" method="post" role="form">
         {% csrf_token %}
 
         {{ form.non_field_errors }}
@@ -22,22 +21,22 @@
                 {% interviews_field form.candidate_surname|parsley:'required:true,data-parsley-trigger:focusout' %}
                 {% interviews_field form.candidate_email|parsley:'required:true,data-parsley-trigger:focusout' %}
 
-                {% file_field form.candidate_cv|parsley:"required:true" %}
+                {% file_field form.candidate_cv|parsley:"required:true,data-parsley-trigger:focusout" %}
 
                 <hr/>
 
                 <div class="row">
                     <div class="col-lg-5">
-                        {% datepicker_field form.interview_date min='today' %}
+                        {% datepicker_field form.interview_date|parsley:'required:true,data-parsley-trigger:focusout' min='today' %}
                     </div>
                     <div class="col-lg-5 col-lg-offset-2">
-                        {% timepicker_field form.interview_time %}
+                        {% timepicker_field form.interview_time|parsley:'required:true,data-parsley-trigger:focusout' %}
                     </div>
                 </div>
 
                 <hr/>
 
-                {% file_field form.interview_job_description|parsley:"required:true" %}
+                {% file_field form.interview_job_description|parsley:"required:true,data-parsley-trigger:focusout" %}
 
                 {% interviews_field form.interview_description|parsley:'required:true,data-parsley-trigger:focusout' %}
                 {% interviews_field form.interview_position|parsley:'required:true,data-parsley-trigger:focusout' %}

@@ -135,12 +135,36 @@
             options.activeButton.addClass("active");
         });
 
-        $(document).ready(function () {
+
+        var initScripts = function () {
             $('.scroll-pane').jScrollPane({
                 autoReinitialise: true
             });
 
             $('[data-toggle="tooltip"]').tooltip({container: 'body'});
+
+            $('form').parsley({
+                errorClass: 'has-error',
+                classHandler: function (el) {
+                    return el.$element.closest('.form-group');
+                },
+                errorsWrapper: '<ul class="errorlist"></ul>'
+            });
+
+            $('[data-toggle="tooltip"]').tooltip({container: 'body'});
+
+            $('.bfh-datepicker').each(function() {
+                $(this).bfhdatepicker($(this).data());
+            });
+
+            $('.bfh-timepicker').each(function() {
+                $(this).bfhtimepicker($(this).data());
+            });
+
+        };
+
+        $(document).ready(function () {
+            initScripts();
         });
 
         $(document).on('pjax:complete', function () {
@@ -148,11 +172,7 @@
         });
 
         $(document).on('pjax:end', function () {
-            // Todo: Merge pjax end and document ready initialization
-            $('[data-toggle="tooltip"]').tooltip({container: 'body'});
-
-            $('.bfh-datepicker').bfhdatepicker();
-            $('.bfh-timepicker').bfhtimepicker();
+            initScripts();
         });
 
         console.log("Configuration completed.")

@@ -396,10 +396,19 @@ a.list-group-item:focus {
 
 /** Custom file inputs */
 
-[type=file] + .parsley-errors-list {
-    position: absolute;
+[type=file] + .errorlist {
+    font-size: 13px;
     left: 0;
-    bottom: 0;
+    position: absolute;
+    top: 36px;
+}
+
+.has-error .fileinput {
+    margin-bottom: 30px;
+}
+
+.fileinput .input-group-addon {
+    position: static;
 }
 
 .wrap {
