@@ -105,7 +105,7 @@ class InterviewFormTest(TestCase):
     def _create_upload_file(self):
         raw_content = StringIO('GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
                                '\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
-        return SimpleUploadedFile("test.txt", raw_content.read())
+        return SimpleUploadedFile("test.pdf", raw_content.read(), 'application/pdf')
 
     def _create_dummy_user(self, username, password):
         user = SeevcamUser.objects.create_user(username, password=password)
