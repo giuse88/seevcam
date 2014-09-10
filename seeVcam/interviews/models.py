@@ -21,7 +21,7 @@ class Interview(models.Model):
     interview_position = models.CharField(max_length=255, null=False, blank=False)
     interview_job_description = models.FileField(null=False, blank=False, upload_to=upload_job_spec)
     interview_catalogue = models.ForeignKey(QuestionCatalogue, null=True, blank=True)
-    interview_description = models.CharField(max_length=1000, null=False, blank=True, default='')
+    interview_description = models.TextField(max_length=1000, null=False, blank=True, default='')
 
     candidate_name = models.CharField(max_length=255, null=False, blank=False)
     candidate_surname = models.CharField(max_length=255, null=False, blank=False)
