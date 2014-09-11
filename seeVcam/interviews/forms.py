@@ -29,16 +29,26 @@ class CreateInterviewForm(forms.ModelForm):
         return cleaned_data
 
     def clean_candidate_cv(self):
-
         cv = self.cleaned_data['candidate_cv']
-        if not cv.content_type in settings.SEEVCAM_UPLOAD_FILE_MIME_TYPES:
-            self._errors["candidate_cv"] = self.error_class(["Please use a file with a different format"])
+        self._is_valid_file(cv, 'candidate_cv')
+        return cv
+
+    def clean_interview_job_description(self):
+        job_spec = self.cleaned_data['interview_job_description']
+        self._is_valid_file(job_spec, 'interview_job_description')
+        return job_spec
+
+    def _is_valid_file(self, uploaded_file, error_key):
+
+        if not uploaded_file.content_type in settings.SEEVCAM_UPLOAD_FILE_MIME_TYPES:
+            self._errors[error_key] = self.error_class(["Please use a file with a different format"])
             raise ValidationError('File type is not supported', code="invalid_file_format")
 
-        if cv.size > settings.SEEVCAM_UPLOAD_FILE_MAX_SIZE:
-            self._errors["candidate_cv"] = self.error_class(["Please keep filesize under %s" % settings.SEEVCAM_UPLOAD_FILE_MAX_SIZE ])
-            raise ValidationError('Error uploading the candidate cv.')
-        return cv
+        if uploaded_file.size > settings.SEEVCAM_UPLOAD_FILE_MAX_SIZE:
+            self._errors[error_key] = self.error_class(["Please keep filesize under %s" % settings.SEEVCAM_UPLOAD_FILE_MAX_SIZE ])
+            raise ValidationError('Error uploading the candidate cv.', code='file exceeds maximum size')
+
+        return True
 
 
     def _is_already_booked(self, interview_date, interview_time):
