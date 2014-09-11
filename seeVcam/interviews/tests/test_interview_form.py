@@ -2,6 +2,8 @@ from StringIO import StringIO
 import os
 import datetime
 
+from django.core.exceptions import ValidationError
+
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
 from rest_framework import status
@@ -101,11 +103,44 @@ class InterviewFormTest(TestCase):
         self.assertTrue('Please check interview time' in response.content)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
+    def test_file_validation_size(self):
+        self.old_file_size = settings.SEEVCAM_UPLOAD_FILE_MAX_SIZE
+        settings.SEEVCAM_UPLOAD_FILE_MAX_SIZE = 1
+
+        self.client.login(username='user_1', password='test')
+        response = self._create_interview(self._create_upload_file(), self._create_upload_file(),
+                                          self.catalogue.id, self.valid_interview_date,
+                                          self.valid_interview_time)
+        self.assertTrue('Please keep filesize under' in response.content)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        settings.SEEVCAM_UPLOAD_FILE_MAX_SIZE = self.old_file_size
+
+    def test_file_validation_size_cv(self):
+        self.client.login(username='user_1', password='test')
+
+        cv = self._create_upload_file('test.bmp', 'image/bmp')
+        response = self._create_interview(cv, self._create_upload_file(),
+                                          self.catalogue.id, self.valid_interview_date,
+                                          self.valid_interview_time)
+        print response.content
+        self.assertTrue('Please use a file with a different format' in response.content)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_file_validation_size_job_spec(self):
+        self.client.login(username='user_1', password='test')
+
+        cv = self._create_upload_file('test.bmp', 'image/bmp')
+        response = self._create_interview(self._create_upload_file(),cv,
+                                          self.catalogue.id, self.valid_interview_date,
+                                          self.valid_interview_time)
+        self.assertTrue('Please use a file with a different format' in response.content)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
     # Private
-    def _create_upload_file(self):
+    def _create_upload_file(self, name="test.pdf", type='application/pdf'):
         raw_content = StringIO('GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
                                '\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
-        return SimpleUploadedFile("test.pdf", raw_content.read(), 'application/pdf')
+        return SimpleUploadedFile(name, raw_content.read(),type)
 
     def _create_dummy_user(self, username, password):
         user = SeevcamUser.objects.create_user(username, password=password)
@@ -141,3 +176,20 @@ class InterviewFormTest(TestCase):
         os.rmdir(os.path.join(settings.MEDIA_ROOT, str(interview.interview_owner_id), str(interview.id), 'job'))
         os.rmdir(os.path.join(settings.MEDIA_ROOT, str(interview.id), str(interview.interview_owner_id)))
         os.rmdir(os.path.join(settings.MEDIA_ROOT, str(interview.id)))
+
+
+    def _create_interview_data_object(self, file_cv, file_job_dec, catalogue_id, date, time):
+        data = {
+            'candidate_email': "test@email.it",
+            'candidate_name': "name",
+            'candidate_surname': "surname",
+            'candidate_cv': file_cv,
+            'interview_job_description': file_job_dec,
+            'interview_position': 'job',
+            'interview_catalogue': catalogue_id,
+            'interview_description': "test",
+            'interview_date': date,
+            'interview_time': time
+        }
+        return data
+

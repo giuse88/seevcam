@@ -7,6 +7,8 @@
         <span class="input-group-addon btn btn-default btn-file">
             <span class="fileinput-new">{{ field.label }}</span>
             <span class="fileinput-exists">Change</span>
+{#            TODO http://stackoverflow.com/questions/4328947/limit-file-format-when-using-input-type-file#}
+            {# This field must be written explicitly #}
             {{ field }}
         </span>
         <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
