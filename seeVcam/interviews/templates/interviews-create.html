@@ -12,7 +12,11 @@
     <form class="form-horizontal" enctype="multipart/form-data" action="" method="post" role="form">
         {% csrf_token %}
 
-        {{ form.non_field_errors }}
+        {% if form.non_field_errors %}
+            <div class="alert alert-danger" role="alert">
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
 
         <div class="row">
             <div class="col-lg-6">
@@ -42,11 +46,18 @@
                 {% interviews_field form.interview_position|parsley:'required:true,data-parsley-trigger:focusout' %}
 
                 <div class="form-group has-feedback {% if form.interview_catalogue.errors %} has-error {% endif %}">
-                    {{ form.interview_catalogue|parsley:'required:true,data-parsley-trigger:change'|add_class:"form-control" }}
-                    <i class="form-control-feedback glyphicon glyphicon-cog"></i>
+                    <div class="input-group full-width">
+                        <input type="text" data-field-name="{{ form.interview_catalogue.name }}" required
+                               data-parsley-trigger="change"
+                               placeholder="{{ form.interview_catalogue.label }}"
+                               class="form-control typeahead"/>
+                        <i class="form-control-feedback glyphicon glyphicon-cog"></i>
 
-                    <div class="error-form">
-                        {{ form.interview_catalogue.errors }}
+                        <input type="hidden" name="{{ form.interview_catalogue.name }}" required />
+
+                        <div class="error-form">
+                            {{ form.interview_catalogue.errors }}
+                        </div>
                     </div>
                 </div>
 

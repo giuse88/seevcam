@@ -170,7 +170,7 @@
                     ttl: 0,
                     filter: function (data) {
                         return $.map(data, function (catalog) {
-                            return { name: catalog.catalogue_name };
+                            return { name: catalog.catalogue_name, value: catalog.id };
                         });
                     }
                 }
@@ -183,6 +183,9 @@
                 name: 'catalogs',
                 displayKey: 'name',
                 source: catalogs.ttAdapter()
+            }).on("typeahead:selected typeahead:autocompleted", function(e, datum) {
+                var fieldName = $(this).data("field-name");
+                $("[name=" + fieldName + "]").val(datum.value);
             });
         };
 

@@ -440,21 +440,29 @@ a.list-group-item:focus {
 .tt-dropdown-menu {
 	background-color: #FFFFFF;
 	border: 1px solid rgba(0, 0, 0, 0.2);
-	border-radius: 8px;
 	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-	margin-top: 12px;
+	margin-top: 0;
 	padding: 8px 0;
-	width: 422px;
+	width: 100%;
 }
 .tt-suggestion {
-	font-size: 24px;
 	line-height: 24px;
 	padding: 3px 20px;
+    cursor: pointer;
 }
+
+.tt-suggestion:hover {
+    background-color: #dedede;
+}
+
 .tt-suggestion.tt-is-under-cursor {
 	background-color: #0097CF;
 	color: #FFFFFF;
 }
 .tt-suggestion p {
 	margin: 0;
+}
+
+.full-width {
+    width: 100%;
 }
