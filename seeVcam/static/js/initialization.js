@@ -153,14 +153,37 @@
 
             $('[data-toggle="tooltip"]').tooltip({container: 'body'});
 
-            $('.bfh-datepicker').each(function() {
+            $('.bfh-datepicker').each(function () {
                 $(this).bfhdatepicker($(this).data());
             });
 
-            $('.bfh-timepicker').each(function() {
+            $('.bfh-timepicker').each(function () {
                 $(this).bfhtimepicker($(this).data());
             });
 
+            var catalogs = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                limit: 5,
+                prefetch: {
+                    url: '/dashboard/questions/catalogue',
+                    ttl: 0,
+                    filter: function (data) {
+                        return $.map(data, function (catalog) {
+                            return { name: catalog.catalogue_name };
+                        });
+                    }
+                }
+            });
+
+            catalogs.clearPrefetchCache();
+            catalogs.initialize();
+
+            $('.typeahead').typeahead(null, {
+                name: 'catalogs',
+                displayKey: 'name',
+                source: catalogs.ttAdapter()
+            });
         };
 
         $(document).ready(function () {

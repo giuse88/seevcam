@@ -41,16 +41,12 @@
                 {% interviews_field form.interview_description|parsley:'required:true,data-parsley-trigger:focusout' %}
                 {% interviews_field form.interview_position|parsley:'required:true,data-parsley-trigger:focusout' %}
 
-                <div class="form-group {% if form.interview_catalogue.errors %} has-error {% endif %}">
-                    <label class="control-label col-xs-3" for="{{ form.interview_catalogue.id_for_label }}">
-                        {{ form.interview_catalogue.label }}
-                    </label>
+                <div class="form-group has-feedback {% if form.interview_catalogue.errors %} has-error {% endif %}">
+                    {{ form.interview_catalogue|parsley:'required:true,data-parsley-trigger:change'|add_class:"form-control" }}
+                    <i class="form-control-feedback glyphicon glyphicon-cog"></i>
 
-                    <div class="col-xs-9 ">
-                        {{ form.interview_catalogue|parsley:'required:true,data-parsley-trigger:change'|add_class:"form-control" }}
-                        <div class="error-form">
-                            {{ form.interview_catalogue.errors }}
-                        </div>
+                    <div class="error-form">
+                        {{ form.interview_catalogue.errors }}
                     </div>
                 </div>
 
