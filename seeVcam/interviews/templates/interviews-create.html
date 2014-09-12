@@ -44,6 +44,7 @@
 
                 {% interviews_field form.interview_description|parsley:'required:true,data-parsley-trigger:focusout' %}
                 {% interviews_field form.interview_position|parsley:'required:true,data-parsley-trigger:focusout' %}
+                {% interviews_field form.interview_duration|parsley:'required:true,data-parsley-trigger:focusout' %}
 
                 <div class="form-group has-feedback {% if form.interview_catalogue.errors %} has-error {% endif %}">
                     <div class="input-group full-width">
