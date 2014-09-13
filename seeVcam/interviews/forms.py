@@ -46,6 +46,10 @@ class CreateInterviewForm(forms.ModelForm):
         if interview_datetime is None or interview_datetime < now_timezone():
             raise ValidationError('You cannot create a interview in the past!', code='expired_datetime')
 
+########################################################################################################################
+#                                                   FUNCTION HELPERS                                                   #
+########################################################################################################################
+
 
 def is_valid_file(uploaded_file):
     if not uploaded_file.content_type in settings.SEEVCAM_UPLOAD_FILE_MIME_TYPES:

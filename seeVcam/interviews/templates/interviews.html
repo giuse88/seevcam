@@ -23,7 +23,7 @@
         <div class="col-md-9">
             <div class="interview-items">
                 {% for interview in object_list %}
-                    {% interview_single_component interview %}
+                    {% interview_single_component interview request %}
                 {% endfor %}
             </div>
         </div>

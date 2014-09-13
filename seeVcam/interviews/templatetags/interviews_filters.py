@@ -1,19 +1,22 @@
 from django import template
 register = template.Library()
 
+from common.helpers.timezone import to_user_timezone
+
 
 @register.inclusion_tag("components/filter-singlefield.html")
 def interviews_field(field):
     return {'field': field}
 
 @register.inclusion_tag("components/interviews-single.html")
-def interview_single_component(field):
+def interview_single_component(field, request):
+    user_datetime = to_user_timezone(field.interview_datetime, request.user)
     return {
         'name': field.candidate_name,
         'surname': field.candidate_surname,
         'position': field.interview_position,
-        'date': field.interview_datetime.date(),
-        'time': field.interview_datetime.time()
+        'date': user_datetime.date(),
+        'time': user_datetime.time()
     }
 
 @register.inclusion_tag("components/filter-datepickerField.html")

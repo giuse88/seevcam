@@ -9,7 +9,8 @@
 
     <h1>New Interview</h1>
 
-    <form class="form-horizontal" enctype="multipart/form-data" action="" method="post" role="form">
+    <form id='createInterview' name='createInterview' class="form-horizontal" enctype="multipart/form-data" action="" method="post" role="form"
+          onsubmit="createFormOnSubmit()">
         {% csrf_token %}
 
         {% if form.non_field_errors %}
@@ -28,16 +29,7 @@
                 {% file_field form.candidate_cv|parsley:"required:true,data-parsley-trigger:focusout" %}
 
                 <hr/>
-
-                <div class="row">
-                    <div class="col-lg-5">
-                        {% datepicker_field form.interview_datetime|parsley:'required:true,data-parsley-trigger:focusout' min='today' %}
-                    </div>
-                    <div class="col-lg-5 col-lg-offset-2">
-                        {% timepicker_field form.interview_datetime|parsley:'required:true,data-parsley-trigger:focusout' %}
-                    </div>
-                </div>
-
+                {% datepicker_field form.interview_datetime|parsley:'required:true,data-parsley-trigger:focusout' min='today' %}
                 <hr/>
 
                 {% file_field form.interview_job_description|parsley:"required:true,data-parsley-trigger:focusout" %}

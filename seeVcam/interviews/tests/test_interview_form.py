@@ -2,14 +2,14 @@ from StringIO import StringIO
 import os
 import datetime
 
-from django.core.exceptions import ValidationError
-
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
+from pytz import timezone
 from rest_framework import status
 from django.conf import settings
 
 from authentication.models import SeevcamUser
+from common.helpers.timezone import to_user_timezone
 from interviews.models import Interview
 from questions.models import QuestionCatalogue
 
@@ -22,8 +22,15 @@ class InterviewFormTest(TestCase):
         self.old_media_root = settings.MEDIA_ROOT
         settings.MEDIA_ROOT = settings.MEDIA_ROOT.replace('media', '')
         settings.MEDIA_ROOT = os.path.join(settings.MEDIA_ROOT, 'interviews', 'tests', 'test-file')
-        self.valid_interview_datetime = (datetime.datetime.now() + datetime.timedelta(days=1))
-        self.invalid_interview_datetime = (datetime.datetime.now() - datetime.timedelta(hours=1))
+        self.valid_interview_datetime = (
+            datetime.datetime.now(tz=timezone('Europe/London')) + datetime.timedelta(days=1))
+        self.valid_interview_datetime = self.valid_interview_datetime.strftime("%Y-%m-%d %H:%M")
+        self.invalid_interview_datetime = (
+            datetime.datetime.now(tz=timezone('Europe/London')) - datetime.timedelta(hours=1))
+        self.invalid_interview_datetime = self.invalid_interview_datetime.strftime("%Y-%m-%d %H:%M")
+
+        print self.valid_interview_datetime
+        print self.invalid_interview_datetime
 
         self.user_1 = self._create_dummy_user('user_1', 'test')
         self.user_2 = self._create_dummy_user('user_2', 'test')
@@ -45,6 +52,22 @@ class InterviewFormTest(TestCase):
         interview = Interview.objects.get(pk=1)
         self.assertEqual(interview.candidate_name, "name")
         self._remove_uploaded_files(interview)
+
+
+    def test_user_can_create_an_interview_with_timezone(self):
+        self.client.login(username='user_1', password='test')
+        response = self._create_interview(self.file_cv, self.file_job, self.catalogue.id,
+                                          self.valid_interview_datetime)
+        print response
+        self.assertEqual(response.status_code, status.HTTP_302_FOUND)
+        self.assertEqual(Interview.objects.filter(interview_owner=self.user_1).count(), 1)
+        self.assertEqual(Interview.objects.count(), 1)
+        interview = Interview.objects.get(pk=1)
+        self.assertEqual(interview.candidate_name, "name")
+        retrieved_datetime = to_user_timezone(interview.interview_datetime, self.user_1).strftime("%Y-%m-%d %H:%M")
+        self.assertEqual(retrieved_datetime, self.valid_interview_datetime)
+        self._remove_uploaded_files(interview)
+
 
     def test_two_users_can_create_an_interview(self):
         #
@@ -129,7 +152,7 @@ class InterviewFormTest(TestCase):
         self.client.login(username='user_1', password='test')
 
         cv = self._create_upload_file('test.bmp', 'image/bmp')
-        response = self._create_interview(self._create_upload_file(),cv,
+        response = self._create_interview(self._create_upload_file(), cv,
                                           self.catalogue.id, self.valid_interview_datetime)
         self.assertTrue('Please use a file with a different format' in response.content)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -139,10 +162,11 @@ class InterviewFormTest(TestCase):
     def _create_upload_file(self, name="test.pdf", type='application/pdf'):
         raw_content = StringIO('GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
                                '\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
-        return SimpleUploadedFile(name, raw_content.read(),type)
+        return SimpleUploadedFile(name, raw_content.read(), type)
 
     def _create_dummy_user(self, username, password):
         user = SeevcamUser.objects.create_user(username, password=password)
+        user.timezone = 'Europe/London'
         user.save()
         return user
 

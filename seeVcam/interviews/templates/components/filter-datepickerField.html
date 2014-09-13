@@ -2,13 +2,19 @@
 {% load interviews_filters %}
 
 <div class="form-group {% if field.errors %}has-error{% endif %}">
-    <div class="bfh-datepicker"
-         data-name="{{ field.name }}"
-         data-min="{{ min }}"
-         data-format="{{ format }}"
-            >
-    </div>
-    <div class="error-form">
-        {{ field.errors }}
+    <div class="row">
+
+{#        <div class="col-lg-5">#}
+{#            <div class="bfh-datepicker"  data-min="{{ min }}" data-format="{{ format }}" > </div>#}
+{#        </div>#}
+{##}
+{#        <div class="col-lg-5 col-lg-offset-2">#}
+{#            <div class="bfh-timepicker"  data-min="{{ min }}"> </div>#}
+{#        </div>#}
+
+        {{ field }}
+        <div class="error-form">
+            {{ field.errors }}
+        </div>
     </div>
 </div>
