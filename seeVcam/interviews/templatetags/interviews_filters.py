@@ -12,8 +12,8 @@ def interview_single_component(field):
         'name': field.candidate_name,
         'surname': field.candidate_surname,
         'position': field.interview_position,
-        'date': field.interview_date,
-        'time': field.interview_time
+        'date': field.interview_datetime.date(),
+        'time': field.interview_datetime.time()
     }
 
 @register.inclusion_tag("components/filter-datepickerField.html")

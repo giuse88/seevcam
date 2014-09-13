@@ -32,7 +32,7 @@
                         {{ form.non_field_errors }}
 
                         {% for field in form %}
-                            {% if field.html_name not in 'pic' and field.html_name not in 'country' %}
+                            {% if field.html_name not in 'country'  and  field.html_name not in 'pic' and field.html_name not in 'timezone' %}
                                 <div class="form-group ">
                                     <label for="{{ field.id_for_label }}"> {{ field.label }}</label>
                                     <input type="text" class="form-control" id="{{ field.id_for_label }}"
@@ -48,6 +48,13 @@
                             {{ form.country|add_class:"form-control" }}
                             {{ form.country.errors }}
                         </div>
+
+                        <div class="form-group">
+                            {{ form.timezone.label_tag }}
+                            {{ form.timezone|add_class:"form-control" }}
+                            {{ form.timezone.errors }}
+                        </div>
+
                         <div class="form-group">
                             <button type="submit" class="btn btn-success">Save Changes</button>
                         </div>
