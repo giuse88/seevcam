@@ -25,18 +25,14 @@
                 {% interviews_field form.candidate_name|parsley:"required:true,data-parsley-trigger:focusout" %}
                 {% interviews_field form.candidate_surname|parsley:'required:true,data-parsley-trigger:focusout' %}
                 {% interviews_field form.candidate_email|parsley:'required:true,data-parsley-trigger:focusout' %}
-
                 {% file_field form.candidate_cv|parsley:"required:true,data-parsley-trigger:focusout" %}
 
                 <hr/>
+
                 {% datepicker_field form.interview_datetime|parsley:'required:true,data-parsley-trigger:focusout' min='today' %}
-                <hr/>
-
-                {% file_field form.interview_job_description|parsley:"required:true,data-parsley-trigger:focusout" %}
-
-                {% interviews_field form.interview_description|parsley:'required:true,data-parsley-trigger:focusout' %}
-                {% interviews_field form.interview_position|parsley:'required:true,data-parsley-trigger:focusout' %}
                 {% interviews_field form.interview_duration|parsley:'required:true,data-parsley-trigger:focusout' %}
+
+                <hr/>
 
                 <div class="form-group has-feedback {% if form.interview_catalogue.errors %} has-error {% endif %}">
                     <div class="input-group full-width">
@@ -53,6 +49,11 @@
                         </div>
                     </div>
                 </div>
+
+                {% interviews_field form.interview_position|parsley:'required:true,data-parsley-trigger:focusout' %}
+
+                {% file_field form.interview_job_description|parsley:"required:true,data-parsley-trigger:focusout" %}
+                {% interviews_field form.interview_description|parsley:'required:true,data-parsley-trigger:focusout' %}
 
                 <hr/>
 

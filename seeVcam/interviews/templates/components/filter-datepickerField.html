@@ -4,17 +4,20 @@
 <div class="form-group {% if field.errors %}has-error{% endif %}">
     <div class="row">
 
-{#        <div class="col-lg-5">#}
-{#            <div class="bfh-datepicker"  data-min="{{ min }}" data-format="{{ format }}" > </div>#}
-{#        </div>#}
-{##}
-{#        <div class="col-lg-5 col-lg-offset-2">#}
-{#            <div class="bfh-timepicker"  data-min="{{ min }}"> </div>#}
-{#        </div>#}
+        <div class="col-lg-5">
+            <div class="bfh-datepicker"  data-min="{{ min }}" data-format="{{ format }}" > </div>
+        </div>
 
-        {{ field }}
+        <div class="col-lg-5 col-lg-offset-2">
+            <div class="bfh-timepicker"  data-min="{{ min }}"> </div>
+        </div>
+
+        <input style="display:none;" data-parsley-trigger="focusout" id="id_interview_datetime" name="interview_datetime"
+               required="true" type="text">
+
         <div class="error-form">
             {{ field.errors }}
         </div>
+
     </div>
 </div>

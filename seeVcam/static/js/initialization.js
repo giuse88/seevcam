@@ -207,7 +207,8 @@
 })(jQuery, CONSTANTS)
 
 function createFormOnSubmit() {
-   console.log(document.createInterview);
-   debugger
-    return false;
+    var datetime = $('.bfh-datepicker').val()+ " " + $('.bfh-timepicker').val();
+    console.log(datetime);
+    $('#id_interview_datetime').val(datetime)
+    return true;
 }
