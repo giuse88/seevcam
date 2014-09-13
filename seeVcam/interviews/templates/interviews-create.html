@@ -22,6 +22,8 @@
         <div class="row">
             <div class="col-lg-6">
 
+                <hr/>
+
                 {% interviews_field form.candidate_name|parsley:"required:true,data-parsley-trigger:focusout" %}
                 {% interviews_field form.candidate_surname|parsley:'required:true,data-parsley-trigger:focusout' %}
                 {% interviews_field form.candidate_email|parsley:'required:true,data-parsley-trigger:focusout' %}

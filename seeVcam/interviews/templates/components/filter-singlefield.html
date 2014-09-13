@@ -2,8 +2,9 @@
 {% load interviews_filters %}
 
 <div class="form-group {% if field.errors %}has-error{% endif %}">
-    {{ field|add_class:"form-control"|placeholder:field.label }}
-    <div class="error-form">
+    <label for="{{ field.id_for_label }}"> {{ field.label }} : </label>
+    {{ field|add_class:"form-control"|placeholder:field.label|attr:error_container}}
+    <div class=" {{ field.name }} error-form">
         {{ field.errors }}
     </div>
 </div>

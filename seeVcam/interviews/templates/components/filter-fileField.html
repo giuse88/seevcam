@@ -1,21 +1,26 @@
+
+{% load widget_tweaks %}
+{% load interviews_filters %}
+
 <div class="form-group {% if field.errors %} has-error {% endif %}">
+    <label for="{{ field.id_for_label }}"> {{ field.label }} : </label>
     <div class="fileinput fileinput-new input-group" data-provides="fileinput">
-        <div class="form-control" data-trigger="fileinput">
+
+        <span class="input-group-addon btn btn-default btn-file">
+            <span class="fileinput-new"> Select </span>
+            <span class="fileinput-exists">Change</span>
+            {{ field|attr:error_container}}
+        </span>
+
+        <div class="form-control">
             <i class="glyphicon glyphicon-file fileinput-exists"></i>
             <span class="fileinput-filename"></span>
         </div>
-        <span class="input-group-addon btn btn-default btn-file">
-            <span class="fileinput-new">{{ field.label }}</span>
-            <span class="fileinput-exists">Change</span>
-{#            TODO http://stackoverflow.com/questions/4328947/limit-file-format-when-using-input-type-file#}
-            {# This field must be written explicitly #}
-            {{ field }}
-        </span>
-        <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+
     </div>
-        <div class="col-xs-9 ">
-        <div class="error-form">
-            {{ field.errors }}
-        </div>
-        </div>
+
+    <div class="error-form">
+        {{ field.errors }}
+     </div>
+
 </div>

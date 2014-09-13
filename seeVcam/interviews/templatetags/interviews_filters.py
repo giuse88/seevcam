@@ -3,10 +3,16 @@ register = template.Library()
 
 from common.helpers.timezone import to_user_timezone
 
+def error_container_selector(name):
+    _error_container_selector = "data-parsley-errors-container:"
+    _error_container_selector += "."+name+".error-form"
+    return _error_container_selector
 
 @register.inclusion_tag("components/filter-singlefield.html")
 def interviews_field(field):
-    return {'field': field}
+    return {'field': field,
+            'error_container': error_container_selector(field.name)}
+
 
 @register.inclusion_tag("components/interviews-single.html")
 def interview_single_component(field, request):
@@ -42,7 +48,8 @@ def timepicker_field(field, min='', max=''):
 def file_field(field, newLabel='Select File'):
     return {
         'field': field,
-        'newLabel': newLabel
+        'newLabel': newLabel,
+        'error_container': error_container_selector(field.name + " ")
     }
 
 

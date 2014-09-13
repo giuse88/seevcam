@@ -404,7 +404,7 @@ a.list-group-item:focus {
 }
 
 .has-error .fileinput {
-    margin-bottom: 30px;
+    margin-bottom: 0px;
 }
 
 .fileinput .input-group-addon {
@@ -465,4 +465,8 @@ a.list-group-item:focus {
 
 .full-width {
     width: 100%;
+}
+
+.fileinput .input-group-addon.btn-file {
+    border-radius: 4px 0 0 4px;
 }

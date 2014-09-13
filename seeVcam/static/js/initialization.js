@@ -161,6 +161,8 @@
                 $(this).bfhtimepicker($(this).data());
             });
 
+
+
             var catalogs = new Bloodhound({
                 datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
                 queryTokenizer: Bloodhound.tokenizers.whitespace,

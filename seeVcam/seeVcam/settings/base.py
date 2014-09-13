@@ -22,7 +22,6 @@ THIRD_PARTY_APPS = (
     'rest_framework',
     'easy_pjax',
     'django_countries',
-    'timezone_field',
     'widget_tweaks'
 )
 
