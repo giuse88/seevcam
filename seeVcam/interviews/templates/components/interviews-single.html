@@ -6,19 +6,14 @@
             <div class="row">
                 <div class="col-sm-9">
                     <h4>{{  name }}  {{  surname }}</h4>
-
                     <p> {{  job_position }}</p>
                 </div>
-                <!-- To be removed. With don't have a picture of a candidate -->
-{#                <div class="col-sm-3">#}
-{#                    <img class="img-rounded interview-candidate-avatar" src="{{ MEDIA_URL }}mock/candidate-avatar.jpg"/>#}
-{#                </div>#}
             </div>
         </header>
         <section class="interview-time">
             <p class="interview-date">{{ date }}</p>
 
-            <p class="interview-hours">{{ time }}</p>
+            <p class="interview-hours">{{ time }} - {{ end }}</p>
         </section>
         <footer>
             <div class="row">

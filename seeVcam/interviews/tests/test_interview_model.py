@@ -21,7 +21,9 @@ class TestInterviewModel(TestCase):
                               interview_job_description=self.file_path,
                               interview_position="position",
                               interview_description="test",
-                              interview_datetime="2014-12-23 11:30")
+                              interview_datetime="2014-12-23 11:30",
+                              interview_duration=15,
+                              interview_datetime_end="2014-12-23 11:45")
         interview.save()
         db_interview = Interview.objects.get(pk=1)
         self.assertEqual(interview, db_interview)
@@ -41,7 +43,9 @@ class TestInterviewModel(TestCase):
                               interview_catalogue=self.catalogue,
                               interview_position="position",
                               interview_description="test",
-                              interview_datetime="2014-12-23 11:30")
+                              interview_datetime="2014-12-23 11:30",
+                              interview_duration=15,
+                              interview_datetime_end="2014-12-23 11:45")
         interview.save()
         db_interview = Interview.objects.get(pk=1)
         self.assertEqual(interview, db_interview)

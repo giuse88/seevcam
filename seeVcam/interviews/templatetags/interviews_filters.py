@@ -1,5 +1,6 @@
 from django import template
 register = template.Library()
+import datetime
 
 from common.helpers.timezone import to_user_timezone
 
@@ -17,12 +18,14 @@ def interviews_field(field):
 @register.inclusion_tag("components/interviews-single.html")
 def interview_single_component(field, request):
     user_datetime = to_user_timezone(field.interview_datetime, request.user)
+    user_datetime_end = user_datetime + datetime.timedelta(minutes=field.interview_duration)
     return {
         'name': field.candidate_name,
         'surname': field.candidate_surname,
         'position': field.interview_position,
         'date': user_datetime.date(),
-        'time': user_datetime.time()
+        'time': user_datetime.time(),
+        'end': user_datetime_end.time()
     }
 
 @register.inclusion_tag("components/filter-datepickerField.html")
@@ -37,6 +40,8 @@ def datepicker_field(field, min='', max='', format='y-m-d'):
 
 @register.inclusion_tag("components/filter-fileField.html")
 def file_field(field, newLabel='Select File'):
+    if field.name == 'interview_job_description':
+        field.label = 'Job description'
     return {
         'field': field,
         'newLabel': newLabel,

@@ -1,8 +1,11 @@
+import datetime
+
 from django.conf import settings
 from django import forms
 from django.core.exceptions import ValidationError
-
+from django.db.models import Q
 from common.helpers.timezone import now_timezone, to_system_timezone
+
 from models import Interview
 
 
@@ -17,11 +20,18 @@ class CreateInterviewForm(forms.ModelForm):
         super(CreateInterviewForm, self).__init__(*args, **kwargs)
         self.user = user
 
-    def clean_interview_datetime(self):
-        interview_datetime = self.cleaned_data['interview_datetime']
+    def clean(self):
+        cleaned_data = super(CreateInterviewForm, self).clean()
+        interview_datetime = cleaned_data.get('interview_datetime')
         interview_datetime = to_system_timezone(interview_datetime, self.user)
         self._is_valid_interview_datetime(interview_datetime)
-        self._is_already_booked(interview_datetime)
+        interview_duration = cleaned_data.get('interview_duration')
+        self._is_already_booked(interview_datetime, interview_duration)
+        return cleaned_data
+
+    def _clean_interview_datetime(self):
+        interview_datetime = self.cleaned_data['interview_datetime']
+        interview_datetime = to_system_timezone(interview_datetime, self.user)
         return interview_datetime
 
     def clean_candidate_cv(self):
@@ -34,19 +44,37 @@ class CreateInterviewForm(forms.ModelForm):
         is_valid_file(job_spec)
         return job_spec
 
-    def _is_already_booked(self, interview_datetime):
-        interview = Interview.objects.filter(interview_datetime=interview_datetime,
-                                             interview_owner=self.user.id)
+    def _is_already_booked(self, interview_datetime, interview_duration):
+        interview_start_datetime = interview_datetime
+        interview_end_datetime = interview_start_datetime + datetime.timedelta(minutes=interview_duration)
+        print interview_start_datetime
+        print interview_end_datetime
+        interview = Interview.objects.filter(
+            (Q(interview_datetime__lte=interview_start_datetime) & Q(interview_datetime_end__gte=interview_end_datetime)) |
+            (Q(interview_datetime__lte=interview_start_datetime) & Q(interview_datetime_end__lte=interview_end_datetime)) |
+            (Q(interview_datetime__gte=interview_start_datetime) & Q(interview_datetime_end__gte=interview_end_datetime)) |
+            (Q(interview_datetime__gte=interview_start_datetime) & Q(interview_datetime_end__lte=interview_end_datetime)),
+            interview_owner=self.user.id)
         if interview.exists():
-            raise ValidationError('Another interview has already been scheduled for the date selected.',
-                                  code='already_scheduled_interview')
+            self._add_error_to_form('interview_datetime',
+                                    'Another interview has already been scheduled for the date selected.')
+        return
 
     def _is_valid_interview_datetime(self, interview_datetime):
         # aware times comparison
         if interview_datetime is None or interview_datetime < now_timezone():
-            raise ValidationError('You cannot create a interview in the past!', code='expired_datetime')
+            self._add_error_to_form('interview_datetime', 'You cannot create a interview in the past!')
+        return
 
-########################################################################################################################
+    def _add_error_to_form(self, key, msg):
+        if self._errors.get(key) is None:
+            from django.forms.util import ErrorList
+            self._errors[key] = ErrorList()
+        self._errors[key].append(msg)
+
+
+
+# #######################################################################################################################
 #                                                   FUNCTION HELPERS                                                   #
 ########################################################################################################################
 
