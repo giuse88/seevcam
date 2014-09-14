@@ -35,7 +35,6 @@ def datepicker_field(field, min='', max='', format='y-m-d'):
     }
 
 
-
 @register.inclusion_tag("components/filter-fileField.html")
 def file_field(field, newLabel='Select File'):
     return {
