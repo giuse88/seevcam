@@ -184,7 +184,6 @@
                     ttl: 0,
                     filter: function (data) {
                         return $.map(data, function (catalog) {
-                            console.log(catalog);
                             return {
                                     name: catalog.catalogue_name,
                                     scope : catalog.catalogue_scope.toLocaleLowerCase(),

@@ -35,14 +35,6 @@ def datepicker_field(field, min='', max='', format='y-m-d'):
     }
 
 
-@register.inclusion_tag("components/filter-timepickerField.html")
-def timepicker_field(field, min='', max=''):
-    return {
-        'field': field,
-        'min': min,
-        'max': max
-    }
-
 
 @register.inclusion_tag("components/filter-fileField.html")
 def file_field(field, newLabel='Select File'):

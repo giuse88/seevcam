@@ -36,14 +36,18 @@
 
                 <hr/>
 
-                <div class="form-group has-feedback {% if form.interview_catalogue.errors %} has-error {% endif %}">
+                <div class="interview-catalogue form-group has-feedback
+                            {% if form.interview_catalogue.errors %} has-error {% endif %}">
                     <div class="input-group full-width">
+                        <label for="{{ form.interview_catalogue.id_for_label }}">
+                            {{ form.interview_catalogue.label }} :
+                        </label>
                         <input type="text" data-field-name="{{ form.interview_catalogue.name }}" required
-                               data-parsley-trigger="change"
+                               data-parsley-trigger="focusout"
+                               data-parsley-errors-container=".interview-catalogue .error-form"
                                placeholder="{{ form.interview_catalogue.label }}"
                                class="form-control typeahead"/>
-                        <i class="form-control-feedback glyphicon glyphicon-cog"></i>
-
+{#                        <i class="form-control-feedback glyphicon glyphicon-cog"></i>#}
                         <input type="hidden" name="{{ form.interview_catalogue.name }}" required />
 
                         <div class="error-form">
