@@ -48,8 +48,6 @@ class CreateInterviewForm(forms.ModelForm):
     def _is_already_booked(self, interview_datetime, interview_duration):
         interview_start_datetime = interview_datetime
         interview_end_datetime = interview_start_datetime + datetime.timedelta(minutes=interview_duration)
-        print interview_start_datetime
-        print interview_end_datetime
         interview = Interview.objects.filter(
             Q(interview_datetime__range=(interview_datetime,interview_end_datetime)) |
             Q(interview_datetime_end__range=(interview_datetime,interview_end_datetime)) |
