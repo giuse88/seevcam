@@ -1,6 +1,7 @@
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 
+from django.db.models import Q
 from models import QuestionCatalogue, Question
 from serializers import QuestionCatalogueSerializer, QuestionSerializer
 from permissions import IsOwner, IsCatalogueOwnerOrSeevcamScope, ReadOnly
@@ -32,8 +33,8 @@ class QuestionCatalogueList(generics.ListCreateAPIView):
         obj.catalogue_owner = self.request.user
 
     def get_queryset(self):
-        user = self.request.user
-        return QuestionCatalogue.objects.filter(catalogue_owner=user)
+        return QuestionCatalogue.objects.filter(Q(catalogue_scope=QuestionCatalogue.SEEVCAM_SCOPE) |
+                                                Q(catalogue_owner=self.request.user.id)).order_by('catalogue_name')
 
 
 class QuestionCatalogueDetail(generics.RetrieveUpdateDestroyAPIView):

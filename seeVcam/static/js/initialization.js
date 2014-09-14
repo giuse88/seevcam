@@ -1,3 +1,15 @@
+(function (_) {
+    'use strict';
+
+    _.compile = function (templ) {
+        var compiled = this.template(templ);
+        compiled.render = function (ctx) {
+            return this(ctx);
+        }
+        return compiled;
+    }
+})(window._);
+
 (function ($, COSTANTS) {
 
     $(document).ready(function () {
@@ -172,7 +184,11 @@
                     ttl: 0,
                     filter: function (data) {
                         return $.map(data, function (catalog) {
-                            return { name: catalog.catalogue_name, value: catalog.id };
+                            console.log(catalog);
+                            return {
+                                    name: catalog.catalogue_name,
+                                    scope : catalog.catalogue_scope.toLocaleLowerCase(),
+                                    value: catalog.id };
                         });
                     }
                 }
@@ -181,10 +197,27 @@
             catalogs.clearPrefetchCache();
             catalogs.initialize();
 
-            $('.typeahead').typeahead(null, {
+            $('.typeahead').typeahead(
+                {
+                    hint: true,
+                    highlight: true
+                },{
                 name: 'catalogs',
                 displayKey: 'name',
-                source: catalogs.ttAdapter()
+                source: catalogs.ttAdapter(),
+                templates: {
+                empty: [
+                     '<div class="empty-message">',
+                      '<p>Unable to find any catalogue that match your query</p>',
+                      '</div>'
+                      ].join('\n'),
+                suggestion: _.compile([
+                                '<div class="suggestion">',
+                                    '<span class="<%=scope%>"></span>',
+                                    '<p><%=name%></p>',
+                                '</div>'
+                            ].join(''))
+                }
             }).on("typeahead:selected typeahead:autocompleted", function(e, datum) {
                 var fieldName = $(this).data("field-name");
                 $("[name=" + fieldName + "]").val(datum.value);
