@@ -24,12 +24,13 @@ class CreateInterviewForm(forms.ModelForm):
         cleaned_data = super(CreateInterviewForm, self).clean()
         interview_datetime = cleaned_data.get('interview_datetime')
         interview_datetime = to_system_timezone(interview_datetime, self.user)
+        print interview_datetime
         self._is_valid_interview_datetime(interview_datetime)
         interview_duration = cleaned_data.get('interview_duration')
         self._is_already_booked(interview_datetime, interview_duration)
         return cleaned_data
 
-    def _clean_interview_datetime(self):
+    def __clean_interview_datetime(self):
         interview_datetime = self.cleaned_data['interview_datetime']
         interview_datetime = to_system_timezone(interview_datetime, self.user)
         return interview_datetime
@@ -50,10 +51,9 @@ class CreateInterviewForm(forms.ModelForm):
         print interview_start_datetime
         print interview_end_datetime
         interview = Interview.objects.filter(
-            (Q(interview_datetime__lte=interview_start_datetime) & Q(interview_datetime_end__gte=interview_end_datetime)) |
-            (Q(interview_datetime__lte=interview_start_datetime) & Q(interview_datetime_end__lte=interview_end_datetime)) |
-            (Q(interview_datetime__gte=interview_start_datetime) & Q(interview_datetime_end__gte=interview_end_datetime)) |
-            (Q(interview_datetime__gte=interview_start_datetime) & Q(interview_datetime_end__lte=interview_end_datetime)),
+            Q(interview_datetime__range=(interview_datetime,interview_end_datetime)) |
+            Q(interview_datetime_end__range=(interview_datetime,interview_end_datetime)) |
+            (Q(interview_datetime__lte=interview_datetime) & Q(interview_datetime_end__gte=interview_end_datetime)),
             interview_owner=self.user.id)
         if interview.exists():
             self._add_error_to_form('interview_datetime',

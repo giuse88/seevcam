@@ -157,7 +157,7 @@ class InterviewFormTest(TestCase):
         response = self._create_interview(self._create_upload_file(), self._create_upload_file(),
                                           self.catalogue.id, "2030-1-1 10:45", 30)
         print response
-        # self.assertTrue('Another interview has already been scheduled for the date selected' in response.content)
+        self.assertTrue('Another interview has already been scheduled for the date selected' in response.content)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_overlapping_interviews_4(self):
@@ -174,8 +174,28 @@ class InterviewFormTest(TestCase):
         response = self._create_interview(self._create_upload_file(), self._create_upload_file(),
                                           self.catalogue.id, "2030-1-1 11:15", 30)
         print response
-        # self.assertTrue('Another interview has already been scheduled for the date selected' in response.content)
+        self.assertTrue('Another interview has already been scheduled for the date selected' in response.content)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_overlapping_interviews_correct(self):
+        #
+        self.client.login(username='user_1', password='test')
+        response = self._create_interview(self.file_cv, self.file_job, self.catalogue.id, "2030-1-1 11:00", 30)
+        self.assertEqual(response.status_code, status.HTTP_302_FOUND)
+        self.assertEqual(Interview.objects.filter(interview_owner=self.user_1).count(), 1)
+        self.assertEqual(Interview.objects.count(), 1)
+        interview_1 = Interview.objects.get(pk=1)
+        self.assertEqual(interview_1.candidate_name, "name")
+        self._remove_uploaded_files(interview_1)
+        #
+        response = self._create_interview(self._create_upload_file(), self._create_upload_file(),
+                                          self.catalogue.id, "2030-1-1 11:31", 30)
+        self.assertEqual(response.status_code, status.HTTP_302_FOUND)
+        self.assertEqual(Interview.objects.filter(interview_owner=self.user_1).count(), 2)
+        self.assertEqual(Interview.objects.count(), 2)
+        interview_1 = Interview.objects.get(pk=2)
+        self.assertEqual(interview_1.candidate_name, "name")
+        self._remove_uploaded_files(interview_1)
 
     def test_data_validation(self):
         self.client.login(username='user_1', password='test')
@@ -266,8 +286,8 @@ class InterviewFormTest(TestCase):
         os.remove(interview.interview_job_description.path)
         os.rmdir(os.path.join(settings.MEDIA_ROOT, str(interview.interview_owner_id), str(interview.id), 'cv'))
         os.rmdir(os.path.join(settings.MEDIA_ROOT, str(interview.interview_owner_id), str(interview.id), 'job'))
-        os.rmdir(os.path.join(settings.MEDIA_ROOT, str(interview.id), str(interview.interview_owner_id)))
-        os.rmdir(os.path.join(settings.MEDIA_ROOT, str(interview.id)))
+        os.rmdir(os.path.join(settings.MEDIA_ROOT, str(interview.interview_owner_id), str(interview.id)))
+        os.rmdir(os.path.join(settings.MEDIA_ROOT, str(interview.interview_owner_id)))
 
 
     def _create_interview_data_object(self, file_cv, file_job_dec, catalogue_id, user_datetime):
