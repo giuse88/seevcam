@@ -9,7 +9,13 @@
         <span class="input-group-addon btn btn-default btn-file">
             <span class="fileinput-new"> Select </span>
             <span class="fileinput-exists">Change</span>
-            {{ field|attr:error_container}}
+            <input type="hidden" value="" name="{{ field.name }}">
+            <input id="{{ field.id_for_label }}" name="{{ field.name }}" required="true" type="file">
+
+{#                {% if field.value is set  %}#}
+
+{#            {{ field|attr:error_container}}#}
+
         </span>
 
         <div class="form-control">
