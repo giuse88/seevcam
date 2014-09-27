@@ -64,83 +64,83 @@
             })
         });
 
-        $('#container').on('click', '#add-question', function (event) {
-            event.preventDefault();
-            $.pjax({
-                type: 'POST',
-                url: window.location.pathname + 'create_question/',
-                container: '#list',
-                push: false,
-                data: {'question_text': $('#new-question').val()},
-                success: function (i) {
-                    console.log(i);
-                }
-
-            })
-        });
-
-        $('#container').on('click', 'a.delete', function (event) {
-            var container = "#catalogue"
-            var current_item_id = window.location.pathname.split("/")[3];
-            var deleted_item_id = $(this).attr('href').split("/")[4];
-            if (current_item_id === deleted_item_id)
-                container = "#container"
-            event.preventDefault();
-            $.pjax({
-                type: 'POST',
-                url: $(this).attr('href'),
-                container: container,
-                push: true
-            })
-        });
-
-
-        $('#container').on('click', 'a.update', function (event) {
-            event.preventDefault();
-            var value = $(this).siblings('.catalogue').text().trim();
-            var href = $(this).siblings('.catalogue').attr('href');
-            // TODO use a template
-            var url_parsed = UTILS.url_parser(href);
-            href = url_parsed.pathname + 'update/'
-            var inputHTML = '' +
-                '<form id="update-catalogue-form" class="input-group " action="' + href + '">' +
-                '<input type="text" value="' + value + '" class="form-control">' +
-                '<button class="btn btn-default" type="submit">Update</button>' +
-                '</form>'
-            $(this).parent('li').html(inputHTML)
-        });
-
-        $('#container').on('submit', '#update-catalogue-form', function (event) {
-            event.preventDefault();
-            var container = "#catalogue"
-            var url = $(this).attr('action');
-            var current_item_id = window.location.pathname.split("/")[3];
-            var updated_item_id = url.split("/")[3];
-            if (current_item_id === updated_item_id)
-                container = "#container"
-            var text = $(this).children(':input').val();
-            $.pjax({
-                type: 'POST',
-                url: url,
-                container: container,
-                push: false,
-                data: {'catalogue_name': text}
-            })
-        });
-
-        $('#container').on('click', 'a.profile', function (event) {
-            $this = $(this);
-            event.preventDefault();
-            var container = "#profile-content";
-            var url = $this.attr('href');
-            $.pjax({
-                type: 'GET',
-                url: url,
-                container: container,
-                push: true,
-                activeButton: $this
-            });
-        });
+//        $('#container').on('click', '#add-question', function (event) {
+//            event.preventDefault();
+//            $.pjax({
+//                type: 'POST',
+//                url: window.location.pathname + 'create_question/',
+//                container: '#list',
+//                push: false,
+//                data: {'question_text': $('#new-question').val()},
+//                success: function (i) {
+//                    console.log(i);
+//                }
+//
+//            })
+//        });
+//
+//        $('#container').on('click', 'a.delete', function (event) {
+//            var container = "#catalogue"
+//            var current_item_id = window.location.pathname.split("/")[3];
+//            var deleted_item_id = $(this).attr('href').split("/")[4];
+//            if (current_item_id === deleted_item_id)
+//                container = "#container"
+//            event.preventDefault();
+//            $.pjax({
+//                type: 'POST',
+//                url: $(this).attr('href'),
+//                container: container,
+//                push: true
+//            })
+//        });
+//
+//
+//        $('#container').on('click', 'a.update', function (event) {
+//            event.preventDefault();
+//            var value = $(this).siblings('.catalogue').text().trim();
+//            var href = $(this).siblings('.catalogue').attr('href');
+//            // TODO use a template
+//            var url_parsed = UTILS.url_parser(href);
+//            href = url_parsed.pathname + 'update/'
+//            var inputHTML = '' +
+//                '<form id="update-catalogue-form" class="input-group " action="' + href + '">' +
+//                '<input type="text" value="' + value + '" class="form-control">' +
+//                '<button class="btn btn-default" type="submit">Update</button>' +
+//                '</form>'
+//            $(this).parent('li').html(inputHTML)
+//        });
+//
+//        $('#container').on('submit', '#update-catalogue-form', function (event) {
+//            event.preventDefault();
+//            var container = "#catalogue"
+//            var url = $(this).attr('action');
+//            var current_item_id = window.location.pathname.split("/")[3];
+//            var updated_item_id = url.split("/")[3];
+//            if (current_item_id === updated_item_id)
+//                container = "#container"
+//            var text = $(this).children(':input').val();
+//            $.pjax({
+//                type: 'POST',
+//                url: url,
+//                container: container,
+//                push: false,
+//                data: {'catalogue_name': text}
+//            })
+//        });
+//
+//        $('#container').on('click', 'a.profile', function (event) {
+//            $this = $(this);
+//            event.preventDefault();
+//            var container = "#profile-content";
+//            var url = $this.attr('href');
+//            $.pjax({
+//                type: 'GET',
+//                url: url,
+//                container: container,
+//                push: true,
+//                activeButton: $this
+//            });
+//        });
 
         $("#container").on("pjax:success", "#profile-content", function (event, data, status, xhr, options) {
             $("a.profile").removeClass("active");

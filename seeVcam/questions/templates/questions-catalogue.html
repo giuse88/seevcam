@@ -6,52 +6,22 @@
 
 {%  block content %}
 
-      {%  load catalogue_widget %}
+      {% load catalogue_widget %}
+      {% load static %}
 
-<div clalss="row">
-<div class="col-lg-6">
-<div class="create-interview-catalog-section">
+<div clalss="row" style="height:100%;">
 
-<!--
-<div class="row">
-    <div class="panel">
-        <div class="panel-heading clearfix">
-            <div class="btn-group pull-left">
-                <a href="#" class="btn btn-panel btn-sm">
-                    <i class="glyphicon glyphicon-pencil"></i>
-                </a>
-            </div>
-            <h4>My Interview</h4>
+    <div class="col-lg-6" style="height:100%;">
+        <div id="edit-catalogue" style="height:70%"></div>
+        <hr/>
+        <div id="create-catalogue-block">
+        <div id="create-catalogue" class="form-group has-feedback create-catalogue">
+            <input type="text" class="form-control" placeholder="Type a name to create a new catalogue" />
         </div>
-        <div class="questions-list">
-            <ul class="scroll-pane">
-                <li>
-                    <a href="#"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod est magna, nec pellentesque sapien ultricies ut.</span></a>
-                    <a href="#"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod est magna, nec pellentesque sapien ultricies ut.</span></a>
-                    <a href="#"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod est magna, nec pellentesque sapien ultricies ut.</span></a>
-                    <a href="#"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod est magna, nec pellentesque sapien ultricies ut.</span></a>
-                    <a href="#"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod est magna, nec pellentesque sapien ultricies ut.</span></a>
-                    <a href="#"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod est magna, nec pellentesque sapien ultricies ut.</span></a>
-                    <a href="#"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod est magna, nec pellentesque sapien ultricies ut.</span></a>
-                    <a href="#"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod est magna, nec pellentesque sapien ultricies ut.</span></a>
-                    <a href="#"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod est magna, nec pellentesque sapien ultricies ut.</span></a>
-                    <a href="#"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod est magna, nec pellentesque sapien ultricies ut.</span></a>
-                    <a href="#"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod est magna, nec pellentesque sapien ultricies ut.</span></a>
-                    <a href="#"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod est magna, nec pellentesque sapien ultricies ut.</span></a>
-                    <a href="#"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod est magna, nec pellentesque sapien ultricies ut.</span></a>
-                    <a href="#"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod est magna, nec pellentesque sapien ultricies ut.</span></a>
-                    <a href="#"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod est magna, nec pellentesque sapien ultricies ut.</span></a>
-                    <a href="#"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod est magna, nec pellentesque sapien ultricies ut.</span></a>
-                    <a href="#"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod est magna, nec pellentesque sapien ultricies ut.</span></a>
-                    <a href="#"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod est magna, nec pellentesque sapien ultricies ut.</span></a>
-                </li>
-            </ul>
         </div>
-
-    </div>
 </div>
 
--->
+            <div class="col-lg-6">
 <div class="row">
     <div class="panel">
         <div class="catalogs-picker">
@@ -73,8 +43,66 @@
     </div>
 </div>
 
+
+
+
+
 </div>
 </div>
 </div>
+
+    <script id="questionTemplate" type="text/template">
+      <p><%= question_text %></p>
+      <button class="delete">Delete</button>
+    </script>
+
+
+<script id="editCatalogueTemplate" type="text/template">
+    <div class="create-interview-catalog-section" style="height:100%;">
+    <div class="row" style="height:100%;margin-right:0;">
+        <div class="panel"  style="height:100%;" >
+            <div class="panel-heading clearfix">
+                <div class="btn-group pull-left">
+                    <a href="#" class="btn btn-panel btn-sm">
+                        <i class="glyphicon glyphicon-pencil"></i>
+                    </a>
+                </div>
+                <h4><%= name %></h4>
+            </div>
+               <div id="enter-new-question" style="color:cornflowerblue;">
+                   <input id="question-text" type="text" class="form-control" placeholder="Enter a new question" />
+                   <input class="btn"id="add-question" type="button" value="add-question"/>
+               </div>
+              <div id="question-container">
+                <ul class="scroll-pane">
+{#                    <li>#}
+{#                      <a href="#"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod est magna, nec pellentesque sapien ultricies ut.</span></a>#}
+{#                        <a href="#"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod est magna, nec pellentesque sapien ultricies ut.</span></a>#}
+{#                        <a href="#"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod est magna, nec pellentesque sapien ultricies ut.</span></a>#}
+{#                        <a href="#"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod est magna, nec pellentesque sapien ultricies ut.</span></a>#}
+{#                        <a href="#"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod est magna, nec pellentesque sapien ultricies ut.</span></a>#}
+{#                        <a href="#"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod est magna, nec pellentesque sapien ultricies ut.</span></a>#}
+{#                        <a href="#"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod est magna, nec pellentesque sapien ultricies ut.</span></a>#}
+{#                        <a href="#"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod est magna, nec pellentesque sapien ultricies ut.</span></a>#}
+{#                        <a href="#"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod est magna, nec pellentesque sapien ultricies ut.</span></a>#}
+{#                        <a href="#"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod est magna, nec pellentesque sapien ultricies ut.</span></a>#}
+{#                        <a href="#"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod est magna, nec pellentesque sapien ultricies ut.</span></a>#}
+{#                        <a href="#"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod est magna, nec pellentesque sapien ultricies ut.</span></a>#}
+{#                        <a href="#"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod est magna, nec pellentesque sapien ultricies ut.</span></a>#}
+{#                        <a href="#"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod est magna, nec pellentesque sapien ultricies ut.</span></a>#}
+{#                        <a href="#"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod est magna, nec pellentesque sapien ultricies ut.</span></a>#}
+{#                        <a href="#"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod est magna, nec pellentesque sapien ultricies ut.</span></a>#}
+{#                        <a href="#"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod est magna, nec pellentesque sapien ultricies ut.</span></a>#}
+{#                        <a href="#"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod est magna, nec pellentesque sapien ultricies ut.</span></a>#}
+{##}
+{#                    </li>#}
+                </ul>
+            </div>
+          <div>
+       </div>
+    </div>
+        </div>
+        </div>
+</script>
 
 {% endblock %}

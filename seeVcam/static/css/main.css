@@ -1,10 +1,17 @@
-body {
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
     font-size: 13px;
 }
 
+#container, #content-wrap {
+    height: 100%;
+    min-width: 100%;
+}
 /** Adjusting Bootstrap classes */
 .container {
-    max-width: 1000px;
+    /*max-width: 1000px;*/
 }
 
 .panel-default > .panel-heading {
@@ -69,6 +76,7 @@ a.list-group-item:focus {
 /** Create Interview Section */
 
 .create-interview-catalog-section {
+    height: 100%;
     margin-left: 20px;
 }
 
@@ -503,3 +511,6 @@ a.list-group-item:focus {
     border-radius: 4px 0 0 4px;
 }
 
+.height-500 {
+    height: 500px;
+}
