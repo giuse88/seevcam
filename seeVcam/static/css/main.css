@@ -503,3 +503,24 @@ a.list-group-item:focus {
     border-radius: 4px 0 0 4px;
 }
 
+/* Simple Questions Style for the Report page */
+.question-callout {
+    padding: 10px;
+    margin: 15px 0;
+    border: 1px solid #eee;
+    border-left-width: 5px;
+    border-radius: 3px;
+}
+
+.question-callout-red {
+    border-left-color: #d9534f;
+}
+.question-callout-yellow {
+    border-left-color: #f0ad4e;
+}
+.question-callout-blue {
+    border-left-color: #5bc0de;
+}
+.question-callout-green {
+    border-left-color: #5cb85c;
+}
