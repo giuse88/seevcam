@@ -20,6 +20,7 @@ def interview_single_component(field, request):
     user_datetime = to_user_timezone(field.interview_datetime, request.user)
     user_datetime_end = user_datetime + datetime.timedelta(minutes=field.interview_duration)
     return {
+        'id': field.id,
         'name': field.candidate_name,
         'surname': field.candidate_surname,
         'position': field.interview_position,
