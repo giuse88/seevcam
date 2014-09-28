@@ -3,11 +3,14 @@ from django.conf import settings
 
 
 class QuestionCatalogue(models.Model):
+    #todo new status
     PRIVATE_SCOPE = 'PRIVATE'
     SEEVCAM_SCOPE = 'SEEVCAM'
+    ANONYMOUS_SCOPE = 'ANONYMOUS'
     CATALOGUE_SCOPES = (
         (PRIVATE_SCOPE, 'private'),
         (SEEVCAM_SCOPE, 'seevcam'),
+        (ANONYMOUS_SCOPE, 'anonymous'),
     )
     catalogue_scope = models.CharField(max_length=255, choices=CATALOGUE_SCOPES, default=PRIVATE_SCOPE, null=False,
                                        blank=False)

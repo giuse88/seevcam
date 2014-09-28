@@ -22,9 +22,11 @@ THIRD_PARTY_APPS = (
     'rest_framework',
     'easy_pjax',
     'django_countries',
+    'widget_tweaks'
 )
 
 LOCAL_APPS = (
+    'common',
     'interviews',
     'questions',
     'authentication',
@@ -54,6 +56,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'common.middleware.timezone.TimezoneMiddleware',
 )
 
 STATICFILES_FINDERS = (
@@ -79,6 +82,8 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+DATE_INPUT_FORMATS = ('%d-%m-%Y')
 
 DASHBOARD_URL = '/dashboard/'
 LOGIN_URL = '/'
@@ -189,3 +194,11 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ),
 }
+
+SEEVCAM_UPLOAD_FILE_MIME_TYPES = [
+    'application/pdf',                          #PDF
+    'application/vnd.oasis.opendocument.text',  #WORD
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document', #WORD
+    'application/msword',   #WORD
+]
+SEEVCAM_UPLOAD_FILE_MAX_SIZE = "2097152" #2MB

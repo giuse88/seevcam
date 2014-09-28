@@ -19,7 +19,7 @@ class QuestionSerializerTest(TestCase):
     ##############################################################################
 
     def setUp(self):
-        self.question_catalogue = QuestionCatalogue(pk=1, catalogue_scope='private', catalogue_name='test')
+        self.question_catalogue = QuestionCatalogue(pk=1, catalogue_scope='private', catalogue_name='tests')
         self.question_catalogue.save()
 
     ##############################################################################

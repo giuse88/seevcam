@@ -35,7 +35,7 @@ class QuestionCatalogueTest(TestCase):
 
     def test_the_creation_of_an_empty_catalogue(self):
         """
-        Basic test to verify that a catalogue is correctly created
+        Basic tests to verify that a catalogue is correctly created
         """
         catalogue = QuestionCatalogue.objects.get(pk=1)
         self.assertEqual(catalogue.catalogue_name, self.mock_catalogue_name)

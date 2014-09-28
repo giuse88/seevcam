@@ -1,3 +1,15 @@
+(function (_) {
+    'use strict';
+
+    _.compile = function (templ) {
+        var compiled = this.template(templ);
+        compiled.render = function (ctx) {
+            return this(ctx);
+        }
+        return compiled;
+    }
+})(window._);
+
 (function ($, COSTANTS) {
 
     $(document).ready(function () {
@@ -52,88 +64,185 @@
             })
         });
 
-        $('#container').on('click', '#add-question', function (event) {
-            event.preventDefault();
-            $.pjax({
-                type: 'POST',
-                url: window.location.pathname + 'create_question/' ,
-                container: '#list',
-                push: false,
-                data: {'question_text': $('#new-question').val()},
-                success: function (i) {
-                    console.log(i);
+//        $('#container').on('click', '#add-question', function (event) {
+//            event.preventDefault();
+//            $.pjax({
+//                type: 'POST',
+//                url: window.location.pathname + 'create_question/',
+//                container: '#list',
+//                push: false,
+//                data: {'question_text': $('#new-question').val()},
+//                success: function (i) {
+//                    console.log(i);
+//                }
+//
+//            })
+//        });
+//
+//        $('#container').on('click', 'a.delete', function (event) {
+//            var container = "#catalogue"
+//            var current_item_id = window.location.pathname.split("/")[3];
+//            var deleted_item_id = $(this).attr('href').split("/")[4];
+//            if (current_item_id === deleted_item_id)
+//                container = "#container"
+//            event.preventDefault();
+//            $.pjax({
+//                type: 'POST',
+//                url: $(this).attr('href'),
+//                container: container,
+//                push: true
+//            })
+//        });
+//
+//
+//        $('#container').on('click', 'a.update', function (event) {
+//            event.preventDefault();
+//            var value = $(this).siblings('.catalogue').text().trim();
+//            var href = $(this).siblings('.catalogue').attr('href');
+//            // TODO use a template
+//            var url_parsed = UTILS.url_parser(href);
+//            href = url_parsed.pathname + 'update/'
+//            var inputHTML = '' +
+//                '<form id="update-catalogue-form" class="input-group " action="' + href + '">' +
+//                '<input type="text" value="' + value + '" class="form-control">' +
+//                '<button class="btn btn-default" type="submit">Update</button>' +
+//                '</form>'
+//            $(this).parent('li').html(inputHTML)
+//        });
+//
+//        $('#container').on('submit', '#update-catalogue-form', function (event) {
+//            event.preventDefault();
+//            var container = "#catalogue"
+//            var url = $(this).attr('action');
+//            var current_item_id = window.location.pathname.split("/")[3];
+//            var updated_item_id = url.split("/")[3];
+//            if (current_item_id === updated_item_id)
+//                container = "#container"
+//            var text = $(this).children(':input').val();
+//            $.pjax({
+//                type: 'POST',
+//                url: url,
+//                container: container,
+//                push: false,
+//                data: {'catalogue_name': text}
+//            })
+//        });
+//
+//        $('#container').on('click', 'a.profile', function (event) {
+//            $this = $(this);
+//            event.preventDefault();
+//            var container = "#profile-content";
+//            var url = $this.attr('href');
+//            $.pjax({
+//                type: 'GET',
+//                url: url,
+//                container: container,
+//                push: true,
+//                activeButton: $this
+//            });
+//        });
+
+        $("#container").on("pjax:success", "#profile-content", function (event, data, status, xhr, options) {
+            $("a.profile").removeClass("active");
+            options.activeButton.addClass("active");
+        });
+
+
+        var initScripts = function () {
+//            $('.scroll-pane').jScrollPane({
+//                autoReinitialise: true
+//            });
+
+            $('[data-toggle="tooltip"]').tooltip({container: 'body'});
+
+            $('form').parsley({
+                errorClass: 'has-error',
+                classHandler: function (el) {
+                    return el.$element.closest('.form-group');
+                },
+                errorsWrapper: '<ul class="errorlist"></ul>'
+            });
+
+            $('[data-toggle="tooltip"]').tooltip({container: 'body'});
+
+            $('.bfh-datepicker').each(function () {
+                $(this).bfhdatepicker($(this).data());
+            });
+
+            $('.bfh-timepicker').each(function () {
+                $(this).bfhtimepicker($(this).data());
+            });
+
+
+
+            var catalogs = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                limit: 5,
+                prefetch: {
+                    url: '/dashboard/questions/catalogue',
+                    ttl: 0,
+                    filter: function (data) {
+                        return $.map(data, function (catalog) {
+                            return {
+                                    name: catalog.catalogue_name,
+                                    scope : catalog.catalogue_scope.toLocaleLowerCase(),
+                                    value: catalog.id };
+                        });
+                    }
                 }
+            });
 
-            })
+            catalogs.clearPrefetchCache();
+            catalogs.initialize();
+
+            $('.typeahead').typeahead(
+                {
+                    hint: true,
+                    highlight: true
+                },{
+                name: 'catalogs',
+                displayKey: 'name',
+                source: catalogs.ttAdapter(),
+                templates: {
+                empty: [
+                     '<div class="empty-message">',
+                      '<p>Unable to find any catalogue that match your query</p>',
+                      '</div>'
+                      ].join('\n'),
+                suggestion: _.compile([
+                                '<div class="suggestion">',
+                                    '<span class="<%=scope%>"></span>',
+                                    '<p><%=name%></p>',
+                                '</div>'
+                            ].join(''))
+                }
+            }).on("typeahead:selected typeahead:autocompleted", function(e, datum) {
+                var fieldName = $(this).data("field-name");
+                $("[name=" + fieldName + "]").val(datum.value);
+            });
+        };
+
+        $(document).ready(function () {
+            initScripts();
         });
 
-        $('#container').on('click', 'a.delete', function (event) {
-            var container = "#catalogue"
-            var current_item_id = window.location.pathname.split("/")[3];
-            var deleted_item_id = $(this).attr('href').split("/")[4];
-            if ( current_item_id === deleted_item_id)
-                container = "#container"
-            event.preventDefault();
-            $.pjax({
-                type: 'POST',
-                url: $(this).attr('href'),
-                container: container,
-                push:true
-            })
+        $(document).on('pjax:complete', function () {
+            console.log(this);
         });
 
-
-        $('#container').on('click', 'a.update', function (event) {
-            event.preventDefault();
-            var value = $(this).siblings('.catalogue').text().trim();
-            var href = $(this).siblings('.catalogue').attr('href');
-            // TODO use a template
-            var url_parsed = UTILS.url_parser(href);
-            href = url_parsed.pathname + 'update/'
-            var inputHTML= '' +
-                '<form id="update-catalogue-form" class="input-group " action="' + href + '">' +
-                    '<input type="text" value="' + value +'" class="form-control">' +
-                    '<button class="btn btn-default" type="submit">Update</button>' +
-                '</form>'
-            $(this).parent('li').html(inputHTML)
+        $(document).on('pjax:end', function () {
+            initScripts();
         });
-
-        $('#container').on('submit', '#update-catalogue-form', function (event) {
-            event.preventDefault();
-            var container = "#catalogue"
-            var url = $(this).attr('action');
-            var current_item_id = window.location.pathname.split("/")[3];
-            var updated_item_id = url.split("/")[3];
-            if ( current_item_id === updated_item_id)
-                container = "#container"
-            var text = $(this).children(':input').val();
-            $.pjax({
-                type: 'POST',
-                url: url,
-                container: container,
-                push:false,
-                data: {'catalogue_name': text}
-            })
-        });
-
-        $('#container').on('click', 'a.profile',function(event){
-            event.preventDefault();
-            debugger;
-            var container = "#profile-content";
-            var url = $(this).attr('href');
-            $.pjax({
-                type: 'GET',
-                url: url,
-                container: container,
-                push:true
-            })
-        });
-
-        $(document).on('pjax:complete', function() {
-            console.log(this)
-        })
 
         console.log("Configuration completed.")
     });
 
 })(jQuery, CONSTANTS)
+
+function createFormOnSubmit() {
+    var datetime = $('.bfh-datepicker').val()+ " " + $('.bfh-timepicker').val();
+    console.log(datetime);
+    $('#id_interview_datetime').val(datetime)
+    return true;
+}

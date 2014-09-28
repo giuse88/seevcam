@@ -1,0 +1,32 @@
+
+{% load widget_tweaks %}
+{% load interviews_filters %}
+
+<div class="form-group  {{ field.name }} {% if field.errors %} has-error {% endif %}">
+    <label for="{{ field.id_for_label }}"> {{ field.label }} : </label>
+    <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+
+        <span class="input-group-addon btn btn-default btn-file">
+            <span class="fileinput-new"> Select </span>
+            <span class="fileinput-exists">Change</span>
+            <input type="hidden" value="" name="{{ field.name }}">
+            <input id="{{ field.id_for_label }}" name="{{ field.name }}" required="true" type="file">
+
+{#                {% if field.value is set  %}#}
+
+{#            {{ field|attr:error_container}}#}
+
+        </span>
+
+        <div class="form-control">
+            <i class="glyphicon glyphicon-file fileinput-exists"></i>
+            <span class="fileinput-filename"></span>
+        </div>
+
+    </div>
+
+    <div class="error-form">
+        {{ field.errors }}
+     </div>
+
+</div>

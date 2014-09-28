@@ -1,0 +1,74 @@
+{% extends "dashboard.html"|pjax:request %}
+
+{% block title %} Create {% endblock title %}
+
+{% block content %}
+
+    {% load interviews_filters %}
+    {% load widget_tweaks %}
+
+    <h1>New Interview</h1>
+
+    <form id='createInterview' name='createInterview' class="form-horizontal" enctype="multipart/form-data" action="" method="post" role="form"
+          onsubmit="createFormOnSubmit()">
+        {% csrf_token %}
+
+        {% if form.non_field_errors %}
+            <div class="alert alert-danger" role="alert">
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+
+        <div class="row">
+            <div class="col-lg-6">
+
+                <hr/>
+
+                {% interviews_field form.candidate_name|parsley:"required:true,data-parsley-trigger:focusout" %}
+                {% interviews_field form.candidate_surname|parsley:'required:true,data-parsley-trigger:focusout' %}
+                {% interviews_field form.candidate_email|parsley:'required:true,data-parsley-trigger:focusout' %}
+                {% file_field form.candidate_cv|parsley:"required:true,data-parsley-trigger:focusout" %}
+
+                <hr/>
+
+                {% datepicker_field form.interview_datetime|parsley:'required:true,data-parsley-trigger:focusout' min='today' %}
+                {% interviews_field form.interview_duration|parsley:'required:true,data-parsley-trigger:focusout' %}
+
+                <hr/>
+
+                <div class="interview-catalogue form-group has-feedback
+                            {% if form.interview_catalogue.errors %} has-error {% endif %}">
+                    <div class="input-group full-width">
+                        <label for="{{ form.interview_catalogue.id_for_label }}">
+                            {{ form.interview_catalogue.label }} :
+                        </label>
+                        <input type="text" data-field-name="{{ form.interview_catalogue.name }}" required
+                               data-parsley-trigger="focusout"
+                               data-parsley-errors-container=".interview-catalogue .error-form"
+                               placeholder="{{ form.interview_catalogue.label }}"
+                               class="form-control typeahead"/>
+                              {#<i class="form-control-feedback glyphicon glyphicon-cog"></i>#}
+                        <input type="hidden" name="{{ form.interview_catalogue.name }}" required />
+
+                        <div class="error-form">
+                            {{ form.interview_catalogue.errors }}
+                        </div>
+                    </div>
+                </div>
+
+                {% interviews_field form.interview_position|parsley:'required:true,data-parsley-trigger:focusout' %}
+
+                {% file_field form.interview_job_description|parsley:"required:true,data-parsley-trigger:focusout" %}
+                {% interviews_field form.interview_description|parsley:'required:true,data-parsley-trigger:focusout' %}
+
+                <hr/>
+
+                <div class="">
+                    <input class="btn btn-primary" type="submit" value="Create"/>
+                </div>
+
+            </div>
+        </div>
+    </form>
+
+{% endblock content %}
