@@ -166,6 +166,11 @@ app.ListView = Backbone.View.extend({
         this.$headingTitleInput = $('.panel-heading input.input-panel-heading');
 //        this.$listContainer.jScrollPane({ autoReinitialise: true });
         this.$listContainer.html(''); // reset html
+        this.$el.find(".panel-heading").hover(function(){
+            $(this).find(".icon").removeClass("hidden");
+        }, function() {
+            $(this).find(".icon").addClass("hidden");
+        });
         this.collection.each(function( item ) {
             console.log(item);
             this.renderQuestion( item );
@@ -259,6 +264,7 @@ app.ListView = Backbone.View.extend({
             console.error('failed deleting catalogue');
        });
     }
+
 });
 
 
