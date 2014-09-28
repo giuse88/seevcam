@@ -46,10 +46,36 @@
 
      </div>
 
+    <li id="{{ id }}"  class="catalog-list-item {{ scope }} {{ catalogue_class }}">
+        <div class="container-fluid">
+            <div class="row">
+                <a class="catalog-item-name" href="#"> {{ name }}
+                    <span class="catalog-count">({{ number_of_questions }})</span>
+                </a>
+
+                <div class="btn-group catalog-item-menu pull-right">
+                    <a href="#" class="btn btn-panel btn-sm">
+                        <i class="glyphicon glyphicon-pencil"></i>
+                    </a>
+                    <a href="#" class="btn btn-panel btn-sm">
+                        <i class="glyphicon glyphicon-list-alt"></i>
+                    </a>
+                    <a href="#" class="btn btn-panel btn-sm">
+                        <i class="glyphicon glyphicon glyphicon-folder-close"></i>
+                    </a>
+                    <a href="#" class="btn btn-panel btn-sm">
+                        <i class="glyphicon glyphicon glyphicon-lock"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </li>
+
+
     <script id="questionTemplate" type="text/template">
         <div class="view form-group">
             <p><%- question_text %></p>
-            <a class="delete"> <span class="glyphicon glyphicon-trash"></span> </a>
+            <a class="delete"> <span class="hidden glyphicon glyphicon-trash"></span> </a>
         </div>
         <input class="edit form-control" type="text" value="<%- question_text %>" />
     </script>

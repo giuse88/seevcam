@@ -48,7 +48,7 @@ app.QuestionView = Backbone.View.extend({
      events: {
         "click .delete": 'deleteQuestion',
         "keypress .edit"  : "updateOnEnter",
-        "blur .edit"      : "close",
+        "blur .edit"      : "closeEditing",
         "click .view"  : "edit"
     },
 
@@ -60,6 +60,11 @@ app.QuestionView = Backbone.View.extend({
     render: function() {
         this.$el.html( this.template( this.model.toJSON() ) );
         this.$input = this.$('.edit');
+        this.$el.hover(function(){
+            $(this).find(".glyphicon").removeClass("hidden");
+        }, function() {
+            $(this).find(".glyphicon").addClass("hidden");
+        });
         return this;
     },
 
@@ -77,7 +82,7 @@ app.QuestionView = Backbone.View.extend({
     },
 
     // Close the `"editing"` mode, saving changes to the todo.
-    close: function() {
+    closeEditing: function() {
         var value = this.$input.val();
         if (!value) {
             this.clear();

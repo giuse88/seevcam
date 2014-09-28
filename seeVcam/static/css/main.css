@@ -640,9 +640,13 @@ width: 100%;
     width: 20px;
     height: 20px;
     position: relative;
-    padding-bottom: 4px;
-    padding-top: 4px;
+    padding-bogtttom: 4px;
+    padding-top: 3px;
     text-align: center;
     cursor:pointer;
     margin-left: 5px;
+}
+
+.create-interview-catalog-section .panel-heading {
+    padding: 5px;
 }
