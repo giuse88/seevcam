@@ -12,7 +12,7 @@
     <div clalss="row" style="height:100%;" >
         <div class="col-lg-6" style="height:100%;" >
             <div id="edit-catalogue" style="height: 80%">
-               <div id="no-catalogue" style="height: 100%" class="dashed-border"></div>
+               <div class="no-catalogue dashed-border" style="height: 100%"></div>
             </div>
             <hr/>
             <div id="create-catalogue-block">
@@ -61,11 +61,11 @@
                 <div class="panel" style="height:100%;position: relative;">
                     <div class="panel-heading clearfix">
                         <span class="inline-block" style="width:90%">
-                            <input class="input-panel-heading" style="width:100%" type="text" value="test">
+                            <input class="input-panel-heading" style="width:100%" type="text" value="<%- catalogue_name %>">
                         </span>
                         <span class="margin-b2-t2 inline-block pull-right">
-                           <span class="icon glyphicon glyphicon-trash"></span>
-                           <span class="icon glyphicon glyphicon-remove"></span>
+                           <span class="delete-panel-heading icon glyphicon glyphicon-trash"></span>
+                           <span class="close-panel-heading icon glyphicon glyphicon-remove"></span>
                         </span>
                     </div>
                     <div id="question-container" class="">

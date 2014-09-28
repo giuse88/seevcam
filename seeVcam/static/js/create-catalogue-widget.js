@@ -29,6 +29,10 @@ app.List = Backbone.Collection.extend({
 
     get_catalogue_url:function() {
        return "/dashboard/questions/catalogue/" + this.catalogue.id + "/";
+    },
+
+    set_catalogue_name:function(new_name) {
+       this.catalogue.name = new_name;
     }
 
 });
@@ -85,6 +89,13 @@ app.QuestionView = Backbone.View.extend({
      // If you hit `enter`, we're through editing the item.
     updateOnEnter: function(e) {
       if (e.keyCode == 13) this.close();
+    },
+
+
+    close: function(){
+      this.remove();
+      this.unbind();
+      this.undelegateEvents();
     }
 
 
@@ -98,16 +109,18 @@ app.ListView = Backbone.View.extend({
 
     events : {
       'keypress #question-text': 'addNewQuestion',
-      'keypress .input-panel-heading': 'updateOnEnter',
-      "blur .input-panel-heading"    : "updateCatalogueOnFocusOut"
+      "blur .input-panel-heading"    : "updateCatalogueOnFocusOut",
+      "click .close-panel-heading" : "close",
+      "click .delete-panel-heading" : "deleteCatalogue"
     },
 
 
     initialize: function(collection ) {
         // injected values
         this.collection = collection;
-        // bindings
+        this.questions = [];
 
+        // bindings
         var render = this.render.bind(this);
         _.bindAll(this, 'addNewQuestion');
         _.bindAll(this, 'renderQuestion');
@@ -115,8 +128,11 @@ app.ListView = Backbone.View.extend({
         _.bindAll(this, 'updateOnEnter');
         _.bindAll(this, 'updateCatalogueName');
         _.bindAll(this, 'updateCatalogueOnFocusOut');
+        _.bindAll(this, 'close');
+        _.bindAll(this, 'deleteCatalogue');
         //
-
+        // saving previous view
+        this.$noCatalogue=$('.no-catalogue');
         this.render();
         //
         this.listenTo(this.collection, 'add', this.renderQuestion);
@@ -126,7 +142,6 @@ app.ListView = Backbone.View.extend({
           success : render,
           error : function(){console.error("Error")}
         });
-
 
     },
 
@@ -166,7 +181,8 @@ app.ListView = Backbone.View.extend({
         });
         console.log(questionView.render().el);
         console.log(this.$listContainer);
-       this.$listContainer.append( questionView.render().el );
+        this.$listContainer.append( questionView.render().el );
+        this.questions.push(questionView);
     },
 
    updateOnEnter: function(e) {
@@ -198,6 +214,7 @@ app.ListView = Backbone.View.extend({
                 dataType: "json"
             }).done(function () {
                 console.log("Update catalogue name");
+                self.collection.set_catalogue_name(updated_name);
             }).fail(function () {
                 self.restoreCatalogueName();
                 console.error('failed updating catalogue name');
@@ -207,21 +224,59 @@ app.ListView = Backbone.View.extend({
 
     restoreCatalogueName:function() {
         this.$headingTitleInput.val(this.collection.get_catalogue().name);
+    },
+
+   remove : function() {
+       this.$el.empty();
+       this.stopListening();
+       return this;
+   },
+
+   close: function(){
+       console.log("closing view")
+       _.each(this.questions, function(question_view){
+               question_view.close();
+       });
+       this.remove();
+       this.unbind();
+       this.undelegateEvents();
+       console.log(this.$noCatalogue);
+       this.$el.append(this.$noCatalogue);
+    },
+
+   deleteCatalogue : function() {
+       var self=this;
+       console.log("deleting catalogue");
+       $.ajax({
+           url: this.collection.get_catalogue_url(),
+           type: 'DELETE',
+           contentType: 'application/json',
+           dataType: "json"
+       }).done(function () {
+           console.log("deleted catalogue");
+           self.close() ;
+       }).fail(function () {
+            console.error('failed deleting catalogue');
+       });
     }
 });
 
 
 $('#create-catalogue input').keypress(function(e) {
         if(e.which == 13 && $(this).val()) {
-            var catalogue = {id:9, "name": $(this).val(), "cope": "PRIVATE"};
-//            $.post("/dashboard/questions/catalogue/", new_catalogue, function(catalogue){
-              var list=new app.List([catalogue],{catalogue: catalogue});
-                $(this).val('');
-                new app.ListView(list) ;
+            var new_catalogue = {"catalogue_name": $(this).val(), "scope": "PRIVATE"};
+            var self = this;
+            $.post("/dashboard/questions/catalogue/", new_catalogue, function(catalogue){
+                if (window.openCatalogue){
+                    window.openCatalogue.close();
+                }
+                $(self).val('');
+                var list=new app.List([catalogue],{catalogue: catalogue});
+                window.openCatalogue = new app.ListView(list) ;
                 console.log(catalogue);
-//            }, "json").fail(function(jxhr) {
-//                console.log("test " + jxhr.responseText);
-//            });
+            }, "json").fail(function(jxhr) {
+                console.log("test " + jxhr.responseText);
+            });
         }
     });
 
