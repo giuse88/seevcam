@@ -25,6 +25,10 @@ app.List = Backbone.Collection.extend({
 
     get_catalogue : function () {
        return this.catalogue;
+    },
+
+    get_catalogue_url:function() {
+       return "/dashboard/questions/catalogue/" + this.catalogue.id + "/";
     }
 
 });
@@ -93,7 +97,9 @@ app.ListView = Backbone.View.extend({
     el: "#edit-catalogue",
 
     events : {
-      'keypress #question-text': 'addNewQuestion'
+      'keypress #question-text': 'addNewQuestion',
+      'keypress .input-panel-heading': 'updateOnEnter',
+      "blur .input-panel-heading"    : "updateCatalogueOnFocusOut"
     },
 
 
@@ -106,6 +112,9 @@ app.ListView = Backbone.View.extend({
         _.bindAll(this, 'addNewQuestion');
         _.bindAll(this, 'renderQuestion');
         _.bindAll(this, 'deleteQuestion');
+        _.bindAll(this, 'updateOnEnter');
+        _.bindAll(this, 'updateCatalogueName');
+        _.bindAll(this, 'updateCatalogueOnFocusOut');
         //
 
         this.render();
@@ -139,6 +148,7 @@ app.ListView = Backbone.View.extend({
         this.$el.html(this.template(this.collection.get_catalogue()));
         this.$questionText = $("#question-text");
         this.$listContainer = $("#question-container ul");
+        this.$headingTitleInput = $('.panel-heading input.input-panel-heading');
 //        this.$listContainer.jScrollPane({ autoReinitialise: true });
         this.$listContainer.html(''); // reset html
         this.collection.each(function( item ) {
@@ -150,7 +160,6 @@ app.ListView = Backbone.View.extend({
     // render a book by creating a BookView and appending the
     // element it renders to the library's element
     renderQuestion: function( item ) {
-
         console.log("Create a new question : " + item);
         var questionView = new app.QuestionView({
             model: item
@@ -158,28 +167,47 @@ app.ListView = Backbone.View.extend({
         console.log(questionView.render().el);
         console.log(this.$listContainer);
        this.$listContainer.append( questionView.render().el );
-    }
-
-
-});
-
-
-// List view
-var WidgetView = Backbone.View.extend({
-
-    template: _.template( $("#editCatalogueTemplate").html() ),
-    el: "#edit-catalogue",
-
-    initialize : function (options) {
-        this.catalogue = options.catalogue;
-        this.render();
     },
 
-    render : function() {
+   updateOnEnter: function(e) {
+      if (e.keyCode == 13) {
+          this.updateCatalogueName(this.$headingTitleInput.val());
+      }
+   },
 
-        this.$el.html(this.template(this.catalogue))
+   updateCatalogueOnFocusOut:function(){
+       this.updateCatalogueName(this.$headingTitleInput.val());
+   },
+
+   updateCatalogueName : function(updated_name) {
+
+        if (!updated_name) {
+            this.restoreCatalogueName();
+            return;
+        }
+
+        if ( updated_name !== this.collection.get_catalogue().name  ) {
+            var new_catalogue = {"catalogue_name": updated_name};
+            console.log(new_catalogue);
+            var self = this;
+            $.ajax({
+                url: self.collection.get_catalogue_url(),
+                data: JSON.stringify(new_catalogue),
+                type: 'PUT',
+                contentType: 'application/json',
+                dataType: "json"
+            }).done(function () {
+                console.log("Update catalogue name");
+            }).fail(function () {
+                self.restoreCatalogueName();
+                console.error('failed updating catalogue name');
+            });
+        }
+    },
+
+    restoreCatalogueName:function() {
+        this.$headingTitleInput.val(this.collection.get_catalogue().name);
     }
-
 });
 
 

@@ -119,16 +119,18 @@ border: none;
 }
 
 
+
+
 .create-interview-catalog-section .panel-heading  .input-panel-heading {
     width: 100%;
     border: 0;
     background-color: #5c94ce;
     color: white;
     outline: none;
-  border: none !important;
-  -webkit-box-shadow: none !important;
-  -moz-box-shadow: none !important;
-  box-shadow: none !important;
+    border: none !important;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
 }
 
 .margin-b2-t2 {
