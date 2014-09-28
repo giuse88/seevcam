@@ -84,6 +84,17 @@ class QuestionCatalogueViewTests(APITestCase):
         response = self.client.post(self.CATALOG_PATH, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
+    def test_user_can_create_a_catalogue_failure_catalogue_already_exists(self):
+        self.client.force_authenticate(user=self.user_1)
+        catalogue_name = "catalogue_name"
+        data = {"catalogue_name": catalogue_name, "catalogue_scope": QuestionCatalogue.SEEVCAM_SCOPE}
+        response = self.client.post(self.CATALOG_PATH, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        #
+        data = {"catalogue_name": catalogue_name, "catalogue_scope": QuestionCatalogue.SEEVCAM_SCOPE}
+        response = self.client.post(self.CATALOG_PATH, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
     def test_user_can_access_a_catalogue_using_its_id(self):
         # user 1
         self.client.force_authenticate(user=self.user_1)

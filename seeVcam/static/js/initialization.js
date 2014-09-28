@@ -149,9 +149,9 @@
 
 
         var initScripts = function () {
-            $('.scroll-pane').jScrollPane({
-                autoReinitialise: true
-            });
+//            $('.scroll-pane').jScrollPane({
+//                autoReinitialise: true
+//            });
 
             $('[data-toggle="tooltip"]').tooltip({container: 'body'});
 

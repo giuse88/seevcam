@@ -40,7 +40,7 @@ app.QuestionView = Backbone.View.extend({
         this.model.destroy();
         //Delete view
         this.remove();
-    },
+    }
 
 
 });
@@ -51,7 +51,7 @@ app.ListView = Backbone.View.extend({
 
 
     events : {
-      'click #add-question': 'addNewQuestion',
+      'click #add-question': 'addNewQuestion'
     },
 
 

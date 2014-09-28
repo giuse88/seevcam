@@ -34,15 +34,24 @@ app.QuestionView = Backbone.View.extend({
 
     tagName:   'li',
     id :  function() {return this.model.get('id')} ,
-    className: 'question-container',
+    className: 'question',
     template: _.template( $( '#questionTemplate' ).html() ),
 
      events: {
-        'click .delete': 'deleteQuestion'
+        "click .delete": 'deleteQuestion',
+        "keypress .edit"  : "updateOnEnter",
+        "blur .edit"      : "close",
+        "click .view"  : "edit"
+    },
+
+    initialize: function() {
+      this.listenTo(this.model, 'change', this.render);
+      this.listenTo(this.model, 'destroy', this.remove);
     },
 
     render: function() {
         this.$el.html( this.template( this.model.toJSON() ) );
+        this.$input = this.$('.edit');
         return this;
     },
 
@@ -51,7 +60,29 @@ app.QuestionView = Backbone.View.extend({
         this.model.destroy();
         //Delete view
         this.remove();
+    },
+
+    // Switch this view into `"editing"` mode, displaying the input field.
+    edit: function() {
+      this.$el.addClass("editing");
+      this.$input.focus();
+    },
+
+    // Close the `"editing"` mode, saving changes to the todo.
+    close: function() {
+        var value = this.$input.val();
+        if (!value) {
+            this.clear();
+        } else {
+            this.model.save({question_text: value});
+            this.$el.removeClass("editing");
+        }
+    },
+     // If you hit `enter`, we're through editing the item.
+    updateOnEnter: function(e) {
+      if (e.keyCode == 13) this.close();
     }
+
 
 });
 
@@ -62,7 +93,7 @@ app.ListView = Backbone.View.extend({
     el: "#edit-catalogue",
 
     events : {
-      'click #add-question': 'addNewQuestion'
+      'keypress #question-text': 'addNewQuestion'
     },
 
 
@@ -95,10 +126,12 @@ app.ListView = Backbone.View.extend({
          console.log(this);
     },
 
-    addNewQuestion: function() {
-          console.log(this.$questionText.val());
-          var newModel = this.collection.create({question_text: this.$questionText.val()}, {wait:true});
-          this.$questionText.val("");
+    addNewQuestion: function(e) {
+          if (e.keyCode == 13) {
+              console.log(this.$questionText.val());
+              var newModel = this.collection.create({question_text: this.$questionText.val()}, {wait: true});
+              this.$questionText.val("");
+          }
     },
 
     // render library by rendering each book in its collection
@@ -106,6 +139,7 @@ app.ListView = Backbone.View.extend({
         this.$el.html(this.template(this.collection.get_catalogue()));
         this.$questionText = $("#question-text");
         this.$listContainer = $("#question-container ul");
+//        this.$listContainer.jScrollPane({ autoReinitialise: true });
         this.$listContainer.html(''); // reset html
         this.collection.each(function( item ) {
             console.log(item);
@@ -125,6 +159,8 @@ app.ListView = Backbone.View.extend({
         console.log(this.$listContainer);
        this.$listContainer.append( questionView.render().el );
     }
+
+
 });
 
 
@@ -147,22 +183,18 @@ var WidgetView = Backbone.View.extend({
 });
 
 
-
-    $('#create-catalogue input').keypress(function(e) {
+$('#create-catalogue input').keypress(function(e) {
         if(e.which == 13 && $(this).val()) {
-            var new_catalogue = {"catalogue_name": $(this).val(), "catalogue_scope": "PRIVATE"};
-       //     $.post("/dashboard/questions/catalogue/", new_catalogue, function(catalogue){
-                //error checking
-                var catalogue = {id: 9, scope: "PRIVATE", name: $(this).val()};
+            var catalogue = {id:9, "name": $(this).val(), "cope": "PRIVATE"};
+//            $.post("/dashboard/questions/catalogue/", new_catalogue, function(catalogue){
               var list=new app.List([catalogue],{catalogue: catalogue});
-                console.log(list);
                 $(this).val('');
                 new app.ListView(list) ;
-//                console.log(catalogue);
-//                var list = )
-//           })
+                console.log(catalogue);
+//            }, "json").fail(function(jxhr) {
+//                console.log("test " + jxhr.responseText);
+//            });
         }
     });
-
 
 })()
