@@ -1,12 +1,14 @@
 {% extends "dashboard.html"|pjax:request %}
 
-{% block title %} Create {% endblock title %}
+{% block title %} Create Interview {% endblock title %}
 
 {% block content %}
 
     {% load interviews_filters %}
     {% load widget_tweaks %}
+    {% load static %}
 
+    <div class ="create-interview">
     <h1>New Interview</h1>
 
     <form id='createInterview' name='createInterview' class="form-horizontal" enctype="multipart/form-data" action="" method="post" role="form"
@@ -70,5 +72,13 @@
             </div>
         </div>
     </form>
+
+    <script type="text/javascript">
+        console.log("Hello");
+    </script>
+
+    <script src="{% static "js/modules/create-interview-module.js" %}"></script>
+
+</div>
 
 {% endblock content %}
