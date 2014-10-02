@@ -1,0 +1,36 @@
+{% load widget_tweaks %}
+{% load interviews_filters %}
+
+<div class="form-group {% if field.errors %}has-error{% endif %}">
+    <div class="row">
+
+        <button class="calendar btn btn-default">Open Calendar</button>
+
+        <input style="display:none;" data-parsley-trigger="focusout" id="id_interview_datetime" name="interview_datetime" required="true" type="text">        
+        <input style="display:none;" data-parsley-trigger="focusout" id="id_interview_datetime" name="interview_duration" required="true" type="text">        
+
+
+        <div id="calendar-modal" class="modal fade">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-body">
+                    <div id="calendar"></div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary save-changes">Save changes</button>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+
+
+
+
+        <div class="error-form">
+            {{ field.errors }}
+        </div>
+    </div>
+
+</div>

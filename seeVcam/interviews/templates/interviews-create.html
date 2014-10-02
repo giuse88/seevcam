@@ -33,6 +33,7 @@
 
                 {% datepicker_field form.interview_datetime|parsley:'required:true,data-parsley-trigger:focusout' min='today' %}
                 {% interviews_field form.interview_duration|parsley:'required:true,data-parsley-trigger:focusout' %}
+                {% calendar_field form.interview_datetime|parsley:'required:true,data-parsley-trigger:focusout' min='today' %}
 
                 <hr/>
 
