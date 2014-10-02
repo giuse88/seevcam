@@ -4,22 +4,29 @@
      *                        Constructor                           *
      ****************************************************************/
 
-    (function(){
+    function installCreateInterviewModule(){
         console.log(" -- Create interview beginning constructor --  ");
         installParsley();
         installDataAndTimePicker();
         installTypeAhead();
         installToolTip();
         console.log(" -- Create interview end constructor --  ");
-    })();
+    }
 
     /****************************************************************
      *                        Private methods                       *
      ****************************************************************/
 
+    function makeDateAndTime() {
+        var datetime = $('.create-interview .bfh-datepicker').val()+ " " +
+        $('.create-interview .bfh-timepicker').val();
+        $('#id_interview_datetime').val(datetime);
+        return true;
+    }
+
     function installToolTip(){
         $('[data-toggle="tooltip"]').tooltip({container: 'body'});
-    };
+    }
 
     function installParsley() {
         $('.create-interview form').parsley({
@@ -50,7 +57,7 @@
             queryTokenizer: Bloodhound.tokenizers.whitespace,
             limit: 5,
             prefetch: {
-                url: '/dashboard/questions/catalogue',
+                url: '/dashboard/questions/catalogue/',
                 ttl: 0,
                 filter: function (data) {
                     return $.map(data, function (catalog) {
@@ -98,15 +105,10 @@
      *                        Public methods                       *
     ****************************************************************/
 
-    function createFormOnSubmit() {
-        var datetime = $('.create-interview .bfh-datepicker').val()+ " " +
-            $('.create-interview .bfh-timepicker').val();
-        $('#id_interview_datetime').val(datetime)
-        return true;
-    }
 
-    window.createInteview = {
-        createFormOnSubmit : createFormOnSubmit
+    window.createInterview = {
+        makeDateAndTime : makeDateAndTime,
+        installCreateInterviewModule: installCreateInterviewModule
     };
 
 })(jQuery);

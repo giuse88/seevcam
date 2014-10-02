@@ -197,17 +197,15 @@ border: none;
 }
 
 .catalogs-list {
-    border-bottom: 1px solid #e6e6e6;
     border-top: 1px solid #e6e6e6;
-    padding: 5px 0;
 }
 
 .catalogs-list > ul  {
     display: block;
     margin: 0 5px 0 0;
     list-style: none;
-    height: 220px;
     overflow: auto;
+    padding: 0;
 }
 
 .catalogs-list li {
@@ -670,4 +668,8 @@ width: 100%;
 }
 .question-callout-green {
     border-left-color: #5cb85c;
+}
+.question-module {
+    height: 100%;
+    width: 100%;
 }

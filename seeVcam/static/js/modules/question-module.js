@@ -43,7 +43,12 @@ app.QuestionView = Backbone.View.extend({
     tagName:   'li',
     id :  function() {return this.model.get('id')} ,
     className: 'question',
-    template: _.template( $( '#questionTemplate' ).html() ),
+    template: _.template(
+        '<div class="view form-group"> <p><%- question_text %></p> ' +
+        '<a class="delete"> <span class="hidden glyphicon glyphicon-trash"></span> </a>' +
+        '</div> ' +
+        '<input class="edit form-control" type="text" value="<%- question_text %>" /> '
+    ),
 
      events: {
         "click .delete": 'deleteQuestion',
@@ -109,7 +114,29 @@ app.QuestionView = Backbone.View.extend({
 // List view
 app.ListView = Backbone.View.extend({
 
-    template: _.template( $("#editCatalogueTemplate").html() ),
+    template: _.template(
+    '    <div class="create-interview-catalog-section" style="height:100%;">' +
+    '        <div class="row" style="height:100%;margin-right:0;">' +
+    '           <div class="panel" style="height:100%;position: relative;">' +
+    '                <div class="panel-heading clearfix">' +
+    '                    <span class="inline-block" style="width:90%">' +
+    '                        <input class="input-panel-heading" style="width:100%" type="text" value="<%- catalogue_name %>">' +
+    '                    </span>' +
+    '                   <span class="margin-b2-t2 inline-block pull-right">' +
+    '                       <span class="hidden delete-panel-heading icon glyphicon glyphicon-trash"></span>' +
+    '                       <span class="hidden close-panel-heading icon glyphicon glyphicon-remove"></span>' +
+    '                    </span>' +
+    '                </div>' +
+    '                <div id="question-container" class="">' +
+    '                    <ul class="scroll-pane"></ul>' +
+    '                </div>' +
+    '                <div id="enter-new-question" class="">' +
+    '                    <input id="question-text" class="form-control" type="text" placeholder="Enter a new question"/>' +
+    '                </div>' +
+    '            </div>' +
+    '        </div>' +
+    '    </div>'
+    ),
     el: "#edit-catalogue",
 
     events : {
@@ -270,32 +297,118 @@ app.ListView = Backbone.View.extend({
        });
     }
 
-   });
+});
 
 
-
-
-
-
-
-
-
-$('#create-catalogue input').keypress(function(e) {
-        if(e.which == 13 && $(this).val()) {
-            var new_catalogue = {"catalogue_name": $(this).val(), "scope": "PRIVATE"};
-            var self = this;
-            $.post("/dashboard/questions/catalogue/", new_catalogue, function(catalogue){
-                if (window.openCatalogue){
-                    window.openCatalogue.close();
-                }
-                $(self).val('');
-                var list=new app.List([catalogue],{catalogue: catalogue});
-                window.openCatalogue = new app.ListView(list) ;
-                console.log(catalogue);
-            }, "json").fail(function(jxhr) {
-                console.log("test " + jxhr.responseText);
-            });
-        }
+    var Catalogue = Backbone.Model.extend({
+       defaults: {
+           name: 'unknown',
+           id: 'unknown',
+           scope: 'PRIVATE',
+           size : 0
+       }
     });
 
-})()
+    var CatalogueList = Backbone.Collection.extend({
+       model: Catalogue
+    });
+
+    var CatalogueView = Backbone.View.extend({
+        className: 'catalogue',
+        template: _.template(
+            '<li id="{{ id }}"  class="catalog-list-item <%- scope %> <%-catalogue_class %>">' +
+            '   <div class="container-fluid">' +
+            '       <div class="row"> ' +
+            '           <a class="catalog-item-name" href="#"> <%- name %>' +
+                        '<span class="catalog-count">(<%- size %>)</span></a>' +
+            '       </div>' +
+            '   </div>' +
+            '</li>'),
+
+        id :  function() {
+            return this.model.get('id')
+        },
+
+        render: function() {
+            var jsonModel = this.model.toJSON();
+            jsonModel.catalogue_class = 'catalog-blue';
+            if ( jsonModel.scope.toLowerCase() === 'seevcam' )
+                jsonModel.catalogue_class = 'catalog-red';
+            this.$el.html( this.template(jsonModel) );
+            return this;
+        }
+
+    });
+
+    var CatalogueViewList = Backbone.View.extend({
+        el : '.catalogs-list',
+
+
+        initialize: function(collection ) {
+            // injected values
+            this.collection = collection;
+            this.questions = [];
+
+            // bindings
+            var render = this.render.bind(this);
+            _.bindAll(this, 'renderCatalogue');
+
+            //
+            this.$catalogueContainer = this.$el.find('ul');
+            console.log(this.$el);
+            // saving previous view
+            this.render();
+            //
+
+        },
+
+        render : function() {
+            this.collection.each(function(catalogue){
+                this.renderCatalogue(catalogue);
+            }, this);
+        },
+
+       renderCatalogue: function( item ) {
+           var catalogueView = new CatalogueView({model:item});
+//           console.log(_.template(this.catalogue_template, item.toJSON()));
+           this.$catalogueContainer.append(catalogueView.render().el);
+       }
+
+    });
+
+    function installCataloguePicker() {
+           new CatalogueViewList(new CatalogueList(
+              [{name:'catalogue_1', id:'9', scope:'PRIVATE', size: 0}]
+           ));
+    }
+
+    function installQuestionModule() {
+        console.log("Installing question module");
+
+        $('#create-catalogue input').keypress(function(e) {
+            if(e.which == 13 && $(this).val()) {
+                var new_catalogue = {"catalogue_name": $(this).val(), "scope": "PRIVATE"};
+                var self = this;
+                $.post("/dashboard/questions/catalogue/", new_catalogue, function(catalogue){
+                    if (window.openCatalogue){
+                        window.openCatalogue.close();
+                    }
+                    $(self).val('');
+                    var list=new app.List([catalogue],{catalogue: catalogue});
+                    window.openCatalogue = new app.ListView(list) ;
+                    console.log(catalogue);
+                }, "json").fail(function(jxhr) {
+                    console.log("Creation catalogue failed. Reason :" + jxhr.responseText);
+                });
+            }
+        });
+        installCataloguePicker();
+        console.log("Question module installed.");
+    }
+
+    window.questionCenter = {
+        install : installQuestionModule
+    };
+
+})();
+

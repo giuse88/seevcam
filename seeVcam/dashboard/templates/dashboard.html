@@ -36,6 +36,21 @@
     <script src="{% static "bower_components/typeahead.js/dist/bloodhound.min.js" %}"></script>
     <script src="{% static "bower_components/backbone/backbone.js" %}"></script>
 
+    {#Communication from the server to the client #}
+    <script type="application/javascript">
+        var CONSTANTS = (function () {
+            return {
+                csrft_token: "{{ csrf_token }}"
+            }
+        }());
+    </script>
+
+    {# Seevcam javascript codes goes here #}
+    <script src="{% static "js/misc/utils.js" %}"></script>
+    <script src="{% static "js/initialization.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/modules/create-interview-module.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/modules/question-module.js" %}"></script>
+
 </head>
 
 <body>
@@ -50,19 +65,7 @@
     </div>
 </div>
 
-{#Communication from the server to the client #}
-<script type="application/javascript">
-    var CONSTANTS = (function () {
-        return {
-            csrft_token: "{{ csrf_token }}"
-        }
-    }());
-</script>
 
-
-{# Seevcam javascript codes goes here #}
-<script src="{% static "js/misc/utils.js" %}"></script>
-<script src="{% static "js/initialization.js" %}"></script>
 
 </body>
 
