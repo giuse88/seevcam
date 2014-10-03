@@ -19,7 +19,7 @@ app.List = Backbone.Collection.extend({
 
     initialize : function(models, options) {
         this.catalogue= options.catalogue;
-        this.url = "/dashboard/questions/catalogue/" + this.catalogue.id + "/list/";
+        this.url = "/dashboard/questions/catalogue/" + this.catalogue.get('id') + "/list/";
     },
     model : app.Question,
 
@@ -27,12 +27,16 @@ app.List = Backbone.Collection.extend({
        return this.catalogue;
     },
 
+    get_catalogue_json: function () {
+        return this.catalogue.toJSON();
+    },
+
     get_catalogue_url:function() {
-       return "/dashboard/questions/catalogue/" + this.catalogue.id + "/";
+       return "/dashboard/questions/catalogue/" + this.catalogue.get('id') + "/";
     },
 
     set_catalogue_name:function(new_name) {
-       this.catalogue.name = new_name;
+       this.catalogue.set('catalogue_name', new_name);
     }
 
 });
@@ -192,7 +196,7 @@ app.ListView = Backbone.View.extend({
 
     // render library by rendering each book in its collection
     render: function() {
-        this.$el.html(this.template(this.collection.get_catalogue()));
+        this.$el.html(this.template(this.collection.get_catalogue_json()));
         this.$questionText = $("#question-text");
         this.$listContainer = $("#question-container ul");
         this.$headingTitleInput = $('.panel-heading input.input-panel-heading');
@@ -302,16 +306,21 @@ app.ListView = Backbone.View.extend({
 
     var Catalogue = Backbone.Model.extend({
        defaults: {
-           id: 'unknown',
-           position : 0,
            catalogue_name: 'unknown',
            catalogue_scope: 'PRIVATE',
            catalogue_size : 0
-       }
+       },
+       url : "/dashboard/questions/catalogue/"
     });
 
     var CatalogueList = Backbone.Collection.extend({
-       model: Catalogue
+        model: Catalogue,
+        url : "/dashboard/questions/catalogue/",
+        initialize : function(catalogues) {
+            if (!catalogues) {
+                this.fetch({ reset: true, error: function () { console.error("Error fetching catalogues") } });
+            }
+        }
     });
 
     var CatalogueView = Backbone.View.extend({
@@ -342,7 +351,7 @@ app.ListView = Backbone.View.extend({
     });
 
     var CatalogueViewList = Backbone.View.extend({
-        el : '#question-module',
+        el : "#question-module",
         template : _.template(
         '<div clalss="row" style="height:100%;" > ' +
         '       <div class="col-lg-6" style="height:100%;" >' +
@@ -385,14 +394,23 @@ app.ListView = Backbone.View.extend({
         initialize: function(collection ) {
             // injected values
             this.collection = collection;
-            this.questions = [];
             this.openCatalogue = null;
             // bindings
-            var render = this.render.bind(this);
+            _.bindAll(this, 'render');
             _.bindAll(this, 'renderCatalogue');
             _.bindAll(this, 'validateCatalogueName');
-            this.listenTo(this.collection, 'add', this.renderCatalogue);
+            _.bindAll(this, 'renderEntireCollection');
+            _.bindAll(this, 'addedNewCatalogue');
+            //
+            this.listenTo(this.collection, 'add', this.addedNewCatalogue);
+            this.listenTo(this.collection, 'reset', this.renderEntireCollection);
             this.render();
+        },
+
+        renderEntireCollection:function(){
+            this.collection.each(function(catalogue){
+                this.renderCatalogue(catalogue);
+            }, this);
         },
 
         render : function() {
@@ -401,21 +419,27 @@ app.ListView = Backbone.View.extend({
             this.$statusIcon = this.$el.find('#create-catalogue .glyphicon');
             this.$createCatalogueBox = this.$el.find('#create-catalogue input');
             this.$createCatalogueBox.bind('input propertychange', this.validateCatalogueName);
-            this.collection.each(function(catalogue){
-                this.renderCatalogue(catalogue);
-            }, this);
+            this.renderEntireCollection();
         },
+
+       addedNewCatalogue : function (item){
+           console.log(item);
+           if (this.openCatalogue){
+                this.openCatalogue.close();
+           }
+           var questions = new app.List([],{catalogue: item});
+           this.openCatalogue = new app.ListView(questions);
+           this.renderCatalogue(item);
+       },
 
        renderCatalogue: function( item ) {
            var catalogueView = new CatalogueView({model:item});
            this.$catalogueContainer.append(catalogueView.render().el);
        },
 
-        validateCatalogueName : function(e){
+       validateCatalogueName : function(e){
            var $target = $(e.currentTarget);
            var current_value = $target.val();
-            console.log($target);
-                       console.log("val" + $target.val());
 
            if(!current_value) {
                this.$statusIcon.removeClass("glyphicon-ok-circle").removeClass("glyphicon-remove-circle");
@@ -426,43 +450,28 @@ app.ListView = Backbone.View.extend({
                this.$statusIcon.addClass("glyphicon-remove-circle");
                return;
            }
+
            this.$statusIcon.addClass("glyphicon-ok-circle");
         },
 
        addNewCatalogue : function(e) {
-           var $target = $(e.currentTarget);
+       var $target = $(e.currentTarget);
            var current_value = $target.val();
-           //console.log($target);
-           //console.log("val" + $target.val());
-
-
-           if(e.which == 13 && $target.val()) {
+           if(e.which == 13 && $target.val() && !this.collection.findWhere({"catalogue_name":current_value})) {
                 var new_catalogue = {"catalogue_name": $target.val(), "scope": "PRIVATE"};
-                this.collection.add(new_catalogue);
-
-                if (this.openCatalogue){
-                        this.openCatalogue.close();
-                }
-
-//                this.openCatalogue =
-//                $.post("/dashboard/questions/catalogue/", new_catalogue, function(catalogue){
-//                    $(self).val('');
-//                    var list=new app.List([catalogue],{catalogue: catalogue});
-//                    window.openCatalogue = new app.ListView(list) ;
-//                    console.log(catalogue);
-//                }, "json").fail(function(jxhr) {
-//                    console.log("Creation catalogue failed. Reason :" + jxhr.responseText);
-//                });
-               $target.val('');
+                this.collection.create(new_catalogue, {wait:true});
             }
-       }
+        },
+
+        cleanInputBox:function(){
+            this.$createCatalogueBox.val('');
+            this.$statusIcon.removeClass("glyphicon-ok-circle").removeClass("glyphicon-remove-circle");
+        }
 
     });
 
     function installCataloguePicker() {
-           new CatalogueViewList(new CatalogueList(
-              [{catalogue_name:'catalogue_1', id:'9', catalogue_scope:'PRIVATE', catalogue_size: 0}]
-           ));
+           new CatalogueViewList(new CatalogueList());
     }
 
     function installQuestionModule() {

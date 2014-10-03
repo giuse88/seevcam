@@ -32,7 +32,7 @@ app.List = Backbone.Collection.extend({
     },
 
     set_catalogue_name:function(new_name) {
-       this.catalogue.name = new_name;
+       this.catalogue.set('catalogue_name', new_name);
     }
 
 });
