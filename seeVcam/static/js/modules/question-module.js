@@ -302,10 +302,11 @@ app.ListView = Backbone.View.extend({
 
     var Catalogue = Backbone.Model.extend({
        defaults: {
-           name: 'unknown',
            id: 'unknown',
-           scope: 'PRIVATE',
-           size : 0
+           position : 0,
+           catalogue_name: 'unknown',
+           catalogue_scope: 'PRIVATE',
+           catalogue_size : 0
        }
     });
 
@@ -316,11 +317,11 @@ app.ListView = Backbone.View.extend({
     var CatalogueView = Backbone.View.extend({
         className: 'catalogue',
         template: _.template(
-            '<li id="{{ id }}"  class="catalog-list-item <%- scope %> <%-catalogue_class %>">' +
+            '<li id="{{ id }}"  class="catalog-list-item <%- catalogue_scope %> <%-catalogue_class %>">' +
             '   <div class="container-fluid">' +
             '       <div class="row"> ' +
-            '           <a class="catalog-item-name" href="#"> <%- name %>' +
-                        '<span class="catalog-count">(<%- size %>)</span></a>' +
+            '           <a class="catalog-item-name" href="#"> <%- catalogue_name %>' +
+                        '<span class="catalog-count">(<%- catalogue_size %>)</span></a>' +
             '       </div>' +
             '   </div>' +
             '</li>'),
@@ -332,7 +333,7 @@ app.ListView = Backbone.View.extend({
         render: function() {
             var jsonModel = this.model.toJSON();
             jsonModel.catalogue_class = 'catalog-blue';
-            if ( jsonModel.scope.toLowerCase() === 'seevcam' )
+            if (jsonModel.catalogue_scope.toLowerCase() === 'seevcam' )
                 jsonModel.catalogue_class = 'catalog-red';
             this.$el.html( this.template(jsonModel) );
             return this;
@@ -341,28 +342,65 @@ app.ListView = Backbone.View.extend({
     });
 
     var CatalogueViewList = Backbone.View.extend({
-        el : '.catalogs-list',
+        el : '#question-module',
+        template : _.template(
+        '<div clalss="row" style="height:100%;" > ' +
+        '       <div class="col-lg-6" style="height:100%;" >' +
+        '          <div id="edit-catalogue" style="height: 80%">' +
+        '              <div class="no-catalogue dashed-border" style="height: 100%"></div>' +
+        '         </div>' +
+        '         <hr/>' +
+        '         <div id="create-catalogue-block">' +
+        '             <div id="create-catalogue" class="form-group has-feedback create-catalogue">' +
+        '                 <input type="text" class="form-control" placeholder="Need a new category? Type its name here."/>' +
+        '                  <span class="glyphicon"></span>'+
+        '             </div>' +
+        '         </div>' +
+        '     </div>' +
+        '    <div class="col-lg-6" style="height:100%;" >' +
+        '       <div class="row" style="height:90%;" >' +
+        '            <div class="panel" style="height:100%;" >' +
+        '               <div class="catalogs-picker" style="height:100%;" >' +
+        '                  <div class="catalog-labels">' +
+        '                      <ul>' +
+        '                          <li class="label-red">seeVcam</li>' +
+        '                         <li class="label-blue">Library</li>' +
+        '                    </ul>' +
+        '                 </div>' +
+        '                <div class="catalogs-list"style="height:100%;" >' +
+        '                    <ul class="scroll-pane" style="height:100%;" >' +
+        '                   </ul>' +
+        '              </div>' +
+        '           </div>' +
+        '      </div>' +
+        ' </div>' +
+        '</div>'
+        ),
 
+        events :  {
+            'keypress #create-catalogue input' : 'addNewCatalogue',
+            'keypress #create-catalogue input propertychange':'validateCatalogueName'
+        },
 
         initialize: function(collection ) {
             // injected values
             this.collection = collection;
             this.questions = [];
-
+            this.openCatalogue = null;
             // bindings
             var render = this.render.bind(this);
             _.bindAll(this, 'renderCatalogue');
-
-            //
-            this.$catalogueContainer = this.$el.find('ul');
-            console.log(this.$el);
-            // saving previous view
+            _.bindAll(this, 'validateCatalogueName');
+            this.listenTo(this.collection, 'add', this.renderCatalogue);
             this.render();
-            //
-
         },
 
         render : function() {
+            this.$el.html(this.template());
+            this.$catalogueContainer = this.$el.find('.catalogs-list ul');
+            this.$statusIcon = this.$el.find('#create-catalogue .glyphicon');
+            this.$createCatalogueBox = this.$el.find('#create-catalogue input');
+            this.$createCatalogueBox.bind('input propertychange', this.validateCatalogueName);
             this.collection.each(function(catalogue){
                 this.renderCatalogue(catalogue);
             }, this);
@@ -370,38 +408,83 @@ app.ListView = Backbone.View.extend({
 
        renderCatalogue: function( item ) {
            var catalogueView = new CatalogueView({model:item});
-//           console.log(_.template(this.catalogue_template, item.toJSON()));
            this.$catalogueContainer.append(catalogueView.render().el);
+       },
+
+        validateCatalogueName : function(e){
+           var $target = $(e.currentTarget);
+           var current_value = $target.val();
+            console.log($target);
+                       console.log("val" + $target.val());
+
+           if(!current_value) {
+               this.$statusIcon.removeClass("glyphicon-ok-circle").removeClass("glyphicon-remove-circle");
+               return;
+           }
+
+           if(this.collection.findWhere({"catalogue_name":current_value})){
+               this.$statusIcon.addClass("glyphicon-remove-circle");
+               return;
+           }
+           this.$statusIcon.addClass("glyphicon-ok-circle");
+        },
+
+       addNewCatalogue : function(e) {
+           var $target = $(e.currentTarget);
+           var current_value = $target.val();
+           //console.log($target);
+           //console.log("val" + $target.val());
+
+
+           if(e.which == 13 && $target.val()) {
+                var new_catalogue = {"catalogue_name": $target.val(), "scope": "PRIVATE"};
+                this.collection.add(new_catalogue);
+
+                if (this.openCatalogue){
+                        this.openCatalogue.close();
+                }
+
+//                this.openCatalogue =
+//                $.post("/dashboard/questions/catalogue/", new_catalogue, function(catalogue){
+//                    $(self).val('');
+//                    var list=new app.List([catalogue],{catalogue: catalogue});
+//                    window.openCatalogue = new app.ListView(list) ;
+//                    console.log(catalogue);
+//                }, "json").fail(function(jxhr) {
+//                    console.log("Creation catalogue failed. Reason :" + jxhr.responseText);
+//                });
+               $target.val('');
+            }
        }
 
     });
 
     function installCataloguePicker() {
            new CatalogueViewList(new CatalogueList(
-              [{name:'catalogue_1', id:'9', scope:'PRIVATE', size: 0}]
+              [{catalogue_name:'catalogue_1', id:'9', catalogue_scope:'PRIVATE', catalogue_size: 0}]
            ));
     }
 
     function installQuestionModule() {
         console.log("Installing question module");
 
-        $('#create-catalogue input').keypress(function(e) {
-            if(e.which == 13 && $(this).val()) {
-                var new_catalogue = {"catalogue_name": $(this).val(), "scope": "PRIVATE"};
-                var self = this;
-                $.post("/dashboard/questions/catalogue/", new_catalogue, function(catalogue){
-                    if (window.openCatalogue){
-                        window.openCatalogue.close();
-                    }
-                    $(self).val('');
-                    var list=new app.List([catalogue],{catalogue: catalogue});
-                    window.openCatalogue = new app.ListView(list) ;
-                    console.log(catalogue);
-                }, "json").fail(function(jxhr) {
-                    console.log("Creation catalogue failed. Reason :" + jxhr.responseText);
-                });
-            }
-        });
+//        $('#create-catalogue input').keypress(function(e) {
+//            if(e.which == 13 && $(this).val()) {
+//                var new_catalogue = {"catalogue_name": $(this).val(), "scope": "PRIVATE"};
+//                var self = this;
+//                $.post("/dashboard/questions/catalogue/", new_catalogue, function(catalogue){
+//                    if (window.openCatalogue){
+//                        window.openCatalogue.close();
+//                    }
+//                    $(self).val('');
+//                    var list=new app.List([catalogue],{catalogue: catalogue});
+//                    window.openCatalogue = new app.ListView(list) ;
+//                    console.log(catalogue);
+//                }, "json").fail(function(jxhr) {
+//                    console.log("Creation catalogue failed. Reason :" + jxhr.responseText);
+//                });
+//            }
+//        });
         installCataloguePicker();
         console.log("Question module installed.");
     }

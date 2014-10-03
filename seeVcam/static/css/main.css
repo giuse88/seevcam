@@ -673,3 +673,18 @@ width: 100%;
     height: 100%;
     width: 100%;
 }
+
+#create-catalogue .glyphicon {
+    position: absolute;
+    line-height: 34px;
+    right: 15px;
+    font-size: 18px;
+}
+
+#create-catalogue .glyphicon.glyphicon-ok-circle {
+   color : green;
+}
+
+#create-catalogue .glyphicon.glyphicon-remove-circle {
+    color : red;
+}
