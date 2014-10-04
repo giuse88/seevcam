@@ -14,14 +14,14 @@
         }
     });
 
-
     app.Questions = Backbone.Collection.extend({
 
         initialize: function (models, options) {
             this.catalogue = options.catalogue;
+            debugger;
             this.url = "/dashboard/questions/catalogue/" + this.catalogue.get('id') + "/list/";
-            if (!models) {
-                this.collection.fetch({
+            if (models.length == 0) {
+                this.fetch({
                     reset: true,
                     error: function () {
                         console.error("Error fetching questions for catalogue : " + this.catalogue.get('catalogue_name'));
@@ -33,7 +33,6 @@
 
     });
 
-// Question view
     app.QuestionView = Backbone.View.extend({
 
         tagName: 'li',
@@ -109,7 +108,6 @@
 
     });
 
-// List view
     var QuestionsView = Backbone.View.extend({
 
         template: _.template(
@@ -157,6 +155,7 @@
             _.bindAll(this, 'updateOnEnter');
             _.bindAll(this, 'updateCatalogueName');
             _.bindAll(this, 'updateCatalogueOnFocusOut');
+            _.bindAll(this, 'renderEntireCollection');
             _.bindAll(this, 'close');
             _.bindAll(this, 'deleteCatalogue');
             //
@@ -165,6 +164,7 @@
             this.render();
             //
             this.listenTo(this.collection, 'add', this.renderQuestion);
+            this.listenTo(this.collection, 'reset', this.renderEntireCollection);
             //
         },
 
@@ -177,6 +177,7 @@
         },
 
         render: function () {
+            console.log("Questions view render");
             this.$el.html(this.template(this.catalogue.serialize()));
             this.$questionText = $("#question-text");
             this.$listContainer = $("#question-container ul");
@@ -187,11 +188,15 @@
             }, function () {
                 $(this).find(".icon").addClass("hidden");
             });
+
+            //this.$el.find('.scroll-pane').jScrollPane({ autoReinitialise: true });
+        },
+
+        renderEntireCollection : function(){
+            console.log("Questions view render entire collection");
             this.collection.each(function (item) {
-                console.log(item);
                 this.renderQuestion(item);
             }, this);
-            //this.$el.find('.scroll-pane').jScrollPane({ autoReinitialise: true });
         },
 
         renderQuestion: function (item) {
@@ -245,12 +250,12 @@
 
         deleteCatalogue: function () {
             console.log("Deleting catalogue " + this.catalogue.getName());
+            debugger;
             this.catalogue.destroy();
             this.close();
         }
 
     });
-
 
     var Catalogue = Backbone.Model.extend({
         defaults: {
@@ -399,7 +404,7 @@
             _.bindAll(this, 'removeCatalogue');
             //
             this.listenTo(this.collection, 'add', this.addCatalogue);
-            this.listenTo(this.collection, 'remove', this.remove)
+            this.listenTo(this.collection, 'remove', this.removeCatalogue);
             this.listenTo(this.collection, 'reset', this.renderEntireCollection);
             this.render();
             //
@@ -437,6 +442,7 @@
         },
 
         openCatalogueOnClick: function(event) {
+            debugger;
             var catalogue = this.collection.findWhere({id : Number($(event.currentTarget).attr('id'))});
             this.openCatalogue(catalogue);
         },
@@ -449,6 +455,7 @@
         },
 
         removeCatalogue: function(catalogue) {
+            debugger;
             this.catalogueViews[catalogue.id] &&  this.catalogueViews[catalogue.id].remove();
             console.log("Catalogue " + catalogue.getName() + " removed.");
         },
@@ -485,7 +492,6 @@
         }
 
     });
-
 
     window.catalogueList = null;
     window.catalogueViewList = null;
