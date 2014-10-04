@@ -117,10 +117,11 @@
                 '                <div class="panel-heading clearfix">' +
                 '                    <span class="inline-block" style="width:90%">' +
                 '                        <input class="input-panel-heading" style="width:100%" type="text" value="<%- catalogue_name %>">' +
+//                '                        <span class="glyphicon glyphicon-ok-circle "></span>' +
                 '                    </span>' +
                 '                   <span class="margin-b2-t2 inline-block pull-right">' +
-                '                       <span class="hidden delete-panel-heading icon glyphicon glyphicon-trash"></span>' +
-                '                       <span class="hidden close-panel-heading icon glyphicon glyphicon-remove"></span>' +
+                '                       <span class="delete-panel-heading icon glyphicon glyphicon-trash"></span>' +
+                '                       <span class="close-panel-heading icon glyphicon glyphicon-remove"></span>' +
                 '                    </span>' +
                 '                </div>' +
                 '                <div id="question-container" class="">' +
@@ -159,7 +160,6 @@
             _.bindAll(this, 'close');
             _.bindAll(this, 'deleteCatalogue');
             //
-            // saving previous view
             this.$noCatalogue = $('.no-catalogue');
             this.render();
             //
@@ -183,12 +183,11 @@
             this.$listContainer = $("#question-container ul");
             this.$headingTitleInput = $('.panel-heading input.input-panel-heading');
             this.$listContainer.html('');
-            this.$el.find(".panel-heading").hover(function () {
-                $(this).find(".icon").removeClass("hidden");
-            }, function () {
-                $(this).find(".icon").addClass("hidden");
-            });
-
+//            this.$el.find(".panel-heading").hover(function () {
+//                $(this).find(".icon").removeClass("hidden");
+//            }, function () {
+//                $(this).find(".icon").addClass("hidden");
+//            });
             //this.$el.find('.scroll-pane').jScrollPane({ autoReinitialise: true });
         },
 
