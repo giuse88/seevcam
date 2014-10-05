@@ -108,7 +108,42 @@
 
     });
 
+
+
+
     var QuestionsView = Backbone.View.extend({
+
+        tagName : 'ul',
+        className : 'question-list',
+
+        initialize : function(options){
+            this.catalogue = options && options.catalogue;
+            this.collection = new app.Questions([], {catalogue: this.catalogue});
+            this.questionsViews = [];
+            this.listenTo(this.collection, 'add', this.renderQuestion);
+            this.listenTo(this.collection, 'reset', this.render);
+        },
+
+        render : function(){
+            console.log("Questions view render entire collection");
+            this.collection.each(function (item) {
+                this.renderQuestion(item);
+            }, this);
+            return this;
+        },
+
+        renderQuestion: function (item) {
+            console.log("Create a new question : " + item);
+            var questionView = new app.QuestionView({ model: item });
+            console.log(questionView.render().el);
+            console.log(this.$el);
+            this.$el.append(questionView.render().el);
+            this.questionsViews.push(questionView);
+        }
+
+    });
+
+    var EditCatalogueView = Backbone.View.extend({
 
         template: _.template(
                 '    <div class="create-interview-catalog-section" style="height:100%;">' +
@@ -315,13 +350,19 @@
                 '       <div class="row"> ' +
                 '           <a class="catalog-item-name" href="#"> <%- catalogue_name %>' +
                 '           <span class="catalog-count">(<%- catalogue_size %>)</span></a>' +
+                '           <div class="question-list-container"></div> ' +
                 '       </div>' +
                 '   </div>'),
+
+        events : {
+            'click ' : 'showQuestions'
+        },
 
         initialize: function () {
 
             _.bindAll(this, 'update');
             _.bindAll(this, 'render');
+            _.bindAll(this, 'showQuestions');
 
             this.listenTo(this.model, 'change', this.update);
         },
@@ -340,8 +381,17 @@
             if (jsonModel.catalogue_scope.toLowerCase() === 'seevcam')
                 jsonModel.catalogue_class = 'catalog-red';
             this.$el.html(this.template(jsonModel));
+            this.$questionList = this.$el.find('.question-list-container');
             return this;
+        },
+
+        showQuestions : function(event){
+            event.preventDefault();
+            console.log(this.model.getName());
+            var view = new QuestionsView({catalogue:this.model});
+            console.log(this.$questionList.html(view.render().el));
         }
+
 
     });
 
@@ -383,8 +433,9 @@
 
         events: {
             'keypress #create-catalogue input': 'createCatalogue',
-            'keypress #create-catalogue input propertychange': 'validateCatalogueName',
-            'click .catalogue-list-item':'openCatalogueOnClick'
+            'keypress #create-catalogue input propertychange': 'validateCatalogueName'
+//            'click .catalogue-list-item .edit-icon':'openCatalogueOnClick',
+//            'click .catalogue-list-item ':'showQuestions'
         },
 
         initialize: function (collection) {
@@ -436,7 +487,7 @@
             if (this.openedCatalogue) {
                 this.openedCatalogue.close();
             }
-            this.openedCatalogue = new QuestionsView({catalogue: catalogue});
+            this.openedCatalogue = new EditCatalogueView({catalogue: catalogue});
             console.log("Catalogue " + catalogue.getName() + " opened.");
         },
 
@@ -488,6 +539,10 @@
         cleanInputBox: function () {
             this.$createCatalogueBox.val('');
             this.$statusIcon.removeClass("glyphicon-ok-circle").removeClass("glyphicon-remove-circle");
+        },
+
+        showQuestions : function(item) {
+            console.log(item);
         }
 
     });
