@@ -37,6 +37,14 @@ def datepicker_field(field, min='', max='', format='y-m-d'):
         'max': max,
         'format': format
     }
+@register.inclusion_tag("components/filter-calendarField.html")
+def calendar_field(field, min='', max='', format='y-m-d'):
+    return {
+        'field': field,
+        'min': min,
+        'max': max,
+        'format': format
+    }
 
 
 @register.inclusion_tag("components/filter-fileField.html")
