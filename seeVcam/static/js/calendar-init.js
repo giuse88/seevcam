@@ -6,13 +6,23 @@
 
 	$(document).ready(function () {
 
+		
         $('#container').on('click','button.calendar',function(event){
         	event.preventDefault();
-        	
+
+        	//add a class to the body to remove black background
+        	$('#calendar-modal').on('show.bs.modal', function (e){
+        		$('body').addClass('calendar-modal');
+        	})
+        	$('#calendar-modal').on('hidden.bs.modal', function (e){
+        		$('body').removeClass('calendar-modal');
+        	})
+
         	$('#calendar-modal').modal();
         	$('#calendar-container').show();
         	$('#calendar').children().remove();
-        	setTimeout(function() {init_calendar()}, 300);
+
+        	setTimeout(function() {init_calendar()}, 0);
 
         	//bind save event
         	$('#calendar-modal button.save-changes').click(function(){
@@ -30,8 +40,7 @@
 
         			$('.bfh-datepicker').val(year+'-'+month+'-'+day);
         			$('.bfh-timepicker').val(hours+':'+minutes);
-        			$('#id_interview_duration').val(durationMinutes);
-
+        			$('#id_interview_duration').val(durationMinutes.toString());
         			$('#calendar-modal').modal('hide');
         		}
         	})
@@ -56,27 +65,51 @@
 			endDateTime.setMinutes(endDateTime.getMinutes()+parseInt(currentDuration));	
 		} 
 
+		//compute correct height
+		var height = $(window).height()/10*8 -95;
+
+		//vertically center the calendar
+		$('#calendar-modal .modal-dialog').css('margin-top',$(window).height()/10)
+
+
 		var currentEventID = undefined;
 		$('#calendar').fullCalendar({
 			header: {
 				left: 'prev,next today',
 				center: 'title',
-				right: 'month,agendaDay'
+				right: 'month,agendaWeek,agendaDay'
 			},
+			height: height,
 			editable: true,
 			droppable: true,
 			allDaySlot: false,
 			events: "/static/json/testEvents.json",
-			eventRender: function(ev){
-				if (ev.currentEvent) currentEventID = ev._id;
-			},
-			eventClick: function(ev){
-				//delete the new event if clicked
+			eventRender: function(ev,element,view){
 				if (ev.currentEvent){
-					$('#calendar').fullCalendar('removeEvents',ev._id);
-					currentEventID = undefined;
-					startDateTime = '';
-					endDateTime = '';
+					currentEventID = ev._id;
+					if ((view.name=='agendaDay') || (view.name=='agendaWeek')){
+						//add remove button
+						element.append('<i class="fa fa-remove"></i>');
+						element.find('i.fa-remove').on('click',function(){
+							$('#calendar').fullCalendar('removeEvents',currentEventID);
+							currentEventID = undefined;
+							startDateTime = '';
+							endDateTime = '';
+						})
+					}
+				}
+			},
+			eventClick: function(ev,jsev,view){
+				// if ((view.name=='agendaDay') && (ev.currentEvent)){
+					// $('#calendar').fullCalendar('removeEvents',ev._id);
+					// currentEventID = undefined;
+					// startDateTime = '';
+					// endDateTime = '';
+				// }
+				if (view.name=="month") {
+					//go to agendaDay view
+					$('#calendar').fullCalendar('changeView','agendaDay');
+					$('#calendar').fullCalendar('gotoDate',ev.start.getFullYear(),ev.start.getMonth(),ev.start.getDate());
 				}
 			},
 			dayClick: function(date, allDay, jsEvent, view) {
@@ -87,6 +120,7 @@
 				}
 				else{
 					//we are already in agendaDay. The user has clicked in a hour frame
+					//add a new event
 					endDateTime = new Date(date.getTime() + durationMinutes*60000);
 					startDateTime = date
 					if (!!currentEventID) $('#calendar').fullCalendar('removeEvents',currentEventID);
@@ -110,6 +144,7 @@
 		});
 
 		if ((!!startDateTime) && (!!endDateTime)){
+			//render initial events
 			var eventObj = {
 				title:interviewTitle,
 				start:startDateTime,

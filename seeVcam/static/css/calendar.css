@@ -1,0 +1,44 @@
+body.calendar-modal .modal-backdrop{
+	background-color: transparent;
+}
+#calendar-modal .modal-content{
+	box-shadow: none;
+}
+#calendar-modal.modal.slide .modal-dialog {
+      -webkit-transition: -webkit-transform 1s ease-in-out;
+       -o-transition:      -o-transform 1s ease-in-out;
+          transition:         transform 1s ease-in-out;
+  -webkit-transform: translate3d(50%, 0%, 0);
+       -o-transform: translate3d(50%, 0%, 0);
+          transform: translate3d(50%, 0%, 0);
+}
+#calendar-modal.modal.in .modal-dialog {
+  -webkit-transform: translate3d(0, 0, 0);
+       -o-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+}
+#caledar-modal.slide {
+  opacity: 1;
+}
+#calendar-modal.slide.in {
+  opacity: 1;
+}
+#calendar-modal .modal-footer{
+	text-align: center;
+}
+#calendar-modal .modal-dialog{
+	margin-right: 5%;
+}
+#calendar-modal .modal-dialog{
+	width: 40%;
+}
+#calendar-modal .fc-event i.fa-remove{
+position: absolute;
+top: 0px;
+right: 2px;
+font-size: 17px;
+z-index: 10;
+}
+#calendar .fc-header h2{
+  font-size: 22px;
+}
