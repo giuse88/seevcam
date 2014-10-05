@@ -30,9 +30,9 @@ body.calendar-modal .modal-backdrop{
 	margin-right: 5%;
 }
 #calendar-modal .modal-dialog{
-	width: 40%;
+	width: 80%;
 }
-#calendar-modal .fc-event i.fa-remove{
+#calendar-modal .fc-event span.glyphicon-remove{
 position: absolute;
 top: 0px;
 right: 2px;

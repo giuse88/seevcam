@@ -66,7 +66,7 @@
 		} 
 
 		//compute correct height
-		var height = $(window).height()/10*8 -95;
+		var height = $(window).height()/10*8 -95; //95px = height of the footer
 
 		//vertically center the calendar
 		$('#calendar-modal .modal-dialog').css('margin-top',$(window).height()/10)
@@ -89,7 +89,7 @@
 					currentEventID = ev._id;
 					if ((view.name=='agendaDay') || (view.name=='agendaWeek')){
 						//add remove button
-						element.append('<i class="fa fa-remove"></i>');
+						element.append('<span class="glyphicon glyphicon-remove"></span>');
 						element.find('i.fa-remove').on('click',function(){
 							$('#calendar').fullCalendar('removeEvents',currentEventID);
 							currentEventID = undefined;

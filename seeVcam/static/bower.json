@@ -18,8 +18,7 @@
     "backbone": "1.1.2",
     "jquery-migrate": "~1.2.1",
     "fullcalendar": "1.6.4",
-    "jquery-ui": "~1.11.1",
-    "font-awesome": "~4.2.0"
+    "jquery-ui": "~1.11.1"
   },
   "resolutions": {
     "bootstrap": "3.2.0",
