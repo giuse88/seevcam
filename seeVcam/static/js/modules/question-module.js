@@ -110,6 +110,40 @@
 
 
 
+ var QuestionViewReadOnly = Backbone.View.extend({
+
+        tagName: 'li',
+        className: 'question',
+        template: _.template( '<div class="view form-group"> <p><%- question_text %></p></div>' ),
+
+        id: function () {
+         return this.model.get('id')
+        },
+
+        initialize: function () {
+            this.listenTo(this.model, 'change', this.render);
+            this.listenTo(this.model, 'destroy', this.remove);
+        },
+
+        render: function () {
+            this.$el.html(this.template(this.model.toJSON()));
+            this.$input = this.$('.edit');
+            return this;
+        },
+
+        deleteQuestion: function () {
+            this.model.destroy();
+            this.remove();
+        },
+
+        close: function () {
+            this.remove();
+            this.unbind();
+            this.undelegateEvents();
+        }
+
+    });
+
 
     var QuestionsView = Backbone.View.extend({
 
@@ -118,8 +152,14 @@
 
         initialize : function(options){
             this.catalogue = options && options.catalogue;
+            this.readOnly  = options && options.readOnly;
             this.collection = new app.Questions([], {catalogue: this.catalogue});
             this.questionsViews = [];
+
+            _.bindAll(this, 'render');
+            _.bindAll(this, 'renderQuestion');
+
+
             this.listenTo(this.collection, 'add', this.renderQuestion);
             this.listenTo(this.collection, 'reset', this.render);
         },
@@ -134,7 +174,12 @@
 
         renderQuestion: function (item) {
             console.log("Create a new question : " + item);
-            var questionView = new app.QuestionView({ model: item });
+            var questionView = null;
+            if (this.readOnly){
+                questionView =new QuestionViewReadOnly({ model: item });
+            }else {
+                questionView =new app.QuestionView({ model: item });
+            }
             console.log(questionView.render().el);
             console.log(this.$el);
             this.$el.append(questionView.render().el);
@@ -291,6 +336,8 @@
 
     });
 
+
+
     var Catalogue = Backbone.Model.extend({
         defaults: {
             catalogue_name: 'unknown',
@@ -355,7 +402,7 @@
                 '   </div>'),
 
         events : {
-            'click ' : 'showQuestions'
+            'click .catalog-item-name ' : 'showQuestions'
         },
 
         initialize: function () {
@@ -381,15 +428,24 @@
             if (jsonModel.catalogue_scope.toLowerCase() === 'seevcam')
                 jsonModel.catalogue_class = 'catalog-red';
             this.$el.html(this.template(jsonModel));
+            this.$catalogueLink = this.$el.find('.catalog-item-name');
             this.$questionList = this.$el.find('.question-list-container');
+            this.$questionList.hide();
             return this;
         },
 
         showQuestions : function(event){
             event.preventDefault();
+            var highlightClass = this.model.get('catalogue_scope') === 'SEEVCAM' ?
+                                            'highlight-catalogue-red':
+                                            'highlight-catalogue-blue';
+            this.$catalogueLink.toggleClass(highlightClass);
+            this.$questionList.toggle();
+            if ( this.$questionList.is(":visible")){
+                var view = new QuestionsView({catalogue:this.model, readOnly : true});
+                console.log(this.$questionList.html(view.render().el));
+            }
             console.log(this.model.getName());
-            var view = new QuestionsView({catalogue:this.model});
-            console.log(this.$questionList.html(view.render().el));
         }
 
 

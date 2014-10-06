@@ -688,3 +688,23 @@ width: 100%;
 #create-catalogue .glyphicon.glyphicon-remove-circle {
     color : red;
 }
+
+.question-list-container ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.question-list-container li {
+    border-bottom: 1px solid #D1D1D1;
+}
+
+.highlight-catalogue-blue {
+    background-color:  #0f73c2;
+    color : white !important;
+}
+
+.highlight-catalogue-red {
+     background-color: red;
+    color : white !important;
+}
