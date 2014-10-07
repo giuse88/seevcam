@@ -216,7 +216,7 @@ border: none;
 }
 
 .catalogs-list li a {
-    display: block;
+    display: inline-block;
     font-size: 14px;
     padding: 5px 10px;
     color: black;
@@ -699,12 +699,56 @@ width: 100%;
     border-bottom: 1px solid #D1D1D1;
 }
 
-.highlight-catalogue-blue {
-    background-color:  #0f73c2;
+.catalogue-list-item .catalog-blue .catalogue-name:hover, .highlight-catalogue-blue {
+    background-color: #5c94ce;
     color : white !important;
 }
 
-.highlight-catalogue-red {
-     background-color: red;
+.catalogue-list-item .catalog-red .catalogue-name:hover, .highlight-catalogue-red {
+    background-color: red;
     color : white !important;
+}
+
+.highlight-catalogue-red, .highlight-catalogue-blue  > .catalog-item-name > span {
+     color : white !important;
+}
+
+.catalogue-list-item .catalog-red .catalogue-name:hover .catalog-item-name span {
+    color : white !important;
+}
+
+.catalogue-list-item .catalog-blue .catalogue-name:hover .catalog-item-name span {
+    color : white !important;
+}
+
+.highlight-catalogue-red, .highlight-catalogue-blue  > .catalog-item-name {
+    color : white !important;
+}
+
+.catalogue-list-item .catalog-red .catalogue-name:hover .catalog-item-name {
+    color : white !important;
+}
+
+.catalogue-list-item .catalog-blue .catalogue-name:hover .catalog-item-name {
+    color : white !important;
+}
+
+.catalogue-list-item:hover  .glyphicon {
+    display: inline-block;
+}
+
+.catalogue-list-item .highlight-catalogue-blue .glyphicon {
+    display: inline-block;
+}
+
+.catalogue-list-item .highlight-catalogue-red .glyphicon {
+    display: inline-block;
+}
+
+.catalogue-list-item .glyphicon {
+    float: right;
+    line-height: 30px;
+    margin-right: 10px;
+    cursor : pointer;
+    display: none;
 }

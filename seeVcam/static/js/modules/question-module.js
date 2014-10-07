@@ -159,7 +159,6 @@
             _.bindAll(this, 'render');
             _.bindAll(this, 'renderQuestion');
 
-
             this.listenTo(this.collection, 'add', this.renderQuestion);
             this.listenTo(this.collection, 'reset', this.render);
         },
@@ -394,9 +393,12 @@
         tagName  : 'li',
         template: _.template(
                 '   <div class="container-fluid <%-catalogue_class %>">' +
-                '       <div class="row"> ' +
+                '       <div class="row catalogue-name white-text-on-hover "> ' +
                 '           <a class="catalog-item-name" href="#"> <%- catalogue_name %>' +
                 '           <span class="catalog-count">(<%- catalogue_size %>)</span></a>' +
+                '           <span class="edit-icon glyphicon glyphicon-pencil"></span>' +
+                '       </div> '+
+                '       <div class="row"> ' +
                 '           <div class="question-list-container"></div> ' +
                 '       </div>' +
                 '   </div>'),
@@ -437,15 +439,17 @@
         showQuestions : function(event){
             event.preventDefault();
             var highlightClass = this.model.get('catalogue_scope') === 'SEEVCAM' ?
-                                            'highlight-catalogue-red':
-                                            'highlight-catalogue-blue';
-            this.$catalogueLink.toggleClass(highlightClass);
+                                            'highlight-catalogue-red': 'highlight-catalogue-blue';
+//            $('.highlight-catalogue-red, .highlight-catalogue-blue')
+//                .removeClass('highlight-catalogue-blue')
+//                .removeClass('highlight-catalogue-red');
+
+            this.$catalogueLink.parent('.row').toggleClass(highlightClass);
             this.$questionList.toggle();
-            if ( this.$questionList.is(":visible")){
+            if (this.$questionList.is(":visible")){
                 var view = new QuestionsView({catalogue:this.model, readOnly : true});
-                console.log(this.$questionList.html(view.render().el));
+                this.$questionList.html(view.render().el);
             }
-            console.log(this.model.getName());
         }
 
 
@@ -489,8 +493,8 @@
 
         events: {
             'keypress #create-catalogue input': 'createCatalogue',
-            'keypress #create-catalogue input propertychange': 'validateCatalogueName'
-//            'click .catalogue-list-item .edit-icon':'openCatalogueOnClick',
+            'keypress #create-catalogue input propertychange': 'validateCatalogueName',
+            'click .catalogue-list-item .edit-icon':'openCatalogueOnClick'
 //            'click .catalogue-list-item ':'showQuestions'
         },
 
@@ -543,13 +547,14 @@
             if (this.openedCatalogue) {
                 this.openedCatalogue.close();
             }
+            debugger;
             this.openedCatalogue = new EditCatalogueView({catalogue: catalogue});
             console.log("Catalogue " + catalogue.getName() + " opened.");
         },
 
         openCatalogueOnClick: function(event) {
-            debugger;
-            var catalogue = this.collection.findWhere({id : Number($(event.currentTarget).attr('id'))});
+            var catalogueIdContainer =  $(event.currentTarget).parents('li');
+            var catalogue = this.collection.findWhere({id : Number(catalogueIdContainer.attr('id'))});
             this.openCatalogue(catalogue);
         },
 
