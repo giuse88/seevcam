@@ -1,6 +1,7 @@
 from django import template
 register = template.Library()
 import datetime
+from common.helpers.timezone import to_user_timezone
 
 from common.helpers.timezone import to_user_timezone
 
@@ -19,14 +20,122 @@ def interviews_field(field):
 def interview_single_component(field, request):
     user_datetime = to_user_timezone(field.interview_datetime, request.user)
     user_datetime_end = user_datetime + datetime.timedelta(minutes=field.interview_duration)
+    
+    dt = (field.interview_datetime.date()-to_user_timezone(datetime.datetime.now(),request.user).date())
+    user_date = user_datetime.date()
+    if dt.days==0:
+        date_string = 'today'
+        day = month = year = ''
+        date_separator = ''
+    elif dt.days==1:
+        date_string = 'tomorrow'
+        day = month = year = ''
+        date_separator = ''
+    else:
+        date_string = ''
+        day = str(user_date.day)
+        month = str(user_date.month)
+        year = str(user_date.year)
+        date_string = ''
+        date_separator = '/'
+
     return {
         'id': field.id,
         'name': field.candidate_name,
         'surname': field.candidate_surname,
-        'position': field.interview_position,
-        'date': user_datetime.date(),
+        'job_position': field.interview_position,
         'time': user_datetime.time(),
-        'end': user_datetime_end.time()
+        'end': user_datetime_end.time(),
+        'date_string': date_string,
+        'day': day,
+        'month': month,
+        'year': year,
+        'date_separator': date_separator
+    }
+
+@register.inclusion_tag("components/interviews-list-single.html")
+def interview_list_single_component(field, request):
+    user_datetime = to_user_timezone(field.interview_datetime, request.user)
+    user_datetime_end = user_datetime + datetime.timedelta(minutes=field.interview_duration)
+    
+    dt = (field.interview_datetime.date()-to_user_timezone(datetime.datetime.now(),request.user).date())
+    user_date = user_datetime.date()
+    if dt.days==0:
+        date_string = 'today'
+        date_class = 'today'
+        day = month = year = ''
+        date_separator = ''
+    elif dt.days==1:
+        date_string = 'tomorrow'
+        date_class = 'tomorrow'
+        day = month = year = ''
+        date_separator = ''
+    else:
+        date_string = ''
+        day = str(user_date.day)
+        month = str(user_date.month)
+        year = str(user_date.year)
+        date_string = ''
+        date_class = ''
+        date_separator = '/'
+
+    return {
+        'id': field.id,
+        'name': field.candidate_name,
+        'surname': field.candidate_surname,
+        'job_position': field.interview_position,
+        'time': user_datetime.time(),
+        'end': user_datetime_end.time(),
+        'date_class': date_class,
+        'date_string': date_string,
+        'day': day,
+        'month': month,
+        'year': year,
+        'date_separator': date_separator
+    }
+
+@register.inclusion_tag("components/interviews-calendar-single.html")
+def interview_calendar_single_component(field, request):
+    user_datetime = to_user_timezone(field.interview_datetime, request.user)
+    user_datetime_end = user_datetime + datetime.timedelta(minutes=field.interview_duration)
+    
+    dt = (field.interview_datetime.date()-to_user_timezone(datetime.datetime.now(),request.user).date())
+    user_date = user_datetime.date()
+    if dt.days==0:
+        color = '#009145'
+    elif dt.days==1:
+        color = '#0071bb'
+    else:
+        color = 'black'
+
+    return {
+        'id': field.id,
+        'name': field.candidate_name,
+        'surname': field.candidate_surname,
+        'job_position': field.interview_position,
+        'date_start': str(field.interview_datetime.year) + '-' + str(field.interview_datetime.month) + '-' + str(field.interview_datetime.day) + ' ' + str(field.interview_datetime.hour) + ':' + str(field.interview_datetime.minute) + ':00',
+        'date_end': str(field.interview_datetime_end.year) + '-' + str(field.interview_datetime_end.month) + '-' + str(field.interview_datetime_end.day) + ' ' + str(field.interview_datetime_end.hour) + ':' + str(field.interview_datetime_end.minute) + ':00',
+        'color': color
+    }
+
+@register.inclusion_tag("components/current-datetime.html")
+def current_datetime_component(request):
+    user_datetime_now = to_user_timezone(datetime.datetime.now(),request.user)
+    if user_datetime_now.hour>11:
+        pm_active = 'active'
+        am_active = ''
+    else:
+        am_active = 'active'
+        pm_active = ''        
+
+    return {
+        'hour': user_datetime_now.strftime('%I'),
+        'minute': user_datetime_now.strftime('%M'),
+        'day': user_datetime_now.day,
+        'month': user_datetime_now.month,
+        'year': user_datetime_now.year,
+        'am_active': am_active,
+        'pm_active': pm_active
     }
 
 @register.inclusion_tag("components/filter-datepickerField.html")
@@ -76,3 +185,4 @@ def parsley(value, attributes):
         attrs[kv[0]] = kv[1]
 
     return value
+

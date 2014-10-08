@@ -1,19 +1,23 @@
 {% load interviews_filters %}
 
-<div class="col-lg-4">
-    <div class="interview-item">
+<div class="col-lg-12">
+    <div class="interview-item {{ date_string }}">
+        <span class="glyphicon glyphicon-remove"></span>
         <header>
             <div class="row">
-                <div class="col-sm-9">
-                    <h4>{{  name }}  {{  surname }}</h4>
+                <div class="col-sm-12">
+                    <div class="name-container">
+                        <h4>{{  name }}  {{  surname }}</h4>
+                        <div class="bottom-aligner"></div>    
+                    </div>
                     <p> {{  job_position }}</p>
                 </div>
             </div>
         </header>
         <section class="interview-time">
-            <p class="interview-date">{{ date }}</p>
+            <p class="interview-date"><span class="date-string">{{ date_string }}</span> <span class="date-month">{{ month }}</span> <span class="date-separator">{{ date_separator }}</span> <span class="date-day">{{ day }}</span> <span class="date-separator">{{ date_separator }}</span> <span class="date-year">{{ year }}</span></p>
 
-            <p class="interview-hours">{{ time }} - {{ end }}</p>
+            <p class="interview-hours">{{ time }}</p>
         </section>
         <footer>
             <div class="row">

@@ -1,0 +1,121 @@
+- model: interviews.interview
+  pk: 1
+  fields:
+    interview_description: John Smith
+    interview_owner: 1
+    interview_datetime: 2014-10-13 17:10
+    interview_datetime_end: 2014-10-13 18:32
+    candidate_name: John
+    candidate_surname: Smith
+    interview_position: Sales Manager
+
+- model: interviews.interview
+  pk: 2
+  fields:
+    interview_description: Coco Chanel
+    interview_owner: 1
+    interview_datetime: 2014-10-13 21:32
+    interview_datetime_end: 2014-10-13 23:32
+    candidate_name: Coco
+    candidate_surname: Chanel
+    interview_position: Sales Manager
+- model: interviews.interview
+  pk: 3
+  fields:
+    interview_description: Saint Laurent
+    interview_owner: 1
+    interview_datetime: 2014-10-14 17:32
+    interview_datetime_end: 2014-10-14 18:32
+    candidate_name: Saint
+    candidate_surname: Laurent
+    interview_position: Sales Manager
+- model: interviews.interview
+  pk: 4
+  fields:
+    interview_description: Paul Smith
+    interview_owner: 1
+    interview_datetime: 2014-10-11 20:32
+    interview_datetime_end: 2014-10-11 22:32
+    candidate_name: Paul
+    candidate_surname: Smith
+    interview_position: Sales Manager
+- model: interviews.interview
+  pk: 5
+  fields:
+    interview_description: Donna Karan
+    interview_owner: 1
+    interview_datetime: 2014-10-11 14:32
+    interview_datetime_end: 2014-10-11 16:32
+    candidate_name: Donna
+    candidate_surname: Karan
+    interview_position: Sales Manager
+- model: interviews.interview
+  pk: 6
+  fields:
+    interview_description: Donatella Versace
+    interview_owner: 1
+    interview_datetime: 2014-10-12 23:32
+    interview_datetime_end: 2014-10-12 23:42
+    candidate_name: Donatella
+    candidate_surname: Versace
+    interview_position: Sales Manager
+- model: interviews.interview
+  pk: 7
+  fields:
+    interview_description: John Prada
+    interview_owner: 1
+    interview_datetime: 2014-10-15 13:32
+    interview_datetime_end: 2014-10-15 16:32
+    candidate_name: John
+    candidate_surname: Prada
+    interview_position: Sales Manager
+- model: interviews.interview
+  pk: 8
+  fields:
+    interview_description: Giorgio Armani
+    interview_owner: 1
+    interview_datetime: 2014-10-16 13:32
+    interview_datetime_end: 2014-10-16 16:32
+    candidate_name: Giorgio
+    candidate_surname: Armani
+    interview_position: Sales Manager
+- model: interviews.interview
+  pk: 9
+  fields:
+    interview_description: Ralph Lauren
+    interview_owner: 1
+    interview_datetime: 2014-10-16 17:32
+    interview_datetime_end: 2014-10-16 18:32
+    candidate_name: Ralph
+    candidate_surname: Lauren
+    interview_position: Sales Manager
+- model: interviews.interview
+  pk: 10
+  fields:
+    interview_description: Christian Dior
+    interview_owner: 1
+    interview_datetime: 2014-10-17 13:32
+    interview_datetime_end: 2014-10-17 16:32
+    candidate_name: Christian
+    candidate_surname: Dior
+    interview_position: Sales Manager
+- model: interviews.interview
+  pk: 11
+  fields:
+    interview_description: Calvin Klein
+    interview_owner: 1
+    interview_datetime: 2014-10-18 13:32
+    interview_datetime_end: 2014-10-18 16:32
+    candidate_name: Calvin
+    candidate_surname: Klein
+    interview_position: Sales Manager
+- model: interviews.interview
+  pk: 12
+  fields:
+    interview_description: Tom Ford
+    interview_owner: 1
+    interview_datetime: 2014-10-21 13:32
+    interview_datetime_end: 2014-10-21 16:32
+    candidate_name: Tom
+    candidate_surname: Ford
+    interview_position: Sales Manager

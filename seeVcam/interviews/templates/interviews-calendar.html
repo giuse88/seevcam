@@ -1,0 +1,19 @@
+{% extends "interviews.html" %}
+
+{% load interviews_filters %}
+
+{% block nav_interviews_calendar %} 
+<a class="pjax active glyphicon glyphicon-calendar" href="{% url "interviews-calendar" %}"></a>
+{% endblock nav_interviews_calendar %} 
+
+{% block interviews_list %}
+
+	<script type="application/javascript">
+		var calendarEvents = []
+		{% for interview in interviews_filter %}
+			calendarEvents.push({% interview_calendar_single_component interview request %});
+		{% endfor %}
+	</script>
+
+	<div id="interviews-calendar"></div>
+{% endblock interviews_list %}
