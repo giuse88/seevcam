@@ -33,6 +33,74 @@
 
     });
 
+    var Catalogue = Backbone.Model.extend({
+        defaults: {
+            catalogue_name: 'unknown',
+            catalogue_scope: 'PRIVATE',
+            catalogue_size: 0
+        },
+
+        initialize: function () {
+
+            console.log("Initializing catalogue :  " + this.get('catalogue_name') + " " + this.get('id'));
+            _.bindAll(this, 'updateName');
+        },
+
+        getName: function () {
+            return this.get('catalogue_name');
+        },
+
+        setQuestions:function(questions){
+            this.questions = questions;
+        },
+
+        getQuestions:function(){
+            return this.questions;
+        },
+
+        getOrCreateQuestions:function(){
+            if (!this.questions)
+                this.questions = new app.Questions([], {catalogue:this});
+            return this.questions;
+        },
+
+        updateName: function (newName) {
+
+            if (!newName)
+                throw "Invalid catalogue name";
+
+            var self = this;
+            this.save({catalogue_name: newName}, {
+                success: function (response) {
+                    console.log("SUCCESS : Catalogue " + self.getName() + "updated.");
+                },
+                error: function (response) {
+                    console.error("FAILED : Catalogue " + self.getName() + " not updated");
+                    console.error(response);
+                }
+            });
+        },
+
+        serialize: function () {
+            return this.toJSON();
+        }
+
+    });
+
+    var CatalogueList = Backbone.Collection.extend({
+        model: Catalogue,
+        url: "/dashboard/questions/catalogue/",
+        initialize: function (catalogues) {
+            if (!catalogues) {
+                this.fetch({ reset: true, error: function () {
+                    console.error("Error fetching catalogues")
+                } });
+            }
+        }
+    });
+
+
+
     app.QuestionView = Backbone.View.extend({
 
         tagName: 'li',
@@ -108,9 +176,7 @@
 
     });
 
-
-
- var QuestionViewReadOnly = Backbone.View.extend({
+    var QuestionViewReadOnly = Backbone.View.extend({
 
         tagName: 'li',
         className: 'question',
@@ -144,7 +210,6 @@
 
     });
 
-
     var QuestionsView = Backbone.View.extend({
 
         tagName : 'ul',
@@ -153,7 +218,7 @@
         initialize : function(options){
             this.catalogue = options && options.catalogue;
             this.readOnly  = options && options.readOnly;
-            this.collection = new app.Questions([], {catalogue: this.catalogue});
+            this.collection = options.catalogue.getOrCreateQuestions();
             this.questionsViews = [];
 
             _.bindAll(this, 'render');
@@ -226,7 +291,7 @@
         initialize: function (options) {
             //
             this.catalogue = options && options.catalogue;
-            this.collection = new app.Questions([], {catalogue: this.catalogue});
+            this.collection = this.catalogue.getOrCreateQuestions();
             this.questions = [];
             // bindings
             var render = this.render.bind(this);
@@ -333,59 +398,6 @@
             this.close();
         }
 
-    });
-
-
-
-    var Catalogue = Backbone.Model.extend({
-        defaults: {
-            catalogue_name: 'unknown',
-            catalogue_scope: 'PRIVATE',
-            catalogue_size: 0
-        },
-
-        initialize: function () {
-            console.log("Initializing catalogue :  " + this.get('catalogue_name') + " " + this.get('id'));
-            _.bindAll(this, 'updateName');
-        },
-
-        getName: function () {
-            return this.get('catalogue_name');
-        },
-
-        updateName: function (newName) {
-
-            if (!newName)
-                throw "Invalid catalogue name";
-
-            var self = this;
-            this.save({catalogue_name: newName}, {
-                success: function (response) {
-                    console.log("SUCCESS : Catalogue " + self.getName() + "updated.");
-                },
-                error: function (response) {
-                    console.error("FAILED : Catalogue " + self.getName() + " not updated");
-                    console.error(response);
-                }
-            });
-        },
-
-        serialize: function () {
-            return this.toJSON();
-        }
-
-    });
-
-    var CatalogueList = Backbone.Collection.extend({
-        model: Catalogue,
-        url: "/dashboard/questions/catalogue/",
-        initialize: function (catalogues) {
-            if (!catalogues) {
-                this.fetch({ reset: true, error: function () {
-                    console.error("Error fetching catalogues")
-                } });
-            }
-        }
     });
 
     var CatalogueView = Backbone.View.extend({
@@ -503,6 +515,7 @@
             this.collection = collection;
             this.openedCatalogue = null;
             this.catalogueViews = [];
+
             // bindings
             _.bindAll(this, 'render');
             _.bindAll(this, 'renderCatalogue');
@@ -547,7 +560,6 @@
             if (this.openedCatalogue) {
                 this.openedCatalogue.close();
             }
-            debugger;
             this.openedCatalogue = new EditCatalogueView({catalogue: catalogue});
             console.log("Catalogue " + catalogue.getName() + " opened.");
         },
