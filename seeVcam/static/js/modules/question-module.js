@@ -569,6 +569,7 @@
             this.$createCatalogueBox = this.$el.find('#create-catalogue input');
             this.$createCatalogueBox.bind('input propertychange', this.validateCatalogueName);
             this.renderEntireCollection();
+//            _.defer(_.bind(function(){this.$el.find('.scroll-pane').jScrollPane()}, this));
             return this;
         },
 
