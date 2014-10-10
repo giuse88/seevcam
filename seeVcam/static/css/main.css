@@ -753,3 +753,15 @@ width: 100%;
     cursor : pointer;
     display: none;
 }
+
+.question-drag-helper {
+    color : white;
+    background-color: #0f73c2;
+    padding : 5px;
+    margin: 0;
+}
+
+
+.question-drag-helper p {
+    margin: 0;
+}

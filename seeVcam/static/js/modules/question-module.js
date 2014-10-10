@@ -18,7 +18,6 @@
 
         initialize: function (models, options) {
             this.catalogue = options.catalogue;
-            debugger;
             this.url = "/dashboard/questions/catalogue/" + this.catalogue.get('id') + "/list/";
             if (models.length == 0) {
                 this.fetch({
@@ -179,20 +178,30 @@
         tagName: 'li',
         className: 'question',
         template: _.template( '<div class="view form-group"> <p><%- question_text %></p></div>' ),
+        helper_template: _.template( '<div class="question-drag-helper"> <p><%- question_text %></p></div>' ),
 
         id: function () {
          return this.model.get('id')
         },
 
         initialize: function () {
+            _.bindAll(this, "dragHelper");
             this.listenTo(this.model, 'change', this.render);
             this.listenTo(this.model, 'destroy', this.remove);
         },
 
         render: function () {
             this.$el.html(this.template(this.model.toJSON()));
-            this.$input = this.$('.edit');
+            this.$el.draggable({
+                cursor: 'move',
+                containment: 'document',
+                helper: this.dragHelper
+            });
             return this;
+        },
+
+        dragHelper : function () {
+            return this.helper_template(this.model.toJSON());
         },
 
         deleteQuestion: function () {
@@ -326,12 +335,23 @@
             this.$headingTitleInput = $('.panel-heading input.input-panel-heading');
             this.$listContainer.html('');
             this.renderEntireCollection();
+            this.installDroppable();
 //            this.$el.find(".panel-heading").hover(function () {
 //                $(this).find(".icon").removeClass("hidden");
 //            }, function () {
 //                $(this).find(".icon").addClass("hidden");
 //            });
             //this.$el.find('.scroll-pane').jScrollPane({ autoReinitialise: true });
+        },
+
+        installDroppable : function() {
+            this.$listContainer.droppable({
+                drop: _.bind(function( event, ui ) {
+                    var questionText = ui.helper.find('p').html();
+                    this.collection.create({question_text: questionText});
+                    console.log("Added question using drag and drop : " +  questionText);
+                }, this)
+            });
         },
 
         renderEntireCollection : function(){
@@ -392,7 +412,6 @@
 
         deleteCatalogue: function () {
             console.log("Deleting catalogue " + this.catalogue.getName());
-            debugger;
             this.catalogue.destroy();
             this.close();
         }
@@ -586,7 +605,6 @@
         },
 
         removeCatalogue: function(catalogue) {
-            debugger;
             this.catalogueViews[catalogue.id] &&  this.catalogueViews[catalogue.id].remove();
             console.log("Catalogue " + catalogue.getName() + " removed.");
         },
