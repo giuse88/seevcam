@@ -192,11 +192,7 @@
 
         render: function () {
             this.$el.html(this.template(this.model.toJSON()));
-            this.$el.draggable({
-                cursor: 'move',
-                containment: 'document',
-                helper: this.dragHelper
-            });
+            this.$el.draggable({ cursor: 'move', containment: 'document', helper: this.dragHelper });
             return this;
         },
 
@@ -244,15 +240,15 @@
         },
 
         renderQuestion: function (item) {
-            console.log("Create a new question : " + item);
+//            console.log("Create a new question : " + item);
             var questionView = null;
             if (this.readOnly){
                 questionView =new QuestionViewReadOnly({ model: item });
             }else {
                 questionView =new app.QuestionView({ model: item });
             }
-            console.log(questionView.render().el);
-            console.log(this.$el);
+//            console.log(questionView.render().el);
+//            console.log(this.$el);
             this.$el.append(questionView.render().el);
             this.questionsViews.push(questionView);
         }
@@ -520,7 +516,7 @@
                 '                         <li class="label-blue">Library</li>' +
                 '                    </ul>' +
                 '                 </div>' +
-                '                <div class="catalogs-list"style="height:100%;" >' +
+                '                <div class="catalogs-list">' +
                 '                    <ul class="scroll-pane" style="height:100%;" >' +
                 '                   </ul>' +
                 '              </div>' +
@@ -534,7 +530,6 @@
             'keypress #create-catalogue input': 'createCatalogue',
             'keypress #create-catalogue input propertychange': 'validateCatalogueName',
             'click .catalogue-list-item .edit-icon':'openCatalogueOnClick'
-//            'click .catalogue-list-item ':'showQuestions'
         },
 
         initialize: function (collection) {

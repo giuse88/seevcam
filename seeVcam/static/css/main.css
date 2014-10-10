@@ -119,8 +119,6 @@ border: none;
 }
 
 
-
-
 .create-interview-catalog-section .panel-heading  .input-panel-heading {
     width: 100%;
     border: 0;
@@ -150,6 +148,7 @@ border: none;
     margin: 0;
     padding: 5px 0;
     font-size: 0;
+    height: 30px;
 }
 
 .catalog-labels li {
@@ -197,6 +196,7 @@ border: none;
 }
 
 .catalogs-list {
+    height: calc(100% - 30px);
     border-top: 1px solid #e6e6e6;
 }
 
