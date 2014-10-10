@@ -99,8 +99,6 @@
         }
     });
 
-
-
     app.QuestionView = Backbone.View.extend({
 
         tagName: 'li',
@@ -327,6 +325,7 @@
             this.$listContainer = $("#question-container ul");
             this.$headingTitleInput = $('.panel-heading input.input-panel-heading');
             this.$listContainer.html('');
+            this.renderEntireCollection();
 //            this.$el.find(".panel-heading").hover(function () {
 //                $(this).find(".icon").removeClass("hidden");
 //            }, function () {
@@ -444,24 +443,33 @@
             this.$el.html(this.template(jsonModel));
             this.$catalogueLink = this.$el.find('.catalog-item-name');
             this.$questionList = this.$el.find('.question-list-container');
-            this.$questionList.hide();
             return this;
         },
 
         showQuestions : function(event){
             event.preventDefault();
+
+            var isAlreadyOpened = this.$el.hasClass('opened');
             var highlightClass = this.model.get('catalogue_scope') === 'SEEVCAM' ?
                                             'highlight-catalogue-red': 'highlight-catalogue-blue';
-//            $('.highlight-catalogue-red, .highlight-catalogue-blue')
-//                .removeClass('highlight-catalogue-blue')
-//                .removeClass('highlight-catalogue-red');
 
-            this.$catalogueLink.parent('.row').toggleClass(highlightClass);
-            this.$questionList.toggle();
-            if (this.$questionList.is(":visible")){
+            $('.highlight-catalogue-red, .highlight-catalogue-blue')
+                .removeClass('highlight-catalogue-blue')
+                .removeClass('highlight-catalogue-red');
+
+            $('.opened').
+                 removeClass('opened').
+                 find(".row .question-list-container").
+                 collapse('hide');
+
+            if(!isAlreadyOpened){
+                this.$catalogueLink.parent('.row').toggleClass(highlightClass);
+                this.$el.addClass('opened');
                 var view = new QuestionsView({catalogue:this.model, readOnly : true});
                 this.$questionList.html(view.render().el);
+                this.$questionList.collapse('show');
             }
+
         }
 
 
