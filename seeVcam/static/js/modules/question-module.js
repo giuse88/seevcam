@@ -177,7 +177,7 @@
 
         tagName: 'li',
         className: 'question',
-        template: _.template( '<div class="view form-group"> <p><%- question_text %></p></div>' ),
+        template: _.template( '<div class="question-read-only view form-group"> <p class="drag-dots"> :: </p> <p><%- question_text %></p></div>' ),
         helper_template: _.template( '<div class="question-drag-helper"> <p><%- question_text %></p></div>' ),
 
         id: function () {

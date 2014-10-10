@@ -431,3 +431,15 @@
 .question-drag-helper p {
     margin: 0;
 }
+
+.question .question-read-only p.drag-dots {
+    margin: 0;
+    float: left;
+    padding-left: 2px;
+    padding-right: 2px;
+    display: none;
+}
+
+.question .question-read-only:hover p.drag-dots {
+    display: inline-block;
+}
