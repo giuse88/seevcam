@@ -32,7 +32,7 @@ app.List = Backbone.Collection.extend({
     },
 
     set_catalogue_name:function(new_name) {
-       this.catalogue.name = new_name;
+       this.catalogue.set('catalogue_name', new_name);
     }
 
 });
@@ -169,8 +169,7 @@ app.ListView = Backbone.View.extend({
         this.$questionText = $("#question-text");
         this.$listContainer = $("#question-container ul");
         this.$headingTitleInput = $('.panel-heading input.input-panel-heading');
-//        this.$listContainer.jScrollPane({ autoReinitialise: true });
-        this.$listContainer.html(''); // reset html
+        this.$listContainer.html('');
         this.$el.find(".panel-heading").hover(function(){
             $(this).find(".icon").removeClass("hidden");
         }, function() {
@@ -180,6 +179,7 @@ app.ListView = Backbone.View.extend({
             console.log(item);
             this.renderQuestion( item );
         }, this );
+        //this.$el.find('.scroll-pane').jScrollPane({ autoReinitialise: true });
     },
 
     // render a book by creating a BookView and appending the
@@ -270,7 +270,14 @@ app.ListView = Backbone.View.extend({
        });
     }
 
-});
+   });
+
+
+
+
+
+
+
 
 
 $('#create-catalogue input').keypress(function(e) {

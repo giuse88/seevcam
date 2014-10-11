@@ -55,7 +55,7 @@ class CreateInterviewForm(forms.ModelForm):
             interview_owner=self.user.id)
         #TODO: this is not working now, it should validate that the current interview is the same as the interview
         # in the query.
-        if interview.exists() and self.instance.id is not interview.id:
+        if interview.exists():
             self._add_error_to_form('interview_datetime',
                                     'Another interview has already been scheduled for the date selected.')
         return

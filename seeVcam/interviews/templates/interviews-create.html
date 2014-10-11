@@ -1,16 +1,18 @@
 {% extends "dashboard.html"|pjax:request %}
 
-{% block title %} Create {% endblock title %}
+{% block title %} Create Interview {% endblock title %}
 
 {% block content %}
 
     {% load interviews_filters %}
     {% load widget_tweaks %}
+    {% load static %}
 
+    <div class ="create-interview">
     <h1>New Interview</h1>
 
-    <form id='createInterview' name='createInterview' class="form-horizontal" enctype="multipart/form-data" action="" method="post" role="form"
-          onsubmit="createFormOnSubmit()">
+    <form id='createInterview' data-pjax name='createInterview' class="form-horizontal" enctype="multipart/form-data"
+          action="" method="post" role="form" onsubmit="window.createInterview.makeDateAndTime()">
         {% csrf_token %}
 
         {% if form.non_field_errors %}
@@ -64,12 +66,17 @@
 
                 <hr/>
 
-                <div class="">
-                    <input class="btn btn-primary" type="submit" value="Create"/>
-                </div>
+                <input class="btn btn-primary" type="submit" value="Create"/>
 
             </div>
         </div>
     </form>
+
+    <script type="text/javascript">
+        window.createInterview && window.createInterview.installCreateInterviewModule();
+    </script>
+
+
+</div>
 
 {% endblock content %}

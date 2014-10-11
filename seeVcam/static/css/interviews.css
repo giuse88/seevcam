@@ -1,0 +1,78 @@
+/** Interviews List Section */
+.interview-item {
+    margin-bottom: 30px;
+    padding: 5px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, .1);
+    border-radius: 0 0 5px 5px;
+}
+
+.interview-item,
+.interview-item header {
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+.interview-item:hover {
+    box-shadow: 0 0 7px rgba(0, 0, 0, .4);
+}
+
+.interview-item:hover header {
+    background-color: #0F73C2;
+}
+
+.interview-item header {
+    background-color: #4a4a4a;
+    color: white;
+    padding: 5px;
+}
+
+.interview-item header h4 {
+    margin: 0;
+    padding: 2px 0;
+    font-weight: bold;
+    font-size: 16px;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, .2);
+}
+
+.interview-item header p {
+    margin: 0;
+    font-size: 10px;
+    color: #eaeaea;
+}
+
+.interview-time {
+    text-align: center;
+    padding: 15px 0;
+}
+
+.interview-date {
+    font-size: 32px;
+    line-height: 32px;
+}
+
+.interview-item footer {
+    margin-top: 5px;
+}
+
+.interview-hours {
+    background-color: #9a9a9a;
+    color: white;
+    display: inline-block;
+    font-size: 14px !important;
+    font-weight: bold;
+    padding: 0 10px;
+    margin: 0;
+    line-height: 30px;
+    text-shadow: 1px 1px 0 #6d6d6d;
+}
+
+.interview-candidate-avatar {
+    max-width: 25px;
+    display: block;
+    margin: 5px 0;
+}
+
+/** End Interviews List Section */
