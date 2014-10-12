@@ -32,6 +32,7 @@ LOCAL_APPS = (
     'authentication',
     'dashboard',
     'userprofile',
+    'notes',
     'reports'
 )
 

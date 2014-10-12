@@ -1,8 +1,11 @@
-from django.shortcuts import render
+from rest_framework.mixins import RetrieveModelMixin, UpdateModelMixin
+from rest_framework.views import APIView
+from notes.models import Notes
+from notes.serializer import NoteSerializer
 
- # TODO : THis file contains both REST view and nomal view
+class NotesRESTView(RetrieveModelMixin, UpdateModelMixin, APIView):
+    serializer_class = NoteSerializer
 
-# Rest view is going to be just a PUT Request on the following url :
-   # PUT : interview/<id>/notes
-
-# Normal view only renders the content
+    def get_queryset(self):
+        interview_id = self.kwargs['interview_id']
+        return Notes.objects.filter(interview=interview_id)
