@@ -3,6 +3,7 @@ from rest_framework.views import APIView
 from notes.models import Notes
 from notes.serializer import NoteSerializer
 
+
 class NotesRESTView(RetrieveModelMixin, UpdateModelMixin, APIView):
     serializer_class = NoteSerializer
 

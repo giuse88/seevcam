@@ -4,7 +4,7 @@ from common.helpers.test_helper import create_interview_model
 from notes.models import Notes
 
 
-class NotesTest(TestCase):
+class TestNotes(TestCase):
     def set_up(self):
         pass
 
