@@ -15,14 +15,18 @@ class TestNotesRESTAPI(APITestCase):
         self.user_1 = create_dummy_user('test', 'test')
 
     def test_user_can_retrieve_notes_attached_to_one_of_his_interviews(self):
-        Notes(interview=self.interview, text_content="test").save()
+        notes = Notes.objects.get(interview=self.interview)
+        notes.text_content = "test"
+        notes.save()
         self.client.force_authenticate(user=self.user_1)
         response = self.client.get(self.NOTE_URL.format(self.interview.id))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['text_content'], "test")
 
     def test_user_can_update_notes_attached_to_one_of_his_interviews(self):
-        Notes(interview=self.interview, text_content="test").save()
+        notes = Notes.objects.get(interview=self.interview)
+        notes.text_content = "test"
+        notes.save()
         self.client.force_authenticate(user=self.user_1)
         response = self.client.get(self.NOTE_URL.format(self.interview.id))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
