@@ -2,7 +2,7 @@ from django.db import models
 from django.conf import settings
 
 from common.helpers.file_upload import upload_job_spec, upload_cv
-from notes.models import Notes
+# from notes.models import Notes
 from questions.models import QuestionCatalogue
 
 
@@ -39,9 +39,9 @@ class Interview(models.Model):
             super(Interview, self).save(*args, **kwargs)
             self.interview_job_description = interview_job_description
             self.candidate_cv = candidate_cv
-        self.create_notes()
+        # self.create_notes()
         super(Interview, self).save(*args, **kwargs)
 
-    def create_notes(self):
-        notes = Notes(interview=self).save()
-        return notes
+    # def create_notes(self):
+    #     notes = Notes(interview=self).save()
+    #     return notes
