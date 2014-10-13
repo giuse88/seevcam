@@ -17,9 +17,11 @@ def to_system_timezone(date, profile):
     logging.info('User datetime: ' + str(date))
     logging.info('User timezone : ' + profile.timezone)
     timezone = profile.timezone if profile.timezone else settings.TIME_ZONE
-    new_date = date.astimezone(pytz.timezone(settings.TIME_ZONE))
-    logging.info('Server datetime: ' + str(new_date))
-    return new_date
+    if date is not None:
+        new_date = date.astimezone(pytz.timezone(settings.TIME_ZONE))
+        logging.info('Server datetime: ' + str(new_date))
+        return new_date
+    return date
 
 
 def now_timezone():

@@ -17,12 +17,12 @@
      *                        Private methods                       *
      ****************************************************************/
 
-    function makeDateAndTime() {
-        var datetime = $('.create-interview .bfh-datepicker').val()+ " " +
-        $('.create-interview .bfh-timepicker').val();
-        $('#id_interview_datetime').val(datetime);
-        return true;
-    }
+//    function makeDateAndTime() {
+//        var datetime = $('.create-interview .bfh-datepicker').val()+ " " +
+//        $('.create-interview .bfh-timepicker').val();
+//        $('#id_interview_datetime').val(datetime);
+//        return true;
+//    }
 
     function installToolTip(){
         $('[data-toggle="tooltip"]').tooltip({container: 'body'});
@@ -107,7 +107,7 @@
 
 
     window.createInterview = {
-        makeDateAndTime : makeDateAndTime,
+//        makeDateAndTime : makeDateAndTime,
         installCreateInterviewModule: installCreateInterviewModule
     };
 

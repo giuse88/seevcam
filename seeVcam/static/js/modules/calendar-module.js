@@ -38,10 +38,22 @@
         			if (minutes.length==1) minutes = '0'+minutes;
         			if (hours.length==1) hours = '0'+hours;
 
-        			$('.bfh-datepicker').val(year+'-'+month+'-'+day);
-        			$('.bfh-timepicker').val(hours+':'+minutes);
-        			$('#id_interview_duration').val(durationMinutes.toString());
-        			$('#calendar-modal').modal('hide');
+                    //Update date and time
+        			var datetime = year+'-'+month+'-'+day;
+                    datetime += " " + hours+':'+minutes;
+
+                    console.log("Datetime : " + datetime);
+                    $('#id_interview_datetime').val(datetime);
+                    console.log($('#id_interview_datetime').val(datetime));
+//        			$('.bfh-timepicker').val();
+//        			$('#id_interview_duration').val(durationMinutes.toString());
+
+//                    var datetime = $('.create-interview .bfh-datepicker').val()+ " " +
+//                    $('.create-interview .bfh-timepicker').val();
+//                    $('#id_interview_datetime').val(datetime);
+
+
+                    $('#calendar-modal').modal('hide');
         		}
         	})
         })

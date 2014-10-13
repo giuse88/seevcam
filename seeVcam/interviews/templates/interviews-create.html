@@ -12,7 +12,7 @@
     <h1>New Interview</h1>
 
     <form id='createInterview' data-pjax name='createInterview' class="form-horizontal" enctype="multipart/form-data"
-          action="" method="post" role="form" onsubmit="window.createInterview.makeDateAndTime()">
+          action="" method="post" role="form" >
         {% csrf_token %}
 
         {% if form.non_field_errors %}
@@ -33,9 +33,9 @@
 
                 <hr/>
 
-                {% datepicker_field form.interview_datetime|parsley:'required:true,data-parsley-trigger:focusout' min='today' %}
+{#              {% datepicker_field form.interview_datetime|parsley:'required:true,data-parsley-trigger:focusout' min='today' %}#}
                 {% interviews_field form.interview_duration|parsley:'required:true,data-parsley-trigger:focusout' %}
-                {% calendar_field form.interview_datetime|parsley:'required:true,data-parsley-trigger:focusout' min='today' %}
+                {% calendar_field form.interview_datetime %}
 
                 <hr/>
 

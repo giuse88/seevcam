@@ -6,8 +6,8 @@
 
         <button class="calendar btn btn-default">Open Calendar</button>
 
-        <input style="display:none;" data-parsley-trigger="focusout" id="id_interview_datetime" name="interview_datetime" required="true" type="text">        
-        <input style="display:none;" data-parsley-trigger="focusout" id="id_interview_datetime" name="interview_duration" required="true" type="text">        
+        <input style="display:none;" data-parsley-trigger="focusout" id="id_interview_datetime" name="interview_datetime" required="true" type="text">
+{#        <input style="display:none;" data-parsley-trigger="focusout" id="id_interview_datetime" name="interview_duration" required="true" type="text">        #}
 
 
         <div id="calendar-modal" class="modal slide">
@@ -23,10 +23,6 @@
             </div><!-- /.modal-content -->
           </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
-
-
-
-
 
         <div class="error-form">
             {{ field.errors }}
