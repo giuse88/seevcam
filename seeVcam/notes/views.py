@@ -1,12 +1,9 @@
-from rest_framework.mixins import RetrieveModelMixin, UpdateModelMixin
-from rest_framework.views import APIView
+from rest_framework.generics import RetrieveAPIView, UpdateAPIView
 from notes.models import Notes
 from notes.serializer import NoteSerializer
 
 
-class NotesRESTView(RetrieveModelMixin, UpdateModelMixin, APIView):
+class NotesRESTView(RetrieveAPIView, UpdateAPIView):
     serializer_class = NoteSerializer
+    model = Notes
 
-    def get_queryset(self):
-        interview_id = self.kwargs['interview_id']
-        return Notes.objects.filter(interview=interview_id)
