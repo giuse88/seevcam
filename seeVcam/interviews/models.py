@@ -38,5 +38,10 @@ class Interview(models.Model):
             super(Interview, self).save(*args, **kwargs)
             self.interview_job_description = interview_job_description
             self.candidate_cv = candidate_cv
+        self.create_notes()
         super(Interview, self).save(*args, **kwargs)
 
+    def create_notes(self):
+        from notes.models import Notes
+        notes = Notes(interview=self).save()
+        return notes
