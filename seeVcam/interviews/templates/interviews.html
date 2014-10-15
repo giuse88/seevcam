@@ -1,4 +1,5 @@
 {% extends "dashboard.html"|pjax:request %}
+<!-- { extends "dashboard.html" %} -->
 
 {% block title %}
     Interviews
@@ -9,23 +10,66 @@
 
     {% load interviews_filters %}
 
-    <div id="interview" class="row">
-        <div class="col-md-3">
-            <div id="interview-controller">
-                <div class="input-group">
+    <div id="interview">
+
+        <!-- LEFT REPORT SIDEBAR -->
+        <div id="report-side-bar">
+            <div>
+                <a href="{% url "reports" %}"><span class="glyphicon glyphicon-signal"></span></a>
+                <span><a href="{% url "reports" %}">Reports</a></span>                
+            </div>
+        </div>
+
+        <!-- CURRENT DATE TIME BOX -->
+        <div class="col-md-3" id="current-datetime-container">
+            <div id="current-datetime">
+                {% current_datetime_component request %}
+            </div>
+        </div>
+
+        {% for interview in interview_pending %}
+            <div id="pending-interview" class="col-md-3">
+                {% interview_single_component interview request %}
+            </div>
+        {% endfor %}
+            
+        <!-- </div> -->
+
+        {% block search_box %}
+        <div class="row" id="interviews-upper-bar">
+            <div id="searchbox-container" class="col-md-6 col-md-offset-3">
+                <form data-pjax>
                     <span class="input-group-addon">
                         <i class="glyphicon glyphicon-search"></i>
                     </span>
-                    <input type="text" class="form-control" placeholder="Search">
-                </div>
+                    <input name="search" type="text" class="form-control" placeholder="Search" autofocus>
+                </form>
+            </div>
+            <div id="interview-view-type" class="col-md-3">
+                {% block nav_interviews_grid %}<a class="pjax glyphicon glyphicon-th" href="{% url "interviews" %}"></a>{% endblock nav_interviews_grid %}
+                {% block nav_interviews_calendar %}<a class="pjax glyphicon glyphicon-calendar" href="{% url "interviews-calendar" %}"></a>{% endblock nav_interviews_calendar %}
+                {% block nav_interviews_list %} <a class="pjax glyphicon glyphicon-align-justify" href="{% url "interviews-list" %}"></a>{% endblock nav_interviews_list %}
             </div>
         </div>
-        <div class="col-md-9">
-            <div class="interview-items">
-                {% for interview in object_list %}
-                    {% interview_single_component interview request %}
-                {% endfor %}
+        {% endblock search_box %}
+
+        <div class="row">
+            <div class="col-md-3" id="upcoming-interviews">
+                <div class="interview-items">
+                    {% for interview in upcoming_interviews %}
+                        <div class="interview-item-container">
+                            {% interview_single_component interview request %}
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
+
+            <div id="interviews-view-container" class="col-md-9">
+            {% block interviews_list %}
+            {% endblock interviews_list %}
+            </div>
+
+
         </div>
     </div>
 

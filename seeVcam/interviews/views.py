@@ -5,13 +5,85 @@ from common.mixins.authorization import LoginRequired
 from interviews.forms import CreateInterviewForm
 from interviews.models import Interview
 from django import forms
+from django.db import models
+from common.helpers.timezone import to_user_timezone
+import re
+import time
 
 class InterviewsView(LoginRequired, ListView):
     template_name = 'interviews.html'
+    interviews = []
 
     def get_queryset(self):
-        return Interview.objects.filter(interview_owner=self.request.user.id). \
-            order_by('interview_datetime')
+
+        self.interviews = Interview.objects.filter(interview_owner=self.request.user.id,interview_datetime__gt=datetime.datetime.now()).order_by('interview_datetime')
+        return self.interviews
+
+    def get_context_data(self, **kwargs):
+        context = super(InterviewsView, self).get_context_data(**kwargs)
+
+        # Check if we have an interview in the following hour (pending interview)
+        dt = (self.interviews[0].interview_datetime-to_user_timezone(datetime.datetime.now(),self.request.user))
+
+        if dt.total_seconds() < 3600:
+            context['interview_pending'] = [self.interviews[0]]
+        else:
+            context['interview_pending'] = []
+
+        # Interviews filtered with search box
+        if ('search' in self.request.GET) and (self.request.GET['search']!=''):
+
+            search_query = self.request.GET['search']
+
+            # check if we are searching a date
+            date_formats = ['%m-%d-%Y', '%Y-%m-%d','%Y','%d %B','%B %d']
+            search_is_date = False
+
+            for date_format in date_formats:
+                try:
+                    match = time.strptime(search_query, date_format)
+                except ValueError:
+                    continue
+                search_is_date = True
+                search_year = search_month = search_day = True
+                if date_format == '%Y':
+                    search_day = search_month = False
+                elif date_format == '%d %B' or date_format == '%B %d':
+                    search_year = False
+
+            if search_is_date:
+                #we are searching a date
+                context['interviews_filter'] = [interview for interview in self.interviews \
+                    if (not search_year or match.tm_year == interview.interview_datetime.year) \
+                    and (not search_month or match.tm_mon == interview.interview_datetime.month) \
+                    and (not search_day or match.tm_mday == interview.interview_datetime.day)][:9] 
+            else:
+                #we are searching for description
+                context['interviews_filter'] = [interview for interview in self.interviews if search_query.upper() in interview.interview_description.upper()][:9]
+        elif len(context['interview_pending']):
+            context['interviews_filter'] = self.interviews[4:][:9]
+        else:
+            context['interviews_filter'] = self.interviews[3:][:9]
+
+        # Upcoming Interviews
+        if len(context['interview_pending']):
+            context['upcoming_interviews'] = self.interviews[1:][:3]
+        else:
+            context['upcoming_interviews'] = self.interviews[:3]
+
+        return context
+
+
+class GridInterviewsView(InterviewsView):
+    template_name = 'interviews-grid.html'
+
+class ListInterviewsView(InterviewsView):
+    template_name = 'interviews-list.html'
+
+class CalendarInterviewsView(InterviewsView):
+    template_name = 'interviews-calendar.html'
+
+
 
 # TODO: create a common class so that Create and Update Interview inherit the form validation funcions
 # class InterviewImplicitValues(forms.Form):

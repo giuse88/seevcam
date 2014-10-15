@@ -112,12 +112,6 @@
 				}
 			},
 			eventClick: function(ev,jsev,view){
-				// if ((view.name=='agendaDay') && (ev.currentEvent)){
-					// $('#calendar').fullCalendar('removeEvents',ev._id);
-					// currentEventID = undefined;
-					// startDateTime = '';
-					// endDateTime = '';
-				// }
 				if (view.name=="month") {
 					//go to agendaDay view
 					$('#calendar').fullCalendar('changeView','agendaDay');

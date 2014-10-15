@@ -1,0 +1,17 @@
+{% extends "interviews.html" %}
+
+{% load interviews_filters %}
+
+{% block nav_interviews_list %} 
+<a class="pjax active glyphicon glyphicon-align-justify" href="{% url "interviews-list" %}"></a>
+{% endblock nav_interviews_list %} 
+
+{% block interviews_list %}
+    <div id="interviews-list-view">
+    {% for interview in interviews_filter %}
+        <div class="interview-item-container col-lg-12">
+            {% interview_list_single_component interview request %}
+        </div>
+    {% endfor %}
+    </div>
+{% endblock interviews_list %}
