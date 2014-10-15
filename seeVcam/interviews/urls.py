@@ -1,12 +1,7 @@
-<<<<<<< HEAD
 from django.conf.urls import patterns, url, include
-from interviews.views import InterviewsView, CreateInterviewView, UpdateInterviewView
 from notes.urls import urlpatterns as urlpatterns_notes
 from notes.views import NotesRESTView
-=======
-from django.conf.urls import patterns, url
 from interviews.views import InterviewsView, GridInterviewsView, ListInterviewsView, CalendarInterviewsView, CreateInterviewView, UpdateInterviewView
->>>>>>> Add interviews view, initial version
 
 urlpatterns = patterns('',
                        url(r'^$', GridInterviewsView.as_view(), name='interviews'),

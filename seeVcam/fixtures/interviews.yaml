@@ -3,8 +3,8 @@
   fields:
     interview_description: John Smith
     interview_owner: 1
-    interview_datetime: 2014-10-13 17:10
-    interview_datetime_end: 2014-10-13 18:32
+    interview_datetime: 2014-10-15 11:10
+    interview_datetime_end: 2014-10-15 18:32
     candidate_name: John
     candidate_surname: Smith
     interview_position: Sales Manager

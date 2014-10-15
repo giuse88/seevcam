@@ -25,6 +25,7 @@ hr {
 #content-wrap {
     min-width: 100%;
     height: calc(100% - 70px);
+    margin-top: 20px;
 }
 /** Adjusting Bootstrap classes */
 .container {

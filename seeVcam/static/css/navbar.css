@@ -5,6 +5,7 @@
 	border: none;
 	box-shadow: 0px 1px 1px #818181;
 	padding-left: 25%;
+	z-index: 2;
 }
 .navbar-default .container-fluid{
 	padding-left: 60px;

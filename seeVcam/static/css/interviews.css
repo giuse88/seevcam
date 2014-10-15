@@ -78,7 +78,7 @@
 /* TODO this shouldn't be here */
 body{
 	background-color: #e4e4e4;
-	height: auto;
+	/*height: auto;*/
 }
 .container{
 	padding-left: 60px;
@@ -96,7 +96,7 @@ body{
 /*CURRENT DATETIME*/
 #current-datetime-container{
 	position: absolute;
-	top: -51px;
+	top: -71px;
 	padding: 30px;
 	padding-top: 0px;
 	z-index: 3;;
@@ -151,7 +151,8 @@ body{
 /*INTERVIEW PAGE*/
 #interview{
 	position: relative;
-	padding-top: 50px;
+	padding-top: 30px;
+	background-color: #e4e4e4;
 }
 #interview #interviews-upper-bar{
 	margin-bottom: 60px;
@@ -386,7 +387,7 @@ body{
 /*PENDING INTERVIEW*/
 #pending-interview{
 	position: absolute;
-	top: 45px;
+	top: 25px;
 }
 #pending-interview .interview-item{
 	padding-top: 0px;
