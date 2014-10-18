@@ -7,7 +7,6 @@
     function installCreateInterviewModule(){
         console.log(" -- Create interview beginning constructor --  ");
         installParsley();
-        installDataAndTimePicker();
         installTypeAhead();
         installToolTip();
         console.log(" -- Create interview end constructor --  ");
@@ -16,13 +15,6 @@
     /****************************************************************
      *                        Private methods                       *
      ****************************************************************/
-
-//    function makeDateAndTime() {
-//        var datetime = $('.create-interview .bfh-datepicker').val()+ " " +
-//        $('.create-interview .bfh-timepicker').val();
-//        $('#id_interview_datetime').val(datetime);
-//        return true;
-//    }
 
     function installToolTip(){
         $('[data-toggle="tooltip"]').tooltip({container: 'body'});
@@ -38,19 +30,10 @@
         });
     }
 
-    function installDataAndTimePicker() {
-
-        $('.create-interview .bfh-datepicker').each(function () {
-            $(this).bfhdatepicker($(this).data());
-        });
-
-        $('.create-interview .bfh-timepicker').each(function () {
-            $(this).bfhtimepicker($(this).data());
-        });
-    }
-
 
     function installTypeAhead() {
+
+
 
         var catalogs = new Bloodhound({
             datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
@@ -105,9 +88,7 @@
      *                        Public methods                       *
     ****************************************************************/
 
-
     window.createInterview = {
-//        makeDateAndTime : makeDateAndTime,
         installCreateInterviewModule: installCreateInterviewModule
     };
 

@@ -14,7 +14,7 @@ class CreateInterviewForm(forms.ModelForm):
         model = Interview
         fields = ['candidate_name', 'candidate_surname', 'candidate_email', 'candidate_cv',
                   'interview_datetime', 'interview_description', 'interview_position',
-                  'interview_catalogue', 'interview_job_description', 'interview_duration']
+                  'interview_catalogue', 'interview_duration']
 
     def __init__(self, user, *args, **kwargs):
         super(CreateInterviewForm, self).__init__(*args, **kwargs)
