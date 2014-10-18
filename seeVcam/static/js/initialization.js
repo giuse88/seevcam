@@ -62,9 +62,9 @@
         }
 
         // INTERVIEW VIEW
-        $(document).on('submit', 'form[data-pjax]', function(event) {
-            $.pjax.submit(event, '#container')
-        })
+//        $(document).on('submit', 'form[data-pjax]', function(event) {
+//            $.pjax.submit(event, '#container')
+//        })
 
     });
 
