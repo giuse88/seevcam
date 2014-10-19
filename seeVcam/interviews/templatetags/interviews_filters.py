@@ -162,9 +162,11 @@ def datepicker_field(field, min='', max='', format='y-m-d'):
 
 
 @register.inclusion_tag("components/filter-calendarField.html")
-def calendar_field(field, min='', max='', format='y-m-d'):
+def calendar_field(field, end, user, min='', max='', format='y-m-d'):
     return {
         'field': field,
+        'end': end,
+        'user': user,
         'min': min,
         'max': max,
         'format': format
@@ -214,9 +216,20 @@ def file_status_class(value):
     else:
         return "fileinput-new"
 
+
 @register.filter
 def is_required(value):
     if value:
         return ""
     else:
         return "required"
+
+@register.filter
+def to_user_time(value, user):
+    return to_user_timezone(value, user)
+
+# THis sucks
+# It should come from setting file
+@register.filter
+def to_seevcam_format(value):
+    return value.strftime("%Y-%m-%d %H:%M")

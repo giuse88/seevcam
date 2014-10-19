@@ -13,8 +13,8 @@ class CreateInterviewForm(forms.ModelForm):
     class Meta:
         model = Interview
         fields = ['candidate_name', 'candidate_surname', 'candidate_email', 'candidate_cv',
-                  'interview_datetime', 'interview_description', 'interview_position',
-                  'interview_catalogue', 'interview_duration']
+                  'interview_datetime', 'interview_datetime_end', 'interview_description', 'interview_position',
+                  'interview_catalogue']
 
     def __init__(self, user, *args, **kwargs):
         super(CreateInterviewForm, self).__init__(*args, **kwargs)
@@ -23,11 +23,11 @@ class CreateInterviewForm(forms.ModelForm):
     def clean(self):
         cleaned_data = super(CreateInterviewForm, self).clean()
         interview_datetime = cleaned_data.get('interview_datetime')
+        interview_datetime_end = cleaned_data.get('interview_datetime_end')
         interview_datetime = to_system_timezone(interview_datetime, self.user)
-        print interview_datetime
+        interview_datetime_end = to_system_timezone(interview_datetime_end, self.user)
         self._is_valid_interview_datetime(interview_datetime)
-        interview_duration = cleaned_data.get('interview_duration')
-        self._is_already_booked(interview_datetime, interview_duration)
+        self._is_already_booked(interview_datetime, interview_datetime_end )
         return cleaned_data
 
     def __clean_interview_datetime(self):
@@ -45,9 +45,8 @@ class CreateInterviewForm(forms.ModelForm):
         is_valid_file(job_spec)
         return job_spec
 
-    def _is_already_booked(self, interview_datetime, interview_duration):
-        interview_start_datetime = interview_datetime
-        interview_end_datetime = interview_start_datetime + datetime.timedelta(minutes=interview_duration)
+    def _is_already_booked(self, interview_datetime, interview_datetime_end):
+        interview_end_datetime = interview_datetime_end
         interview = Interview.objects.filter(
             Q(interview_datetime__range=(interview_datetime,interview_end_datetime)) |
             Q(interview_datetime_end__range=(interview_datetime,interview_end_datetime)) |
@@ -61,7 +60,6 @@ class CreateInterviewForm(forms.ModelForm):
         return
 
     def _is_valid_interview_datetime(self, interview_datetime):
-        # aware times comparison
         if interview_datetime is None or interview_datetime < now_timezone():
             self._add_error_to_form('interview_datetime', 'You cannot create a interview in the past!')
         return
@@ -80,8 +78,10 @@ class CreateInterviewForm(forms.ModelForm):
 
 
 def is_valid_file(uploaded_file):
-    if not uploaded_file.content_type in settings.SEEVCAM_UPLOAD_FILE_MIME_TYPES:
-        raise ValidationError("Please use a file with a different format.", code="invalid_file_format")
+
+    # No ideal, try using file.
+    # if not uploaded_file.content_type in settings.SEEVCAM_UPLOAD_FILE_MIME_TYPES:
+    #     raise ValidationError("Please use a file with a different format.", code="invalid_file_format")
 
     if uploaded_file.size > settings.SEEVCAM_UPLOAD_FILE_MAX_SIZE:
         error_msg = "Please keep filesize under %s" % settings.SEEVCAM_UPLOAD_FILE_MAX_SIZE

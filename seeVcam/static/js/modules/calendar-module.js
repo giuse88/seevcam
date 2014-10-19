@@ -4,6 +4,23 @@
 	var startDateTime = '';
 	var endDateTime = '';
 
+
+    function toSeevcamDataTime(startDateTime) {
+        var year = startDateTime.getFullYear().toString();
+        var month = (startDateTime.getMonth()+1).toString();
+        var day = startDateTime.getDate().toString();
+        var hours = startDateTime.getHours().toString();
+        var minutes = startDateTime.getMinutes().toString();
+        if (month.length==1) month = '0'+month;
+        if (day.length==1) day = '0'+day;
+        if (minutes.length==1) minutes = '0'+minutes;
+        if (hours.length==1) hours = '0'+hours;
+
+        var datetime = year+'-'+month+'-'+day;
+        datetime += " " + hours+':'+minutes;
+        return datetime;
+    }
+
 	$(document).ready(function () {
 
 		
@@ -27,32 +44,8 @@
         	//bind save event
         	$('#calendar-modal button.save-changes').click(function(){
         		if ((!!startDateTime) && (!!endDateTime)){
-        			//fill date and timepicker correctly -- FIXME when they will be removed
-        			var year = startDateTime.getFullYear().toString();
-        			var month = (startDateTime.getMonth()+1).toString();
-        			var day = startDateTime.getDate().toString();
-        			var hours = startDateTime.getHours().toString();
-        			var minutes = startDateTime.getMinutes().toString();
-        			if (month.length==1) month = '0'+month;
-        			if (day.length==1) day = '0'+day;
-        			if (minutes.length==1) minutes = '0'+minutes;
-        			if (hours.length==1) hours = '0'+hours;
-
-                    //Update date and time
-        			var datetime = year+'-'+month+'-'+day;
-                    datetime += " " + hours+':'+minutes;
-
-                    console.log("Datetime : " + datetime);
-                    $('#id_interview_datetime').val(datetime);
-                    console.log($('#id_interview_datetime').val(datetime));
-//        			$('.bfh-timepicker').val();
-//        			$('#id_interview_duration').val(durationMinutes.toString());
-
-//                    var datetime = $('.create-interview .bfh-datepicker').val()+ " " +
-//                    $('.create-interview .bfh-timepicker').val();
-//                    $('#id_interview_datetime').val(datetime);
-
-
+                    $('.interview-datetime .interview-start').val(toSeevcamDataTime(startDateTime));
+                    $('.interview-datetime .interview-end').val(toSeevcamDataTime(endDateTime));
                     $('#calendar-modal').modal('hide');
         		}
         	})
