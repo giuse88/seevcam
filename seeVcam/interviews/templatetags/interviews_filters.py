@@ -2,6 +2,7 @@ import os
 
 from django import template
 
+from questions.models import QuestionCatalogue
 
 register = template.Library()
 import datetime
@@ -224,12 +225,25 @@ def is_required(value):
     else:
         return "required"
 
+
 @register.filter
 def to_user_time(value, user):
-    return to_user_timezone(value, user)
+    interview_datetime = value
+    if isinstance(value, basestring):
+        interview_datetime = datetime.datetime.strptime(str(value), "%Y-%m-%d %H:%M")
+    return to_user_timezone(interview_datetime, user)
+
 
 # THis sucks
 # It should come from setting file
 @register.filter
 def to_seevcam_format(value):
     return value.strftime("%Y-%m-%d %H:%M")
+
+
+@register.filter
+def selected_catalogue(form):
+    interview = form.instance
+    if interview.interview_catalogue is not None:
+        return interview.interview_catalogue.catalogue_name
+    return ""

@@ -47,7 +47,10 @@
                                data-parsley-trigger="focusout"
                                data-parsley-errors-container=".interview-catalogue .error-form"
                                placeholder="{{ form.interview_catalogue.label }}"
-                               class="form-control typeahead"/>
+                               value="{{ form|selected_catalogue }}"
+                               class="form-control typeahead" />
+
+
                         <input type="hidden" name="{{ form.interview_catalogue.name }}" required />
                         <div class="error-form">
                             {{ form.interview_catalogue.errors }}
