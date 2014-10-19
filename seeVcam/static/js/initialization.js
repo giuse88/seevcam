@@ -43,7 +43,7 @@
                         $('#interviews-calendar').fullCalendar('changeView','agendaDay');
                         $('#interviews-calendar').fullCalendar('gotoDate',ev.start.getFullYear(),ev.start.getMonth(),ev.start.getDate());
                     }
-                },
+                }
             })
         }
 
@@ -61,10 +61,10 @@
             })
         }
 
-        // INTERVIEW VIEW
-//        $(document).on('submit', 'form[data-pjax]', function(event) {
-//            $.pjax.submit(event, '#container')
-//        })
+//        INTERVIEW VIEW
+        $(document).on('submit', 'form[data-pjax]', function(event) {
+            $.pjax.submit(event, '#container')
+        })
 
     });
 
