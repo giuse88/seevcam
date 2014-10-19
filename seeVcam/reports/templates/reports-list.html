@@ -1,0 +1,19 @@
+{% extends "reports.html" %}
+
+{% load interviews_filters %}
+{% load reports_filters %}
+
+{% block nav_reports_list %} 
+<a class="pjax active glyphicon glyphicon-align-justify" href="{% url "reports-list" %}"></a>
+{% endblock nav_reports_list %} 
+
+
+{% block reports_list %}
+    <div id="reports-list-view">
+    {% for report in reports_list %}
+            <div class="report-item-container col-lg-12">
+                {% report_list_single_component report request %}
+            </div>
+    {% endfor %}
+    </div>
+{% endblock reports_list %}

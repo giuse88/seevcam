@@ -14,7 +14,6 @@
         // INTERVIEWS CALENDAR VIEW
         if ($('#interviews-calendar').length) interviewsCalendarInit()
         $(document).on('pjax:end', function() {
-
             if ($('#interviews-calendar').length) interviewsCalendarInit()
         })
 
@@ -25,7 +24,6 @@
                     center: 'title',
                     right: 'month,agendaWeek,agendaDay'
                 },
-                // height: height,
                 editable: true,
                 droppable: true,
                 allDaySlot: true,
@@ -51,6 +49,21 @@
         $(document).on('submit', 'form[data-pjax]', function(event) {
             $.pjax.submit(event, '#container')
         })
+
+        // REPORTS VIEW
+        // bind click to note view
+        if ($('.report-item').length) bindReportItemClick()
+        $(document).on('pjax:end', function() {
+            if ($('.report-item').length) bindReportItemClick()
+        })
+        
+        function bindReportItemClick(ev){
+            $('.report-item').each(function(i,el){
+                $(el).click(function(ev){
+                    $.pjax({url: '/dashboard/notes/', container: '#container'})
+                })
+            })
+        }
 
     });
 
