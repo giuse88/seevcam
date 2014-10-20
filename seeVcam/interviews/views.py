@@ -95,65 +95,29 @@ class CalendarInterviewsView(InterviewsView):
     template_name = 'interviews-calendar.html'
 
 
-# TODO: create a common class so that Create and Update Interview inherit the form validation funcions
-# class InterviewImplicitValues(forms.Form):
-# def form_valid(self, form):
-#         duration = form.instance.interview_duration
-#         start = form.instance.interview_datetime
-#         form.instance.interview_owner = self.request.user
-#         form.instance.interview_status = Interview.OPEN
-#         interview_end_datetime = start + datetime.timedelta(minutes=duration)
-#         form.instance.interview_datetime_end = interview_end_datetime
-#         form.save()
-#         return super(InterviewImplicitValues, self).form_valid(form)
-#
-#     def get_form_kwargs(self):
-#         kwargs = super(InterviewImplicitValues, self).get_form_kwargs()
-#         kwargs['user'] = self.request.user
-#         return kwargs
+class UpdateCreateInterviewView(object):
 
-
-
-class CreateInterviewView(LoginRequired, CreateView):
     template_name = 'interviews-create.html'
     success_url = reverse_lazy('interviews')
     form_class = CreateInterviewForm
 
     def form_valid(self, form):
-        duration = form.instance.interview_duration
-        start = form.instance.interview_datetime
-        form.instance.interview_owner = self.request.user
         form.instance.interview_status = Interview.OPEN
-        interview_end_datetime = start + datetime.timedelta(minutes=duration)
-        form.instance.interview_datetime_end = interview_end_datetime
-        form.save()
-        return super(CreateInterviewView, self).form_valid(form)
+        form.instance.interview_owner = self.request.user
+        return super(UpdateCreateInterviewView, self).form_valid(form)
 
     def get_form_kwargs(self):
-        kwargs = super(CreateInterviewView, self).get_form_kwargs()
+        kwargs = super(UpdateCreateInterviewView, self).get_form_kwargs()
         kwargs['user'] = self.request.user
         return kwargs
 
 
-class UpdateInterviewView(LoginRequired, UpdateView):
-    template_name = 'interviews-create.html'
-    success_url = reverse_lazy('interviews')
-    form_class = CreateInterviewForm
+class CreateInterviewView(LoginRequired, UpdateCreateInterviewView,  CreateView):
+    pass
+
+
+class UpdateInterviewView(LoginRequired,  UpdateCreateInterviewView, UpdateView ):
 
     def get_queryset(self):
         return Interview.objects.filter(pk=self.kwargs['pk'])
 
-    def form_valid(self, form):
-        duration = form.instance.interview_duration
-        start = form.instance.interview_datetime
-        form.instance.interview_owner = self.request.user
-        form.instance.interview_status = Interview.OPEN
-        interview_end_datetime = start + datetime.timedelta(minutes=duration)
-        form.instance.interview_datetime_end = interview_end_datetime
-        form.save()
-        return super(UpdateInterviewView, self).form_valid(form)
-
-    def get_form_kwargs(self):
-        kwargs = super(UpdateInterviewView, self).get_form_kwargs()
-        kwargs['user'] = self.request.user
-        return kwargs

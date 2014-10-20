@@ -1,7 +1,7 @@
 {% load interviews_filters %}
 
 <div class="col-lg-12">
-    <div class="interview-item {{ date_string }}">
+    <div data-interview-id="{{ id }}" class="interview-item {{ date_string }}" >
         <span class="glyphicon glyphicon-remove"></span>
         <header>
             <div class="row">
@@ -15,21 +15,14 @@
             </div>
         </header>
         <section class="interview-time">
-            <p class="interview-date"><span class="date-string">{{ date_string }}</span> <span class="date-month">{{ month }}</span> <span class="date-separator">{{ date_separator }}</span> <span class="date-day">{{ day }}</span> <span class="date-separator">{{ date_separator }}</span> <span class="date-year">{{ year }}</span></p>
-
+            <p class="interview-date">
+                <span class="date-string">{{ date_string }}</span>
+                <span class="date-month">{{ month }}</span>
+                <span class="date-separator">{{ date_separator }}</span>
+                <span class="date-day">{{ day }}</span>
+                <span class="date-separator">{{ date_separator }}</span>
+                <span class="date-year">{{ year }}</span></p>
             <p class="interview-hours">{{ time }}</p>
         </section>
-        <footer>
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="btn-group btn-group-justified">
-                        <a data-toggle="tooltip" title="Start" class="btn btn-success"><i class="glyphicon glyphicon-play"></i></a>
-                        <a data-toggle="tooltip" title="Edit" class="btn btn-default" href="{% url 'update-interview' id  %}"><i class="glyphicon glyphicon-pencil"></i></a>
-                        <a data-toggle="tooltip" title="Set Alarm" class="btn btn-default"><i class="glyphicon glyphicon-bell"></i></a>
-                        <a data-toggle="tooltip" title="View Details" class="btn btn-default"><i class="glyphicon glyphicon-list-alt"></i></a>
-                    </div>
-                </div>
-            </div>
-        </footer>
     </div>
 </div>

@@ -1,14 +1,27 @@
 {% load widget_tweaks %}
 {% load interviews_filters %}
 
-<div class="form-group {% if field.errors %}has-error{% endif %}">
+<div class="form-group interview-datetime {% if field.errors %}has-error{% endif %}">
     <div class="row">
 
-        <button class="calendar btn btn-default">Open Calendar</button>
+        <button class="calendar btn btn-default">Pick a date </button>
 
-        <input style="display:none;" data-parsley-trigger="focusout" id="id_interview_datetime" name="interview_datetime" required="true" type="text">
-{#        <input style="display:none;" data-parsley-trigger="focusout" id="id_interview_datetime" name="interview_duration" required="true" type="text">        #}
+        <input class="interview-start"
+               name="interview_datetime"
+               required="true" type="text"
+               {%  if field.value  %}
+                   value="{{field.value|to_user_time:user|to_seevcam_format}}"
+               {%  endif %}
+               >
 
+        <input class="hidden interview-end"
+               name="interview_datetime_end"
+               type="text"
+               {%  if end.value  %}
+                   value="{{end.value|to_user_time:user|to_seevcam_format}}"
+               {%  endif %}
+               required="true"
+               >
 
         <div id="calendar-modal" class="modal slide">
           <div class="modal-dialog">

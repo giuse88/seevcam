@@ -8,9 +8,10 @@
 
         $.pjax.defaults.timeout = 3000;
 
-        $(document).pjax('a[data-pjax], a.pjax', '#container');
+        $(document).pjax('a[data-pjax], a.pjax, .pjax', '#container');
 
 
+        /*
         // INTERVIEWS CALENDAR VIEW
         if ($('#interviews-calendar').length) interviewsCalendarInit()
         $(document).on('pjax:end', function() {
@@ -61,6 +62,7 @@
             })
         }
 
+        */
 //        INTERVIEW VIEW
         $(document).on('submit', 'form[data-pjax]', function(event) {
             $.pjax.submit(event, '#container')

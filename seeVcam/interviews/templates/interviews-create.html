@@ -33,9 +33,7 @@
 
                 <hr/>
 
-{#              {% datepicker_field form.interview_datetime|parsley:'required:true,data-parsley-trigger:focusout' min='today' %}#}
-                {% interviews_field form.interview_duration|parsley:'required:true,data-parsley-trigger:focusout' %}
-                {% calendar_field form.interview_datetime %}
+                {% calendar_field form.interview_datetime form.interview_datetime_end request.user %}
 
                 <hr/>
 
@@ -49,9 +47,10 @@
                                data-parsley-trigger="focusout"
                                data-parsley-errors-container=".interview-catalogue .error-form"
                                placeholder="{{ form.interview_catalogue.label }}"
-                               class="form-control typeahead"/>
-                              {#<i class="form-control-feedback glyphicon glyphicon-cog"></i>#}
-                        <input type="hidden" name="{{ form.interview_catalogue.name }}" required />
+                               value="{{ form|selected_catalogue_name }}"
+                               class="form-control typeahead" />
+                        <input type="hidden" name="{{ form.interview_catalogue.name }}" required
+                               value = "{{ form|selected_catalogue_id }}" />
 
                         <div class="error-form">
                             {{ form.interview_catalogue.errors }}
@@ -60,9 +59,6 @@
                 </div>
 
                 {% interviews_field form.interview_position|parsley:'required:true,data-parsley-trigger:focusout' %}
-
-{#                {% file_field form.interview_job_description|parsley:"required:true,data-parsley-trigger:focusout" %}#}
-                {% interviews_field form.interview_description|parsley:'required:true,data-parsley-trigger:focusout' %}
 
                 <hr/>
 
