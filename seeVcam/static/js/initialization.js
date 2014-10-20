@@ -11,7 +11,6 @@
         $(document).pjax('a[data-pjax], a.pjax, .pjax', '#container');
 
 
-        /*
         // INTERVIEWS CALENDAR VIEW
         if ($('#interviews-calendar').length) interviewsCalendarInit()
         $(document).on('pjax:end', function() {
@@ -48,22 +47,7 @@
             })
         }
 
-        //bind remove button in interviews view
-        if ($('.interview-item .glyphicon-remove').length) bindInterviewsRemoveClick()
-        $(document).on('pjax:end', function() {
-            if ($('.interview-item .glyphicon-remove').length) bindInterviewsRemoveClick()
-        })
-        
-        function bindInterviewsRemoveClick(ev){
-            $('.interview-item .glyphicon-remove').each(function(i,el){
-                $(el).click(function(ev){
-                    $('.interview-item-container').has(ev.currentTarget).remove()
-                })
-            })
-        }
 
-        */
-//        INTERVIEW VIEW
         $(document).on('submit', 'form[data-pjax]', function(event) {
             $.pjax.submit(event, '#container')
         })

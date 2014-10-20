@@ -1,7 +1,10 @@
 import datetime
 import time
+import json
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
 
-from django.views.generic import CreateView, ListView, UpdateView
+from django.views.generic import CreateView, ListView, UpdateView, View
 from django.core.urlresolvers import reverse_lazy
 
 from common.mixins.authorization import LoginRequired
@@ -120,4 +123,15 @@ class UpdateInterviewView(LoginRequired,  UpdateCreateInterviewView, UpdateView 
 
     def get_queryset(self):
         return Interview.objects.filter(pk=self.kwargs['pk'])
+
+
+class DeleteInterviewView(LoginRequired, View):
+
+    def delete(self, request,  *args, **kwargs):
+        pk = self.kwargs['pk']
+        response_data = {}
+        interview = get_object_or_404(Interview, pk=pk)
+        interview.delete()
+        response_data['message'] = "Interview " + pk + "deleted"
+        return HttpResponse(json.dumps(response_data), content_type="application/json")
 
