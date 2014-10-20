@@ -51,10 +51,9 @@ class CreateInterviewForm(forms.ModelForm):
             Q(interview_datetime__range=(interview_datetime,interview_end_datetime)) |
             Q(interview_datetime_end__range=(interview_datetime,interview_end_datetime)) |
             (Q(interview_datetime__lte=interview_datetime) & Q(interview_datetime_end__gte=interview_end_datetime)),
-            interview_owner=self.user.id)
-        #TODO: this is not working now, it should validate that the current interview is the same as the interview
-        # in the query.
-        if interview.exists():
+            interview_owner=self.user.id).first()
+        #TODO this should be handle in the above query
+        if interview is not None and self.instance.id is not interview.id:
             self._add_error_to_form('interview_datetime',
                                     'Another interview has already been scheduled for the date selected.')
         return

@@ -2,8 +2,6 @@ import os
 
 from django import template
 
-from questions.models import QuestionCatalogue
-
 register = template.Library()
 import datetime
 
@@ -235,15 +233,23 @@ def to_user_time(value, user):
 
 
 # THis sucks
-# It should come from setting file
+# It should come from setting fil
 @register.filter
 def to_seevcam_format(value):
     return value.strftime("%Y-%m-%d %H:%M")
 
 
 @register.filter
-def selected_catalogue(form):
+def selected_catalogue_name(form):
     interview = form.instance
     if interview.interview_catalogue is not None:
         return interview.interview_catalogue.catalogue_name
+    return ""
+
+
+@register.filter
+def selected_catalogue_id(form):
+    interview = form.instance
+    if interview.interview_catalogue is not None:
+        return interview.interview_catalogue.id
     return ""
