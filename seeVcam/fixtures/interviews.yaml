@@ -1,7 +1,7 @@
 - model: interviews.interview
   pk: 13
   fields:
-    interview_owner: 1
+    interview_owner: 2
     interview_datetime: 2014-10-15 11:10
     interview_datetime_end: 2014-10-15 18:32
     candidate_name: Batsey
@@ -14,7 +14,7 @@
   pk: 14
   fields:
     interview_description: Mario Rossi
-    interview_owner: 1
+    interview_owner: 2
     interview_datetime: 2014-10-15 11:10
     interview_datetime_end: 2014-10-15 18:32
     candidate_name: Mario
@@ -26,7 +26,7 @@
   pk: 15
   fields:
     interview_description: Geoff Crammond
-    interview_owner: 1
+    interview_owner: 2
     interview_datetime: 2014-10-15 11:10
     interview_datetime_end: 2014-10-15 18:32
     candidate_name: Geoff
