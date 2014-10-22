@@ -75,11 +75,6 @@
     margin: 5px 0;
 }
 
-/* TODO this shouldn't be here */
-body{
-	background-color: #e4e4e4;
-	/*height: auto;*/
-}
 .container{
 	padding-left: 60px;
 	padding-right: 60px;
@@ -152,7 +147,6 @@ body{
 #interview{
 	position: relative;
 	padding-top: 30px;
-	background-color: #e4e4e4;
 }
 #interview #interviews-upper-bar{
 	margin-bottom: 60px;
