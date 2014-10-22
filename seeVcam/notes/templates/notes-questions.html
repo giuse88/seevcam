@@ -1,3 +1,12 @@
 {% extends "notes.html" %}
 
+{% load notes_filters %}
+
 {% block nav_questions_active %} active {% endblock nav_questions_active %}
+
+{% block notes-viewbox %}
+	{% for question in questions_list %}
+		{% notes_single_question question request %}
+	{% endfor %}
+
+{% endblock notes-viewbox %}

@@ -30,8 +30,8 @@
 
             <!-- JOB DESCRIPTION HEADER -->
                 <div id="job-description-header-container" class="col-md-3">
-                <div class="notes-nav {% block nav_jobinterview_active %}{% endblock nav_jobinterview_active %}" id="job-description-header">
-                    <span>View </span><b>Job description</b>
+                <div class="notes-nav {% block nav_jobdescription_active %}{% endblock nav_jobdescription_active %}" id="job-description-header">
+                    <a data-pjax href="{% url "notes-jobdescription" pk=pk %}"><span>View </span><b>Job description</b></a>
                     <div class="active-nav-marker"></div>
                 </div>
                 </div>
@@ -89,7 +89,8 @@
 
         <div id="notes-viewbox-container">
         <div id="notes-viewbox">
-            
+        {% block notes-viewbox %}
+        {% endblock notes-viewbox %}
         </div>
         </div>
 

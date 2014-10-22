@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, url
-from notes.views import NotesRESTView,NotesListView,NotesQuestionsView
+from notes.views import NotesRESTView,NotesListView,NotesQuestionsView,NotesDescriptionView
 
 
 """
@@ -15,6 +15,7 @@ HTML requests
 default_url = patterns('',
 	url(r'^list$',NotesListView.as_view(),name="notes-list" ),
 	url(r'^questions$',NotesQuestionsView.as_view(),name="notes-questions" ),
+	url(r'^description$',NotesDescriptionView.as_view(),name="notes-jobdescription" ),
 )
 
 

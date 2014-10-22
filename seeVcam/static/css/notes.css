@@ -202,5 +202,13 @@ bottom: 4px;
 #notes-viewbox{
     background-color: white;
     min-height: 300px;
+    padding: 30px;
+    font-size: 16px;
 
+}
+
+
+/*VIEWBOX QUESTIONS*/
+.question-callout .answer{
+    font-size: 13px;
 }

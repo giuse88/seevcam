@@ -1,7 +1,6 @@
 - model: interviews.interview
   pk: 13
   fields:
-    interview_description: Batsey Johnson
     interview_owner: 1
     interview_datetime: 2014-10-15 11:10
     interview_datetime_end: 2014-10-15 18:32
@@ -10,6 +9,7 @@
     interview_position: Sales Manager
     interview_status: CLOSED
     candidate_email: test@email.com
+    interview_description: As a personal assistant youll be helping out your boss with whatever they need from managing a diary to typing up reports or planning meetings. Basically you help organise their life so theyll always know where they need to be and what theyre doing. Your duties as a personal assistant will largely depend on your experience the length of time youve worked in the company and the level of trust you have with your boss.
 - model: interviews.interview
   pk: 14
   fields:
