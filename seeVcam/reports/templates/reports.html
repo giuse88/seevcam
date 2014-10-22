@@ -1,10 +1,73 @@
-{% extends "dashboard.html" %}
+{% extends "dashboard.html"|pjax:request %}
 
 {% block title %}
-    {% include "reports-title.html" %}
+    Interviews
 {% endblock title %}
 
-{%  block content %}
-    {% include "reports-container-pjax.html" %}
-{% endblock content %}
 
+{%  block content %}
+
+    {% load interviews_filters %}
+    {% load base_extras %}
+
+    <div id="report">
+
+        <!-- LEFT REPORT SIDEBAR -->
+        <div id="report-side-bar">
+            <div>
+                <a data-pjax href="{% url "interviews" %}"><span class="glyphicon glyphicon-signal"></span></a>
+                <span><a data-pjax href="{% url "interviews" %}">Interviews</a></span>                
+            </div>
+        </div>
+
+        <!-- CURRENT DATE TIME BOX -->
+        <div class="col-md-3" id="current-datetime-container">
+            <div id="current-datetime">
+                {% current_datetime_component request %}
+            </div>
+        </div>
+
+        {% for interview in interview_pending %}
+            <div id="pending-interview" class="col-md-3">
+                {% interview_single_component interview request %}
+            </div>
+        {% endfor %}
+
+        {% block search_box %}
+        <div class="row" id="interviews-upper-bar">
+            <div id="searchbox-container" class="col-md-6 col-md-offset-3">
+                <form data-pjax>
+                    <span class="input-group-addon">
+                        <i class="glyphicon glyphicon-search"></i>
+                    </span>
+                    <input name="search" type="text" class="form-control" placeholder="Search" autofocus>
+                </form>
+            </div>
+            <div id="interview-view-type" class="col-md-3">
+                {% block nav_reports_grid %}<a class="pjax glyphicon glyphicon-th" href="{% url "reports" %}"></a>{% endblock nav_reports_grid %}
+                {% block nav_reports_list %} <a class="pjax glyphicon glyphicon-align-justify" href="{% url "reports-list" %}"></a>{% endblock nav_reports_list %}
+            </div>
+        </div>
+        {% endblock search_box %}
+
+        <div class="row">
+            <div class="col-md-3" id="upcoming-interviews">
+                <div class="interview-items">
+                    {% for interview in upcoming_interviews %}
+                        <div class="interview-item-container">
+                            {% interview_single_component interview request %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div id="reports-view-container" class="col-md-9">
+            {% block reports_list %}
+            {% endblock reports_list %}
+            </div>
+
+
+        </div>
+    </div>
+
+{% endblock content %}

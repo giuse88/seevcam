@@ -1,4 +1,40 @@
 - model: interviews.interview
+  pk: 13
+  fields:
+    interview_owner: 1
+    interview_datetime: 2014-10-15 11:10
+    interview_datetime_end: 2014-10-15 18:32
+    candidate_name: Batsey
+    candidate_surname: Johnson
+    interview_position: Sales Manager
+    interview_status: CLOSED
+    candidate_email: test@email.com
+    interview_description: As a personal assistant youll be helping out your boss with whatever they need from managing a diary to typing up reports or planning meetings. Basically you help organise their life so theyll always know where they need to be and what theyre doing. Your duties as a personal assistant will largely depend on your experience the length of time youve worked in the company and the level of trust you have with your boss.
+- model: interviews.interview
+  pk: 14
+  fields:
+    interview_description: Mario Rossi
+    interview_owner: 1
+    interview_datetime: 2014-10-15 11:10
+    interview_datetime_end: 2014-10-15 18:32
+    candidate_name: Mario
+    candidate_surname: Rossi
+    interview_position: Sales Manager
+    interview_status: CLOSED
+    candidate_email: test@email.com
+- model: interviews.interview
+  pk: 15
+  fields:
+    interview_description: Geoff Crammond
+    interview_owner: 1
+    interview_datetime: 2014-10-15 11:10
+    interview_datetime_end: 2014-10-15 18:32
+    candidate_name: Geoff
+    candidate_surname: Crammond
+    interview_position: Sales Manager
+    interview_status: CLOSED
+    candidate_email: test@email.com
+- model: interviews.interview
   pk: 1
   fields:
     interview_description: John Smith
@@ -64,8 +100,8 @@
   fields:
     interview_description: John Prada
     interview_owner: 1
-    interview_datetime: 2014-10-15 13:32
-    interview_datetime_end: 2014-10-15 16:32
+    interview_datetime: 2014-10-21 13:32
+    interview_datetime_end: 2014-10-21 16:32
     candidate_name: John
     candidate_surname: Prada
     interview_position: Sales Manager
@@ -74,8 +110,8 @@
   fields:
     interview_description: Giorgio Armani
     interview_owner: 1
-    interview_datetime: 2014-10-16 13:32
-    interview_datetime_end: 2014-10-16 16:32
+    interview_datetime: 2014-10-21 13:32
+    interview_datetime_end: 2014-10-21 16:32
     candidate_name: Giorgio
     candidate_surname: Armani
     interview_position: Sales Manager
@@ -84,8 +120,8 @@
   fields:
     interview_description: Ralph Lauren
     interview_owner: 1
-    interview_datetime: 2014-10-16 17:32
-    interview_datetime_end: 2014-10-16 18:32
+    interview_datetime: 2014-10-21 17:32
+    interview_datetime_end: 2014-10-21 18:32
     candidate_name: Ralph
     candidate_surname: Lauren
     interview_position: Sales Manager
@@ -94,8 +130,8 @@
   fields:
     interview_description: Christian Dior
     interview_owner: 1
-    interview_datetime: 2014-10-17 13:32
-    interview_datetime_end: 2014-10-17 16:32
+    interview_datetime: 2014-10-21 13:32
+    interview_datetime_end: 2014-10-21 16:32
     candidate_name: Christian
     candidate_surname: Dior
     interview_position: Sales Manager
@@ -104,8 +140,8 @@
   fields:
     interview_description: Calvin Klein
     interview_owner: 1
-    interview_datetime: 2014-10-18 13:32
-    interview_datetime_end: 2014-10-18 16:32
+    interview_datetime: 2014-10-21 13:32
+    interview_datetime_end: 2014-10-21 16:32
     candidate_name: Calvin
     candidate_surname: Klein
     interview_position: Sales Manager
@@ -114,8 +150,8 @@
   fields:
     interview_description: Tom Ford
     interview_owner: 1
-    interview_datetime: 2014-10-21 13:32
-    interview_datetime_end: 2014-10-21 16:32
+    interview_datetime: 2014-10-22 13:32
+    interview_datetime_end: 2014-10-22 16:32
     candidate_name: Tom
     candidate_surname: Ford
     interview_position: Sales Manager
