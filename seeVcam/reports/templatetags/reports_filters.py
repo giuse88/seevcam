@@ -6,7 +6,7 @@ from random import randint
 
 @register.inclusion_tag("components/reports-single.html")
 def report_single_component(field,request):
-	return {
+    return {
         'id': field.id,
         'name': field.candidate_name,
         'surname': field.candidate_surname,
@@ -16,7 +16,7 @@ def report_single_component(field,request):
 
 @register.inclusion_tag("components/reports-list-single.html")
 def report_list_single_component(field,request):
-	return {
+    return {
         'id': field.id,
         'name': field.candidate_name,
         'surname': field.candidate_surname,

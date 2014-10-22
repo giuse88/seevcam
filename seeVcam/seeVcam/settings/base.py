@@ -106,6 +106,7 @@ TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'reports/templates'),
     os.path.join(BASE_DIR, 'userprofile/templates'),
     os.path.join(BASE_DIR, 'interviews/templates'),
+    os.path.join(BASE_DIR, 'notes/templates'),
 )
 
 # allauth settings

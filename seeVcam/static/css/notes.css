@@ -1,0 +1,206 @@
+/*NOTES UPPER BOX*/
+#job-description-header-container{
+    padding-left: 30px;
+    padding-right: 30px;
+    margin-top: 130px;
+}
+#job-description-header{
+    background-color: #333;
+    color: #ccc;
+    font-size: 16px;
+    text-align: center;
+    height: 40px;
+    line-height: 39px;
+    position: relative;
+}
+#candidate-description-header{
+    background-color: #361364;
+    color: #ddd;
+    height: 170px;
+    padding-left: 0px;
+    width: 100%;
+
+}
+#candidate-description{
+    margin-left: 120px;
+    margin-top: 20px;
+
+}
+#candidate-description > span{
+    display: block;
+    font-size: 20px;
+
+}
+#candidate-description b{
+    color: white;
+
+}
+#candidate-description #name-surname{
+    font-size: 24px;
+    color: white;
+    font-weight: bold;
+
+}
+#candidate-photo{
+    width: 100px;
+    height: 130px;
+    background-color: #2b0f50;
+    float: left;
+}
+
+
+#interview-rating-header{
+    height: 170px;
+    background-color: #641364;
+    width: 100%;
+    padding-top: 18px;
+    padding-left: 18px;}
+#interview-rating-header .bar-chart {
+    color: #641364;
+    background-color: #834283;
+    width: 60%;
+    margin-bottom: 6px;
+    height: 18px;
+    font-size: 12px;
+    line-height: 18px;
+    position: relative;
+}
+#interview-rating-header .bar-chart .bar-chart-progress{
+    height: 100%;
+    background-color: white;
+    z-index: 0;
+
+}
+#interview-rating-header .bar-chart span{
+    position: absolute;
+    top: 0px;
+    color: #641364;
+    left: 10px;
+
+}
+
+/*NAV ELEMENTS*/
+.notes-nav{
+    font-size: 16px;
+}
+.bottom{
+    bottom: 0px;
+    position: absolute;
+    padding-left: 20px;
+    left: 0px;
+    padding-bottom: 10px;
+    padding-right: 20px;
+    width: 100%;
+}
+
+#candidate-description-header .notes-nav{
+    color: #9886af;
+}
+#interview-rating-header .notes-nav{
+    color: #b289b2;
+}
+.notes-nav span{
+}
+.notes-nav span b{
+    display: block;
+}
+.notes-nav .right,.notes-nav.right{
+    right: 0px;
+    margin-right: 0px;
+    float: right;
+    text-align: right;
+    width: auto;
+}
+.active-nav-marker{
+    height: 10px;
+    position: absolute;
+    top: 59px;
+    width: 100%;
+    /*display: none;*/
+}
+#job-description-header .active-nav-marker{
+    background-color: #333;
+}
+#candidate-description-header .active-nav-marker{
+    background-color: #361364;
+    width: 150px;
+    left: 0px;
+    top: 52px;
+}
+#candidate-description-header .right .active-nav-marker{
+    background-color: #361364;
+    width: 200px;
+    top: 51px;
+    right: 0px;
+    left: auto;
+}
+#interview-rating-header .right .active-nav-marker{
+    background-color: #641364;
+    width: 150px;
+    top: 52px;
+    right: 0px;
+    left: auto;
+}
+#job-description-header .active-nav-marker{
+    background-color: #333;
+}
+.active-nav-marker{
+    display: none;
+}
+.notes-nav.active .active-nav-marker{
+    display: block;
+}
+.notes-nav.active span{
+    display: none;
+}
+.notes-nav.active b{
+    color: white;
+    font-size: 20px;
+    line-height: 0px;
+}
+.notes-nav a{
+    color: inherit;
+}
+.notes-nav a:hover{
+    text-decoration: none;
+}
+
+
+
+/*DONUT CHART*/
+#notes-donut-chart .circliful .fa {
+margin: -10px 0px 0 3px;
+position: relative;
+bottom: 4px;
+}
+#notes-donut-chart .circle-info, .circle-info-half{
+    line-height: 135px !important;
+}
+#notes-donut-chart{
+    float: right;
+
+}
+#notes-donut-chart .circle-text{
+    color: white;
+}
+#notes-donut-chart .circle-info{
+    color: #c0a0c0;
+    font-size: 12px;
+    }
+#notes-donut-chart .circle-text i{
+    margin-left: 0px;
+}
+
+
+/*VIEW BOX*/
+#notes-viewbox-container{
+    width: 100%;
+    margin-top: 20px;
+    padding-left: 30px;
+    padding-right: 30px;;
+}
+#notes-viewbox{
+    background-color: white;
+    min-height: 300px;
+
+}

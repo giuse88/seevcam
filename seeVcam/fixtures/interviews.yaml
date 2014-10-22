@@ -9,6 +9,7 @@
     candidate_surname: Johnson
     interview_position: Sales Manager
     interview_status: CLOSED
+    candidate_email: test@email.com
 - model: interviews.interview
   pk: 14
   fields:
@@ -20,6 +21,7 @@
     candidate_surname: Rossi
     interview_position: Sales Manager
     interview_status: CLOSED
+    candidate_email: test@email.com
 - model: interviews.interview
   pk: 15
   fields:
@@ -31,6 +33,7 @@
     candidate_surname: Crammond
     interview_position: Sales Manager
     interview_status: CLOSED
+    candidate_email: test@email.com
 - model: interviews.interview
   pk: 1
   fields:

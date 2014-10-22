@@ -1,0 +1,5 @@
+- model: notes.notes
+  pk: 1
+  fields:
+    interview: 13
+    text_content: lorem ipsum

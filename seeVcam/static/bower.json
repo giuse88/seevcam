@@ -18,7 +18,8 @@
     "underscore": "1.7.0",
     "backbone": "1.1.2",
     "jquery-migrate": "~1.2.1",
-    "fullcalendar": "1.6.4"
+    "fullcalendar": "1.6.4",
+    "circliful": "~0.1.5"
   },
   "resolutions": {
     "bootstrap": "3.2.0",

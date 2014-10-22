@@ -60,11 +60,11 @@
         function bindReportItemClick(ev){
             $('.report-item').each(function(i,el){
                 $(el).click(function(ev){
-                    $.pjax({url: '/dashboard/notes/', container: '#container'})
+                    var id = ev.currentTarget.id.split('-')[1]
+                    $.pjax({url: '/dashboard/reports/'+id+'/notes/list', container: '#container'})
                 })
             })
         }
-
     });
 
 })(jQuery, CONSTANTS)
