@@ -17,6 +17,9 @@ class QuestionCatalogue(models.Model):
     catalogue_name = models.CharField(max_length=255, null=False, blank=False)
     catalogue_owner = models.ForeignKey(settings.AUTH_USER_MODEL, null=True)
 
+    def size(self):
+        return Question.objects.filter(question_catalogue=self.id).count();
+
     def __unicode__(self):
         return self.catalogue_name
 

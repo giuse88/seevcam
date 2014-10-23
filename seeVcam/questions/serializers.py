@@ -4,6 +4,7 @@ from models import QuestionCatalogue, Question
 
 
 class QuestionCatalogueSerializer(serializers.ModelSerializer):
+    catalogue_size = serializers.Field(source="size")
     @staticmethod
     def validate_catalogue_scope(attrs, source):
         """
@@ -26,7 +27,7 @@ class QuestionCatalogueSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = QuestionCatalogue
-        fields = ('id', 'catalogue_scope', 'catalogue_name')
+        fields = ('id', 'catalogue_scope', 'catalogue_name', 'catalogue_size')
 
 
 class QuestionSerializer(serializers.ModelSerializer):
