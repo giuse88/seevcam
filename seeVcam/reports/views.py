@@ -25,12 +25,13 @@ class ReportView(LoginRequired, ListView):
         self.upcoming_interviews = Interview.objects.filter(interview_owner=self.request.user.id,interview_datetime__gt=datetime.datetime.now()).order_by('interview_datetime')[:4]
 
         # Check if we have an interview in the following hour (pending interview)
-        dt = (self.upcoming_interviews[0].interview_datetime-to_user_timezone(datetime.datetime.now(),self.request.user))
+        context['interview_pending'] = []
 
-        if dt.total_seconds() < 3600:
-            context['interview_pending'] = [self.upcoming_interviews[0]]
-        else:
-            context['interview_pending'] = []
+        if len(self.upcoming_interviews)>0:
+            dt = (self.upcoming_interviews[0].interview_datetime-to_user_timezone(datetime.datetime.now(),self.request.user))
+
+            if dt.total_seconds() < 3600:
+                context['interview_pending'] = [self.upcoming_interviews[0]]
 
         # Upcoming Interviews
         if len(context['interview_pending']):
