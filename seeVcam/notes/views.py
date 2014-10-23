@@ -17,7 +17,7 @@ class NotesListView(ListView):
     template_name = 'notes-list.html'
 
     def get_queryset(self):
-        return Notes.objects.filter(interview__interview_owner=self.request.user.id)
+        return Notes.objects.filter(interview__interview_owner=self.request.user.id,interview__id=self.kwargs['pk'])
 
     def get_context_data(self, **kwargs):
         context = super(NotesListView, self).get_context_data(**kwargs)
@@ -39,7 +39,7 @@ class NotesQuestionsView(LoginRequired,ListView):
     context_object_name = 'questions_list'
 
     def get_queryset(self):
-        return Notes.objects.filter(interview__interview_owner=self.request.user.id)
+        return Notes.objects.filter(interview__interview_owner=self.request.user.id,interview__id=self.kwargs['pk'])
 
     def get_context_data(self, **kwargs):
         context = super(NotesQuestionsView, self).get_context_data(**kwargs)
