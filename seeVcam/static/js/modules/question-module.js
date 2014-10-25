@@ -223,7 +223,7 @@
         tagName: 'li',
         className: 'question',
         template: _.template( '<div class="question-read-only view form-group"> <p class="drag-dots"> :: </p> <p><%- question_text %></p></div>' ),
-        helper_template: _.template( '<div class="question-drag-helper"> <p><%- question_text %></p></div>' ),
+        helper_template: _.template( '<div class="question-drag-helper <%= color %>"> <p><%- question_text %></p></div>' ),
 
         id: function () {
          return this.model.get('id')
@@ -245,7 +245,9 @@
         },
 
         dragHelper : function () {
-            return this.helper_template(this.model.toJSON());
+            var scope = this.model.collection && this.model.collection.catalogue.get("catalogue_scope");
+            var color = scope === "PRIVATE" ? "blue" : "red";
+            return this.helper_template(_.extend(this.model.toJSON(), {color : color}));
         },
 
         deleteQuestion: function () {
