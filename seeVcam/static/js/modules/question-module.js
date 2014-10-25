@@ -57,6 +57,11 @@
             return this.questions;
         },
 
+        incrementSize:function(){
+            this.set('catalogue_size', this.get('catalogue_size') +1);
+            return this.catalogue_size;
+        },
+
         getOrCreateQuestions:function(){
             if (!this.questions)
                 this.questions = new app.Questions([], {catalogue:this});
@@ -284,7 +289,7 @@
         el: "#edit-catalogue",
 
         events: {
-            'keypress #question-text': 'addNewQuestion',
+            'keypress #question-text': 'newQuestionFromKeyboard',
             "blur .input-panel-heading": "updateCatalogueOnFocusOut",
             "click .close-panel-heading": "close",
             "click .delete-panel-heading": "deleteCatalogue"
@@ -298,7 +303,7 @@
             this.questions = [];
             // bindings
             var render = this.render.bind(this);
-            _.bindAll(this, 'addNewQuestion');
+            _.bindAll(this, 'newQuestionFromKeyboard');
             _.bindAll(this, 'renderQuestion');
             _.bindAll(this, 'updateOnEnter');
             _.bindAll(this, 'updateCatalogueName');
@@ -315,10 +320,15 @@
             //
         },
 
-        addNewQuestion: function (e) {
+        addNewQuestion : function( text ) {
+            this.collection.create({question_text: text}, {wait: true});
+            this.catalogue.incrementSize();
+        },
+
+        newQuestionFromKeyboard: function (e) {
             if (e.keyCode == 13) {
                 console.log(this.$questionText.val());
-                var newModel = this.collection.create({question_text: this.$questionText.val()}, {wait: true});
+                this.addNewQuestion(this.$questionText.val());
                 this.$questionText.val("");
             }
         },
@@ -341,10 +351,11 @@
         },
 
         installDroppable : function() {
+            var that =this;
             this.$listContainer.droppable({
                 drop: _.bind(function( event, ui ) {
                     var questionText = ui.helper.find('p').html();
-                    this.collection.create({question_text: questionText});
+                    that.addNewQuestion(questionText);
                     console.log("Added question using drag and drop : " +  questionText);
                 }, this)
             });
@@ -420,9 +431,10 @@
         template: _.template(
                 '   <div class="container-fluid <%-catalogue_class %>">' +
                 '       <div class="row catalogue-name white-text-on-hover "> ' +
-                '           <a class="catalog-item-name" href="#"> <%- catalogue_name %>' +
-                '           <span class="catalog-count">(<%- catalogue_size %>)</span></a>' +
-                '           <span class="edit-icon glyphicon glyphicon-pencil"></span>' +
+                '           <a class="catalog-item-name" href="#">' +
+                    '           <p> <%- catalogue_name %> </p>' +
+                    '           <span class="catalog-count">(<%- catalogue_size %>)</span></a>' +
+                    '           <span class="edit-icon glyphicon glyphicon-pencil"></span>' +
                 '       </div> '+
                 '       <div class="row"> ' +
                 '           <div class="question-list-container"></div> ' +
@@ -436,14 +448,30 @@
         initialize: function () {
 
             _.bindAll(this, 'update');
+            _.bindAll(this, 'updateSizeCatalogue');
             _.bindAll(this, 'render');
             _.bindAll(this, 'showQuestions');
 
-            this.listenTo(this.model, 'change', this.update);
+            this.listenTo(this.model, 'change:catalogue_size', this.updateSizeCatalogue);
+            this.listenTo(this.model, 'change:catalogue_name', this.updateCatalogueName);
+        },
+
+        updateCatalogueName : function(item){
+            console.log("update catalogue name");
+            console.log(item);
+            this.$el.find(".catalogue-name p").html(this.model.get('catalogue_name'));
         },
 
         update: function (item) {
+            console.log(item);
+            console.log("update ");
             this.render();
+        },
+
+        updateSizeCatalogue: function (item) {
+            console.log("update counter");
+            console.log(item);
+            this.$el.find(".catalog-count").html("("+this.model.get('catalogue_size') +")");
         },
 
         id: function () {

@@ -443,3 +443,12 @@
 .question .question-read-only:hover p.drag-dots {
     display: inline-block;
 }
+
+.catalogue-list-item .container-fluid {
+    padding: 0;
+}
+
+.catalogue-list-item a p{
+    display: inline-block;
+    margin: 0;
+}
