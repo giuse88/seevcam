@@ -2,7 +2,20 @@
 
     var app = app || {};
 
-// Question Model
+
+    function syncSuccess(value){
+        // this function is called every we sycn with the remote server
+    }
+
+    function syncError(model, response){
+        var message = "Synchronization failed!";
+        console.error(message);
+        console.log(response.responseText);
+        console.log(model);
+        notification.error(message, "Re-loading the page might fix this problem.");
+    }
+
+
     var Question = Backbone.Model.extend({
         defaults: {
             question_text: ""
@@ -19,12 +32,18 @@
         initialize: function (models, options) {
             this.catalogue = options.catalogue;
             this.url = "/dashboard/questions/catalogue/" + this.catalogue.get('id') + "/list/";
-            if (models.length == 0) {
+
+            function fetchFailure (model,response){
+                var message = "Error fetching questions for " +  model.catalogue.get('catalogue_name') + "!";
+                console.error(message);
+                console.log(response.responseText);
+                notification.error(message, "Re-loading the page might fix this problem.");
+            }
+
+            if (models.length === 0) {
                 this.fetch({
                     reset: true,
-                    error: function () {
-                        console.error("Error fetching questions for catalogue : " + this.catalogue.get('catalogue_name'));
-                    }
+                    error: fetchFailure
                 });
             }
         },
@@ -78,7 +97,7 @@
             if (!newName )
                 throw "Invalid catalogue name";
 
-            if ( newName == this.get('catalogue_name')) {
+            if ( newName === this.get('catalogue_name')) {
                 return;
             }
 
@@ -105,11 +124,21 @@
     var CatalogueList = Backbone.Collection.extend({
         model: Catalogue,
         url: "/dashboard/questions/catalogue/",
+
         initialize: function (catalogues) {
+
+            function fetchFailure (model,response){
+                var message = "Error fetching catalogues!";
+                console.error(message);
+                console.log(response.responseText);
+                notification.error(message, "Re-loading the page might fix this problem.");
+            }
+
             if (!catalogues) {
-                this.fetch({ reset: true, error: function () {
-                    console.error("Error fetching catalogues")
-                } });
+                this.fetch({
+                    reset: true,
+                    error: fetchFailure
+                });
             }
         }
     });
@@ -204,6 +233,9 @@
             _.bindAll(this, "dragHelper");
             this.listenTo(this.model, 'change', this.render);
             this.listenTo(this.model, 'destroy', this.remove);
+            this.listenTo(this.model, 'error', syncError);
+            this.listenTo(this.model, 'sync', syncSuccess);
+
         },
 
         render: function () {
@@ -245,6 +277,8 @@
 
             this.listenTo(this.collection, 'add', this.renderQuestion);
             this.listenTo(this.collection, 'reset', this.render);
+            this.listenTo(this.collection, 'error', syncError);
+            this.listenTo(this.collection, 'sync', syncSuccess);
         },
 
         render : function(){
@@ -334,6 +368,8 @@
             this.listenTo(this.collection, 'add', this.renderQuestion);
             this.listenTo(this.collection, 'remove', this.removeQuestion);
             this.listenTo(this.collection, 'reset', this.renderEntireCollection);
+            this.listenTo(this.collection, 'error', syncError);
+            this.listenTo(this.collection, 'sync', syncSuccess);
             //
         },
 
@@ -499,6 +535,8 @@
 
             this.listenTo(this.model, 'change:catalogue_size', this.updateSizeCatalogue);
             this.listenTo(this.model, 'change:catalogue_name', this.updateCatalogueName);
+            this.listenTo(this.model, 'error', syncError);
+            this.listenTo(this.model, 'sync', syncSuccess);
         },
 
         updateCatalogueName : function(item){
@@ -624,6 +662,8 @@
             this.listenTo(this.collection, 'add', this.addCatalogue);
             this.listenTo(this.collection, 'remove', this.removeCatalogue);
             this.listenTo(this.collection, 'reset', this.renderEntireCollection);
+            this.listenTo(this.collection, 'error', syncError);
+            this.listenTo(this.collection, 'sync', syncSuccess);
             this.render();
             //
         },
