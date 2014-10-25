@@ -31,5 +31,6 @@ class IsOwner(IsPrivateScope):
 class IsCatalogueOwnerOrSeevcamScope(permissions.BasePermission):
 
     def has_permission(self, request, view):
-        owner = QuestionCatalogue.objects.get(pk=view.kwargs['question_catalogue']).catalogue_owner
-        return request.user == owner
+        catalogue = QuestionCatalogue.objects.get(pk=view.kwargs['question_catalogue'])
+        owner = catalogue.catalogue_owner
+        return request.user == owner or catalogue.isSeevcamScope

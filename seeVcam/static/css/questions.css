@@ -105,7 +105,7 @@
 }
 
 .catalog-red .catalog-item-name:before {
-    background-color: #eb372d;
+    background-color: red;
 }
 
 .catalog-blue .catalog-item-name:before {
@@ -113,7 +113,7 @@
 }
 
 .catalog-red.selected .catalog-item-name {
-    background-color: #eb372d;
+    background-color: red;
     font-weight: bold;
     color: white;
 }
@@ -376,7 +376,8 @@
     color : white !important;
 }
 
-.highlight-catalogue-red, .highlight-catalogue-blue  > .catalog-item-name > span {
+.highlight-catalogue-red  > .catalog-item-name > span,
+.highlight-catalogue-blue  > .catalog-item-name > span {
     color : white !important;
 }
 
@@ -388,7 +389,7 @@
     color : white !important;
 }
 
-.highlight-catalogue-red, .highlight-catalogue-blue  > .catalog-item-name {
+.highlight-catalogue-red > .catalog-item-name, .highlight-catalogue-blue  > .catalog-item-name {
     color : white !important;
 }
 

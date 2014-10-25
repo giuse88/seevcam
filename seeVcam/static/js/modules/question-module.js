@@ -515,7 +515,9 @@
                 '           <a class="catalog-item-name" href="#">' +
                     '           <p> <%- catalogue_name %> </p>' +
                     '           <span class="catalog-count">(<%- catalogue_size %>)</span></a>' +
+                    '<% if (catalogue_class !== "catalog-red") { %>' +
                     '           <span class="edit-icon glyphicon glyphicon-pencil"></span>' +
+                    '<% } %>' +
                 '       </div> '+
                 '       <div class="row"> ' +
                 '           <div class="question-list-container"></div> ' +
@@ -757,7 +759,6 @@
 
     window.catalogueList = null;
     window.catalogueViewList = null;
-
 
     function installCataloguePicker() {
         catalogueList = new CatalogueList();
