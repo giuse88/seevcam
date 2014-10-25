@@ -2,7 +2,6 @@
 
     var app = app || {};
 
-
     function syncSuccess(value){
         // this function is called every we sycn with the remote server
     }
@@ -14,7 +13,6 @@
         console.log(model);
         notification.error(message, "Re-loading the page might fix this problem.");
     }
-
 
     var Question = Backbone.Model.extend({
         defaults: {
@@ -643,8 +641,9 @@
 
         events: {
             'keypress #create-catalogue input': 'createCatalogue',
-//            'keypress #create-catalogue input propertychange': 'validateCatalogueName',
-            'click .catalogue-list-item .edit-icon':'openCatalogueOnClick'
+            'click .catalogue-list-item .edit-icon':'openCatalogueOnClick',
+            'click li.label-blue':'renderPrivateCatalogues',
+            'click li.label-red':'renderSeevcamCatalogues'
         },
 
         initialize: function (collection) {
@@ -662,6 +661,8 @@
             _.bindAll(this, 'openCatalogue');
             _.bindAll(this, 'openCatalogueOnClick');
             _.bindAll(this, 'removeCatalogue');
+            _.bindAll(this, 'renderPrivateCatalogues');
+            _.bindAll(this, 'renderSeevcamCatalogues');
             //
             this.listenTo(this.collection, 'add', this.addCatalogue);
             this.listenTo(this.collection, 'remove', this.removeCatalogue);
@@ -673,8 +674,28 @@
         },
 
         renderEntireCollection: function () {
+            this.$catalogueContainer.html("");
             this.collection.each(function (catalogue) {
                 this.renderCatalogue(catalogue);
+            }, this);
+            return this;
+        },
+
+        renderPrivateCatalogues:function(){
+            console.log("FFF");
+            return this.renderCataloguesByScope("PRIVATE");
+        },
+
+        renderSeevcamCatalogues:function(){
+            console.log("FFF");
+            return this.renderCataloguesByScope("SEEVCAM");
+        },
+
+        renderCataloguesByScope:function (scope) {
+            this.$catalogueContainer.html("");
+            this.collection.each(function (catalogue) {
+                if(catalogue.get('catalogue_scope') === scope)
+                    this.renderCatalogue(catalogue);
             }, this);
             return this;
         },

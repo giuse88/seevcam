@@ -366,6 +366,10 @@
     border-bottom: 1px solid #D1D1D1;
 }
 
+.catalogue-name {
+    overflow: hidden;
+}
+
 .catalogue-list-item .catalog-blue .catalogue-name:hover, .highlight-catalogue-blue {
     background-color: #0f73c2;
     color : white !important;
