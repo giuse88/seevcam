@@ -4,6 +4,7 @@
 
     function syncSuccess(value){
         // this function is called every we sycn with the remote server
+        console.log(value);
     }
 
     function syncError(model, response){
@@ -276,16 +277,21 @@
             _.bindAll(this, 'renderQuestion');
 
             this.listenTo(this.collection, 'add', this.renderQuestion);
-            this.listenTo(this.collection, 'reset', this.render);
+//            this.listenTo(this.collection, 'reset', this.render);
             this.listenTo(this.collection, 'error', syncError);
-            this.listenTo(this.collection, 'sync', syncSuccess);
+            this.listenTo(this.collection, 'sync', this.render);
+
+            this.$el.append("<p>Loading..</p>");
         },
 
         render : function(){
+
+            this.$el.html("");
             console.log("Questions view render entire collection");
             this.collection.each(function (item) {
                 this.renderQuestion(item);
             }, this);
+            console.log("Questions view render entire collection end");
             return this;
         },
 
