@@ -62,6 +62,11 @@
             return this.catalogue_size;
         },
 
+        decrementSize:function(){
+            this.set('catalogue_size', this.get('catalogue_size') -1);
+            return this.catalogue_size;
+        },
+
         getOrCreateQuestions:function(){
             if (!this.questions)
                 this.questions = new app.Questions([], {catalogue:this});
@@ -304,6 +309,7 @@
             // bindings
             var render = this.render.bind(this);
             _.bindAll(this, 'newQuestionFromKeyboard');
+            _.bindAll(this, 'removeQuestion');
             _.bindAll(this, 'renderQuestion');
             _.bindAll(this, 'updateOnEnter');
             _.bindAll(this, 'updateCatalogueName');
@@ -316,6 +322,7 @@
             this.render();
             //
             this.listenTo(this.collection, 'add', this.renderQuestion);
+            this.listenTo(this.collection, 'remove', this.removeQuestion);
             this.listenTo(this.collection, 'reset', this.renderEntireCollection);
             //
         },
@@ -325,8 +332,13 @@
             this.catalogue.incrementSize();
         },
 
+        removeQuestion : function() {
+            this.catalogue.decrementSize();
+        },
+
         newQuestionFromKeyboard: function (e) {
-            if (e.keyCode == 13) {
+            var $target = $(e.currentTarget);
+            if (e.keyCode == 13 && $target.val()) {
                 console.log(this.$questionText.val());
                 this.addNewQuestion(this.$questionText.val());
                 this.$questionText.val("");
