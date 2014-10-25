@@ -1,4 +1,4 @@
-(function () {
+(function questionModule(notification) {
 
     var app = app || {};
 
@@ -75,8 +75,12 @@
 
         updateName: function (newName) {
 
-            if (!newName)
+            if (!newName )
                 throw "Invalid catalogue name";
+
+            if ( newName == this.get('catalogue_name')) {
+                return;
+            }
 
             var self = this;
             this.save({catalogue_name: newName}, {
@@ -86,6 +90,8 @@
                 error: function (response) {
                     console.error("FAILED : Catalogue " + self.getName() + " not updated");
                     console.error(response);
+                    notification.warning("Update failed", "Reloading the page should fix the issue");
+
                 }
             });
         },
@@ -272,11 +278,11 @@
                 '        <div class="row" style="height:100%;margin-right:0;">' +
                 '           <div class="panel" style="height:100%;position: relative;">' +
                 '                <div class="panel-heading clearfix">' +
-                '                    <span class="inline-block" style="width:90%">' +
+                '                    <span class="inline-block" style="width:80%">' +
                 '                        <input class="input-panel-heading" style="width:100%" type="text" value="<%- catalogue_name %>">' +
-//                '                        <span class="glyphicon glyphicon-ok-circle "></span>' +
                 '                    </span>' +
                 '                   <span class="margin-b2-t2 inline-block pull-right">' +
+                '                       <span class="glyphicon input-status-icon"></span>' +
                 '                       <span class="delete-panel-heading icon glyphicon glyphicon-trash"></span>' +
                 '                       <span class="close-panel-heading icon glyphicon glyphicon-remove"></span>' +
                 '                    </span>' +
@@ -296,6 +302,7 @@
         events: {
             'keypress #question-text': 'newQuestionFromKeyboard',
             "blur .input-panel-heading": "updateCatalogueOnFocusOut",
+            "keypress .input-panel-heading": "updateOnEnter",
             "click .close-panel-heading": "close",
             "click .delete-panel-heading": "deleteCatalogue"
         },
@@ -307,16 +314,19 @@
             this.collection = this.catalogue.getOrCreateQuestions();
             this.questions = [];
             // bindings
-            var render = this.render.bind(this);
+            _.bindAll(this, 'render');
             _.bindAll(this, 'newQuestionFromKeyboard');
             _.bindAll(this, 'removeQuestion');
             _.bindAll(this, 'renderQuestion');
+            _.bindAll(this, 'restoreCatalogueName');
+            _.bindAll(this, 'validateCatalogueName');
             _.bindAll(this, 'updateOnEnter');
             _.bindAll(this, 'updateCatalogueName');
             _.bindAll(this, 'updateCatalogueOnFocusOut');
             _.bindAll(this, 'renderEntireCollection');
             _.bindAll(this, 'close');
             _.bindAll(this, 'deleteCatalogue');
+            _.bindAll(this, 'isValidCatalogueName');
             //
             this.$noCatalogue = $('.no-catalogue');
             this.render();
@@ -351,14 +361,12 @@
             this.$questionText = $("#question-text");
             this.$listContainer = $("#question-container ul");
             this.$headingTitleInput = $('.panel-heading input.input-panel-heading');
+            this.$headingTitleInput.bind('input propertychange', this.validateCatalogueName);
             this.$listContainer.html('');
+            this.$statusIcon= this.$el.find(".input-status-icon");
             this.renderEntireCollection();
             this.installDroppable();
-//            this.$el.find(".panel-heading").hover(function () {
-//                $(this).find(".icon").removeClass("hidden");
-//            }, function () {
-//                $(this).find(".icon").addClass("hidden");
-//            });
+            this.$questionText.focus();
             //this.$el.find('.scroll-pane').jScrollPane({ autoReinitialise: true });
         },
 
@@ -399,17 +407,42 @@
             this.updateCatalogueName(this.$headingTitleInput.val());
         },
 
+        isValidCatalogueName : function (current_value) {
+            return !!current_value &&  !this.catalogue.collection.findWhere({"catalogue_name": current_value});
+        },
+
         updateCatalogueName: function (updated_name) {
-//        if (!updated_name) {
-//            this.restoreCatalogueName();
-//            return;
-//        }
-            console.log("Updating catalogue name to : " + updated_name);
+            // remove focus
+            this.$headingTitleInput.blur();
+            // remove status icon
+            this.$statusIcon
+                .removeClass("glyphicon-remove-circle")
+                .removeClass("glyphicon-ok-circle");
+
+            if (!this.isValidCatalogueName(updated_name)) {
+                this.restoreCatalogueName();
+                return;
+            }
+
             this.catalogue.updateName(updated_name);
+
+        },
+
+         validateCatalogueName: function (e) {
+            var $target = $(e.currentTarget);
+            var current_value = $target.val();
+            console.log(current_value);
+
+            if (!this.isValidCatalogueName(current_value)) {
+                this.$statusIcon.removeClass("glyphicon-ok-circle").addClass("glyphicon-remove-circle");
+                return;
+            }
+
+            this.$statusIcon.removeClass("glyphicon-remove-circle").addClass("glyphicon-ok-circle");
         },
 
         restoreCatalogueName: function () {
-//        this.$headingTitleInput.val(this.collection.get('catalogue_name'));
+            this.$headingTitleInput.val(this.catalogue.get('catalogue_name'));
         },
 
         remove: function () {
@@ -568,7 +601,7 @@
 
         events: {
             'keypress #create-catalogue input': 'createCatalogue',
-            'keypress #create-catalogue input propertychange': 'validateCatalogueName',
+//            'keypress #create-catalogue input propertychange': 'validateCatalogueName',
             'click .catalogue-list-item .edit-icon':'openCatalogueOnClick'
         },
 
@@ -719,5 +752,5 @@
         install: installQuestionModule
     };
 
-})();
+})(window.notification);
 
