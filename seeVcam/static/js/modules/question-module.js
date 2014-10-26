@@ -434,7 +434,7 @@
             this.renderEntireCollection();
             this.installDroppable();
             this.$questionText.focus();
-            //this.$el.find('.scroll-pane').jScrollPane({ autoReinitialise: true });
+//            this.$el.find('.scroll-pane').jScrollPane({ autoReinitialise: true });
         },
 
         installDroppable : function() {
@@ -694,6 +694,7 @@
             _.bindAll(this, 'removeCatalogue');
             _.bindAll(this, 'renderPrivateCatalogues');
             _.bindAll(this, 'renderSeevcamCatalogues');
+            _.bindAll(this, 'resetCatalogueContainer');
             //
             this.listenTo(this.collection, 'add', this.addCatalogue);
             this.listenTo(this.collection, 'remove', this.removeCatalogue);
@@ -701,29 +702,55 @@
             this.listenTo(this.collection, 'error', syncError);
             this.listenTo(this.collection, 'sync', syncSuccess);
             this.render();
+//            _.defer(_.bind(function(){this.$el.find('.scroll-pane').jScrollPane()}, this));
             //
         },
 
         renderEntireCollection: function () {
-            this.$catalogueContainer.html("");
+            this.resetCatalogueContainer();
             this.collection.each(function (catalogue) {
                 this.renderCatalogue(catalogue);
             }, this);
             return this;
         },
 
+        //TODO : THIS CODE is SHIT, it has to be rewritten entirely.
+
         renderPrivateCatalogues:function(){
-            console.log("FFF");
-            return this.renderCataloguesByScope("PRIVATE");
+            var $label = this.$el.find('.label-blue');
+            if ($label.hasClass("deactive")) {
+                $label.removeClass("deactive");
+                return this.renderCataloguesByScope("PRIVATE");
+            }else {
+                $label.addClass("deactive");
+                this.resetCatalogueContainer();
+                if (!this.$el.find('.label-red').hasClass('deactive'))
+                    return this.renderCataloguesByScope("SEEVCAM");
+                else
+                    return this;
+            }
         },
 
         renderSeevcamCatalogues:function(){
-            console.log("FFF");
-            return this.renderCataloguesByScope("SEEVCAM");
+            var $label = this.$el.find('.label-red');
+            if ($label.hasClass("deactive")) {
+                $label.removeClass("deactive");
+                this.renderCataloguesByScope("SEEVCAM");
+            }else {
+                $label.addClass("deactive");
+                this.resetCatalogueContainer();
+                if (!this.$el.find('.label-blue').hasClass('deactive'))
+                    return this.renderCataloguesByScope("PRIVATE");
+                else
+                    return this;
+            }
+        },
+
+        resetCatalogueContainer : function(){
+            this.$catalogueContainer.html("");
         },
 
         renderCataloguesByScope:function (scope) {
-            this.$catalogueContainer.html("");
             this.collection.each(function (catalogue) {
                 if(catalogue.get('catalogue_scope') === scope)
                     this.renderCatalogue(catalogue);
@@ -738,7 +765,6 @@
             this.$createCatalogueBox = this.$el.find('#create-catalogue input');
             this.$createCatalogueBox.bind('input propertychange', this.validateCatalogueName);
             this.renderEntireCollection();
-//            _.defer(_.bind(function(){this.$el.find('.scroll-pane').jScrollPane()}, this));
             return this;
         },
 

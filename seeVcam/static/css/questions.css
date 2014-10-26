@@ -18,6 +18,7 @@
     border-width: 1px 0;
     border-radius: 0 2px 2px 0;
     border-style: solid;
+    cursor: pointer;
 }
 
 .catalog-labels li:before {
@@ -48,6 +49,12 @@
 
 .label-blue:before {
     background-color: #0f73c2;
+}
+
+.deactive.label-blue:before,.deactive.label-blue,
+.deactive.label-red:before,.deactive.label-red {
+    background-color:grey;
+    border-color:grey;
 }
 
 .catalogs-list {
