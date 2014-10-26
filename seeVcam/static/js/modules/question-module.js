@@ -1,8 +1,20 @@
-(function () {
+(function questionModule(notification) {
 
     var app = app || {};
 
-// Question Model
+    function syncSuccess(value){
+        // this function is called every we sycn with the remote server
+        console.log(value);
+    }
+
+    function syncError(model, response){
+        var message = "Synchronization failed!";
+        console.error(message);
+        console.log(response.responseText);
+        console.log(model);
+        notification.error(message, "Re-loading the page might fix this problem.");
+    }
+
     var Question = Backbone.Model.extend({
         defaults: {
             question_text: ""
@@ -19,12 +31,18 @@
         initialize: function (models, options) {
             this.catalogue = options.catalogue;
             this.url = "/dashboard/questions/catalogue/" + this.catalogue.get('id') + "/list/";
-            if (models.length == 0) {
+
+            function fetchFailure (model,response){
+                var message = "Error fetching questions for " +  model.catalogue.get('catalogue_name') + "!";
+                console.error(message);
+                console.log(response.responseText);
+                notification.error(message, "Re-loading the page might fix this problem.");
+            }
+
+            if (models.length === 0) {
                 this.fetch({
                     reset: true,
-                    error: function () {
-                        console.error("Error fetching questions for catalogue : " + this.catalogue.get('catalogue_name'));
-                    }
+                    error: fetchFailure
                 });
             }
         },
@@ -57,16 +75,35 @@
             return this.questions;
         },
 
+        incrementSize:function(){
+            this.set('catalogue_size', this.get('catalogue_size') +1);
+            return this.catalogue_size;
+        },
+
+        decrementSize:function(){
+            this.set('catalogue_size', this.get('catalogue_size') -1);
+            return this.catalogue_size;
+        },
+
         getOrCreateQuestions:function(){
             if (!this.questions)
                 this.questions = new app.Questions([], {catalogue:this});
             return this.questions;
         },
 
+        fetchQuestions:function(){
+            this.questions = new app.Questions([], {catalogue:this});
+            return this.questions;
+        },
+
         updateName: function (newName) {
 
-            if (!newName)
+            if (!newName )
                 throw "Invalid catalogue name";
+
+            if ( newName === this.get('catalogue_name')) {
+                return;
+            }
 
             var self = this;
             this.save({catalogue_name: newName}, {
@@ -76,6 +113,8 @@
                 error: function (response) {
                     console.error("FAILED : Catalogue " + self.getName() + " not updated");
                     console.error(response);
+                    notification.warning("Update failed", "Reloading the page should fix the issue");
+
                 }
             });
         },
@@ -89,11 +128,28 @@
     var CatalogueList = Backbone.Collection.extend({
         model: Catalogue,
         url: "/dashboard/questions/catalogue/",
+
         initialize: function (catalogues) {
+
+            function fetchFailure (model,response){
+                var message = "Error fetching catalogues!";
+                console.error(message);
+                console.log(response.responseText);
+                notification.error(message, "Re-loading the page might fix this problem.");
+            }
+
+            function lazyFetchQuestion(model){
+               model.each(function(catalogue){
+                  catalogue.fetchQuestions();
+               });
+            }
+
             if (!catalogues) {
-                this.fetch({ reset: true, error: function () {
-                    console.error("Error fetching catalogues")
-                } });
+                this.fetch({
+                    reset: true,
+                    success:lazyFetchQuestion,
+                    error: fetchFailure
+                });
             }
         }
     });
@@ -178,7 +234,7 @@
         tagName: 'li',
         className: 'question',
         template: _.template( '<div class="question-read-only view form-group"> <p class="drag-dots"> :: </p> <p><%- question_text %></p></div>' ),
-        helper_template: _.template( '<div class="question-drag-helper"> <p><%- question_text %></p></div>' ),
+        helper_template: _.template( '<div class="question-drag-helper <%= color %>"> <p><%- question_text %></p></div>' ),
 
         id: function () {
          return this.model.get('id')
@@ -188,6 +244,9 @@
             _.bindAll(this, "dragHelper");
             this.listenTo(this.model, 'change', this.render);
             this.listenTo(this.model, 'destroy', this.remove);
+            this.listenTo(this.model, 'error', syncError);
+            this.listenTo(this.model, 'sync', syncSuccess);
+
         },
 
         render: function () {
@@ -197,7 +256,9 @@
         },
 
         dragHelper : function () {
-            return this.helper_template(this.model.toJSON());
+            var scope = this.model.collection && this.model.collection.catalogue.get("catalogue_scope");
+            var color = scope === "PRIVATE" ? "blue" : "red";
+            return this.helper_template(_.extend(this.model.toJSON(), {color : color}));
         },
 
         deleteQuestion: function () {
@@ -217,6 +278,7 @@
 
         tagName : 'ul',
         className : 'question-list',
+        template_no_questions : '<li class="question"><div class="question-read-only view form-group"> <p>No questions</p></div></li>',
 
         initialize : function(options){
             this.catalogue = options && options.catalogue;
@@ -226,29 +288,48 @@
 
             _.bindAll(this, 'render');
             _.bindAll(this, 'renderQuestion');
+            _.bindAll(this, 'renderAllQuestions');
+            _.bindAll(this, 'renderNoQuestion');
 
             this.listenTo(this.collection, 'add', this.renderQuestion);
-            this.listenTo(this.collection, 'reset', this.render);
+            this.listenTo(this.collection, 'error', syncError);
+            this.listenTo(this.collection, 'sync', this.renderAllQuestions);
+            this.listenTo(this.collection, 'remove', this.renderNoQuestion);
+            this.listenTo(this.collection, 'destroy', this.renderNoQuestion);
+
         },
 
-        render : function(){
+        renderNoQuestion : function(){
+            debugger;
+            if (this.catalogue.get("catalogue_size") === 0)
+                this.$el.append(this.template_no_questions);
+        },
+
+        render:function() {
+            if (this.catalogue.get("catalogue_size") === 0)
+                this.$el.append(this.template_no_questions);
+            else
+               this.renderAllQuestions();
+            return this;
+        },
+
+         renderAllQuestions: function(){
+            this.$el.html("");
             console.log("Questions view render entire collection");
             this.collection.each(function (item) {
                 this.renderQuestion(item);
             }, this);
+            console.log("Questions view render entire collection end");
             return this;
         },
 
         renderQuestion: function (item) {
-//            console.log("Create a new question : " + item);
             var questionView = null;
             if (this.readOnly){
                 questionView =new QuestionViewReadOnly({ model: item });
             }else {
                 questionView =new app.QuestionView({ model: item });
             }
-//            console.log(questionView.render().el);
-//            console.log(this.$el);
             this.$el.append(questionView.render().el);
             this.questionsViews.push(questionView);
         }
@@ -262,11 +343,11 @@
                 '        <div class="row" style="height:100%;margin-right:0;">' +
                 '           <div class="panel" style="height:100%;position: relative;">' +
                 '                <div class="panel-heading clearfix">' +
-                '                    <span class="inline-block" style="width:90%">' +
+                '                    <span class="inline-block" style="width:80%">' +
                 '                        <input class="input-panel-heading" style="width:100%" type="text" value="<%- catalogue_name %>">' +
-//                '                        <span class="glyphicon glyphicon-ok-circle "></span>' +
                 '                    </span>' +
                 '                   <span class="margin-b2-t2 inline-block pull-right">' +
+                '                       <span class="glyphicon input-status-icon"></span>' +
                 '                       <span class="delete-panel-heading icon glyphicon glyphicon-trash"></span>' +
                 '                       <span class="close-panel-heading icon glyphicon glyphicon-remove"></span>' +
                 '                    </span>' +
@@ -284,8 +365,9 @@
         el: "#edit-catalogue",
 
         events: {
-            'keypress #question-text': 'addNewQuestion',
+            'keypress #question-text': 'newQuestionFromKeyboard',
             "blur .input-panel-heading": "updateCatalogueOnFocusOut",
+            "keypress .input-panel-heading": "updateOnEnter",
             "click .close-panel-heading": "close",
             "click .delete-panel-heading": "deleteCatalogue"
         },
@@ -297,28 +379,45 @@
             this.collection = this.catalogue.getOrCreateQuestions();
             this.questions = [];
             // bindings
-            var render = this.render.bind(this);
-            _.bindAll(this, 'addNewQuestion');
+            _.bindAll(this, 'render');
+            _.bindAll(this, 'newQuestionFromKeyboard');
+            _.bindAll(this, 'removeQuestion');
             _.bindAll(this, 'renderQuestion');
+            _.bindAll(this, 'restoreCatalogueName');
+            _.bindAll(this, 'validateCatalogueName');
             _.bindAll(this, 'updateOnEnter');
             _.bindAll(this, 'updateCatalogueName');
             _.bindAll(this, 'updateCatalogueOnFocusOut');
             _.bindAll(this, 'renderEntireCollection');
             _.bindAll(this, 'close');
             _.bindAll(this, 'deleteCatalogue');
+            _.bindAll(this, 'isValidCatalogueName');
             //
             this.$noCatalogue = $('.no-catalogue');
             this.render();
             //
             this.listenTo(this.collection, 'add', this.renderQuestion);
+            this.listenTo(this.collection, 'remove', this.removeQuestion);
             this.listenTo(this.collection, 'reset', this.renderEntireCollection);
+            this.listenTo(this.collection, 'error', syncError);
+            this.listenTo(this.collection, 'sync', syncSuccess);
             //
         },
 
-        addNewQuestion: function (e) {
-            if (e.keyCode == 13) {
+        addNewQuestion : function( text ) {
+            this.collection.create({question_text: text}, {wait: true});
+            this.catalogue.incrementSize();
+        },
+
+        removeQuestion : function() {
+            this.catalogue.decrementSize();
+        },
+
+        newQuestionFromKeyboard: function (e) {
+            var $target = $(e.currentTarget);
+            if (e.keyCode == 13 && $target.val()) {
                 console.log(this.$questionText.val());
-                var newModel = this.collection.create({question_text: this.$questionText.val()}, {wait: true});
+                this.addNewQuestion(this.$questionText.val());
                 this.$questionText.val("");
             }
         },
@@ -329,22 +428,21 @@
             this.$questionText = $("#question-text");
             this.$listContainer = $("#question-container ul");
             this.$headingTitleInput = $('.panel-heading input.input-panel-heading');
+            this.$headingTitleInput.bind('input propertychange', this.validateCatalogueName);
             this.$listContainer.html('');
+            this.$statusIcon= this.$el.find(".input-status-icon");
             this.renderEntireCollection();
             this.installDroppable();
-//            this.$el.find(".panel-heading").hover(function () {
-//                $(this).find(".icon").removeClass("hidden");
-//            }, function () {
-//                $(this).find(".icon").addClass("hidden");
-//            });
-            //this.$el.find('.scroll-pane').jScrollPane({ autoReinitialise: true });
+            this.$questionText.focus();
+//            this.$el.find('.scroll-pane').jScrollPane({ autoReinitialise: true });
         },
 
         installDroppable : function() {
+            var that =this;
             this.$listContainer.droppable({
                 drop: _.bind(function( event, ui ) {
                     var questionText = ui.helper.find('p').html();
-                    this.collection.create({question_text: questionText});
+                    that.addNewQuestion(questionText);
                     console.log("Added question using drag and drop : " +  questionText);
                 }, this)
             });
@@ -376,17 +474,42 @@
             this.updateCatalogueName(this.$headingTitleInput.val());
         },
 
+        isValidCatalogueName : function (current_value) {
+            return !!current_value &&  !this.catalogue.collection.findWhere({"catalogue_name": current_value});
+        },
+
         updateCatalogueName: function (updated_name) {
-//        if (!updated_name) {
-//            this.restoreCatalogueName();
-//            return;
-//        }
-            console.log("Updating catalogue name to : " + updated_name);
+            // remove focus
+            this.$headingTitleInput.blur();
+            // remove status icon
+            this.$statusIcon
+                .removeClass("glyphicon-remove-circle")
+                .removeClass("glyphicon-ok-circle");
+
+            if (!this.isValidCatalogueName(updated_name)) {
+                this.restoreCatalogueName();
+                return;
+            }
+
             this.catalogue.updateName(updated_name);
+
+        },
+
+         validateCatalogueName: function (e) {
+            var $target = $(e.currentTarget);
+            var current_value = $target.val();
+            console.log(current_value);
+
+            if (!this.isValidCatalogueName(current_value)) {
+                this.$statusIcon.removeClass("glyphicon-ok-circle").addClass("glyphicon-remove-circle");
+                return;
+            }
+
+            this.$statusIcon.removeClass("glyphicon-remove-circle").addClass("glyphicon-ok-circle");
         },
 
         restoreCatalogueName: function () {
-//        this.$headingTitleInput.val(this.collection.get('catalogue_name'));
+            this.$headingTitleInput.val(this.catalogue.get('catalogue_name'));
         },
 
         remove: function () {
@@ -420,9 +543,12 @@
         template: _.template(
                 '   <div class="container-fluid <%-catalogue_class %>">' +
                 '       <div class="row catalogue-name white-text-on-hover "> ' +
-                '           <a class="catalog-item-name" href="#"> <%- catalogue_name %>' +
-                '           <span class="catalog-count">(<%- catalogue_size %>)</span></a>' +
-                '           <span class="edit-icon glyphicon glyphicon-pencil"></span>' +
+                '           <a class="catalog-item-name" href="#">' +
+                    '           <p> <%- catalogue_name %> </p>' +
+                    '           <span class="catalog-count">(<%- catalogue_size %>)</span></a>' +
+                    '<% if (catalogue_class !== "catalog-red") { %>' +
+                    '           <span class="edit-icon glyphicon glyphicon-pencil"></span>' +
+                    '<% } %>' +
                 '       </div> '+
                 '       <div class="row"> ' +
                 '           <div class="question-list-container"></div> ' +
@@ -436,14 +562,32 @@
         initialize: function () {
 
             _.bindAll(this, 'update');
+            _.bindAll(this, 'updateSizeCatalogue');
             _.bindAll(this, 'render');
             _.bindAll(this, 'showQuestions');
 
-            this.listenTo(this.model, 'change', this.update);
+            this.listenTo(this.model, 'change:catalogue_size', this.updateSizeCatalogue);
+            this.listenTo(this.model, 'change:catalogue_name', this.updateCatalogueName);
+            this.listenTo(this.model, 'error', syncError);
+            this.listenTo(this.model, 'sync', syncSuccess);
+        },
+
+        updateCatalogueName : function(item){
+            console.log("update catalogue name");
+            console.log(item);
+            this.$el.find(".catalogue-name p").html(this.model.get('catalogue_name'));
         },
 
         update: function (item) {
+            console.log(item);
+            console.log("update ");
             this.render();
+        },
+
+        updateSizeCatalogue: function (item) {
+            console.log("update counter");
+            console.log(item);
+            this.$el.find(".catalog-count").html("("+this.model.get('catalogue_size') +")");
         },
 
         id: function () {
@@ -528,8 +672,9 @@
 
         events: {
             'keypress #create-catalogue input': 'createCatalogue',
-            'keypress #create-catalogue input propertychange': 'validateCatalogueName',
-            'click .catalogue-list-item .edit-icon':'openCatalogueOnClick'
+            'click .catalogue-list-item .edit-icon':'openCatalogueOnClick',
+            'click li.label-blue':'renderPrivateCatalogues',
+            'click li.label-red':'renderSeevcamCatalogues'
         },
 
         initialize: function (collection) {
@@ -547,17 +692,68 @@
             _.bindAll(this, 'openCatalogue');
             _.bindAll(this, 'openCatalogueOnClick');
             _.bindAll(this, 'removeCatalogue');
+            _.bindAll(this, 'renderPrivateCatalogues');
+            _.bindAll(this, 'renderSeevcamCatalogues');
+            _.bindAll(this, 'resetCatalogueContainer');
             //
             this.listenTo(this.collection, 'add', this.addCatalogue);
             this.listenTo(this.collection, 'remove', this.removeCatalogue);
             this.listenTo(this.collection, 'reset', this.renderEntireCollection);
+            this.listenTo(this.collection, 'error', syncError);
+            this.listenTo(this.collection, 'sync', syncSuccess);
             this.render();
+//            _.defer(_.bind(function(){this.$el.find('.scroll-pane').jScrollPane()}, this));
             //
         },
 
         renderEntireCollection: function () {
+            this.resetCatalogueContainer();
             this.collection.each(function (catalogue) {
                 this.renderCatalogue(catalogue);
+            }, this);
+            return this;
+        },
+
+        //TODO : THIS CODE is SHIT, it has to be rewritten entirely.
+
+        renderPrivateCatalogues:function(){
+            var $label = this.$el.find('.label-blue');
+            if ($label.hasClass("deactive")) {
+                $label.removeClass("deactive");
+                return this.renderCataloguesByScope("PRIVATE");
+            }else {
+                $label.addClass("deactive");
+                this.resetCatalogueContainer();
+                if (!this.$el.find('.label-red').hasClass('deactive'))
+                    return this.renderCataloguesByScope("SEEVCAM");
+                else
+                    return this;
+            }
+        },
+
+        renderSeevcamCatalogues:function(){
+            var $label = this.$el.find('.label-red');
+            if ($label.hasClass("deactive")) {
+                $label.removeClass("deactive");
+                this.renderCataloguesByScope("SEEVCAM");
+            }else {
+                $label.addClass("deactive");
+                this.resetCatalogueContainer();
+                if (!this.$el.find('.label-blue').hasClass('deactive'))
+                    return this.renderCataloguesByScope("PRIVATE");
+                else
+                    return this;
+            }
+        },
+
+        resetCatalogueContainer : function(){
+            this.$catalogueContainer.html("");
+        },
+
+        renderCataloguesByScope:function (scope) {
+            this.collection.each(function (catalogue) {
+                if(catalogue.get('catalogue_scope') === scope)
+                    this.renderCatalogue(catalogue);
             }, this);
             return this;
         },
@@ -569,7 +765,6 @@
             this.$createCatalogueBox = this.$el.find('#create-catalogue input');
             this.$createCatalogueBox.bind('input propertychange', this.validateCatalogueName);
             this.renderEntireCollection();
-//            _.defer(_.bind(function(){this.$el.find('.scroll-pane').jScrollPane()}, this));
             return this;
         },
 
@@ -645,7 +840,6 @@
     window.catalogueList = null;
     window.catalogueViewList = null;
 
-
     function installCataloguePicker() {
         catalogueList = new CatalogueList();
         catalogueViewList =  new CatalogueViewList(catalogueList);
@@ -679,5 +873,5 @@
         install: installQuestionModule
     };
 
-})();
+})(window.notification);
 

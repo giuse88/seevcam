@@ -20,6 +20,9 @@ class QuestionCatalogue(models.Model):
     def size(self):
         return Question.objects.filter(question_catalogue=self.id).count();
 
+    def isSeevcamScope(self):
+        return self.catalogue_scope == QuestionCatalogue.SEEVCAM_SCOPE
+
     def __unicode__(self):
         return self.catalogue_name
 
