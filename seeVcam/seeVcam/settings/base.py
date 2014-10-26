@@ -198,9 +198,10 @@ REST_FRAMEWORK = {
 }
 
 SEEVCAM_UPLOAD_FILE_MIME_TYPES = [
-    'application/pdf',                          #PDF
+    'application/pdf',  # PDF
     'application/vnd.oasis.opendocument.text',  #WORD
-    'application/vnd.openxmlformats-officedocument.wordprocessingml.document', #WORD
-    'application/msword',   #WORD
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',  #WORD
+    'application/msword',  #WORD
 ]
-SEEVCAM_UPLOAD_FILE_MAX_SIZE = "2097152" #2MB
+SEEVCAM_UPLOAD_FILE_MAX_SIZE = "2097152"  # 2MB
+APPEND_SLASH = False

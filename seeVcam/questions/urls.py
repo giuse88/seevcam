@@ -7,14 +7,14 @@ from questions.views import CatalogueView, CreateCatalogueView, DeleteCatalogueV
 
 
 rest_patterns = patterns('',
-                       url(r'^catalogue/$', QuestionCatalogueList.as_view()),
+                       url(r'^catalogue/?$', QuestionCatalogueList.as_view()),
                        # Seevcam Scope
-                       url(r'^catalogue/seevcam/$', QuestionCatalogueSeevcam.as_view()),
-                       url(r'^catalogue/seevcam/(?P<question_catalogue>[0-9]+)/list/$', QuestionListSeevcam.as_view()),
+                       url(r'^catalogue/seevcam/?$', QuestionCatalogueSeevcam.as_view()),
+                       url(r'^catalogue/seevcam/(?P<question_catalogue>[0-9]+)/list/?$', QuestionListSeevcam.as_view()),
                        # Private Scope
-                       url(r'^catalogue/(?P<pk>[0-9]+)/$', QuestionCatalogueDetail.as_view()),
-                       url(r'^catalogue/(?P<question_catalogue>[0-9]+)/list/$', QuestionList.as_view()),
-                       url(r'^catalogue/(?P<question_catalogue>[0-9]+)/list/(?P<pk>[0-9]+)/$', QuestionDetails.as_view()),
+                       url(r'^catalogue/(?P<pk>[0-9]+)/?$', QuestionCatalogueDetail.as_view()),
+                       url(r'^catalogue/(?P<question_catalogue>[0-9]+)/list/?$', QuestionList.as_view()),
+                       url(r'^catalogue/(?P<question_catalogue>[0-9]+)/list/(?P<pk>[0-9]+)/?$', QuestionDetails.as_view()),
 )
 
 urlpatterns = patterns('',
