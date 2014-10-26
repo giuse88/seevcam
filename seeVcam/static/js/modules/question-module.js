@@ -91,6 +91,11 @@
             return this.questions;
         },
 
+        fetchQuestions:function(){
+            this.questions = new app.Questions([], {catalogue:this});
+            return this.questions;
+        },
+
         updateName: function (newName) {
 
             if (!newName )
@@ -133,9 +138,16 @@
                 notification.error(message, "Re-loading the page might fix this problem.");
             }
 
+            function lazyFetchQuestion(model){
+               model.each(function(catalogue){
+                  catalogue.fetchQuestions();
+               });
+            }
+
             if (!catalogues) {
                 this.fetch({
                     reset: true,
+                    success:lazyFetchQuestion,
                     error: fetchFailure
                 });
             }
@@ -266,6 +278,7 @@
 
         tagName : 'ul',
         className : 'question-list',
+        template_no_questions : '<li class="question"><div class="question-read-only view form-group"> <p>No questions</p></div></li>',
 
         initialize : function(options){
             this.catalogue = options && options.catalogue;
@@ -275,17 +288,32 @@
 
             _.bindAll(this, 'render');
             _.bindAll(this, 'renderQuestion');
+            _.bindAll(this, 'renderAllQuestions');
+            _.bindAll(this, 'renderNoQuestion');
 
             this.listenTo(this.collection, 'add', this.renderQuestion);
-//            this.listenTo(this.collection, 'reset', this.render);
             this.listenTo(this.collection, 'error', syncError);
-            this.listenTo(this.collection, 'sync', this.render);
+            this.listenTo(this.collection, 'sync', this.renderAllQuestions);
+            this.listenTo(this.collection, 'remove', this.renderNoQuestion);
+            this.listenTo(this.collection, 'destroy', this.renderNoQuestion);
 
-            this.$el.append("<p>Loading..</p>");
         },
 
-        render : function(){
+        renderNoQuestion : function(){
+            debugger;
+            if (this.catalogue.get("catalogue_size") === 0)
+                this.$el.append(this.template_no_questions);
+        },
 
+        render:function() {
+            if (this.catalogue.get("catalogue_size") === 0)
+                this.$el.append(this.template_no_questions);
+            else
+               this.renderAllQuestions();
+            return this;
+        },
+
+         renderAllQuestions: function(){
             this.$el.html("");
             console.log("Questions view render entire collection");
             this.collection.each(function (item) {
@@ -296,15 +324,12 @@
         },
 
         renderQuestion: function (item) {
-//            console.log("Create a new question : " + item);
             var questionView = null;
             if (this.readOnly){
                 questionView =new QuestionViewReadOnly({ model: item });
             }else {
                 questionView =new app.QuestionView({ model: item });
             }
-//            console.log(questionView.render().el);
-//            console.log(this.$el);
             this.$el.append(questionView.render().el);
             this.questionsViews.push(questionView);
         }
