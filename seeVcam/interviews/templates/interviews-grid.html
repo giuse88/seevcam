@@ -2,19 +2,13 @@
 
 {% load interviews_filters %}
 
-{% block nav_interviews_grid %} 
-<a class="pjax active glyphicon glyphicon-th" href="{% url "interviews" %}"></a>
-{% endblock nav_interviews_grid %} 
-
-
 {% block interviews_list %}
     <div id="interviews-grid-view">
-    {% for interview in interviews_filter %}
+    {% for interview in interviews %}
             <div class="interview-item-container col-lg-4">
                 {% interview_single_component interview request %}
             </div>
     {% endfor %}
-
 
     <script type="text/javascript">
         window.interviewGrid && window.interviewGrid.installInterviewGrid();

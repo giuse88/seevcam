@@ -1,5 +1,4 @@
 {% extends "dashboard.html"|pjax:request %}
-<!-- { extends "dashboard.html" %} -->
 
 {% block title %}
     Interviews
@@ -28,12 +27,12 @@
             </div>
         </div>
 
-        {% for interview in interview_pending %}
-            <div id="pending-interview" class="col-md-3">
-                {% interview_single_component interview request %}
-            </div>
-        {% endfor %}
-            
+        {% if open_interview %}
+        <div id="pending-interview" class="col-md-3">
+            {% interview_single_component open_interview request %}
+        </div>
+        {% endif %}
+
         {% block search_box %}
         <div class="row" id="interviews-upper-bar">
             <div id="searchbox-container" class="col-md-6 col-md-offset-3">
@@ -46,8 +45,8 @@
             </div>
             <div id="interview-view-type" class="col-md-3">
                 {% block nav_interviews_grid %}<a class="pjax glyphicon glyphicon-th" href="{% url "interviews" %}"></a>{% endblock nav_interviews_grid %}
-                {% block nav_interviews_calendar %}<a class="pjax glyphicon glyphicon-calendar" href="{% url "interviews-calendar" %}"></a>{% endblock nav_interviews_calendar %}
                 {% block nav_interviews_list %} <a class="pjax glyphicon glyphicon-align-justify" href="{% url "interviews-list" %}"></a>{% endblock nav_interviews_list %}
+                {% block nav_interviews_calendar %}<a class="pjax glyphicon glyphicon-calendar" href="{% url "interviews-calendar" %}"></a>{% endblock nav_interviews_calendar %}
             </div>
         </div>
         {% endblock search_box %}
@@ -55,10 +54,12 @@
         <div class="row">
             <div class="col-md-3" id="upcoming-interviews">
                 <div class="interview-items">
-                    {% for interview in upcoming_interviews %}
+                    {% for interview in today_interviews %}
                         <div class="interview-item-container">
                             {% interview_single_component interview request %}
                         </div>
+                     {% empty %}
+                        <p class="no-interview ">No interview scheduled for today.</p>
                     {% endfor %}
                 </div>
             </div>
@@ -67,7 +68,6 @@
             {% block interviews_list %}
             {% endblock interviews_list %}
             </div>
-
 
         </div>
     </div>

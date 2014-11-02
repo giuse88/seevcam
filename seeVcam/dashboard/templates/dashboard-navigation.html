@@ -2,36 +2,32 @@
 
 {% block navigation_bar %}
     <nav class="navbar navbar-default" role="navigation">
+
         <div class="container-fluid">
-<!--             <div class="navbar-header">
+            <div class="navbar-header">
                 <a class="navbar-brand pjax" href="#">SeeVcam</a>
             </div>
- -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-
-                    <div id="nav-left-section">
-                        <ul class="nav navbar-nav">
-                            <li><a data-pjax class="{% current "reports" %}" href="{% url "reports" %}">Reports</a></li>                    
-                            <li><a data-pjax class="{% current "interviews" %}" href="{% url "interviews" %}">Interviews</a></li>
-                        </ul>
-                    </div>
-
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a data-pjax href="{% url "create-interview" %}">New Interview</a></li>    
-                    <li><a data-pjax href="{% url "catalogues" %}">Questions Center</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            {{ user.username }}
-                            <span  class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a data-pjax href="{% url "profile_update" request.user.id %}  ">User Profile</a></li>
-                            <li class="divider"></li>
-                            <li><a href="{% url "logout" %}">Logout</a></li>
-                        </ul>
-                    </li>
+            <div id="nav-left-section">
+                <ul class="nav navbar-nav">
+                    <li><a data-pjax class="{% current "reports" %}" href="{% url "reports" %}">Reports</a></li>
+                    <li><a data-pjax class="{% current "interviews" %}" href="{% url "interviews" %}">Interviews</a></li>
                 </ul>
             </div>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a data-pjax href="{% url "create-interview" %}">New Interview</a></li>
+                <li><a data-pjax href="{% url "catalogues" %}">Questions Center</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        {{ user.username }}
+                        <span  class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a data-pjax href="{% url "profile_update" request.user.id %}  ">User Profile</a></li>
+                        <li class="divider"></li>
+                        <li><a href="{% url "logout" %}">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
         </div>
     </nav>
 {% endblock %}

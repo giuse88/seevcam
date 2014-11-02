@@ -10,7 +10,7 @@
 
 	<script type="application/javascript">
 		var calendarEvents = []
-		{% for interview in interviews_filter %}
+		{% for interview in interview %}
 			calendarEvents.push({% interview_calendar_single_component interview request %});
 		{% endfor %}
 	</script>
