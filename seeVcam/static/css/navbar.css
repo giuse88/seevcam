@@ -1,3 +1,9 @@
+.navbar {
+    min-height: 40px;
+    margin:0;
+    z-index: 2;
+}
+
 .navbar-default{
 	background-color: #333;
 	background-image: none;
@@ -5,7 +11,6 @@
 	border: none;
 	box-shadow: 0px 1px 1px #818181;
 	padding-left: 25%;
-	z-index: 2;
 }
 .navbar-default .container-fluid{
 	padding-left: 60px;
@@ -19,7 +24,7 @@
 	display: inline-block;
 }
 .navbar-default #nav-right-section{
-	/*margin-left: 39px;*/
+	margin-left: 39px;
 	display: inline-block;
 }
 .navbar-default .navbar-nav > li > a{
@@ -45,7 +50,7 @@
 
 }
 .navbar-nav > li{
-	
+
 }
 .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus{
 	background-color: transparent;
@@ -53,5 +58,4 @@
 }
 .navbar-default .dropdown-menu{
 	top: 52px;
-	
 }

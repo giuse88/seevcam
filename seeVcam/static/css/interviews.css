@@ -79,9 +79,7 @@
 	padding-left: 60px;
 	padding-right: 60px;
 }
-.navbar{
-	margin-bottom: 0px;
-}
+
 .row{
 	margin-left: 0px;
 	margin-right: 0px;
@@ -532,4 +530,9 @@
 	color: inherit;
 	display: block;
 	
+}
+
+.no-interview{
+    margin: 0 ;
+    text-align: center;
 }
