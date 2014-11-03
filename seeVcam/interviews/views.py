@@ -25,7 +25,7 @@ class InterviewsView(LoginRequired, ListView):
             dt = (interview.interview_datetime - to_user_timezone(datetime.datetime.now(), self.request.user))
             if dt.total_seconds() <= DAY and counter < 3:
                 today_interviews.append(self.interviews[0])
-                self.interviews.remove(0)
+                self.interviews.pop(0)
                 counter += 1
             else:
                 break
@@ -36,22 +36,22 @@ class InterviewsView(LoginRequired, ListView):
         interview = None
         if dt.total_seconds() < INTERVIEW_TEMPORAL_WINDOW:
             interview = self.interviews[0]
-            self.interviews.remove(0)
+            self.interviews.pop(0)
         return interview
 
     def get_queryset(self):
-        self.interviews = Interview.objects.filter(
+        return Interview.objects.filter(
             interview_owner=self.request.user.id,
             interview_datetime__gt=datetime.datetime.now()) \
             .order_by('interview_datetime')
-        return self.interviews
 
     def get_context_data(self, **kwargs):
         context = super(InterviewsView, self).get_context_data(**kwargs)
 
-        if len(self.interviews) is 0:
+        if len(self.object_list) is 0:
             return context
 
+        self.interviews = list(self.object_list)
         context['open_interview'] = self.open_interview()
         context['today_interviews'] = self.today_interviews()
         context['interviews'] = self.interviews
