@@ -3,12 +3,15 @@
 {% load staticfiles %}
 <head>
 
-    <title>{% block title %} SeeVcam Interview {% endblock title %}</title>
+    <title>SeeVcam Interview </title>
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+   <script type="text/javascript" data-main="{% static "" %}"  src="{% static "bower_components/requirejs/require.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/interview-app/boot.js" %}"></script>
 
     <script type="application/javascript">
         var CONSTANTS = (function () {
