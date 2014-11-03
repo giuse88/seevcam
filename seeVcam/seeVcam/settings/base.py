@@ -32,6 +32,7 @@ LOCAL_APPS = (
     'authentication',
     'dashboard',
     'userprofile',
+    'interview_room',
     'notes',
     'reports'
 )
@@ -107,6 +108,7 @@ TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'userprofile/templates'),
     os.path.join(BASE_DIR, 'interviews/templates'),
     os.path.join(BASE_DIR, 'notes/templates'),
+    os.path.join(BASE_DIR, 'interview_room/templates'),
 )
 
 # allauth settings

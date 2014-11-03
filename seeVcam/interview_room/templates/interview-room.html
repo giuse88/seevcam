@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+{% load staticfiles %}
+<head>
+
+    <title>{% block title %} SeeVcam Interview {% endblock title %}</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script type="application/javascript">
+        var CONSTANTS = (function () {
+            return {
+                csrft_token: "{{ csrf_token }}"
+            }
+        }());
+    </script>
+
+</head>
+    <body>
+        <h1> Interview room </h1>
+    </body>
+</html>
