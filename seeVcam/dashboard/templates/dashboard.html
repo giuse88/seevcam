@@ -68,6 +68,25 @@
     <script type="text/javascript" src="{% static "js/modules/interview-grid-module.js" %}"></script>
     <script type="text/javascript" src="{% static "js/modules/notes-module.js" %}"></script>
 
+    <script type="text/javascript">
+    var Router = Backbone.Router.extend({
+      routes: {
+        "help": "help"
+      },
+
+      help: function() {
+          console.log("help");
+      }
+    });
+
+    window.router = new Router();
+    Backbone.history.start({
+        pushState: true,
+        root : "/dashboard"
+    });
+    console.log("Routing installed.");
+    </script>
+
 </head>
 
 <body>
