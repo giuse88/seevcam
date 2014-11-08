@@ -18,6 +18,9 @@ define(function (require) {
     $.pjax.submit(event, '#container')
   });
 
+  var navbar = require("modules/navbar/navbar");
+  navbar.install();
+
   window.app = {
     name : "SeeVcam",
     router : router

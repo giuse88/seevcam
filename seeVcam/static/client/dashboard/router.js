@@ -2,7 +2,7 @@ define(function(require) {
 
   var QuestionsRouter = require("modules/questions/QuestionsRouter");
 
-  var questionsRouter = new QuestionsRouter();
+  var QuestionsRouter = new QuestionsRouter();
 
   Backbone.history.start({
     pushState: true,
@@ -12,7 +12,7 @@ define(function(require) {
   console.log("Routing installed.");
 
   return {
-    questionsRouter : questionsRouter
+    QuestionsRouter : QuestionsRouter
   }
 
 });
