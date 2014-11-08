@@ -5,6 +5,7 @@ require.config({
     "app" : "js/dashboard/app",
     // maps
     "modules"       : "js/dashboard/modules",
+    "dashboard"     : "js/dashboard/",
     //libs
     "jquery"        : "bower_components/jquery/dist/jquery",
     "jquery-pjax"   : "bower_components/jquery-pjax/jquery.pjax",
@@ -12,8 +13,9 @@ require.config({
     "backbone"      : "bower_components/backbone/backbone",
     "underscore"    : "bower_components/underscore/underscore",
     "bootstrap"     : "bower_components/bootstrap/dist/js/bootstrap",
-
-    "notification"  : "js/dashboard/modules/notification/notification"
+    //
+    "notification"  : "js/dashboard/modules/notification/notification",
+    "utils"         : "js/misc/utils"
   },
 
   shim: {

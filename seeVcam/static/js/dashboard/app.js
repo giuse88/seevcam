@@ -1,9 +1,10 @@
 define(function (require) {
 
-  var $ = require("jquery");
-
   require("jquery-pjax");
   require("bootstrap");
+
+  var $ = require("jquery");
+  var router = require("dashboard/router");
 
   $.ajaxSetup({
     headers: { "X-CSRFToken": window.CONSTANTS.csrft_token}
@@ -17,7 +18,8 @@ define(function (require) {
   });
 
   window.app = {
-    name : "SeeVcam"
+    name : "SeeVcam",
+    router : router
   };
 
 });

@@ -2,7 +2,6 @@ from django.conf.urls import patterns, include, url
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import logout_then_login
 from views import DashboardView
-from django.views.generic import RedirectView
 
 urlpatterns = patterns('',
                        url(r'^$', DashboardView.as_view(), name='dashboard'),
