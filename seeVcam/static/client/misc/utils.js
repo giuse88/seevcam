@@ -21,10 +21,19 @@ define(function(require){
       notification.error(message, "Re-loading the page might fix this problem.");
   }
 
+  function updateActiveLink($selected){
+    if ($selected.hasClass("active")){
+      return;
+    }
+    $(".navbar-nav").find("li .active").removeClass("active");
+    $selected.addClass("active");
+  }
+
   return {
     url_parser : url_parser,
     syncError : syncError,
-    syncSuccess : syncSuccess
+    syncSuccess : syncSuccess,
+    updateActiveLink : updateActiveLink
   }
 });
 

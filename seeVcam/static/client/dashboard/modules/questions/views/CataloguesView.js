@@ -53,11 +53,20 @@ define(function (require) {
       'click li.label-red':'renderSeevcamCatalogues'
     },
 
-    initialize: function (collection) {
+    initialize: function (options) {
       // injected values
-      this.collection = collection;
+      this.collection = options.collection;
       this.openedCatalogue = null;
       this.catalogueViews = [];
+
+      if ( options.catalogue) {
+        var catalogue = this.collection.findWhere({id : Number(options.catalogue)});
+        if (catalogue) {
+          this.openCatalogue(catalogue);
+        }else{
+          console.error("Unknown catalogue");
+        }
+      }
 
       // bindings
       _.bindAll(this, 'render');
@@ -155,6 +164,7 @@ define(function (require) {
         this.openedCatalogue.close();
       }
       this.openedCatalogue = new EditCatalogueView({catalogue: catalogue});
+      window.app.router.QuestionsRouter.goToCatalogue(catalogue.get("id"));
       console.log("Catalogue " + catalogue.getName() + " opened.");
     },
 
