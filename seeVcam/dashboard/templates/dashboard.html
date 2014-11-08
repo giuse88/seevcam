@@ -29,7 +29,7 @@
     {% if enviroment ==  "PRODUCTION" %}
         {# include compiled css #}
     {% else %}
-        <link rel="stylesheet/less" type="text/css" href="{% static "js/dashboard/main.less" %}" />
+        <link rel="stylesheet/less" type="text/css" href="{% static "client/dashboard/main.less" %}" />
         <script type="text/javascript" src="{% static "bower_components/less/dist/less-1.7.5.min.js" %}"></script>
     {% endif %}
 
@@ -74,7 +74,7 @@
 
 
     <script type="text/javascript" data-main="{% static "" %}"  src="{% static "bower_components/requirejs/require.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/dashboard/boot.js" %}"></script>
+    <script type="text/javascript" src="{% static "client/dashboard/boot.js" %}"></script>
 
 
 
