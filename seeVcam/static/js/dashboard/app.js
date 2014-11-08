@@ -4,8 +4,6 @@ define(function (require) {
 
   require("jquery-pjax");
   require("bootstrap");
-  // To be removed
-  require("notification");
 
   $.ajaxSetup({
     headers: { "X-CSRFToken": window.CONSTANTS.csrft_token}
