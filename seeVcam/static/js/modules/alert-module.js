@@ -38,6 +38,6 @@
          error : error
     };
 
-    console.log("Installed notification module");
+    console.log("Installed notification modules");
 
 })();

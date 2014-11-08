@@ -635,7 +635,7 @@
     });
 
     var CatalogueViewList = Backbone.View.extend({
-        el: "#question-module",
+        el: "#question-modules",
         template: _.template(
                 '<div clalss="row" style="height:100%;" > ' +
                 '       <div class="col-lg-6" style="height:100%;" >' +
@@ -846,7 +846,7 @@
     }
 
     function installQuestionModule() {
-        console.log("Installing question module");
+        console.log("Installing question modules");
 
 //        $('#create-catalogue input').keypress(function(e) {
 //            if(e.which == 13 && $(this).val()) {
@@ -866,7 +866,7 @@
 //            }
 //        });
         installCataloguePicker();
-        console.log("Question module installed.");
+        console.log("Question modules installed.");
     }
 
     window.questionCenter = {
