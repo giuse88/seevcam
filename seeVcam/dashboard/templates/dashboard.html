@@ -10,6 +10,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+{#    need a better solution #}
     <link rel="stylesheet" href="{% static "bower_components/bootstrap/dist/css/bootstrap.css" %}">
     <link rel="stylesheet" href="{% static "bower_components/bootstrap/dist/css/bootstrap-theme.css" %}">
     <link rel="stylesheet" href="{% static "bower_components/jquery.jscrollpane/jquery.jscrollpane.css" %}">
@@ -18,7 +19,7 @@
     <link rel="stylesheet" href="{% static "bower_components/jasny-bootstrap/dist/css/jasny-bootstrap.min.css" %}">
     <link rel="stylesheet" href="{% static "bower_components/circliful/css/jquery.circliful.css" %}">
     <link rel="stylesheet" href="{% static "css/main.css" %}">
-    <link rel="stylesheet" href="{% static "css/notification.css" %}">
+    <link rel="stylesheet" href="{% static "css/../../static/js/dashboard/modules/notification/notification.less" %}">
     <link rel="stylesheet" href="{% static "css/fullcalendar.css" %}">
     <link rel="stylesheet" href="{% static "css/calendar.css" %}">
     <link rel="stylesheet" href="{% static "css/create-interview.css" %}">
@@ -28,64 +29,74 @@
     <link rel="stylesheet" href="{% static "css/reports.css" %}">
     <link rel="stylesheet" href="{% static "css/notes.css" %}">
 
-    <script src="{% static "bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js" %}"></script>
+    {% if enviroment ==  "PRODUCTION" %}
+        {# include compiled css #}
+    {% else %}
+        <link rel="stylesheet/less" type="text/css" href="{% static "js/dashboard/main.less" %}" />
+        <script type="text/javascript" src="{% static "bower_components/less/dist/less-1.7.5.min.js" %}"></script>
+    {% endif %}
+
+{#    <script type="text/javascript" src="{% static "js/misc/utils.js" %}"></script>#}
+{#    <script type="text/javascript" src="{% static "js/dashboard/initialization.js" %}"></script>#}
+{#    <script type="text/javascript" src="{% static "js/dashboard/notification.js" %}"></script>#}
+{#    <script type="text/javascript" src="{% static "js/dashboard/create-interview-module.js" %}"></script>#}
+{#    <script type="text/javascript" src="{% static "js/dashboard/question-module.js" %}"></script>#}
+{#    <script type="text/javascript" src="{% static "js/dashboard/calendar-module.js" %}"></script>#}
+{#    <script type="text/javascript" src="{% static "js/dashboard/interview-grid-module.js" %}"></script>#}
+{#    <script type="text/javascript" src="{% static "js/dashboard/notes-module.js" %}"></script>#}
 
     {# Libraries #}
-    <script src="{% static "bower_components/jquery/dist/jquery.min.js" %}"></script>
-    <script src="{% static "bower_components/underscore/underscore-min.js" %}"></script>
-    <script src="{% static "js/misc/underscore-extension.js" %}"></script>
-    <script src="{% static "js/misc/utils.js" %}"></script>
-    <script src="{% static "bower_components/jquery-mousewheel/jquery.mousewheel.min.js" %}"></script>
-    <script src="{% static "bower_components/jquery-ui/jquery-ui.min.js" %}"></script>
-    <script src="{% static "bower_components/jquery.jscrollpane/mwheelIntent.js" %}"></script>
-    <script src="{% static "bower_components/jquery.jscrollpane/jquery.jscrollpane.min.js" %}"></script>
-    <script src="{% static "bower_components/jquery-pjax/jquery.pjax.js" %}"></script>
-    <script src="{% static "bower_components/bootstrap/dist/js/bootstrap.js" %}"></script>
-    <script src="{% static "bower_components/bootstrap-form-helpers/dist/js/bootstrap-formhelpers.min.js" %}"></script>
-    <script src="{% static "bower_components/parsleyjs/dist/parsley.min.js" %}"></script>
-    <script src="{% static "bower_components/jasny-bootstrap/dist/js/jasny-bootstrap.min.js" %}"></script>
-    <script src="{% static "bower_components/typeahead.js/dist/typeahead.jquery.min.js" %}"></script>
-    <script src="{% static "bower_components/typeahead.js/dist/bloodhound.min.js" %}"></script>
-    <script src="{% static "bower_components/backbone/backbone.js" %}"></script>
-    <script src="{% static "bower_components/jquery-migrate/jquery-migrate.min.js" %}"></script>
-    <script src="{% static "bower_components/fullcalendar/fullcalendar.min.js" %}"></script>
-    <script src="{% static "bower_components/circliful/js/jquery.circliful.js" %}"></script>
+{#    <script src="{% static "bower_components/jquery/dist/jquery.min.js" %}"></script>#}
+{#    <script src="{% static "bower_components/underscore/underscore-min.js" %}"></script>#}
+{#    <script src="{% static "js/misc/underscore-extension.js" %}"></script>#}
+{#    <script src="{% static "js/misc/utils.js" %}"></script>#}
+{#    <script src="{% static "bower_components/jquery-mousewheel/jquery.mousewheel.min.js" %}"></script>#}
+{#    <script src="{% static "bower_components/jquery-ui/jquery-ui.min.js" %}"></script>#}
+{#    <script src="{% static "bower_components/jquery.jscrollpane/mwheelIntent.js" %}"></script>#}
+{#    <script src="{% static "bower_components/jquery.jscrollpane/jquery.jscrollpane.min.js" %}"></script>#}
+{#    <script src="{% static "bower_components/jquery-pjax/jquery.pjax.js" %}"></script>#}
+{#    <script src="{% static "bower_components/bootstrap/dist/js/bootstrap.js" %}"></script>#}
+{#    <script src="{% static "bower_components/bootstrap-form-helpers/dist/js/bootstrap-formhelpers.min.js" %}"></script>#}
+{#    <script src="{% static "bower_components/parsleyjs/dist/parsley.min.js" %}"></script>#}
+{#    <script src="{% static "bower_components/jasny-bootstrap/dist/js/jasny-bootstrap.min.js" %}"></script>#}
+{#    <script src="{% static "bower_components/typeahead.js/dist/typeahead.jquery.min.js" %}"></script>#}
+{#    <script src="{% static "bower_components/typeahead.js/dist/bloodhound.min.js" %}"></script>#}
+{#    <script src="{% static "bower_components/backbone/backbone.js" %}"></script>#}
+{#    <script src="{% static "bower_components/jquery-migrate/jquery-migrate.min.js" %}"></script>#}
+{#    <script src="{% static "bower_components/fullcalendar/fullcalendar.min.js" %}"></script>#}
+{#    <script src="{% static "bower_components/circliful/js/jquery.circliful.js" %}"></script>#}
 
     <script type="application/javascript">
-        var CONSTANTS = (function () {
+        window.CONSTANTS = (function () {
             return {
                 csrft_token: "{{ csrf_token }}"
-            }
+            };
         }());
     </script>
 
-    <script type="text/javascript" src="{% static "js/misc/utils.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/initialization.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/modules/alert-module.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/modules/create-interview-module.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/modules/question-module.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/modules/calendar-module.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/modules/interview-grid-module.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/modules/notes-module.js" %}"></script>
 
-    <script type="text/javascript">
-    var Router = Backbone.Router.extend({
-      routes: {
-        "help": "help"
-      },
+    <script type="text/javascript" data-main="{% static "" %}"  src="{% static "bower_components/requirejs/require.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/dashboard/boot.js" %}"></script>
 
-      help: function() {
-          console.log("help");
-      }
-    });
-
-    window.router = new Router();
-    Backbone.history.start({
-        pushState: true,
-        root : "/dashboard"
-    });
-    console.log("Routing installed.");
-    </script>
+{##}
+{#    <script type="text/javascript">#}
+{#    var Router = Backbone.Router.extend({#}
+{#      routes: {#}
+{#        "help": "help"#}
+{#      },#}
+{##}
+{#      help: function() {#}
+{#          console.log("help");#}
+{#      }#}
+{#    });#}
+{##}
+{#    window.router = new Router();#}
+{#    Backbone.history.start({#}
+{#        pushState: true,#}
+{#        root : "/dashboard"#}
+{#    });#}
+{#    console.log("Routing installed.");#}
+{#    </script>#}
 
 </head>
 

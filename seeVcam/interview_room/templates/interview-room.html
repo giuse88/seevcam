@@ -14,12 +14,12 @@
     {% if enviroment ==  "PRODUCTION" %}
         {# include compiled css #}
     {% else %}
-        <link rel="stylesheet/less" type="text/css" href="{% static "js/interview-app/main.less" %}" />
+        <link rel="stylesheet/less" type="text/css" href="{% static "js/interview_room/main.less" %}" />
         <script type="text/javascript" src="{% static "bower_components/less/dist/less-1.7.5.min.js" %}"></script>
     {% endif %}
 
     <script type="text/javascript" data-main="{% static "" %}"  src="{% static "bower_components/requirejs/require.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/interview-app/boot.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/interview_room/boot.js" %}"></script>
 
     <script type="application/javascript">
         var CONSTANTS = (function () {

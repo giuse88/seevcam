@@ -635,7 +635,7 @@
     });
 
     var CatalogueViewList = Backbone.View.extend({
-        el: "#question-modules",
+        el: "#question-dashboard",
         template: _.template(
                 '<div clalss="row" style="height:100%;" > ' +
                 '       <div class="col-lg-6" style="height:100%;" >' +
@@ -846,7 +846,7 @@
     }
 
     function installQuestionModule() {
-        console.log("Installing question modules");
+        console.log("Installing question dashboard");
 
 //        $('#create-catalogue input').keypress(function(e) {
 //            if(e.which == 13 && $(this).val()) {
@@ -857,8 +857,8 @@
 //                        window.openCatalogue.close();
 //                    }
 //                    $(self).val('');
-//                    var list=new app.List([catalogue],{catalogue: catalogue});
-//                    window.openCatalogue = new app.ListView(list) ;
+//                    var list=new apps.List([catalogue],{catalogue: catalogue});
+//                    window.openCatalogue = new apps.ListView(list) ;
 //                    console.log(catalogue);
 //                }, "json").fail(function(jxhr) {
 //                    console.log("Creation catalogue failed. Reason :" + jxhr.responseText);
@@ -866,7 +866,7 @@
 //            }
 //        });
         installCataloguePicker();
-        console.log("Question modules installed.");
+        console.log("Question dashboard installed.");
     }
 
     window.questionCenter = {
