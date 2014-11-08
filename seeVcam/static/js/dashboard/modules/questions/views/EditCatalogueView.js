@@ -3,6 +3,8 @@ define(function (require) {
   var $ = require("jquery");
   var _ = require("underscore");
   var Backbone = require("backbone");
+  var Utils = require("utils");
+  var QuestionView = require("modules/questions/views/QuestionView");
 
   return Backbone.View.extend({
 
@@ -67,8 +69,8 @@ define(function (require) {
           this.listenTo(this.collection, 'add', this.renderQuestion);
           this.listenTo(this.collection, 'remove', this.removeQuestion);
           this.listenTo(this.collection, 'reset', this.renderEntireCollection);
-          this.listenTo(this.collection, 'error', syncError);
-          this.listenTo(this.collection, 'sync', syncSuccess);
+          this.listenTo(this.collection, 'error', Utils.syncError);
+          this.listenTo(this.collection, 'sync', Utils.syncSuccess);
           //
       },
 
@@ -125,7 +127,7 @@ define(function (require) {
 
       renderQuestion: function (item) {
           console.log("Create a new question : " + item);
-          var questionView = new app.QuestionView({ model: item });
+          var questionView = new QuestionView({ model: item });
           console.log(questionView.render().el);
           console.log(this.$listContainer);
           this.$listContainer.append(questionView.render().el);

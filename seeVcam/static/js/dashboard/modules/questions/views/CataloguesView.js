@@ -5,9 +5,12 @@ define(function (require) {
   var Backbone = require("backbone");
   var Utils = require("utils");
   var CatalogueView = require("modules/questions/views/CatalogueView");
+  var EditCatalogueView = require("modules/questions/views/EditCatalogueView");
 
   return  Backbone.View.extend({
-    el: "#question-dashboard",
+    el :"#container",
+    tagName : "div",
+    id :  "#question-dashboard",
     template: _.template(
         '<div clalss="row" style="height:100%;" > ' +
         '       <div class="col-lg-6" style="height:100%;" >' +

@@ -9,7 +9,7 @@ require.config({
     //libs
     "jquery"        : "bower_components/jquery/dist/jquery",
     "jquery-pjax"   : "bower_components/jquery-pjax/jquery.pjax",
-    "jquery-ui"     : "bower_components/jquery-ui",
+    "jquery-ui"     : "bower_components/jquery-ui/jquery-ui",
     "backbone"      : "bower_components/backbone/backbone",
     "underscore"    : "bower_components/underscore/underscore",
     "bootstrap"     : "bower_components/bootstrap/dist/js/bootstrap",
