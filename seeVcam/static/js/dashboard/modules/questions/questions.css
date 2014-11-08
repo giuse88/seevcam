@@ -26,7 +26,7 @@
     top: -1px;
     position: absolute;
     content: " ";
-    background-image: url(../images/UI/label-mask.png);
+    background-image: url(/static/images/UI/label-mask.png);
     width: 7px;
     height: 17px;
 }
@@ -58,7 +58,7 @@
 }
 
 .catalogs-list {
-    height: calc(100% - 30px);
+    height: calc(100% - 40px);
     border-top: 1px solid #e6e6e6;
 }
 

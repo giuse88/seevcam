@@ -12,7 +12,7 @@ define(function(require){
     },
 
     questions: function () {
-      if (!window.cache.catalogueList){
+      if (!window.cache.catalogues){
         window.cache.catalogues = new Catalogues();
       }
       new CataloguesView(window.cache.catalogues);
