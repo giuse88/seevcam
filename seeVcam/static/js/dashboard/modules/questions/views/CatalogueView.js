@@ -3,6 +3,7 @@ define(function (require) {
   var $ = require("jquery");
   var _ = require("underscore");
   var Backbone = require("backbone");
+  var Utils = require("utils");
 
   return  Backbone.View.extend({
 
@@ -36,8 +37,8 @@ define(function (require) {
 
           this.listenTo(this.model, 'change:catalogue_size', this.updateSizeCatalogue);
           this.listenTo(this.model, 'change:catalogue_name', this.updateCatalogueName);
-          this.listenTo(this.model, 'error', syncError);
-          this.listenTo(this.model, 'sync', syncSuccess);
+          this.listenTo(this.model, 'error', Utils.syncError);
+          this.listenTo(this.model, 'sync', Utils.syncSuccess);
       },
 
       updateCatalogueName : function(item){

@@ -1,6 +1,8 @@
 define(function(require){
 
   var Backbone = require("backbone");
+  var Catalogues = require("modules/questions/models/Catalogues");
+  var CataloguesView = require("modules/questions/views/CataloguesView");
 
   return  Backbone.Router.extend({
 
@@ -10,8 +12,10 @@ define(function(require){
     },
 
     questions: function () {
-
-      console.log("Select questions");
+      if (!window.cache.catalogueList){
+        window.cache.catalogues = new Catalogues();
+      }
+      new CataloguesView(window.cache.catalogues);
     },
 
     openCatalogue: function(catalogueId) {

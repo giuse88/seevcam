@@ -3,6 +3,8 @@ define(function (require) {
   var $ = require("jquery");
   var _ = require("underscore");
   var Backbone = require("backbone");
+  var Utils = require("utils");
+  var CatalogueView = require("modules/questions/views/CatalogueView");
 
   return  Backbone.View.extend({
     el: "#question-dashboard",
@@ -69,8 +71,8 @@ define(function (require) {
       this.listenTo(this.collection, 'add', this.addCatalogue);
       this.listenTo(this.collection, 'remove', this.removeCatalogue);
       this.listenTo(this.collection, 'reset', this.renderEntireCollection);
-      this.listenTo(this.collection, 'error', syncError);
-      this.listenTo(this.collection, 'sync', syncSuccess);
+      this.listenTo(this.collection, 'error', Utils.syncError);
+      this.listenTo(this.collection, 'sync', Utils.syncSuccess);
       this.render();
 //            _.defer(_.bind(function(){this.$el.find('.scroll-pane').jScrollPane()}, this));
       //

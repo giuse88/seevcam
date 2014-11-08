@@ -1,6 +1,8 @@
 define(function(require){
 
   var Backbone = require("backbone");
+  var Questions = require("modules/questions/models/Questions");
+  var Notification = require("notification");
 
   return  Backbone.Model.extend({
     defaults: {
@@ -39,12 +41,12 @@ define(function(require){
 
     getOrCreateQuestions:function(){
       if (!this.questions)
-        this.questions = new app.Questions([], {catalogue:this});
+        this.questions = new Questions([], {catalogue:this});
       return this.questions;
     },
 
     fetchQuestions:function(){
-      this.questions = new app.Questions([], {catalogue:this});
+      this.questions = new Questions([], {catalogue:this});
       return this.questions;
     },
 
@@ -65,7 +67,7 @@ define(function(require){
         error: function (response) {
           console.error("FAILED : Catalogue " + self.getName() + " not updated");
           console.error(response);
-          notification.warning("Update failed", "Reloading the page should fix the issue");
+          Notification.warning("Update failed", "Reloading the page should fix the issue");
 
         }
       });

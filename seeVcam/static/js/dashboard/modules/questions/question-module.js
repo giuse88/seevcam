@@ -20,8 +20,6 @@
     window.catalogueViewList = null;
 
     function installCataloguePicker() {
-        catalogueList = new CatalogueList();
-        catalogueViewList =  new CatalogueViewList(catalogueList);
     }
 
     function installQuestionModule() {

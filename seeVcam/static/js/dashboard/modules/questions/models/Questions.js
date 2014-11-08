@@ -2,6 +2,7 @@ define(function(require){
 
   var Question = require("modules/questions/models/Question");
   var Backbone = require("backbone");
+  var Notification = require("notification");
 
   return Backbone.Collection.extend({
 
@@ -15,7 +16,7 @@ define(function(require){
         var message = "Error fetching questions for " + model.catalogue.get('catalogue_name') + "!";
         console.error(message);
         console.log(response.responseText);
-        notification.error(message, "Re-loading the page might fix this problem.");
+        Notification.error(message, "Re-loading the page might fix this problem.");
       }
 
       if (models.length === 0) {
