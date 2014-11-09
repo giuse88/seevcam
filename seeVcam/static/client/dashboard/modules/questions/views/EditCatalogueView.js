@@ -189,12 +189,12 @@ define(function (require) {
           return this;
       },
 
-      close: function (skipUpdateUrl) {
+      close: function (updateUrl) {
           console.log("Closing edit mode for " + this.catalogue.getName());
           _.each(this.questions, function (question_view) {
               question_view.close();
           });
-          if (!skipUpdateUrl){
+          if (updateUrl){
             window.app.router.QuestionsRouter.goToQuestions();
           }
           this.remove();

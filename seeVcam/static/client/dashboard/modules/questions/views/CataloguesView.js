@@ -168,7 +168,7 @@ define(function (require) {
 
     openCatalogue: function (catalogue) {
       if (this.openedCatalogue) {
-        this.openedCatalogue.close(true);
+        this.openedCatalogue.close(false);
       }
       this.openedCatalogue = new EditCatalogueView({catalogue: catalogue});
       window.app.router.QuestionsRouter.goToCatalogue(catalogue.get("id"));
