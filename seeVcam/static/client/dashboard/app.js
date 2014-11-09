@@ -6,6 +6,7 @@ define(function (require) {
 
   var $ = require("jquery");
   var router = require("dashboard/router");
+  var Nanobar = require("nanobar");
 
   $.ajaxSetup({
     headers: { "X-CSRFToken": window.CONSTANTS.csrft_token}
@@ -18,9 +19,16 @@ define(function (require) {
     $.pjax.submit(event, '#container')
   });
 
+  var loadingBar = new Nanobar({
+    bg: '#e45000',
+    target: document.getElementById('nanobar-container'),
+    id: 'seevcam-nanobar'
+  });
+
   window.app = {
     name : "SeeVcam",
-    router : router
+    router : router,
+    loadingBar :loadingBar
   };
 
 });

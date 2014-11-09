@@ -15,7 +15,8 @@ require.config({
     "bootstrap"     : "bower_components/bootstrap/dist/js/bootstrap",
     //
     "notification"  : "client/dashboard/modules/notification/notification",
-    "utils"         : "client/misc/utils"
+    "utils"         : "client/misc/utils",
+    "nanobar"       : "client/misc/nanobar"
   },
 
   shim: {

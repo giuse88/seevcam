@@ -31,6 +31,7 @@ define(function(require){
 
     openCatalogue: function(catalogueId) {
       console.log("Router : open catalogue");
+      debugger;
       if (!window.cache.catalogues){
         window.cache.catalogues = new Catalogues();
       }
