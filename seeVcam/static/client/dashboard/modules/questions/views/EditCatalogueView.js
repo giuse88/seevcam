@@ -127,10 +127,7 @@ define(function (require) {
       },
 
       renderQuestion: function (item) {
-//          console.log("Create a new question : " + item);
           var questionView = new QuestionView({ model: item });
-//          console.log(questionView.render().el);
-//          console.log(this.$listContainer);
           this.$listContainer.append(questionView.render().el);
           this.questions.push(questionView);
       },

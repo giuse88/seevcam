@@ -74,7 +74,6 @@
     padding: 0;
     display: block;
     overflow: auto;
-    margin-bottom: 1px;
 }
 
 .catalogs-list li a {
@@ -437,6 +436,7 @@
     background-color: #0f73c2;
     padding : 5px;
     margin: 0;
+    z-index: 10;
 }
 
 .question-drag-helper.red {
@@ -457,6 +457,12 @@
     padding-left: 2px;
     padding-right: 2px;
     display: none;
+}
+
+.question .question-read-only:hover {
+    cursor: -webkit-grab;
+    cursor: -moz-grab;
+    background-color: #fff9ea;
 }
 
 .question .question-read-only:hover p.drag-dots {

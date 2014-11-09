@@ -26,7 +26,13 @@ define(function (require) {
 
       render: function () {
           this.$el.html(this.template(this.model.toJSON()));
-          this.$el.draggable({ cursor: 'move', containment: 'document', helper: this.dragHelper });
+          // this doesn't work on Firefox
+          this.$el.draggable(
+            { cursor: '-webkit-grabbing',
+              containment: 'document',
+              helper: this.dragHelper ,
+              cursorAt : {left:10}
+            });
           return this;
       },
 
