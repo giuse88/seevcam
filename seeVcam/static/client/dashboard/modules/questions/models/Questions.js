@@ -2,7 +2,6 @@ define(function(require){
 
   var Question = require("modules/questions/models/Question");
   var Backbone = require("backbone");
-  var Notification = require("notification");
 
   return Backbone.Collection.extend({
 
@@ -11,20 +10,6 @@ define(function(require){
     initialize: function (models, options) {
       this.catalogue = options.catalogue;
       this.url = "/dashboard/questions/catalogue/" + this.catalogue.get('id') + "/list/";
-
-      function fetchFailure(model, response) {
-        var message = "Error fetching questions for " + model.catalogue.get('catalogue_name') + "!";
-        console.error(message);
-        console.log(response.responseText);
-        Notification.error(message, "Re-loading the page might fix this problem.");
-      }
-
-      if (models.length === 0) {
-        this.fetch({
-          reset: true,
-          error: fetchFailure
-        });
-      }
     }
 
   });

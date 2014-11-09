@@ -127,7 +127,11 @@ define(function (require) {
     }
   };
 
-  return Nanobar;
+  return new Nanobar({
+    bg: '#e45000',
+    target: document.getElementById('nanobar-container'),
+    id: 'seevcam-nanobar'
+  });
 
 });
 

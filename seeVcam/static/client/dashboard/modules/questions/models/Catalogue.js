@@ -45,9 +45,23 @@ define(function(require){
       return this.questions;
     },
 
-    fetchQuestions:function(){
-      this.questions = new Questions([], {catalogue:this});
-      return this.questions;
+    fetchQuestions:function(success){
+
+     function fetchFailure(model, response) {
+        var message = "Error fetching questions for " + model.catalogue.get('catalogue_name') + "!";
+        console.error(message);
+        console.log(response.responseText);
+        Notification.error(message, "Re-loading the page might fix this problem.");
+     }
+
+     this.questions = new Questions([], {catalogue:this});
+     this.questions.fetch({
+        reset: true,
+        error: fetchFailure,
+        success : success
+     });
+
+     return this.questions;
     },
 
     updateName: function (newName) {
