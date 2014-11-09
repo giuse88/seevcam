@@ -71,7 +71,6 @@ define(function(require){
     },
 
     goToQuestions: function( trigger ){
-      debugger;
       this.navigate("questions/", {trigger:!!trigger});
     },
 

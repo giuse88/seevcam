@@ -1,6 +1,7 @@
 define(function (require) {
 
   var $ = require("jquery");
+  require("jquery-ui");
   var _ = require("underscore");
   var Backbone = require("backbone");
   var Utils = require("utils");
@@ -188,12 +189,14 @@ define(function (require) {
           return this;
       },
 
-      close: function () {
+      close: function (skipUpdateUrl) {
           console.log("Closing edit mode for " + this.catalogue.getName());
           _.each(this.questions, function (question_view) {
               question_view.close();
           });
-          window.app.router.QuestionsRouter.goToQuestions();
+          if (!skipUpdateUrl){
+            window.app.router.QuestionsRouter.goToQuestions();
+          }
           this.remove();
           this.unbind();
           this.undelegateEvents();
