@@ -70,6 +70,11 @@ define(function(require){
      this.navigate("questions/" + id + "/", {trigger:!!trigger});
     },
 
+    goToQuestions: function( trigger ){
+      debugger;
+      this.navigate("questions/", {trigger:!!trigger});
+    },
+
     loadCatalogues: function (lazyLoading, success, error) {
 
     function fetchFailure (model,response){

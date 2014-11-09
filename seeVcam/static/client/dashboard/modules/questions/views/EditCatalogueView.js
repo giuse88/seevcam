@@ -193,6 +193,7 @@ define(function (require) {
           _.each(this.questions, function (question_view) {
               question_view.close();
           });
+          window.app.router.QuestionsRouter.goToQuestions();
           this.remove();
           this.unbind();
           this.undelegateEvents();
