@@ -33,6 +33,10 @@ hr {
     height: 100%;
     width: 100%;
 }
+.row{
+    margin-left: 0px;
+    margin-right: 0px;
+}
 
 .panel-default > .panel-heading {
     background-color: #F5F5F5;
@@ -93,3 +97,6 @@ a.list-group-item:focus {
     background-color: #fdfdfe;
 }
 
+.panel {
+    border-radius : 0;
+}
