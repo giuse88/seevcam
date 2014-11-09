@@ -56,20 +56,14 @@ define(function (require) {
     initialize: function (options) {
       // injected values
       this.collection = options.collection;
+      this.options = options;
       this.openedCatalogue = null;
       this.catalogueViews = [];
 
-      if ( options.catalogue) {
-        var catalogue = this.collection.findWhere({id : Number(options.catalogue)});
-        if (catalogue) {
-          this.openCatalogue(catalogue);
-        }else{
-          console.error("Unknown catalogue");
-        }
-      }
 
       // bindings
       _.bindAll(this, 'render');
+      _.bindAll(this, 'afterRender');
       _.bindAll(this, 'renderCatalogue');
       _.bindAll(this, 'validateCatalogueName');
       _.bindAll(this, 'renderEntireCollection');
@@ -87,8 +81,21 @@ define(function (require) {
       this.listenTo(this.collection, 'error', Utils.syncError);
       this.listenTo(this.collection, 'sync', Utils.syncSuccess);
       this.render();
+      this.afterRender();
 //            _.defer(_.bind(function(){this.$el.find('.scroll-pane').jScrollPane()}, this));
       //
+    },
+
+    afterRender: function() {
+      if ( this.options.catalogue) {
+        console.log("Opening catalogue");
+        var catalogue = this.collection.findWhere({id : Number(this.options.catalogue)});
+        if (catalogue) {
+          this.openCatalogue(catalogue);
+        }else{
+          console.error("Unknown catalogue");
+        }
+      }
     },
 
     renderEntireCollection: function () {

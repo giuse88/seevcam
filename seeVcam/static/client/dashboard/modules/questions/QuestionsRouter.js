@@ -30,6 +30,7 @@ define(function(require){
     },
 
     openCatalogue: function(catalogueId) {
+      console.log("Router : open catalogue");
       if (!window.cache.catalogues){
         window.cache.catalogues = new Catalogues();
       }
@@ -40,8 +41,8 @@ define(function(require){
       });
     },
 
-    goToCatalogue: function(id){
-     this.navigate("questions/" + id + "/", {trigger:true});
+    goToCatalogue: function(id, trigger ){
+     this.navigate("questions/" + id + "/", {trigger:!!trigger});
     }
 
   });
