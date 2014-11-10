@@ -12,14 +12,14 @@ define(function (require) {
     tagName : "div",
     id :  "#question-dashboard",
     template: _.template(
-        '<div clalss="row" style="height:100%;" > ' +
+        '<div clalss="row" style="height:95%;" > ' +
         '    <div class="col-lg-6" style="height:100%;" >' +
-        '       <div class="row" style="height:90%;" >' +
+        '       <div class="row" style="height:100%;" >' +
         '            <div class="panel" style="height:100%;" >' +
-        '               <div class="catalogs-picker" style="height:100%;" >' +
+        '               <div class="catalogs-picker" >' +
         '                  <div class="catalog-labels">' +
         '                      <ul>' +
-        '                          <li class="label-red">seeVcam</li>' +
+        '                          <li style="margin-left:20px;"class="label-red">seeVcam</li>' +
         '                         <li class="label-blue">Library</li>' +
         '                    </ul>' +
         '                 </div>' +
@@ -27,21 +27,21 @@ define(function (require) {
         '                    <ul class="scroll-pane" style="height:100%;" >' +
         '                   </ul>' +
         '              </div>' +
+        '         <div id="create-catalogue-block">' +
+        '             <div id="create-catalogue" class="create-catalogue">' +
+        '                 <input type="text" class="form-control" placeholder="Need a new category? Type its name here."/>' +
+        '                  <span class="glyphicon"></span>' +
+        '             </div>' +
+        '         </div>' +
         '           </div>' +
         '      </div>' +
         ' </div>' +
         '</div>' +
         '       <div class="col-lg-6" style="height:100%;" >' +
-        '          <div id="edit-catalogue" style="height: 80%">' +
+        '          <div id="edit-catalogue" style="height: 100%">' +
         '              <div class="no-catalogue dashed-border" style="height: 100%"></div>' +
         '         </div>' +
-        '         <hr/>' +
-        '         <div id="create-catalogue-block">' +
-        '             <div id="create-catalogue" class="form-group has-feedback create-catalogue">' +
-        '                 <input type="text" class="form-control" placeholder="Need a new category? Type its name here."/>' +
-        '                  <span class="glyphicon"></span>' +
-        '             </div>' +
-        '         </div>' +
+//        '         <hr/>' +
         '     </div>' +
         '</div>'
     ),

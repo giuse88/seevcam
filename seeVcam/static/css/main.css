@@ -24,7 +24,7 @@ hr {
 
 #content-wrap {
     min-width: 100%;
-    height: calc(100% - 70px);
+    height: calc(100% - 60px);
     margin-top: 20px;
 }
 /** Adjusting Bootstrap classes */
@@ -32,6 +32,8 @@ hr {
     /*max-width: 1000px;*/
     height: 100%;
     width: 100%;
+    margin:0;
+    padding:0;
 }
 .row{
     margin-left: 0px;
@@ -99,4 +101,5 @@ a.list-group-item:focus {
 
 .panel {
     border-radius : 0;
+    border: 0;
 }

@@ -1,9 +1,15 @@
+.catalog-labels {
+    height: 37px;
+    border-left: 1px solid #D1D1D1;
+    border-right: 1px solid #D1D1D1;
+    border-top: 1px solid #D1D1D1;
+}
 
 .catalog-labels ul {
-    margin: 0;
-    padding: 5px 0;
+    padding: 9px 0;
     font-size: 0;
     height: 30px;
+    margin: 0;
 }
 
 .catalog-labels li {
@@ -11,7 +17,7 @@
     display: inline-block;
     line-height: 15px;
     font-size: 10px;
-    margin: 0 3px 0 10px;
+    margin: 0 10px 0 10px;
     font-weight: bold;
     text-transform: uppercase;
     padding: 0 7px 0 4px;
@@ -58,7 +64,7 @@
 }
 
 .catalogs-list {
-    height: calc(100% - 40px);
+    height: calc(100% - 36px);
     border-top: 1px solid #e6e6e6;
 }
 
@@ -289,7 +295,7 @@
     background-color: white;
 }
 
-#enter-new-question {
+#enter-new-question{
     height: 70px;
     position: absolute;
     bottom: 0;
@@ -330,6 +336,11 @@
     border-radius: 3px;
 }
 
+#create-catalogue-block {
+    bottom: 0;
+    height: 34px;
+}
+
 .question-callout-red {
     border-left-color: #d9534f;
 }
@@ -354,6 +365,10 @@
     font-size: 18px;
 }
 
+#create-catalogue input {
+   border-radius: 0;
+}
+
 #create-catalogue .glyphicon.glyphicon-ok-circle {
     color : green;
 }
@@ -374,6 +389,11 @@
 
 .catalogue-name {
     overflow: hidden;
+}
+
+.catalogue-list-item {
+    border-left: 1px solid #D1D1D1;
+    border-right: 1px solid #D1D1D1;
 }
 
 .catalogue-list-item .catalog-blue .catalogue-name:hover, .highlight-catalogue-blue {
@@ -476,4 +496,40 @@
 .catalogue-list-item a p{
     display: inline-block;
     margin: 0;
+}
+
+.create-interview-catalog-section .panel {
+    background-color: white;
+    /*border: 1px solid #d0d0d0;*/
+    box-shadow: none;
+    border-radius: 0;
+    padding: 0;
+border: none;
+}
+
+.create-interview-catalog-section .panel-heading {
+    background-color: #0f73c2;
+    color: white;
+    border-radius: 0;
+    margin: 0;
+    padding-left: 12px;
+    font-size: 16px;
+    line-height: 25px;
+}
+
+
+.create-interview-catalog-section .panel-heading  .input-panel-heading {
+    width: 100%;
+    border: 0;
+    background-color: #0f73c2;
+    color: white;
+    outline: none;
+    border: none !important;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
+}
+
+.catalogs-picker {
+    height: calc(100% - 34px);
 }
