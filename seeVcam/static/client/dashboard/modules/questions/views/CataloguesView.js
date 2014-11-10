@@ -41,7 +41,6 @@ define(function (require) {
         '          <div id="edit-catalogue" style="height: 100%">' +
         '              <div class="no-catalogue dashed-border" style="height: 100%"></div>' +
         '         </div>' +
-//        '         <hr/>' +
         '     </div>' +
         '</div>'
     ),

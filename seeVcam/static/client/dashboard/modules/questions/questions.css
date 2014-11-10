@@ -339,6 +339,7 @@
 #create-catalogue-block {
     bottom: 0;
     height: 34px;
+    position: relative;
 }
 
 .question-callout-red {
