@@ -2,13 +2,6 @@
 
     $(document).ready(function () {
 
-        $.ajaxSetup({
-            headers: { "X-CSRFToken": COSTANTS.csrft_token}
-        });
-
-        $.pjax.defaults.timeout = 3000;
-
-        $(document).pjax('a[data-pjax], a.pjax, .pjax', '#container');
 
 
         // INTERVIEWS CALENDAR VIEW
@@ -46,9 +39,6 @@
         }
 
 
-        $(document).on('submit', 'form[data-pjax]', function(event) {
-            $.pjax.submit(event, '#container')
-        })
 
         // REPORTS VIEW
         // bind click to note view

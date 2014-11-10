@@ -1,0 +1,45 @@
+.navbar {
+
+  min-height: @nav-height;
+  margin: 0;
+  border-radius: 0;
+
+  .navbar-nav {
+
+    li > a {
+      height: @nav-height;
+    }
+
+    li {
+      a {
+        color: @nav-bar-grey;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        line-height: 20px;
+        &.active {
+          color:@orange;
+        }
+      }
+    }
+
+    .dropdown-menu {
+      padding: 0;
+      .divider {
+        margin:0;
+      }
+      li {
+        a{
+          color: black;
+        }
+      }
+    }
+  }
+
+  .brand {
+    color: @orange;
+    font-size: 18px;
+    line-height: @nav-height;
+  }
+
+}
+
