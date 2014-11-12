@@ -13,10 +13,9 @@ define(function (require) {
 
   $.pjax.defaults.timeout = 3000;
 
-  $(document).pjax('a[data-pjax], a.pjax, .pjax', '#container');
-  $(document).on('submit', 'form[data-pjax]', function(event) {
-    $.pjax.submit(event, '#container')
-  });
+
+  $(document).pjax('a[data-pjax="container"]', '#container');
+  $(document).pjax('a[data-pjax="inner-container"]', '.inner-container');
 
   window.app = {
     name : "SeeVcam",

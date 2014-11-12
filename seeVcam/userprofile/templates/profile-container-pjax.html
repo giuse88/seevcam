@@ -14,17 +14,19 @@
                     </h3>
                 </div>
                 <div class="list-group">
-                    <a href="{% url "profile_update" request.user.pk %}" class="list-group-item profile {% current 'profile_update' %}">Profile</a>
-                    <a href="{% url "profile_settings" request.user.pk %}" class="list-group-item profile {% current 'profile_settings' %}">Account
+                    <a data-pjax="inner-container" href="{% url "profile_update" request.user.pk %}" class="list-group-item profile {% current 'profile_update' %}">Profile</a>
+                    <a data-pjax="inner-container" href="{% url "profile_settings" request.user.pk %}" class="list-group-item profile {% current 'profile_settings' %}">Account
                         Settings</a>
-                    <a href="{% url "profile_notifications" request.user.pk %}" class="list-group-item profile {% current 'profile_notifications' %}">Notification
+                    <a data-pjax="inner-container"  href="{% url "profile_notifications" request.user.pk %}" class="list-group-item profile {% current 'profile_notifications' %}">Notification
                         Center</a>
                 </div>
             </div>
         </div>
-        <div class="col-lg-9">
-            <div id="profile-content">
-                {% include "profile-update.html" %}
+        <div class="col-lg-9 ">
+            <div class="inner-container">
+                <div class="profile-content">
+                    {% include "profile-update.html" %}
+                </div>
             </div>
         </div>
     </div>
