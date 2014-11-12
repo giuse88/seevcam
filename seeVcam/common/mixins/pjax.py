@@ -8,6 +8,11 @@ class PJAXResponseMixin(TemplateResponseMixin):
     pjax_suffix = "pjax"
     pjax_url = True
 
+    def get_context_data(self, **kwargs):
+        context = super(TemplateResponseMixin, self).get_context_data(**kwargs)
+        context['inner_template'] = self.pjax_template_name
+        return context
+
     def get_template_names(self):
         names = super(PJAXResponseMixin, self).get_template_names()
         if self.request.META.get('HTTP_X_PJAX', False):

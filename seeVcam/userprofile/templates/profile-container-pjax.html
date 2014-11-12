@@ -10,22 +10,38 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">
-                        Profile
+                        Personal settings
                     </h3>
                 </div>
                 <div class="list-group">
-                    <a data-pjax="inner-container" href="{% url "profile_update" request.user.pk %}" class="list-group-item profile {% current 'profile_update' %}">Profile</a>
-                    <a data-pjax="inner-container" href="{% url "profile_settings" request.user.pk %}" class="list-group-item profile {% current 'profile_settings' %}">Account
-                        Settings</a>
-                    <a data-pjax="inner-container"  href="{% url "profile_notifications" request.user.pk %}" class="list-group-item profile {% current 'profile_notifications' %}">Notification
-                        Center</a>
+
+                    <a data-pjax="inner-container"
+                       href="{% url "profile_update" request.user.pk %}"
+                       class="list-group-item profile {% current 'profile_update' %}">
+                       Profile</a>
+
+                    <a data-pjax="inner-container"
+                       href="{% url "profile_settings" request.user.pk %}"
+                       class="list-group-item profile {% current 'profile_settings' %}">
+                       Account settings</a>
+
+                    <a data-pjax="inner-container"
+                       href="{% url "profile_notifications" request.user.pk %}"
+                       class="list-group-item profile {% current 'profile_notifications' %}">
+                       Notifications</a>
+
+                    <a data-pjax="inner-container"
+                       href="{% url "profile_notifications" request.user.pk %}"
+                       class="list-group-item profile {% current 'profile_notifications' %}">
+                       Integration</a>
+
                 </div>
             </div>
         </div>
         <div class="col-lg-9 ">
             <div class="inner-container">
                 <div class="profile-content">
-                    {% include "profile-update.html" %}
+                   {% include inner_template  %}
                 </div>
             </div>
         </div>

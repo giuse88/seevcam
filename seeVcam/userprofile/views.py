@@ -1,12 +1,10 @@
 from django.core.urlresolvers import reverse
-from django.http import Http404
 from django.views.generic import TemplateView
 from django.views.generic import UpdateView
 from authentication.models import SeevcamUser
 from common.mixins.authorization import LoginRequired, IsOwnerOr404
 from common.mixins.pjax import PJAXResponseMixin
-from userprofile.forms import UserprofileForm, NotificationForm
-from userprofile.models import UserNotifications
+from userprofile.forms import UserprofileForm
 
 
 class UserProfileView(LoginRequired, PJAXResponseMixin, TemplateView):
