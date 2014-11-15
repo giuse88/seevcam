@@ -16,6 +16,7 @@ class UserProfileUpdate(LoginRequired, IsOwnerOr404, PJAXResponseMixin, UpdateVi
     model = SeevcamUser
     template_name = "profile.html"
     pjax_template_name = "profile-update.html"
+    title = "Profile/Notifications"
 
     def get_template_names(self):
         if self.request.GET.get('_pjax', None) == '#container':

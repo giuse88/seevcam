@@ -18,8 +18,8 @@
                         {{ user.username }}
                         <span  class="caret"></span>
                     </a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a data-pjax="container" href="{% url "profile_update" request.user.id %}  ">User Profile</a></li>
+                    <ul class="dropdown-menu pjax-links " role="menu">
+                        <li><a class="navbar-link" data-pjax="container" href="{% url "profile_update" request.user.id %}  ">User Profile</a></li>
                         <li class="divider"></li>
                         <li><a href="{% url "logout" %}">Logout</a></li>
                     </ul>

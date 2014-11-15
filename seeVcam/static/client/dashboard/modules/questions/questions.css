@@ -1,3 +1,8 @@
+.question-dashboard .panel {
+  border-radius : 0;
+  border: 0;
+}
+
 .catalog-labels {
     height: 37px;
     border-left: 1px solid #D1D1D1;

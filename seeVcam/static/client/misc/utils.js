@@ -22,7 +22,7 @@ define(function(require){
   }
 
   function updateActiveLink($selected){
-    if ($selected.hasClass("active")){
+    if ($selected && $selected.hasClass("active")){
       return;
     }
     $(".navbar-nav").find("li .active").removeClass("active");

@@ -8,9 +8,6 @@ define(function(require){
   var LoadingBar = require("nanobar");
   var Notification = require("notification");
 
-
-
-
   return  Backbone.Router.extend({
 
     routes: {
@@ -20,10 +17,12 @@ define(function(require){
 
     initialize : function(){
       function navigator() {
-        this.navigate("questions/", {trigger:true});
+        this.navigate("/questions/", {trigger:true});
+
+        console.log("ff");
       }
       this.navbarElement = $('.navbar-nav *[data-route="questions"]');
-      $('*[data-route="questions"]').click(navigator.bind(this));
+      this.navbarElement.click(navigator.bind(this));
     },
 
     questions: function () {

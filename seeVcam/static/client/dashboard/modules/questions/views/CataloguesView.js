@@ -12,7 +12,7 @@ define(function (require) {
     tagName : "div",
     id :  "#question-dashboard",
     template: _.template(
-        '<div clalss="row" style="height:95%;" > ' +
+        '<div class="row question-dashboard" style="height:95%;" > ' +
         '    <div class="col-lg-6" style="height:100%;" >' +
         '       <div class="row" style="height:100%;" >' +
         '            <div class="panel" style="height:100%;" >' +
