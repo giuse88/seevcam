@@ -3,7 +3,7 @@ from authentication.models import SeevcamUser
 from userprofile.models import UserNotifications
 
 
-class UserprofileForm(ModelForm):
+class UserProfileForm(ModelForm):
     class Meta:
         model = SeevcamUser
         fields = ['username', 'email', 'first_name', 'last_name', 'job_title', 'country', 'timezone', 'company']

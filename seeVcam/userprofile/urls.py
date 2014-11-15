@@ -1,14 +1,15 @@
 from django.conf.urls import patterns, url
+from django.core.urlresolvers import reverse, reverse_lazy
+from django.views.generic import RedirectView
 
-from views import UserProfileView, UserProfileUpdate, UserProfileNotifications, UserProfileSettings, \
-    UserProfileIntegration
+from views import UserProfileUpdate, UserProfileNotifications, UserProfileSettings, UserProfileIntegration
 
+html_patterns = patterns('',
+                         url(r'^update/$', UserProfileUpdate.as_view(), name='profile_update'),
+                         url(r'^notifications/$', UserProfileNotifications.as_view(), name='profile_notifications'),
+                         url(r'^settings/$', UserProfileSettings.as_view(), name='profile_settings'),
+                         url(r'^integrations/$', UserProfileIntegration.as_view(), name='profile_integration'),
+                         url(r'^$', RedirectView.as_view(url=reverse_lazy('profile_update')), name='user_profile'),
+                         )
 
-urlpatterns = patterns('',
-                       url(r'^$', UserProfileView.as_view(), name='user_profile'),
-                       url(r'^(?P<pk>\d+)/update/$', UserProfileUpdate.as_view(), name='profile_update'),
-                       url(r'^(?P<pk>\d+)/notifications/$', UserProfileNotifications.as_view(),
-                           name='profile_notifications'),
-                       url(r'^(?P<pk>\d+)/settings/$', UserProfileSettings.as_view(),name='profile_settings'),
-                       url(r'^(?P<pk>\d+)/integration/$', UserProfileIntegration.as_view(),name='profile_integration')
-)
+urlpatterns = html_patterns
