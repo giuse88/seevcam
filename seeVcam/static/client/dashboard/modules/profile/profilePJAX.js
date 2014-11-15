@@ -3,7 +3,8 @@ define(function (require) {
   var LoadingBar = require("nanobar");
   var $ = require("jquery");
   var Utils = require("utils");
-  var profileFragment = "/profile";
+
+  var profileFragment = "profile";
 
   /*
     This is quite discussing code. This has to be rewritten.
@@ -15,8 +16,10 @@ define(function (require) {
 
     $(document).on('click', 'a[data-pjax="container"].profile-link', function(event) {
 
-      if (Backbone.history.fragment === profileFragment )
+      if (Backbone.history.fragment.indexOf(profileFragment) > -1) {
+        event.preventDefault();
         return;
+      }
 
       var navbarElement = $('.navbar-nav *[data-route="profile"]');
       Utils.updateActiveLink(navbarElement);
