@@ -17,12 +17,12 @@ define(function(require){
 
     initialize : function(){
       function navigator() {
+        console.log("going to questions");
         this.navigate("/questions/", {trigger:true});
-
-        console.log("ff");
       }
       this.navbarElement = $('.navbar-nav *[data-route="questions"]');
       this.navbarElement.click(navigator.bind(this));
+      console.log("Questions router installed.");
     },
 
     questions: function () {
