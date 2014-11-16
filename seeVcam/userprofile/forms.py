@@ -12,4 +12,4 @@ class UserProfileForm(ModelForm):
 class NotificationForm(ModelForm):
     class Meta:
         model = UserNotifications
-        fields = ['notification_when_room_is_open', 'notification_day_before']
+        fields = ['notification_when_room_is_open', 'notification_day_before', 'notification_hour_before']
