@@ -50,7 +50,6 @@
 
 <body>
 
-{% if user.is_authenticated %}
 {% block navigation_bar %}
     {% include "dashboard-navigation.html" %}
 {% endblock navigation_bar %}
@@ -63,9 +62,6 @@
     </div>
 </div>
 
-{% else %}
-  {% include "mock_login.html" %}
-{% endif %}
 </body>
 
 </html>
