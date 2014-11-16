@@ -29,7 +29,7 @@ define(function (require) {
       $.pjax.click(event, {container: $("#container")});
     });
 
-    $(document).on('click', 'a[data-pjax="inner-container"]', function(event) {
+    $(document).on('click', '.profile-container a[data-pjax="inner-container"]', function(event) {
       $.pjax.click(event, {container: $(".inner-container")});
       $(".profile-options .active").removeClass("active");
       $(event.target).addClass("active");
@@ -39,6 +39,11 @@ define(function (require) {
       if (options.container.hasClass("container"))
         LoadingBar.go(100);
     });
+
+    $(document).on('submit', '.profile-container form[data-pjax]', function(event) {
+      $.pjax.submit(event, '.inner-container')
+    });
+
   }
 
   return {

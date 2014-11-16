@@ -12,7 +12,7 @@ class SeevcamUser(AbstractUser):
     job_title = models.CharField(max_length=255, null=False, blank=False)
     timezone = models.CharField(max_length=255, null=False, blank=False, choices=TIMEZONE_CHOICES)
     country = CountryField()
-    notifications = models.ForeignKey(UserNotifications, null=True)
+    notifications = models.ForeignKey(UserNotifications, null=False, blank=False)
 
     class Meta:
         db_table = "users"

@@ -1,5 +1,6 @@
+from django.contrib.auth.forms import PasswordChangeForm
 from django.core.urlresolvers import reverse, reverse_lazy
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, FormView
 from django.views.generic import UpdateView
 from authentication.models import SeevcamUser
 from common.mixins.authorization import LoginRequired
@@ -35,9 +36,16 @@ class UserProfileNotifications(LoginRequired, PJAXResponseMixin, UpdateView):
         return self.request.user.notifications
 
 
-class UserProfileSettings(LoginRequired, PJAXResponseMixin, TemplateView):
+class UserProfileSettings(LoginRequired, PJAXResponseMixin, FormView):
     template_name = 'profile.html'
     pjax_template_name = "profile-settings.html"
+    form_class = PasswordChangeForm
+    success_url = reverse_lazy("profile_settings")
+
+    def get_form_kwargs(self):
+        kwargs = super(UserProfileSettings, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
 
 
 class UserProfileIntegration(LoginRequired, PJAXResponseMixin, TemplateView):
