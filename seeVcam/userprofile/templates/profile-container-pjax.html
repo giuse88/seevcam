@@ -3,7 +3,7 @@
 {% block content %}
 
     <div class="row profile-container">
-        <div class="col-lg-3">
+        <div class="col-lg-2 col-lg-offset-1">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">
@@ -30,12 +30,12 @@
                     <a data-pjax="inner-container"
                        href="{% url "profile_integration" %}"
                        class="list-group-item profile {% current 'profile_integration' %}">
-                       Integration</a>
+                       Applications</a>
 
                 </div>
             </div>
         </div>
-        <div class="col-lg-9 ">
+        <div class="col-lg-8">
             <div class="inner-container">
                 <div class="profile-content">
                    {% include inner_template  %}

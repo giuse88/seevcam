@@ -4,11 +4,22 @@
       <h3 class="panel-title">Settings</h3>
     </div>
     <div class="panel-body change-password">
+        <div class="row">
+           <div class="col-lg-8 col-lg-offset-2">
         <form data-pjax="inner-container" enctype="multipart/form-data" action="" method="post" role="form">
             {%  csrf_token %}
-             {{ form.as_p }}
+              {% for field in form %}
+                    <div class="form-group ">
+                        <label for="{{ field.id_for_label }}"> {{ field.label }}</label>
+                        <input type="password" class="form-control" id="{{ field.id_for_label }}"
+                               name="{{ field.html_name }}">
+                        {{ field.errors }}
+                    </div>
+              {% endfor %}
             <button type="submit" class="btn btn-primary">Update</button>
         </form>
+        </div>
+    </div>
     </div>
   </div>
 {% endblock profile_content %}

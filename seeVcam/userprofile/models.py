@@ -11,4 +11,4 @@ class UserNotifications(models.Model):
 
 class UserIntegration(models.Model):
     class Meta:
-        db_table = 'user_integrations'
+        db_table = 'user_applications'

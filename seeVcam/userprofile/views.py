@@ -47,6 +47,10 @@ class UserProfileSettings(LoginRequired, PJAXResponseMixin, FormView):
         kwargs['user'] = self.request.user
         return kwargs
 
+    def form_valid(self, form):
+        if form.is_valid():
+            form.save()
+
 
 class UserProfileIntegration(LoginRequired, PJAXResponseMixin, TemplateView):
     template_name = "profile.html"
