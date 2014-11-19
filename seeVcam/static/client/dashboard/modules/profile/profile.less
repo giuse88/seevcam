@@ -1,5 +1,41 @@
 .profile-container {
 
+  a.list-group-item {
+
+    background-color: #fafafb;
+    border-top: 1px solid white;
+    border-bottom: 1px solid #eeeeee;
+    margin-bottom: auto;
+
+    &.active {
+      border-bottom-color: #eeeeee;
+      border-left: 2px solid @orange !important;
+      background-image: none;
+      background-color: #ffffff;
+      color: black;
+      text-shadow: none;
+      font-weight: bold;
+      cursor: default;
+      border-top: 1px solid white;
+
+      &:hover {
+        border-top: 1px solid white;
+      }
+      &:focus,&:hover {
+        background-image: none;
+        background-color: inherit;
+        border-bottom-color: #eeeeee;
+        color: black;
+        text-shadow: none;
+      }
+    }
+
+    &:hover, &:focus {
+      background-color: #fdfdfe;
+    }
+
+  }
+
   .notification-container {
 
     padding: 0;

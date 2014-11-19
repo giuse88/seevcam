@@ -3,6 +3,7 @@
 */
 
 @orange : #e45000;
+@light-orange : #FF9861;
 @light-grey: #f1f1f1;
 @grey : #666;
 @nav-bar-grey :#cccccc;
@@ -17,9 +18,27 @@ body{
   font: 13px/1.4 Helvetica, arial, freesans, clean, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
+
+/*****************************************************************************
+ *                        Overriding Bootstrap properties                    *
+ *****************************************************************************/
+
+.btn-primary {
+  background-color : @orange;
+  background-image: -webkit-linear-gradient(top,@light-orange 0%, @orange 100%);
+  background-image: linear-gradient(to bottom, @light-orange 0%, @orange 100%);
+  border-color : @orange;
+
+  &:hover {
+    background-color : @orange;
+    border-color : @orange;
+  }
+
+}
+
+
 @import "modules/profile/profile";
 @import "modules/questions/questions.css";
 @import "modules/navbar/navbar";
 @import "modules/notification/notification";
-
 @import "../misc/overlay/overlay";
