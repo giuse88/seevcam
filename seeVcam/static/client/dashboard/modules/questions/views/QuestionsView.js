@@ -10,7 +10,7 @@ define(function (require) {
 
         tagName : 'ul',
         className : 'question-list',
-        template_no_questions : '<li class="question"><div class="question-read-only view form-group"> <p>No questions</p></div></li>',
+        template_no_questions : '<li class="question"><div class="no-question view form-group"> <p>No questions</p></div></li>',
 
         initialize : function(options){
             this.catalogue = options && options.catalogue;
