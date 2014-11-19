@@ -3,6 +3,7 @@ define(function (require) {
   var LoadingBar = require("nanobar");
   var $ = require("jquery");
   var Utils = require("utils");
+  var Overlay = require("misc/overlay/overlay");
 
   var profileFragment = "profile";
 
@@ -13,6 +14,7 @@ define(function (require) {
   function installPjaxForProfilePage() {
 
     $.pjax.defaults.timeout = 3000;
+    var overlay = new Overlay();
 
     $(document).on('click', 'a[data-pjax="container"].profile-link', function(event) {
 
@@ -36,12 +38,15 @@ define(function (require) {
     });
 
     $(document).on('pjax:end', function(a, xhr, options) {
-      if (options.container.hasClass("container"))
+      if (options.container.hasClass("container")) {
         LoadingBar.go(100);
+      }
+      overlay.remove();
     });
 
     $(document).on('submit', '.profile-container form[data-pjax]', function(event) {
-      $.pjax.submit(event, '.inner-container')
+      $.pjax.submit(event, '.inner-container');
+      $(".inner-container .panel-body").prepend(overlay.render().$el);
     });
 
   }

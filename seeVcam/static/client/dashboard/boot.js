@@ -6,6 +6,7 @@ require.config({
     // maps
     "modules"       : "client/dashboard/modules",
     "dashboard"     : "client/dashboard/",
+    "misc"          : "client/misc",
     //libs
     "jquery"        : "bower_components/jquery/dist/jquery",
     "jquery-pjax"   : "bower_components/jquery-pjax/jquery.pjax",
