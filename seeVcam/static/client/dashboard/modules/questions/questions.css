@@ -437,7 +437,7 @@
     color : white !important;
 }
 
-.catalogue-list-item:hover  .glyphicon {
+.catalogue-name:hover  .glyphicon {
     display: inline-block;
 }
 
@@ -451,7 +451,7 @@
 
 .catalogue-list-item .glyphicon {
     float: right;
-    line-height: 30px;
+    line-height: 28px;
     margin-right: 10px;
     cursor : pointer;
     display: none;
