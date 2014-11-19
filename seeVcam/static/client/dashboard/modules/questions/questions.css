@@ -70,7 +70,9 @@
 
 .catalogs-list {
     height: calc(100% - 36px);
-    border-top: 1px solid #e6e6e6;
+    border-top: 1px solid #D1D1D1;
+    border-left: 1px solid #D1D1D1;
+    border-right: 1px solid #D1D1D1;
 }
 
 .catalogs-list > ul  {
@@ -397,10 +399,7 @@
     overflow: hidden;
 }
 
-.catalogue-list-item {
-    border-left: 1px solid #D1D1D1;
-    border-right: 1px solid #D1D1D1;
-}
+
 
 .catalogue-list-item .catalog-blue .catalogue-name:hover, .highlight-catalogue-blue {
     background-color: #0f73c2;
