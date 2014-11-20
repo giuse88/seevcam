@@ -18,11 +18,15 @@ define(function (require) {
 
     $(document).on('click', 'a[data-pjax="container"].profile-link', function(event) {
 
+      /* This is the router for the profile page */
+
       if (Backbone.history.fragment.indexOf(profileFragment) > -1) {
         event.preventDefault();
         return;
       }
 
+      // Reset old view
+      Utils.safelyUpdateCurrentView();
       var navbarElement = $('.navbar-nav *[data-route="profile"]');
       Utils.updateActiveLink(navbarElement);
       // hack to make pjax working with backbone

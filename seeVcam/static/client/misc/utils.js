@@ -1,5 +1,7 @@
 define(function(require){
 
+  /*todo move to dashboard */
+
   var notification = require("notification");
 
   function url_parser(url) {
@@ -29,11 +31,20 @@ define(function(require){
     $selected.addClass("active");
   }
 
+  function safelyUpdateCurrentView(newView){
+    if ( window.app.currentView && window.app.currentView.close
+      && typeof window.app.currentView.close === "function"){
+      window.app.currentView.close();
+    }
+    window.app.currentView = newView;
+  }
+
   return {
     url_parser : url_parser,
     syncError : syncError,
     syncSuccess : syncSuccess,
-    updateActiveLink : updateActiveLink
+    updateActiveLink : updateActiveLink,
+    safelyUpdateCurrentView : safelyUpdateCurrentView
   }
 });
 

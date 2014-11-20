@@ -22,6 +22,8 @@ define(function(require){
     interviews: function () {
       console.log("Interviews route");
       Utils.updateActiveLink(this.navbarElement);
+      // this should use the interview view which hasn't be implemented yet.
+      Utils.safelyUpdateCurrentView();
       $("#container").html("Interviews");
     }
 

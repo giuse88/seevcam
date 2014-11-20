@@ -8,9 +8,9 @@ define(function (require) {
   var EditCatalogueView = require("modules/questions/views/EditCatalogueView");
 
   return  Backbone.View.extend({
-    el :"#container",
+
     tagName : "div",
-    id :  "#question-dashboard",
+    className : "question-container",
     template: _.template(
         '<div class="row question-dashboard" style="height:95%;" > ' +
         '    <div class="col-lg-6" style="height:100%;" >' +
@@ -81,9 +81,6 @@ define(function (require) {
       this.listenTo(this.collection, 'reset', this.renderEntireCollection);
       this.listenTo(this.collection, 'error', Utils.syncError);
       this.listenTo(this.collection, 'sync', Utils.syncSuccess);
-      this.render();
-      this.afterRender();
-//            _.defer(_.bind(function(){this.$el.find('.scroll-pane').jScrollPane()}, this));
       //
     },
 
@@ -158,6 +155,7 @@ define(function (require) {
       this.$createCatalogueBox = this.$el.find('#create-catalogue input');
       this.$createCatalogueBox.bind('input propertychange', this.validateCatalogueName);
       this.renderEntireCollection();
+//      this.afterRender();
       return this;
     },
 
@@ -227,6 +225,13 @@ define(function (require) {
 
     showQuestions : function(item) {
       console.log(item);
+    },
+
+    close: function () {
+      /* MUST CLOSE CATALOGUE IF THERE IS A OPEN ONE */
+      this.remove();
+      this.unbind();
+      this.undelegateEvents();
     }
 
   });
