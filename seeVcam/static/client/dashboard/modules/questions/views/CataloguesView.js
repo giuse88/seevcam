@@ -155,7 +155,6 @@ define(function (require) {
       this.$createCatalogueBox = this.$el.find('#create-catalogue input');
       this.$createCatalogueBox.bind('input propertychange', this.validateCatalogueName);
       this.renderEntireCollection();
-//      this.afterRender();
       return this;
     },
 
@@ -228,7 +227,17 @@ define(function (require) {
     },
 
     close: function () {
-      /* MUST CLOSE CATALOGUE IF THERE IS A OPEN ONE */
+      console.log("Killing : ", this);
+      // closing catalogue if there is one open
+      if (this.openedCatalogue) {
+        this.openedCatalogue.close(false);
+      }
+      // closing subviews
+      // catalogueViews is a kind of map. I am using compact because there are plenty of undefinied elements.
+      _.each(_.compact(this.catalogueViews), function(catalogueView){
+        catalogueView.close();
+      });
+      // remove events
       this.remove();
       this.unbind();
       this.undelegateEvents();

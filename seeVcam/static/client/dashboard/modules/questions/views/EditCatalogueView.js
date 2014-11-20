@@ -187,6 +187,7 @@ define(function (require) {
       },
 
       close: function (updateUrl) {
+          console.log("killing : ", this);
           console.log("Closing edit mode for " + this.catalogue.getName());
           _.each(this.questions, function (question_view) {
               question_view.close();
