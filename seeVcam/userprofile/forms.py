@@ -6,7 +6,7 @@ from userprofile.models import UserNotifications
 class UserProfileForm(ModelForm):
     class Meta:
         model = SeevcamUser
-        fields = ['username', 'email', 'first_name', 'last_name', 'job_title', 'country', 'timezone', 'company']
+        fields = ['username', 'email', 'first_name', 'last_name', 'job_title', 'country', 'timezone']
 
 
 class NotificationForm(ModelForm):
