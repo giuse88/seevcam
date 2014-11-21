@@ -1,27 +1,16 @@
 {% load widget_tweaks %}
 
-{% block title %}
-    <title> Profile/Update </title>
-{% endblock title %}
-
 {% block inner-content %}
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h3 class="panel-title">Profile</h3>
+            <h3 class="panel-title">User Profile</h3>
         </div>
-        <div class="panel-body">
+        <div class="panel-body overlay-container">
             <div class="row">
-                <div class="col-lg-8">
-                    <div class="col-lg-3">
-                        {% if object.pic %}
-                            <img src="{{ object.pic.url }}" alt="{{ object.username }}_profile_pic"
-                                 class="img-thumbnail img-responsive">
-                        {% else %}
-                            <img src="{{ MEDIA_URL }}/profile_pictures/no-profile-img.gif" alt="default_profile_pic"
-                                 class="img-thumbnail img-responsive">
-                        {% endif %}
-                    </div>
-                    <form enctype="multipart/form-data" action="" method="post" role="form">
+                <div class="col-lg-8 col-lg-offset-2">
+
+                    <form  data-pjax="inner-container" enctype="multipart/form-data" action="" method="post" role="form">
+
                         {% csrf_token %}
                         <div class="row">
 
@@ -29,10 +18,11 @@
                                 {{ form.pic }}
                             </div>
                         </div>
+
                         {{ form.non_field_errors }}
 
                         {% for field in form %}
-                            {% if field.html_name not in 'country'  and  field.html_name not in 'pic' and field.html_name not in 'timezone' %}
+                            {% if field.html_name not in 'country' and field.html_name not in 'timezone' %}
                                 <div class="form-group ">
                                     <label for="{{ field.id_for_label }}"> {{ field.label }}</label>
                                     <input type="text" class="form-control" id="{{ field.id_for_label }}"
@@ -56,12 +46,11 @@
                         </div>
 
                         <div class="form-group">
-                            <button type="submit" class="btn btn-success">Save Changes</button>
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
                         </div>
                     </form>
                 </div>
             </div>
-
         </div>
     </div>
 {% endblock inner-content %}

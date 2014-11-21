@@ -62,46 +62,6 @@ select.form-control {
     border-radius: 3px;
 }
 
-.list-group-item {
-    background-color: #fafafb;
-    border-top: 1px solid white;
-    border-bottom: 1px solid #eeeeee;
-    margin-bottom: auto;
-}
 
-a.list-group-item.active {
-    border-bottom-color: #eeeeee;
-    border-left: 2px solid #d26911 !important;
-    background-image: none;
-    background-color: #ffffff;
-    color: black;
-    text-shadow: none;
-    font-weight: bold;
-    cursor: default;
-    border-top: 1px solid white;
-}
-
-a.list-group-item.active:hover {
-    border-top: 1px solid white;
-}
-
-a.list-group-item.active:focus,
-a.list-group-item.active:hover {
-    background-image: none;
-    background-color: inherit;
-    border-bottom-color: #eeeeee;
-    color: black;
-    text-shadow: none;
-}
-
-a.list-group-item:hover,
-a.list-group-item:focus {
-    background-color: #fdfdfe;
-}
-
-.panel {
-    border-radius : 0;
-    border: 0;
-}
 
 

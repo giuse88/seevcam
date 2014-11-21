@@ -8,9 +8,6 @@ define(function(require){
   var LoadingBar = require("nanobar");
   var Notification = require("notification");
 
-
-
-
   return  Backbone.Router.extend({
 
     routes: {
@@ -20,10 +17,12 @@ define(function(require){
 
     initialize : function(){
       function navigator() {
-        this.navigate("questions/", {trigger:true});
+        console.log("going to questions");
+        this.navigate("/questions/", {trigger:true});
       }
       this.navbarElement = $('.navbar-nav *[data-route="questions"]');
-      $('*[data-route="questions"]').click(navigator.bind(this));
+      this.navbarElement.click(navigator.bind(this));
+      console.log("Questions router installed.");
     },
 
     questions: function () {
@@ -36,7 +35,9 @@ define(function(require){
         return;
       }
       Utils.updateActiveLink(this.navbarElement);
-      new CataloguesView({collection:window.cache.catalogues});
+      var catalogueView = new CataloguesView({collection:window.cache.catalogues});
+      Utils.safelyUpdateCurrentView(catalogueView);
+      $("#container").html(catalogueView.render().$el);
     },
 
     openCatalogue: function(catalogueId) {
@@ -59,11 +60,16 @@ define(function(require){
           }, this));
         return;
       }
+
       Utils.updateActiveLink(this.navbarElement);
-      new CataloguesView({
+      var catalogueView = new CataloguesView({
         collection:window.cache.catalogues,
         catalogue : catalogueId
       });
+      Utils.safelyUpdateCurrentView(catalogueView);
+      $("#container").html(catalogueView.render().$el);
+      // open catalogue
+      catalogueView.afterRender();
     },
 
     goToCatalogue: function(id, trigger ){

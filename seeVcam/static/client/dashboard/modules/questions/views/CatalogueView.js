@@ -94,13 +94,21 @@ define(function (require) {
           if(!isAlreadyOpened){
               this.$catalogueLink.parent('.row').toggleClass(highlightClass);
               this.$el.addClass('opened');
-              var view = new QuestionsView({catalogue:this.model, readOnly : true});
-              this.$questionList.html(view.render().el);
+              // cleaning old view
+              this.questionView && this.questionView.close();
+              this.questionView = new QuestionsView({catalogue:this.model, readOnly : true});
+              this.$questionList.html(this.questionView.render().el);
               this.$questionList.collapse('show');
           }
 
-      }
+      },
 
-    });
+      close : function(){
+          console.log("Killing : ", this);
+          this.remove();
+          this.unbind();
+          this.undelegateEvents();
+        }
+      });
 
 });

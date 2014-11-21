@@ -46,7 +46,7 @@ define(function(require){
         //Delete model
         this.model.destroy();
         //Delete view
-        this.remove();
+        this.close();
     },
 
     // Switch this view into `"editing"` mode, displaying the input field.
@@ -70,11 +70,11 @@ define(function(require){
         if (e.keyCode == 13) this.closeEditing();
     },
 
-
     close: function () {
-        this.remove();
-        this.unbind();
-        this.undelegateEvents();
+      console.log("Killing : ", this);
+      this.remove();
+      this.unbind();
+      this.undelegateEvents();
     }
 
 

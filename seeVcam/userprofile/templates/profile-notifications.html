@@ -1,22 +1,37 @@
-{% block title %} <title>Profile/Notifications </title>{% endblock %}
-
 {% block profile_content %}
   <div class="panel panel-default">
     <div class="panel-heading">
       <h3 class="panel-title">Notifications</h3>
     </div>
-    <div class="panel-body">
-      {{ form.non_field_errors }}
-      {% for field in form %}
-        <div class="fieldWrapper">
-          {{ field.errors }}
-          {{ field.label_tag }} {{ field }}
-        </div>
-      {% endfor %}
-      <div class="form-group">
-        <button type="submit" class="btn btn-primary">Save Changes</button>
-      </div>
-  </div>
+      <div class="panel-body notification-container overlay-container">
+      <form data-pjax="inner-container" enctype="multipart/form-data" action="" method="post" role="form">
+          {%  csrf_token %}
+          {{ form.non_field_errors }}
+
+          <div class="selector-container">
+              <h4>Interview room open</h4>
+              <p>Receive a notification email when the interview is open.</p>
+              {{ form.notification_when_room_is_open.errors }}
+              {{ form.notification_when_room_is_open }} <span class="label"> Active </span>
+          </div>
+
+          <hr class="bleed-flush compact">
+
+          <div class="selector-container">
+              <h4>Interview remainder</h4>
+              <p>Receive a remainder email before the interview.</p>
+              {{ form.notification_day_before.errors }}
+              {{ form.notification_hour_before.errors }}
+              {{ form.notification_hour_before }} <span class="label"> Hour </span>
+              {{ form.notification_day_before }} <span class="label"> Day </span>
+          </div>
+
+          <hr class="bleed-flush compact">
+
+           <button type="submit" class="btn btn-primary">Save Changes</button>
+
+      </form>
+    </div>
 </div>
 {% endblock profile_content %}
 

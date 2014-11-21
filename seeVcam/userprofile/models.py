@@ -1,7 +1,15 @@
 from django.db import models
-from authentication.models import SeevcamUser
+
 
 class UserNotifications(models.Model):
-    user = models.ForeignKey(SeevcamUser)
-    notification_15 = models.BooleanField()
-    notification_60 = models.BooleanField()
+    notification_when_room_is_open = models.BooleanField(default=True, blank=False, null=False)
+    notification_day_before = models.BooleanField(default=False, blank=False, null=False)
+    notification_hour_before = models.BooleanField(default=False, blank=False, null=False)
+
+    class Meta:
+        db_table = 'user_notifications'
+
+
+class UserIntegration(models.Model):
+    class Meta:
+        db_table = 'user_applications'

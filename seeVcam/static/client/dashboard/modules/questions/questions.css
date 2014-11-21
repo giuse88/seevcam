@@ -1,3 +1,16 @@
+
+.question-container {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.question-dashboard .panel {
+  border-radius : 0;
+  border: 0;
+}
+
 .catalog-labels {
     height: 37px;
     border-left: 1px solid #D1D1D1;
@@ -65,7 +78,9 @@
 
 .catalogs-list {
     height: calc(100% - 36px);
-    border-top: 1px solid #e6e6e6;
+    border-top: 1px solid #D1D1D1;
+    border-left: 1px solid #D1D1D1;
+    border-right: 1px solid #D1D1D1;
 }
 
 .catalogs-list > ul  {
@@ -392,10 +407,7 @@
     overflow: hidden;
 }
 
-.catalogue-list-item {
-    border-left: 1px solid #D1D1D1;
-    border-right: 1px solid #D1D1D1;
-}
+
 
 .catalogue-list-item .catalog-blue .catalogue-name:hover, .highlight-catalogue-blue {
     background-color: #0f73c2;
@@ -432,7 +444,7 @@
     color : white !important;
 }
 
-.catalogue-list-item:hover  .glyphicon {
+.catalogue-name:hover  .glyphicon {
     display: inline-block;
 }
 
@@ -446,7 +458,7 @@
 
 .catalogue-list-item .glyphicon {
     float: right;
-    line-height: 30px;
+    line-height: 28px;
     margin-right: 10px;
     cursor : pointer;
     display: none;

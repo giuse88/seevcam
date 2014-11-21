@@ -16,11 +16,12 @@ define(function (require) {
       },
 
       initialize: function () {
-          _.bindAll(this, "dragHelper");
-          this.listenTo(this.model, 'change', this.render);
-          this.listenTo(this.model, 'destroy', this.remove);
-          this.listenTo(this.model, 'error', Utils.syncError);
-          this.listenTo(this.model, 'sync', Utils.syncSuccess);
+        _.bindAll(this, "dragHelper");
+        _.bindAll(this, "close");
+        this.listenTo(this.model, 'change', this.render);
+        this.listenTo(this.model, 'destroy', this.close);
+        this.listenTo(this.model, 'error', Utils.syncError);
+        this.listenTo(this.model, 'sync', Utils.syncSuccess);
 
       },
 
@@ -42,15 +43,11 @@ define(function (require) {
           return this.helper_template(_.extend(this.model.toJSON(), {color : color}));
       },
 
-      deleteQuestion: function () {
-          this.model.destroy();
-          this.remove();
-      },
-
       close: function () {
-          this.remove();
-          this.unbind();
-          this.undelegateEvents();
+        console.log("Killing ", this);
+        this.remove();
+        this.unbind();
+        this.undelegateEvents();
       }
 
   });

@@ -6,17 +6,14 @@ define(function (require) {
 
   var $ = require("jquery");
   var router = require("dashboard/router");
+  var profile = require("modules/profile/profilePjax");
 
   $.ajaxSetup({
     headers: { "X-CSRFToken": window.CONSTANTS.csrft_token}
   });
 
-  $.pjax.defaults.timeout = 3000;
-
-  $(document).pjax('a[data-pjax], a.pjax, .pjax', '#container');
-  $(document).on('submit', 'form[data-pjax]', function(event) {
-    $.pjax.submit(event, '#container')
-  });
+  // Profile page. This page works with pjax.
+  profile.installPjaxForProfilePage();
 
   window.app = {
     name : "SeeVcam",
@@ -24,4 +21,3 @@ define(function (require) {
   };
 
 });
-

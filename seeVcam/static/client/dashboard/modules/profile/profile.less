@@ -1,0 +1,70 @@
+.profile-container {
+
+  a.list-group-item {
+
+    background-color: #fafafb;
+    border-top: 1px solid white;
+    border-bottom: 1px solid #eeeeee;
+    margin-bottom: auto;
+
+    &.active {
+      border-bottom-color: #eeeeee;
+      border-left: 2px solid @orange !important;
+      background-image: none;
+      background-color: #ffffff;
+      color: black;
+      text-shadow: none;
+      font-weight: bold;
+      cursor: default;
+      border-top: 1px solid white;
+
+      &:focus,&:hover {
+        background-image: none;
+        background-color: inherit;
+        border-bottom-color: #eeeeee;
+        color: black;
+        text-shadow: none;
+      }
+    }
+
+    &:hover, &:focus {
+      background-color: #fdfdfe;
+    }
+
+  }
+
+  .notification-container {
+
+    padding: 0;
+
+    h4 {
+      font-size: 14px;
+      color: #000;
+      line-height: 1.1;
+      font-weight: 700;
+    }
+
+    p {
+      margin: 10px 0;
+      color: @grey;
+    }
+
+    .label {
+      color : @grey;
+      font-weight: bold;
+      font-size :13px;
+    }
+
+    .selector-container {
+      margin-right: 15px;
+      margin-left: 15px;
+    }
+
+    .btn {
+      margin-left :15px;
+      margin-bottom: 15px;
+    }
+
+  }
+
+}

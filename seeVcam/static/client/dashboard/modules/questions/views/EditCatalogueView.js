@@ -187,12 +187,13 @@ define(function (require) {
       },
 
       close: function (updateUrl) {
+          console.log("killing : ", this);
           console.log("Closing edit mode for " + this.catalogue.getName());
           _.each(this.questions, function (question_view) {
               question_view.close();
           });
           if (updateUrl){
-            window.app.router.QuestionsRouter.goToQuestions();
+            window.app.router.QuestionsRouter.goToQuestions(false);
           }
           this.remove();
           this.unbind();
@@ -203,7 +204,7 @@ define(function (require) {
       deleteCatalogue: function () {
           console.log("Deleting catalogue " + this.catalogue.getName());
           this.catalogue.destroy();
-          this.close();
+          this.close(true);
       }
 
 });

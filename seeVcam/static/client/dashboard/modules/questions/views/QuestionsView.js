@@ -10,7 +10,7 @@ define(function (require) {
 
         tagName : 'ul',
         className : 'question-list',
-        template_no_questions : '<li class="question"><div class="question-read-only view form-group"> <p>No questions</p></div></li>',
+        template_no_questions : '<li class="question"><div class="no-question view form-group"> <p>No questions</p></div></li>',
 
         initialize : function(options){
             this.catalogue = options && options.catalogue;
@@ -26,7 +26,6 @@ define(function (require) {
             this.listenTo(this.collection, 'add', this.renderQuestion);
             this.listenTo(this.collection, 'error', Utils.syncError);
             this.listenTo(this.collection, 'sync', this.renderAllQuestions);
-            this.listenTo(this.collection, 'remove', this.renderNoQuestion);
             this.listenTo(this.collection, 'destroy', this.renderNoQuestion);
 
         },
@@ -45,6 +44,11 @@ define(function (require) {
         },
 
          renderAllQuestions: function(){
+           // killing subviews
+            _.each(this.questionsViews, function(question) {
+             question.close();
+            });
+
             this.$el.html("");
             console.log("Questions view render entire collection");
             this.collection.each(function (item) {
@@ -63,6 +67,18 @@ define(function (require) {
             }
             this.$el.append(questionView.render().el);
             this.questionsViews.push(questionView);
+        },
+
+        close : function(){
+          console.log("Killing : ", this);
+          // killing subviews
+          _.each(this.questionsViews, function(question) {
+           question.close();
+          });
+          // remove events
+          this.remove();
+          this.unbind();
+          this.undelegateEvents();
         }
 
     });

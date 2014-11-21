@@ -8,11 +8,11 @@ define(function (require) {
   var EditCatalogueView = require("modules/questions/views/EditCatalogueView");
 
   return  Backbone.View.extend({
-    el :"#container",
+
     tagName : "div",
-    id :  "#question-dashboard",
+    className : "question-container",
     template: _.template(
-        '<div clalss="row" style="height:95%;" > ' +
+        '<div class="row question-dashboard" style="height:95%;" > ' +
         '    <div class="col-lg-6" style="height:100%;" >' +
         '       <div class="row" style="height:100%;" >' +
         '            <div class="panel" style="height:100%;" >' +
@@ -81,9 +81,6 @@ define(function (require) {
       this.listenTo(this.collection, 'reset', this.renderEntireCollection);
       this.listenTo(this.collection, 'error', Utils.syncError);
       this.listenTo(this.collection, 'sync', Utils.syncSuccess);
-      this.render();
-      this.afterRender();
-//            _.defer(_.bind(function(){this.$el.find('.scroll-pane').jScrollPane()}, this));
       //
     },
 
@@ -227,6 +224,23 @@ define(function (require) {
 
     showQuestions : function(item) {
       console.log(item);
+    },
+
+    close: function () {
+      console.log("Killing : ", this);
+      // closing catalogue if there is one open
+      if (this.openedCatalogue) {
+        this.openedCatalogue.close(false);
+      }
+      // closing subviews
+      // catalogueViews is a kind of map. I am using compact because there are plenty of undefinied elements.
+      _.each(_.compact(this.catalogueViews), function(catalogueView){
+        catalogueView.close();
+      });
+      // remove events
+      this.remove();
+      this.unbind();
+      this.undelegateEvents();
     }
 
   });
