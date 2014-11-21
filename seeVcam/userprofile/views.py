@@ -50,6 +50,7 @@ class UserProfileSettings(LoginRequired, PJAXResponseMixin, FormView):
     def form_valid(self, form):
         if form.is_valid():
             form.save()
+        return super(UserProfileSettings, self).form_valid(form)
 
 
 class UserProfileIntegration(LoginRequired, PJAXResponseMixin, TemplateView):
