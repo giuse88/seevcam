@@ -1,12 +1,35 @@
 from django.db import models
 from django.conf import settings
-
 from common.helpers.file_upload import upload_job_spec, upload_cv
 from common.mixins.model import UpdateCreateTimeStamp, CompanyInfo
 from questions.models import QuestionCatalogue
 
 
-class Interview(models.Model, UpdateCreateTimeStamp):
+class Candidate(UpdateCreateTimeStamp, CompanyInfo):
+
+    name = models.CharField(db_index=True, max_length=255, null=False, blank=False)
+    surname = models.CharField(db_index=True, max_length=255, null=False, blank=False)
+    email = models.EmailField(db_index=True, null=False, blank=False, unique=True)
+    cv = models.FileField(null=False, blank=False, upload_to=upload_cv)
+
+    class Meta:
+        verbose_name = 'candidate'
+        verbose_name_plural = 'candidates'
+        db_table = "candidates"
+
+
+class JobPosition(UpdateCreateTimeStamp, CompanyInfo):
+
+    position = models.CharField(max_length=255, null=False, blank=False)
+    job_description = models.FileField(null=True, blank=True, upload_to=upload_job_spec)
+
+    class Meta:
+        verbose_name = 'job_position'
+        verbose_name_plural = 'job_positions'
+        db_table = "job_positions"
+
+
+class Interview(UpdateCreateTimeStamp):
 
     ONGOING = 'ONGOING'
     OPEN = 'OPEN'
@@ -24,31 +47,13 @@ class Interview(models.Model, UpdateCreateTimeStamp):
     # May or May not use a catalogue
     catalogue = models.ForeignKey(QuestionCatalogue, null=True, blank=True)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, null=False, blank=False)
-    job_position = models.ForeignKey(QuestionCatalogue, null=False, blank=False)
+    job_position = models.ForeignKey(JobPosition, null=False, blank=False)
     candidate = models.ForeignKey(Candidate, null=False, blank=False)
 
     class Meta:
+        verbose_name = 'interview'
+        verbose_name_plural = 'interviews'
         db_table = "interviews"
-
-
-class Candidate(models.Model, UpdateCreateTimeStamp, CompanyInfo):
-
-    name = models.CharField(db_index=True, max_length=255, null=False, blank=False)
-    surname = models.CharField(db_index=True, max_length=255, null=False, blank=False)
-    email = models.EmailField(db_index=True, null=False, blank=False, unique=True)
-    cv = models.FileField(null=False, blank=False, upload_to=upload_cv)
-
-    class Meta:
-        db_table = "candidates"
-
-
-class JobPosition(models.Model, UpdateCreateTimeStamp, CompanyInfo):
-
-    interview_position = models.CharField(max_length=255, null=False, blank=False)
-    interview_job_description = models.FileField(null=True, blank=True, upload_to=upload_job_spec)
-
-    class Meta:
-        db_table = "job_positions"
 
 
 # Helpers
