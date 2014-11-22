@@ -7,9 +7,13 @@ class UserNotifications(models.Model):
     notification_hour_before = models.BooleanField(default=False, blank=False, null=False)
 
     class Meta:
+        verbose_name = 'user_notifications'
+        verbose_name_plural = 'user_notifications'
         db_table = 'user_notifications'
 
 
-class UserIntegration(models.Model):
+class UserApplications(models.Model):
     class Meta:
+        verbose_name = 'user_applications'
+        verbose_name_plural = 'user_applications'
         db_table = 'user_applications'

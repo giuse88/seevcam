@@ -1,9 +1,10 @@
 from django.db import models
 from django.conf import settings
+from common.mixins.model import UpdateCreateTimeStamp
 
 
-class QuestionCatalogue(models.Model):
-    #todo new status
+class QuestionCatalogue(UpdateCreateTimeStamp):
+
     PRIVATE_SCOPE = 'PRIVATE'
     SEEVCAM_SCOPE = 'SEEVCAM'
     ANONYMOUS_SCOPE = 'ANONYMOUS'
@@ -26,10 +27,16 @@ class QuestionCatalogue(models.Model):
     def __unicode__(self):
         return self.catalogue_name
 
+    class Meta:
+        db_table = "catalogues"
 
-class Question(models.Model):
+
+class Question(UpdateCreateTimeStamp):
     question_text = models.TextField(null=False, blank=False)
     question_catalogue = models.ForeignKey(QuestionCatalogue, null=False, blank=False)
 
     def __unicode__(self):
         return self.question_text
+
+    class Meta:
+        db_table = "questions"

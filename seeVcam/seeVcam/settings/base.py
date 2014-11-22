@@ -33,6 +33,7 @@ LOCAL_APPS = (
     'dashboard',
     'userprofile',
     'interview_room',
+    'company_profile',
     'notes',
     'reports'
 )
