@@ -11,13 +11,13 @@ from questions.models import QuestionCatalogue
 
 class InterviewViewTest(TestCase):
     # #############################################################################
-    #                                PROPERTIES                                  #
-    ##############################################################################
+    # PROPERTIES                                  #
+    # #############################################################################
 
     # The json must be in strict mode
     question_catalogue = None
 
-    ##############################################################################
+    # #############################################################################
     #                                SETTING UP                                  #
     ##############################################################################
 
@@ -73,14 +73,55 @@ class InterviewViewTest(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertJSONEqual(str(response.content), expected_response)
 
-    def test_user_can_create_an_interview(self):
-        expected_response = '{"id": 2, "start": "2014-12-23T11:30:00Z", "end": "2014-12-23T12:00:00Z", "status": "OPEN", "job_position": {"id": 2, "position": "text"}, "candidate": {"id": 2, "name": "giuseppe", "email": "test_1@test.com", "surname": "pes"}, "catalogue": 1}';
+    def test_get_interview_details(self):
+        expected_response = '{"id": 1, "start": "2014-12-23T11:30:00Z", "end": "2014-12-23T12:00:00Z", "status": "OPEN", "job_position": {"id": 1, "position": "text"}, "candidate": {"id": 1, "name": "giuseppe", "email": "test@test.com", "surname": "pes"}, "catalogue": 1}';
         self.client.force_authenticate(user=self.user)
-        interview_json = {"start": "2014-12-23T11:30:00Z", "end": "2014-12-23T12:00:00Z", "status": "OPEN", "job_position": {"position": "text"}, "candidate": { "name": "giuseppe", "email": "test_1@test.com", "surname": "pes"}, "catalogue": 1}
+        response = self.client.get("/dashboard/interviews/interviews/1/")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertJSONEqual(str(response.content), expected_response)
+
+    def test_user_can_create_an_interview(self):
+        expected_response = '{"id": 2, "start": "2014-12-23T11:30:00Z", "end": "2014-12-23T12:00:00Z", "status": "OPEN", "job_position": {"id": 2, "position": "text"}, "candidate": {"id": 2, "name": "giuseppe", "email": "test_1@test.com", "surname": "pes"}, "catalogue": 1}'
+        self.client.force_authenticate(user=self.user)
+        interview_json = {"start": "2014-12-23T11:30:00Z", "end": "2014-12-23T12:00:00Z", "status": "OPEN",
+                          "job_position": {"position": "text"},
+                          "candidate": {"name": "giuseppe", "email": "test_1@test.com", "surname": "pes"},
+                          "catalogue": 1}
         response = self.client.post("/dashboard/interviews/interviews/", interview_json, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertJSONEqual(str(response.content), expected_response)
 
     def test_user_can_update_a_interview_date(self):
         pass
+
+    def test_user_can_update_candidate_info(self):
+        self.client.force_authenticate(user=self.user)
+        interview = {"id": 2, "start": "2014-12-23T11:30:00Z", "end": "2014-12-23T12:00:00Z", "status": "OPEN",
+                     "job_position": {"id": 2, "position": "update"},
+                     "candidate": {"id": 2, "name": "update", "email": "test_1@test.com", "surname": "pes"},
+                     "catalogue": 1}
+        response = self.client.put("/dashboard/interviews/interviews/1/", interview, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        updated_candidate = Candidate.objects.get(pk=1)
+        self.assertEqual(updated_candidate.name, "update")
+
+    def test_use_can_update_job_info(self):
+        self.client.force_authenticate(user=self.user)
+        interview = {"id": 2, "start": "2014-12-23T11:30:00Z", "end": "2014-12-23T12:00:00Z", "status": "OPEN",
+                     "job_position": {"id": 2, "position": "update"},
+                     "candidate": {"id": 2, "name": "giuseppe", "email": "test_1@test.com", "surname": "pes"},
+                     "catalogue": 1}
+        response = self.client.put("/dashboard/interviews/interviews/1/", interview, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        updated_position = JobPosition.objects.get(pk=1)
+        self.assertEqual(updated_position.position, "update")
+
+    def test_user_can_delete_interview(self):
+        self.client.force_authenticate(user=self.user)
+        response = self.client.delete("/dashboard/interviews/interviews/1/")
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(Interview.objects.count(), 0)
+
 
