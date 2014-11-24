@@ -4,6 +4,7 @@ from interviews.models import Interview
 from questions.models import QuestionCatalogue
 from StringIO import StringIO
 
+
 def create_interview_model():
     user_1 = create_dummy_user('user_1', 'password')
     file_path = "test-file/test-file.txt"

@@ -10,7 +10,7 @@ class Candidate(UpdateCreateTimeStamp, CompanyInfo):
     name = models.CharField(db_index=True, max_length=255, null=False, blank=False)
     surname = models.CharField(db_index=True, max_length=255, null=False, blank=False)
     email = models.EmailField(db_index=True, null=False, blank=False, unique=True)
-    cv = models.FileField(null=False, blank=False, upload_to=upload_cv)
+    cv = models.FileField(null=True, blank=False, upload_to=upload_cv)
 
     class Meta:
         verbose_name = 'candidate'

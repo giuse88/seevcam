@@ -14,7 +14,7 @@ class UpdateCreateTimeStamp(models.Model):
 
 class CompanyInfo(models.Model):
     company = models.ForeignKey(Company, null=False, blank=False)
-    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, null=False, blank=False, db_column='create_by')
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, null=False, blank=False, db_column='created_by')
 
     class Meta:
         abstract = True

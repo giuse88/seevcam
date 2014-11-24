@@ -46,10 +46,7 @@ class SeevcamUserManager(BaseUserManager):
         if not company:
             raise ValueError('Users must belong to a company')
 
-        user_company = Company(name=company)
-        user_company.save()
-
-        return self._create_user(email, password, user_company, False, False, country, user_timezone, **extra_fields)
+        return self._create_user(email, password, company, False, False, country, user_timezone, **extra_fields)
 
     def create_superuser(self, email, password, **extra_fields):
         company, created = Company.objects.get_or_create(name="seevcam")
