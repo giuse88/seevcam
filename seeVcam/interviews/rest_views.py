@@ -4,6 +4,13 @@ from interviews.models import Interview
 from interviews.serializers import InterviewSerializer
 
 
+class IsOwner(object):
+
+    def has_object_permission(self, request, view, obj):
+        return obj.catalogue_owner == request.user
+
+
+
 class InterviewList(generics.ListCreateAPIView):
     serializer_class = InterviewSerializer
 
