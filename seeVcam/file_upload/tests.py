@@ -14,15 +14,14 @@ class UploadFileModelTest(TestCase):
     def setUp(self):
         self.file = create_upload_file()
         self.user = create_dummy_user('test@test.com', 'test')
-        self.uploaded_file = UploadedFile(pk=1, file=self.file, size=self.file.size, created_by=self.user,
-                                          name=self.file.name, url='url', delete_url='delete_url')
+        self.uploaded_file = UploadedFile.objects.create_uploaded_file(self.file, self.user)
         self.uploaded_file.save()
 
     def tearDown(self):
         if self.uploaded_file:
             self.uploaded_file.delete()
-        os.remove(os.path.join(settings.MEDIA_ROOT, str(self.user.id), self.file.name))
-        os.rmdir(os.path.join(settings.MEDIA_ROOT, str(self.user.id)))
+        os.remove(os.path.join(settings.SEEVCAM_UPLOAD_FILE_FOLDER, str(self.user.id), self.file.name))
+        os.rmdir(os.path.join(settings.SEEVCAM_UPLOAD_FILE_FOLDER, str(self.user.id)))
 
     def test_creation_file_upload(self):
         uploaded_file_db = UploadedFile.objects.get(pk=1)

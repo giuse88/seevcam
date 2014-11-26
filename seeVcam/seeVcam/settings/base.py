@@ -207,6 +207,8 @@ SEEVCAM_UPLOAD_FILE_MIME_TYPES = [
     'application/vnd.openxmlformats-officedocument.wordprocessingml.document',  #WORD
     'application/msword',  #WORD
 ]
+
 SEEVCAM_UPLOAD_FILE_MAX_SIZE = "2097152"  # 2MB
+SEEVCAM_UPLOAD_FILE_FOLDER = os.path.join(MEDIA_ROOT, 'uploaded_files')
 APPEND_SLASH = True
 INTERVIEW_TEMPORAL_WINDOW = 900 # 15 minutes
