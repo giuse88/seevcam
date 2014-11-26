@@ -4,7 +4,9 @@ from django.conf import settings
 from django.test import TestCase
 
 from common.helpers.test_helper import create_upload_file, create_dummy_user
+from rest_framework.renderers import JSONRenderer
 from file_upload.models import UploadedFile
+from file_upload.serializers import UploadedFileSerializer
 
 
 class UploadFileModelTest(TestCase):
@@ -32,3 +34,10 @@ class UploadFileModelTest(TestCase):
         self.uploaded_file.delete()
         self.assertEqual(UploadedFile.objects.filter(pk=1).count(), 0)
         self.uploaded_file = None
+
+    def test_serializer(self):
+        file_json = '{"id": 1, "type": "", "size": 35, "url": "url", "delete_type": "DELETE", "delete_url": "delete_url", "name": "test.pdf"}'
+        file = UploadedFile.objects.get(pk=1)
+        serializer = UploadedFileSerializer(file)
+        json = JSONRenderer().render(serializer.data)
+        self.assertJSONEqual(file_json, json)

@@ -14,4 +14,3 @@ class UploadedFile(models.Model):
     delete_url = models.URLField(blank=False, null=False)
     delete_type = models.CharField(max_length=50, null=False, blank=False, default='DELETE')
     upload_type = models.CharField(max_length=50, null=False, blank=False, default='POST')
-
