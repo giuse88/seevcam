@@ -1,8 +1,11 @@
-from django.conf.urls import patterns, include, url
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.views import logout_then_login
-from views import DashboardView
+from django.conf.urls import patterns, url
+from django.views.generic import TemplateView
+
+from file_upload.views import file_upload, file_delete
+
 
 urlpatterns = patterns('',
-                       url(r'^upload/', login_required(logout_then_login), name="logout"),
+                       url(r'^test/', TemplateView.as_view(template_name="index.html")),
+                       url(r'^', file_upload, name="file_upload"),
+                       url(r'(?P<pk>[0-9]+)?$', file_delete, name='file_delete')
 )

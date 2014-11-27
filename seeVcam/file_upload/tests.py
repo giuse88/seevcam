@@ -19,13 +19,14 @@ class UploadFileModelTest(TestCase):
 
     def tearDown(self):
         if self.uploaded_file:
+            os.remove(os.path.join(settings.SEEVCAM_UPLOAD_FILE_FOLDER, str(self.user.id), self.uploaded_file.name))
+            os.rmdir(os.path.join(settings.SEEVCAM_UPLOAD_FILE_FOLDER, str(self.user.id)))
             self.uploaded_file.delete()
-        os.remove(os.path.join(settings.SEEVCAM_UPLOAD_FILE_FOLDER, str(self.user.id), self.file.name))
-        os.rmdir(os.path.join(settings.SEEVCAM_UPLOAD_FILE_FOLDER, str(self.user.id)))
 
     def test_creation_file_upload(self):
         uploaded_file_db = UploadedFile.objects.get(pk=1)
-        self.assertEqual(uploaded_file_db.name, "test.pdf")
+        self.assertEqual(uploaded_file_db.original_name, "test.pdf")
+        self.assertEqual(uploaded_file_db.name, "_1.pdf")
         self.assertEqual(uploaded_file_db.size, self.file.size)
         self.assertEqual(uploaded_file_db.created_by.id, self.user.id)
 
@@ -35,7 +36,7 @@ class UploadFileModelTest(TestCase):
         self.uploaded_file = None
 
     def test_serializer(self):
-        file_json = '{"id": 1, "type": "", "size": 35, "url": "url", "delete_type": "DELETE", "delete_url": "delete_url", "name": "test.pdf"}'
+        file_json = '{"id": 1, "type": "", "size": 35, "url": "/media/uploaded_files/1/_1.pdf", "delete_type": "DELETE", "delete_url": "/dashboard/files/1", "name": "_1.pdf"}'
         file = UploadedFile.objects.get(pk=1)
         serializer = UploadedFileSerializer(file)
         json = JSONRenderer().render(serializer.data)
