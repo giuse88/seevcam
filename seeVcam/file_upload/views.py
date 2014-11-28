@@ -2,6 +2,7 @@ import logging
 import json
 import os
 from django.http import HttpResponseBadRequest, HttpResponse
+from django.shortcuts import get_object_or_404
 from file_upload.models import UploadedFile
 from file_upload.serializers import UploadedFileSerializer
 
@@ -17,7 +18,7 @@ def file_upload(request):
             log.error('[File upload] : request without file')
             return HttpResponseBadRequest('Must have files attached!')
 
-        file_request = request.FILES[u'files[]']
+        file_request = request.FILES[u'file']
         file_type = request.POST['type']
         uploaded_file = UploadedFile.objects.create_uploaded_file(file_request, request.user, file_type)
         serializer = UploadedFileSerializer(uploaded_file)
@@ -27,9 +28,15 @@ def file_upload(request):
         return HttpResponseBadRequest(UNSUPPORTED_REQUEST)
 
 
-def file_delete(request):
-    pk = request.kwargs['pk']
-    uploaded_file = UploadedFile.objects.get(pk=pk)
-    #this should be async
-    os.remove(uploaded_file.file)
-    uploaded_file.delete()
+def file_delete(request, pk):
+    if request.method == 'DELETE':
+        # pk = request.kwargs['pk']
+        uploaded_file = get_object_or_404(UploadedFile, pk=pk)
+        #this should be async
+        log.info("Deleting file " + str(uploaded_file.file))
+        os.remove(str(uploaded_file.file))
+        uploaded_file.delete()
+        response_data = {'status': 'deleted'}
+        return HttpResponse(json.dumps(response_data), content_type="application/json")
+    else:
+        return HttpResponseBadRequest(UNSUPPORTED_REQUEST)
