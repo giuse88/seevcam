@@ -1,6 +1,8 @@
+from django.core.files.uploadedfile import SimpleUploadedFile
 from authentication.models import SeevcamUser
 from interviews.models import Interview
 from questions.models import QuestionCatalogue
+from StringIO import StringIO
 
 def create_interview_model():
     user_1 = create_dummy_user('user_1', 'password')
@@ -20,8 +22,8 @@ def create_interview_model():
     return interview
 
 
-def create_dummy_user(username, password):
-    user = SeevcamUser.objects.create_user(username, password=password)
+def create_dummy_user(email, company, password='test'):
+    user = SeevcamUser.objects.create_user(email, password, company)
     user.save()
     return user
 
@@ -31,3 +33,9 @@ def create_dummy_catalogue(name, user):
                                   catalogue_name=name, catalogue_owner=user)
     catalogue.save()
     return catalogue
+
+
+def create_upload_file(name="test.pdf", type='application/pdf'):
+     raw_content = StringIO('GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
+                             '\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
+     return SimpleUploadedFile(name, raw_content.read(), type)

@@ -20,7 +20,8 @@
     "fullcalendar": "1.6.4",
     "circliful": "~0.1.5",
     "requirejs": "~2.1.15",
-    "less": "~1.7.5"
+    "less": "~1.7.5",
+    "jquery-file-upload": "~9.8.0"
   },
   "resolutions": {
     "bootstrap": "3.2.0",
