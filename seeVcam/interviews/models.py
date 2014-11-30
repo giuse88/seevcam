@@ -2,6 +2,7 @@ from django.db import models
 from django.conf import settings
 from common.helpers.file_upload import upload_job_spec, upload_cv
 from common.mixins.model import UpdateCreateTimeStamp, CompanyInfo
+from file_upload.models import UploadedFile
 from questions.models import QuestionCatalogue
 
 
@@ -10,7 +11,7 @@ class Candidate(UpdateCreateTimeStamp, CompanyInfo):
     name = models.CharField(db_index=True, max_length=255, null=False, blank=False)
     surname = models.CharField(db_index=True, max_length=255, null=False, blank=False)
     email = models.EmailField(db_index=True, null=False, blank=False, unique=True)
-    cv = models.FileField(null=True, blank=False, upload_to=upload_cv)
+    cv = models.OneToOneField(UploadedFile, primary_key=False, null=False, blank=False, unique=True)
 
     class Meta:
         verbose_name = 'candidate'

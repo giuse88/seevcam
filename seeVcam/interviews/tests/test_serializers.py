@@ -4,8 +4,9 @@ from rest_framework.parsers import JSONParser
 from rest_framework.renderers import JSONRenderer
 
 from authentication.models import SeevcamUser
-from common.helpers.test_helper import create_dummy_user
+from common.helpers.test_helper import create_dummy_user, create_upload_file
 from company_profile.models import Company
+from file_upload.models import UploadedFile
 from interviews.models import Candidate, JobPosition, Interview
 from interviews.serializers import CandidateSerializer, JobPositionSerializer, InterviewSerializer
 from questions.models import QuestionCatalogue
@@ -30,8 +31,12 @@ class CandidateSerializerTest(TestCase):
 
         self.user = create_dummy_user('test@test.com', company=self.company, password='test')
 
+        self.file = create_upload_file()
+        self.uploaded_file = UploadedFile.objects.create_uploaded_file(self.file, self.user)
+        self.uploaded_file.save()
+
         self.candidate = Candidate(pk=1, created_by=self.user, company=self.company,
-                                   name='giuseppe', surname='pes', email='test@test.com', cv=None)
+                                   name='giuseppe', surname='pes', email='test@test.com', cv=self.uploaded_file)
         self.candidate.save()
 
         self.catalogue = QuestionCatalogue(catalogue_name='test', catalogue_owner=self.user)
@@ -68,7 +73,7 @@ class CandidateSerializerTest(TestCase):
     ##############################################################################
 
     def test_candidate_serializer(self):
-        candidate_json = '{"id": 1, "name": "giuseppe", "email": "test@test.com", "surname": "pes"}'
+        candidate_json = '{"id": 1, "name": "giuseppe", "email": "test@test.com", "surname": "pes", "cv": 1}'
         candidate = Candidate.objects.get(pk=1)
         serializer = CandidateSerializer(candidate)
         data = serializer.data
@@ -79,10 +84,18 @@ class CandidateSerializerTest(TestCase):
         self.assertEqual(JSONRenderer().render(data), candidate_json)
 
     def test_candidate_deserializer(self):
-        candidate_json = '{"id": 2, "name": "giuseppe", "email": "test_1@test.com", "surname": "pes"}'
+
+        uploaded_file = UploadedFile.objects.create_uploaded_file(self.file, self.user)
+        uploaded_file.save()
+
+        cv = '{"id": 2, "type": "", "size": 35, "url": "/media/uploaded_files/2/_2.pdf", "delete_type": "DELETE", "delete_url": "/dashboard/files/2", "name": "_2.pdf", "original_name": "test.pdf"}'
+
+        candidate_json = '{"id": 2, "name": "giuseppe", "email": "test_1@test.com", "surname": "pes", "cv" : 2}'
+        print candidate_json
         stream = BytesIO(candidate_json)
         data = JSONParser().parse(stream)
         serializer = CandidateSerializer(data=data)
+        print serializer.errors
         self.assertTrue(serializer.is_valid())
         # candidate = serializer.object
         # I can't save in the db because some parts are missing
@@ -104,14 +117,14 @@ class CandidateSerializerTest(TestCase):
         self.assertTrue(serializer.is_valid())
 
     def test_interview_serializer(self):
-        json = '{"id": 1, "start": "2014-12-23T11:30:00Z", "end": "2014-12-23T12:00:00Z", "status": "OPEN", "job_position": {"id": 1, "position": "text"}, "candidate": {"id": 1, "name": "giuseppe", "email": "test@test.com", "surname": "pes"}, "catalogue": 1}'
+        json = '{"id": 1, "start": "2014-12-23T11:30:00Z", "end": "2014-12-23T12:00:00Z", "status": "OPEN", "job_position": {"id": 1, "position": "text"}, "candidate": {"id": 1, "name": "giuseppe", "email": "test@test.com", "surname": "pes", "cv" : 1}, "catalogue": 1}'
         interview = Interview.objects.get(pk=1)
         serializer = InterviewSerializer(interview)
         data = serializer.data
         self.assertJSONEqual(JSONRenderer().render(data), json)
 
     def test_interview_deserialization(self):
-        json = '{"id": 1, "start": "2014-12-23T11:30:00Z", "end": "2014-12-23T12:00:00Z", "status": "OPEN", "job_position": {"id": 1, "position": "text"}, "candidate": {"id": 1, "name": "giuseppe", "email": "test_1@test.com", "surname": "pes"}, "catalogue": 1}'
+        json = '{"id": 1, "start": "2014-12-23T11:30:00Z", "end": "2014-12-23T12:00:00Z", "status": "OPEN", "job_position": {"id": 1, "position": "text"}, "candidate": {"id": 1, "name": "giuseppe", "email": "test_1@test.com", "surname": "pes", "cv": 1}, "catalogue": 1}'
         stream = BytesIO(json)
         data = JSONParser().parse(stream)
         serializer = InterviewSerializer(data=data)
