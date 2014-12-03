@@ -2,7 +2,6 @@ from StringIO import StringIO
 import os
 import datetime
 
-from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
 from pytz import timezone
 from rest_framework import status
@@ -10,6 +9,7 @@ from django.conf import settings
 from common.helpers.test_helper import create_dummy_user, create_dummy_company, create_upload_file
 
 from common.helpers.timezone import to_user_timezone
+from file_upload.models import UploadedFile
 from interviews.models import Interview
 from questions.models import QuestionCatalogue
 
@@ -38,7 +38,10 @@ class InterviewFormTest(TestCase):
         self.user_2 = create_dummy_user('user_2', self.company, 'test')
 
         self.file_cv = create_upload_file()
+        self.uploaded_cv = UploadedFile.objects.create_uploaded_file(self.file_cv, self.user_1, "curriculum")
         self.file_job = create_upload_file()
+        self.uploaded_job = UploadedFile.objects.create_uploaded_file(self.file_job, self.user_1, "job_spec")
+
         self.catalogue = self._create_dummy_catalogue("test", self.user_1)
 
     def tearDown(self):
@@ -46,17 +49,19 @@ class InterviewFormTest(TestCase):
 
     def test_user_can_create_an_interview(self):
         self.client.login(username='user_1', password='test')
-        response = self._create_interview("test@email.com", "name", "surname", "job_position", self.file_cv,
-                                          self.file_job, self.catalogue.id, self.start, self.end)
+        response = self._create_interview("test@email.com", "name", "surname", "job_position", self.uploaded_cv,
+                                          self.uploaded_job, self.catalogue.id, self.start, self.end)
 
         self.assertEqual(response.status_code, status.HTTP_302_FOUND)
         self.assertEqual(Interview.objects.filter(owner=self.user_1).count(), 1)
         self.assertEqual(Interview.objects.count(), 1)
         interview = Interview.objects.get(pk=1)
+
         self.assertEqual(interview.candidate.name, "name")
         self.assertEqual(interview.candidate.surname, "surname")
         self.assertEqual(interview.candidate.cv.original_name, "test.pdf")
         self.assertEqual(interview.candidate.cv.name, "curriculum_1.pdf")
+
         self.assertEqual(interview.job_position.position, "job_position")
         self.assertEqual(interview.job_position.job_description.original_name, "test.pdf")
         self.assertEqual(interview.job_position.job_description.name, "job_spec_2.pdf")
@@ -270,9 +275,9 @@ class InterviewFormTest(TestCase):
             'candidate-email': email,
             'candidate-name': name,
             'candidate-surname': surname,
-            'candidate-cv': file_cv,
+            'candidate-cv': file_cv.id,
             'job-position-position': position,
-            'job-position-job-spec': file_job_dec,
+            'job-position-job_description': file_job_dec.id,
             'interview-catalogue': catalogue_id,
             'interview-start': start,
             'interview-end': end,
@@ -291,7 +296,7 @@ class InterviewFormTest(TestCase):
             'candidate_email': "test@email.it",
             'candidate_name': "name",
             'candidate_surname': "surname",
-            'candidate_cv': file_cv,
+            'candidate_cv': file_cv.id,
             'interview_job_description': file_job_dec,
             'interview_position': 'job',
             'interview_catalogue': catalogue_id,

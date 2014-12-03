@@ -67,16 +67,15 @@ class CreateInterviewForm(forms.ModelForm):
 
 
 class CandidateForm(forms.ModelForm):
-
     class Meta:
         model = Candidate
-        fields = ['name', 'email', 'surname']
+        fields = ['name', 'email', 'surname', 'cv']
 
 
 class JobPositionForm(forms.ModelForm):
     class Meta:
         model = JobPosition
-        fields = ['position']
+        fields = ['position', 'job_description']
 
 
 # #######################################################################################################################
