@@ -18,7 +18,8 @@ def upload_to_user_folder(instance, filename):
     user_id = str(instance.created_by.id)
     folder_name = str(instance.type)
     normalized_file_name = normalize_name(instance, filename)
-    return os.path.join(settings.SEEVCAM_UPLOAD_FILE_FOLDER, user_id, folder_name, normalized_file_name)
+    folder = os.path.join(settings.SEEVCAM_UPLOAD_FILE_FOLDER, user_id, folder_name, normalized_file_name)
+    return folder
 
 
 def upload_cv(instance, filename):

@@ -1,16 +1,18 @@
 import json
 
 import datetime
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.views.generic import CreateView, ListView, UpdateView, View
 from django.core.urlresolvers import reverse_lazy
 
 from common.mixins.authorization import LoginRequired
-from interviews.forms import CreateInterviewForm
+from file_upload.models import UploadedFile
+from interviews.forms import CreateInterviewForm, CandidateForm, JobPositionForm
 from interviews.models import Interview
 from common.helpers.timezone import to_user_timezone
 from seeVcam.settings.base import INTERVIEW_TEMPORAL_WINDOW
+
 DAY = 86400
 
 
@@ -61,12 +63,12 @@ class InterviewsView(LoginRequired, ListView):
         #
         # search_query = self.request.GET['search']
         #
-        #     # check if we are searching a date
-        #     date_formats = ['%m-%d-%Y', '%Y-%m-%d', '%Y', '%d %B', '%B %d']
-        #     search_is_date = False
+        # # check if we are searching a date
+        # date_formats = ['%m-%d-%Y', '%Y-%m-%d', '%Y', '%d %B', '%B %d']
+        # search_is_date = False
         #
-        #     for date_format in date_formats:
-        #         try:
+        # for date_format in date_formats:
+        # try:
         #             match = time.strptime(search_query, date_format)
         #         except ValueError:
         #             continue
@@ -127,8 +129,61 @@ class UpdateCreateInterviewView(object):
         return kwargs
 
 
-class CreateInterviewView(LoginRequired, UpdateCreateInterviewView, CreateView):
-    pass
+class CreateInterviewView(LoginRequired, CreateView):
+    template_name = 'interviews-create.html'
+    success_url = reverse_lazy('interviews')
+    form_class = CreateInterviewForm
+
+    def post(self, request, *args, **kwargs):
+
+        candidate_form = CandidateForm(request.POST, prefix='candidate')
+        print candidate_form.is_valid()
+
+        interview_form = CreateInterviewForm(request.POST, prefix='interview')
+        print interview_form.is_valid()
+
+        job_specification_form = JobPositionForm(request.POST, prefix='job-position')
+        print job_specification_form.is_valid()
+
+        if candidate_form.is_valid() and interview_form.is_valid() and job_specification_form.is_valid():
+
+            # Candidate form
+            if request.FILES['candidate-cv']:
+                candidate_form.instance.cv = UploadedFile.objects.create_uploaded_file(
+                    request.FILES['candidate-cv'], request.user, "curriculum")
+            else:
+                candidate_form.instance.cv = None
+
+            candidate_form.instance.created_by = request.user
+            candidate_form.instance.company = request.user.company
+            candidate_form.save()
+
+            # Job Specification form
+            if request.FILES['job-position-job-spec']:
+                job_specification_form.instance.job_description = UploadedFile.objects.create_uploaded_file(
+                    request.FILES['job-position-job-spec'], request.user, "job_spec")
+            else:
+                job_specification_form.instance.job_description = None
+
+            job_specification_form.instance.created_by = request.user
+            job_specification_form.instance.company = request.user.company
+            job_specification_form.save()
+
+            # Interview Form
+            interview_form.instance.owner = request.user
+            interview_form.instance.candidate = candidate_form.instance
+            interview_form.instance.job_position = job_specification_form.instance
+            interview_form.save()
+
+            return HttpResponseRedirect(self.success_url)
+        else:
+            return self.render_to_response(self.get_context_data(form=candidate_form))
+
+    def get_context_data(self, **kwargs):
+        context = super(CreateInterviewView, self).get_context_data(**kwargs)
+        context['candidate_form'] = CandidateForm( prefix='candidate')
+        context['job_position_form'] = JobPositionForm(prefix='job-position')
+        return context
 
 
 class UpdateInterviewView(LoginRequired, UpdateCreateInterviewView, UpdateView):
