@@ -137,33 +137,36 @@ class CreateInterviewView(LoginRequired, CreateView):
     def post(self, request, *args, **kwargs):
 
         candidate_form = CandidateForm(request.POST, prefix='candidate')
+        print candidate_form.errors
         print candidate_form.is_valid()
 
         interview_form = CreateInterviewForm(request.POST, prefix='interview')
+        print interview_form.errors
         print interview_form.is_valid()
 
         job_specification_form = JobPositionForm(request.POST, prefix='job-position')
+        print job_specification_form.errors
         print job_specification_form.is_valid()
 
         if candidate_form.is_valid() and interview_form.is_valid() and job_specification_form.is_valid():
 
-            # Candidate form
-            if request.FILES['candidate-cv']:
-                candidate_form.instance.cv = UploadedFile.objects.create_uploaded_file(
-                    request.FILES['candidate-cv'], request.user, "curriculum")
-            else:
-                candidate_form.instance.cv = None
+            # # Candidate form
+            # if request.FILES['candidate-cv']:
+            #     candidate_form.instance.cv = UploadedFile.objects.create_uploaded_file(
+            #         request.FILES['candidate-cv'], request.user, "curriculum")
+            # else:
+            #     candidate_form.instance.cv = None
 
             candidate_form.instance.created_by = request.user
             candidate_form.instance.company = request.user.company
             candidate_form.save()
 
             # Job Specification form
-            if request.FILES['job-position-job-spec']:
-                job_specification_form.instance.job_description = UploadedFile.objects.create_uploaded_file(
-                    request.FILES['job-position-job-spec'], request.user, "job_spec")
-            else:
-                job_specification_form.instance.job_description = None
+            # if request.FILES['job-position-job-spec']:
+            #     job_specification_form.instance.job_description = UploadedFile.objects.create_uploaded_file(
+            #         request.FILES['job-position-job-spec'], request.user, "job_spec")
+            # else:
+            #     job_specification_form.instance.job_description = None
 
             job_specification_form.instance.created_by = request.user
             job_specification_form.instance.company = request.user.company
