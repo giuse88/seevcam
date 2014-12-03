@@ -32,6 +32,8 @@ define(function(require){
   }
 
   function safelyUpdateCurrentView(newView){
+    if (!window.app)
+      return;
     if ( window.app.currentView && window.app.currentView.close
       && typeof window.app.currentView.close === "function"){
       window.app.currentView.close();

@@ -1,4 +1,20 @@
-(function($) {
+define(function (require) {
+
+  var $ = require("jquery");
+  require("typeahead");
+  require("parsley");
+
+  (function (_) {
+    'use strict';
+    _.compile = function (templ) {
+        var compiled = this.template(templ);
+        compiled.render = function (ctx) {
+            return this(ctx);
+        }
+        return compiled;
+    }
+})(window._);
+
 
     /****************************************************************
      *                        Constructor                           *
@@ -33,8 +49,10 @@
 
     function installTypeAhead() {
 
-
-
+        /*
+          remove this cache
+          the router should download this info
+         */
         var catalogs = new Bloodhound({
             datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
             queryTokenizer: Bloodhound.tokenizers.whitespace,
@@ -88,8 +106,8 @@
      *                        Public methods                       *
     ****************************************************************/
 
-    window.createInterview = {
-        installCreateInterviewModule: installCreateInterviewModule
+    return {
+        installCreateInterview: installCreateInterviewModule
     };
 
-})(jQuery);
+});

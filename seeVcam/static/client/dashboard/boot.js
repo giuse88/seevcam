@@ -14,6 +14,9 @@ require.config({
     "backbone"      : "bower_components/backbone/backbone",
     "underscore"    : "bower_components/underscore/underscore",
     "bootstrap"     : "bower_components/bootstrap/dist/js/bootstrap",
+    "typeahead"     : "bower_components/typeahead.js/dist/typeahead.jquery",
+    "bloodhound"    : "bower_components/typeahead.js/dist/bloodhound",
+    "parsley"       : "bower_components/parsleyjs/dist/parsley",
     //
     "notification"  : "client/dashboard/modules/notification/notification",
     "utils"         : "client/misc/utils",
@@ -26,6 +29,15 @@ require.config({
     },
     "jquery-pjax":{
       deps : ["jquery"]
+    },
+    "parsley":{
+      deps : ["jquery"]
+    },
+    "bloodhound" : {
+       deps : ["jquery"]
+    },
+    "typeahead":{
+      deps : ["jquery", "bloodhound"]
     },
     "bootstrap": {
       deps: ["jquery"]
