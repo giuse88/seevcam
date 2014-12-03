@@ -28,10 +28,7 @@
                 {% interviews_field candidate_form.name|parsley:"required:true,data-parsley-trigger:focusout" %}
                 {% interviews_field candidate_form.surname|parsley:'required:true,data-parsley-trigger:focusout' %}
                 {% interviews_field candidate_form.email|parsley:'required:true,data-parsley-trigger:focusout' %}
-                <div class="form-group ">
-                    <label for="candidate-cv"> file : </label>
-                    <input id="candidate-cv" name="candidate-cv"  type="file">
-                </div>
+                {{ candidate_form.cv }}
 
                 <hr/>
 
@@ -57,28 +54,18 @@
                         <div class="error-form">
                             {{ form.catalogue.errors }}
                         </div>
-                    </div>
+                     </div>
                 </div>
 
-                {% interviews_field form.job_position.position|parsley:'required:true,data-parsley-trigger:focusout' %}
+                {% interviews_field job_position_form.position|parsley:'required:true,data-parsley-trigger:focusout' %}
 
+                 {{ job_position_form.job_description }}
                 <hr/>
 
                 <input class="btn btn-primary" type="submit" value="Create"/>
-
-                <div class="form-group ">
-                    <label for="job-position-"> file : </label>
-                    <input id="candidate-cv" name="candidate-cv"  type="file">
-                </div>
-
-            </div>
+           </div>
         </div>
     </form>
-
-    <script type="text/javascript">
-        window.createInterview && window.createInterview.installCreateInterviewModule();
-    </script>
-
 
 </div>
 

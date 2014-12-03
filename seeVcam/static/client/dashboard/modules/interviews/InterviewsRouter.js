@@ -3,10 +3,12 @@ define(function(require){
   var $ = require("jquery");
   var Utils = require("utils");
   var Backbone = require("backbone");
+  var CreateInterview = require("modules/interviews/pjax_views/CreateInterview");
 
   return  Backbone.Router.extend({
     routes: {
-      "interviews(/)": "interviews"
+      "interviews(/)": "interviews",
+      "interviews/create(/)": "createInterview"
     },
 
     initialize: function () {
@@ -25,6 +27,24 @@ define(function(require){
       // this should use the interview view which hasn't be implemented yet.
       Utils.safelyUpdateCurrentView();
       $("#container").html("Interviews");
+    },
+
+    createInterview: function() {
+      $(document).on('pjax:end', function() {
+        CreateInterview.installCreateInterview();
+      });
+      console.log("Create interview route");
+      Utils.updateActiveLink(this.navbarElement);
+      Utils.safelyUpdateCurrentView();
+      $.pjax({url: "interviews/create/", container: '#container', push:false});
+    },
+
+    goToCreateInterview: function(trigger){
+        this.navigate("/interviews/create/", {trigger:!!trigger});
+    },
+    goToInterviews: function(trigger){
+      console.log("fff");
+      this.navigate("/interviews/", {trigger:!!trigger});
     }
 
   });
