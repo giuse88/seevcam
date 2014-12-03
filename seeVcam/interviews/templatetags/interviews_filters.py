@@ -174,12 +174,12 @@ def calendar_field(field, end, user, min='', max='', format='y-m-d'):
 
 @register.inclusion_tag("components/filter-fileField.html")
 def file_field(field, newLabel='Select File'):
-    if field.name == 'interview_job_description':
-        field.label = 'Job description'
+    # if field.name == 'interview_job_description':
+    #     field.label = 'Job description'
     return {
         'field': field,
         'newLabel': newLabel,
-        'error_container': error_container_selector(field.name + " ")
+        # 'error_container': error_container_selector(field.name + " ")
     }
 
 
@@ -242,14 +242,14 @@ def to_seevcam_format(value):
 @register.filter
 def selected_catalogue_name(form):
     interview = form.instance
-    if interview.interview_catalogue is not None:
-        return interview.interview_catalogue.catalogue_name
+    if interview.catalogue is not None:
+        return interview.catalogue.catalogue_name
     return ""
 
 
 @register.filter
 def selected_catalogue_id(form):
     interview = form.instance
-    if interview.interview_catalogue is not None:
-        return interview.interview_catalogue.id
+    if interview.catalogue is not None:
+        return interview.catalogue.id
     return ""

@@ -13,7 +13,7 @@ class TestInterviewModel(TestCase):
         self.file_path = "test-file/test-file.txt"
 
 
-    def test_interview_creation_without_catalogue(self):
+    def _test_interview_creation_without_catalogue(self):
         interview = Interview(pk=1, interview_owner=self.user_1,
                               candidate_email="test@email.it",
                               candidate_name="name",
@@ -34,7 +34,7 @@ class TestInterviewModel(TestCase):
         self.assertEqual(interview.candidate_cv, db_interview.candidate_cv)
         self.assertEqual(db_interview.interview_status, Interview.OPEN)
 
-    def test_interview_creation_with_catalogue(self):
+    def _test_interview_creation_with_catalogue(self):
         interview = Interview(pk=1, interview_owner=self.user_1,
                               candidate_email="test@email.it",
                               candidate_name="name",
