@@ -8,10 +8,10 @@
     {% load widget_tweaks %}
     {% load static %}
 
-    <div class ="create-interview">
+    <div class ="create-interview" class="create-interview">
     <h1>New Interview</h1>
 
-    <form id='createInterview' data-pjax name='createInterview' class="form-horizontal" enctype="multipart/form-data"
+    <form id='createInterview' data-pjax name='createInterview' class="form-horizontal create-interview-form" enctype="multipart/form-data"
           action="" method="post" role="form" >
         {% csrf_token %}
 
@@ -28,11 +28,26 @@
                 {% interviews_field candidate_form.name|parsley:"required:true,data-parsley-trigger:focusout" %}
                 {% interviews_field candidate_form.surname|parsley:'required:true,data-parsley-trigger:focusout' %}
                 {% interviews_field candidate_form.email|parsley:'required:true,data-parsley-trigger:focusout' %}
+
+                <div class="cv-uploader">
+
+                 
                 {{ candidate_form.cv }}
+                    <div class="fileupload-container">
+                        <span class="btn btn-success fileinput-button">
+                        <i class="glyphicon glyphicon-plus"></i>
+                        <span>Select Curriculum</span>
+                            <input class="fileupload" type="file" name="file" data-url="/dashboard/files/">
+                        </span>
+                        <span class="uploaded-file-link"> No file uploaded yet </span>
+                    </div>
+                </div>
 
                 <hr/>
 
-                {% calendar_field form.interview_datetime form.interview_datetime_end request.user %}
+                {{ form.start }}
+                {{ form.end }}
+{#                {% calendar_field form.interview_datetime form.interview_datetime_end request.user %}#}
 
                 <hr/>
 

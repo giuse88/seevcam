@@ -16,8 +16,10 @@ define(function (require) {
     $.pjax.defaults.timeout = 3000;
     var overlay = new Overlay();
 
+    /*
+      This needs to be scoped
+     */
     $(document).on('click', 'a[data-pjax="container"].profile-link', function(event) {
-
       /* This is the router for the profile page */
 
       if (Backbone.history.fragment.indexOf(profileFragment) > -1) {

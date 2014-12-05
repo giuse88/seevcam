@@ -140,7 +140,7 @@ class CreateInterviewView(LoginRequired, CreateView):
         print candidate_form.errors
         print candidate_form.is_valid()
 
-        interview_form = CreateInterviewForm(request.POST, prefix='interview')
+        interview_form = CreateInterviewForm(request.POST)
         print interview_form.errors
         print interview_form.is_valid()
 
@@ -150,29 +150,14 @@ class CreateInterviewView(LoginRequired, CreateView):
 
         if candidate_form.is_valid() and interview_form.is_valid() and job_specification_form.is_valid():
 
-            # # Candidate form
-            # if request.FILES['candidate-cv']:
-            #     candidate_form.instance.cv = UploadedFile.objects.create_uploaded_file(
-            #         request.FILES['candidate-cv'], request.user, "curriculum")
-            # else:
-            #     candidate_form.instance.cv = None
-
             candidate_form.instance.created_by = request.user
             candidate_form.instance.company = request.user.company
             candidate_form.save()
-
-            # Job Specification form
-            # if request.FILES['job-position-job-spec']:
-            #     job_specification_form.instance.job_description = UploadedFile.objects.create_uploaded_file(
-            #         request.FILES['job-position-job-spec'], request.user, "job_spec")
-            # else:
-            #     job_specification_form.instance.job_description = None
 
             job_specification_form.instance.created_by = request.user
             job_specification_form.instance.company = request.user.company
             job_specification_form.save()
 
-            # Interview Form
             interview_form.instance.owner = request.user
             interview_form.instance.candidate = candidate_form.instance
             interview_form.instance.job_position = job_specification_form.instance
@@ -180,11 +165,16 @@ class CreateInterviewView(LoginRequired, CreateView):
 
             return HttpResponseRedirect(self.success_url)
         else:
-            return self.render_to_response(self.get_context_data(form=candidate_form))
+            context = {
+                       'form': interview_form,
+                       'candidate_form': candidate_form,
+                       'job_position_form': job_specification_form
+            }
+            return self.render_to_response(context=context)
 
     def get_context_data(self, **kwargs):
         context = super(CreateInterviewView, self).get_context_data(**kwargs)
-        context['candidate_form'] = CandidateForm( prefix='candidate')
+        context['candidate_form'] = CandidateForm(prefix='candidate')
         context['job_position_form'] = JobPositionForm(prefix='job-position')
         return context
 

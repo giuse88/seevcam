@@ -3,6 +3,7 @@ define(function (require) {
   var $ = require("jquery");
   require("typeahead");
   require("parsley");
+  require("jquery-fileupload");
 
   (function (_) {
     'use strict';
@@ -16,15 +17,42 @@ define(function (require) {
 })(window._);
 
 
-    /****************************************************************
+    /***************************************************************
      *                        Constructor                           *
      ****************************************************************/
 
     function installCreateInterviewModule(){
         console.log(" -- Create interview beginning constructor --  ");
-        installParsley();
+//        installParsley();
         installTypeAhead();
         installToolTip();
+        installSubmit();
+
+      // FIle upload TODO refactor
+       var oldFile = null;
+        function delete_url(url) {
+          $.ajax({
+              url: url,
+              type: 'DELETE',
+              success: function(result) {
+                  // Do something with the result
+              }
+          });
+        };
+
+        $('.cv-uploader .fileupload').fileupload({
+          dataType: 'json',
+          maxNumberOfFiles : 1,
+          formData: {type: 'cv'},
+          done: function (e, data) {
+              oldFile && delete_url(oldFile.delete_url);
+              $.each(data.result.files, function (index, file) {
+                  oldFile = file;
+                  $('.name').html("<a target='_blank'  href='"+file.url +"'>" + file.original_name+"</a>");
+              });
+          }
+    });
+
         console.log(" -- Create interview end constructor --  ");
     }
 
@@ -44,6 +72,17 @@ define(function (require) {
             },
             errorsWrapper: '<ul class="errorlist"></ul>'
         });
+    }
+
+    function installSubmit() {
+      $('.create-interview-form').on('submit', function (event) {
+        $.pjax.submit(event, '#container', {
+          pjax_end : function (){
+            console.log("hello");
+            installCreateInterviewModule();
+          }});
+        console.log("form submited");
+      });
     }
 
 
