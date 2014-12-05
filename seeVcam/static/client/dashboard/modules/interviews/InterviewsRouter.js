@@ -26,17 +26,28 @@ define(function(require){
       Utils.updateActiveLink(this.navbarElement);
       // this should use the interview view which hasn't be implemented yet.
       Utils.safelyUpdateCurrentView();
+      //
       $("#container").html("Interviews");
     },
 
     createInterview: function() {
-      $(document).on('pjax:end', function() {
-        CreateInterview.installCreateInterview();
-      });
       console.log("Create interview route");
       Utils.updateActiveLink(this.navbarElement);
       Utils.safelyUpdateCurrentView();
-      $.pjax({url: "interviews/create/", container: '#container', push:false});
+      console.log(Backbone.history);
+      // this happens when you load directly the interview page
+      if (Backbone.history.fragment === "interviews/create/") {
+        CreateInterview.installCreateInterview();
+      } else {
+        $.pjax({
+          url: "interviews/create/",
+          container: '#container',
+          push: false,
+          pjax_end: function () {
+            CreateInterview.installCreateInterview();
+          }
+        });
+      }
     },
 
     goToCreateInterview: function(trigger){
