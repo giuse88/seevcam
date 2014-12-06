@@ -27,7 +27,7 @@ define(function(require){
       Utils.updateActiveLink(this.navbarElement);
       LoadingBar.go(10);
       $.pjax({
-        url: "interviews/pjax/",
+        url: "pjax/",
         container: '#container',
         push: false,
         pjax_end: function () {
