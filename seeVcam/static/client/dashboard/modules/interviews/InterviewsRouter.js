@@ -35,6 +35,7 @@ define(function(require){
       Utils.updateActiveLink(this.navbarElement);
       Utils.safelyUpdateCurrentView();
       console.log(Backbone.history);
+
       // this happens when you load directly the interview page
       if (Backbone.history.fragment === "interviews/create/") {
         CreateInterview.installCreateInterview();

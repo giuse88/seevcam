@@ -33,7 +33,6 @@ def file_delete(request, pk):
         # pk = request.kwargs['pk']
         uploaded_file = get_object_or_404(UploadedFile, pk=pk)
         #this should be async
-        log.info("Deleting file " + str(uploaded_file.file))
         os.remove(str(uploaded_file.file))
         uploaded_file.delete()
         response_data = {'status': 'deleted'}

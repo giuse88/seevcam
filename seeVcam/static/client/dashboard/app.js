@@ -27,7 +27,8 @@ define(function (require) {
   });
 
   // Profile page. This page works with pjax.
-  //profile.installPjaxForProfilePage();
+  // this should be rewritten using Backbone routing
+  profile.installPjaxForProfilePage();
 
   window.app = {
     name : "SeeVcam",

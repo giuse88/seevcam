@@ -1,9 +1,12 @@
 define(function (require) {
 
   var $ = require("jquery");
+  var _ = require("underscore");
+
   require("typeahead");
   require("parsley");
   require("jquery-fileupload");
+
 
   (function (_) {
     'use strict';
@@ -14,7 +17,7 @@ define(function (require) {
         }
         return compiled;
     }
-})(window._);
+  })(window._);
 
 
     /***************************************************************
@@ -27,38 +30,61 @@ define(function (require) {
         installTypeAhead();
         installToolTip();
         installSubmit();
-
-      // FIle upload TODO refactor
-       var oldFile = null;
-        function delete_url(url) {
-          $.ajax({
-              url: url,
-              type: 'DELETE',
-              success: function(result) {
-                  // Do something with the result
-              }
-          });
-        };
-
-        $('.cv-uploader .fileupload').fileupload({
-          dataType: 'json',
-          maxNumberOfFiles : 1,
-          formData: {type: 'cv'},
-          done: function (e, data) {
-              oldFile && delete_url(oldFile.delete_url);
-              $.each(data.result.files, function (index, file) {
-                  oldFile = file;
-                  $('.name').html("<a target='_blank'  href='"+file.url +"'>" + file.original_name+"</a>");
-              });
-          }
-    });
-
-        console.log(" -- Create interview end constructor --  ");
+        installJobSpecUploader();
+        installCVuploader();
+     console.log(" -- Create interview end constructor --  ");
     }
 
     /****************************************************************
      *                        Private methods                       *
      ****************************************************************/
+
+    function installFileUploader(type, containerClass) {
+      function deleteOldFileIfAny() {
+        var deleteUrl = $(containerClass + " .uploaded-file-link a").data("delete-url");
+        var fileName = $(containerClass + " .uploaded-file-link a").html();
+        deleteUrl && $.ajax({
+            url: deleteUrl,
+            type: 'DELETE',
+            success: function(result) {console.log("File : " + fileName + "deleted.")}
+        });
+      }
+
+        $(containerClass + ' .fileupload').fileupload({
+          dataType: 'json',
+          maxNumberOfFiles : 1,
+          formData: {type: type},
+          progressall: function (e, data) {
+             $(containerClass + ' .progress').show();
+             var progress = parseInt(data.loaded / data.total * 100, 10);
+             setTimeout(function() {
+               $(containerClass + ' .progress .progress-bar').css('width', progress + '%');
+              }, 500);
+          },
+          done: function (e, data) {
+              deleteOldFileIfAny();
+              $.each(data.result.files, function (index, file) {
+                  $(containerClass + ' .file-id-input').val(file.id);
+                  $(containerClass + ' .uploaded-file-link')
+                    .html("<a target='_blank' data-delete-url="+file.delete_url
+                          +" href='"+file.url +"'>" + file.original_name+"</a>");
+              });
+
+              setTimeout(function(){
+                $(containerClass + ' .progress').hide();
+                $(containerClass + ' .progress .progress-bar').css( 'width', 0);
+              }, 1000);
+          }
+      });
+    }
+
+    function installCVuploader() {
+      installFileUploader("cv", ".cv-uploader");
+    }
+
+    function installJobSpecUploader() {
+      installFileUploader("job-spec", ".job-description-uploader");
+    }
 
     function installToolTip(){
         $('[data-toggle="tooltip"]').tooltip({container: 'body'});
