@@ -3,6 +3,7 @@ from django.conf import settings
 from django import forms
 from django.core.exceptions import ValidationError
 from django.db.models import Q
+from django.forms import NumberInput
 from django.forms.models import inlineformset_factory
 
 from common.helpers.timezone import now_timezone, to_system_timezone
@@ -67,14 +68,21 @@ class CreateInterviewForm(forms.ModelForm):
 
 
 class CandidateForm(forms.ModelForm):
+
     class Meta:
         model = Candidate
+        widgets = {
+            'cv': NumberInput()
+        }
         fields = ['name', 'email', 'surname', 'cv']
 
 
 class JobPositionForm(forms.ModelForm):
     class Meta:
         model = JobPosition
+        widgets = {
+           'job_description': NumberInput()
+        }
         fields = ['position', 'job_description']
 
 

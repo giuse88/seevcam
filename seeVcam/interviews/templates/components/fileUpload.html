@@ -1,0 +1,18 @@
+{% load interviews_filters %}
+{% load widget_tweaks %}
+
+<div class=" {{ uploader_name }} form-group">
+    {{ field|add_class:"hidden file-id-input" }}
+    <div class="fileupload-container">
+        <span class="btn btn-primary fileinput-button">
+            <i class="glyphicon glyphicon-plus"></i>
+            <span>{{ button_text }}</span>
+            <input class="fileupload" type="file" name="file" data-url="/dashboard/files/">
+        </span>
+        <span class="uploaded-file-link"> No file uploaded yet </span>
+        <div class="progress file-upload-progress" style="display:none">
+            <div class="progress-bar progress-bar-success"></div>
+        </div>
+    </div>
+    {{ field.errors }}
+</div>

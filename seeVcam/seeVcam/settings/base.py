@@ -75,7 +75,7 @@ WSGI_APPLICATION = 'seeVcam.wsgi.application'
 AUTH_USER_MODEL = 'authentication.SeevcamUser'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = 'media/'
+MEDIA_URL = '/media/'
 
 LANGUAGE_CODE = 'en-us'
 

@@ -13,6 +13,14 @@ def error_container_selector(name):
     _error_container_selector += "." + name + ".error-form"
     return _error_container_selector
 
+@register.inclusion_tag("components/fileUpload.html")
+def file_upload(field, uploader_name, button_text):
+    return {
+        'field': field,
+        'uploader_name': uploader_name,
+        'button_text': button_text
+    }
+
 
 @register.inclusion_tag("components/filter-singlefield.html")
 def interviews_field(field):
