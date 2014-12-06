@@ -30,10 +30,11 @@ def interviews_field(field):
 
 @register.inclusion_tag("components/interviews-single.html")
 def interview_single_component(field, request):
-    user_datetime = to_user_timezone(field.interview_datetime, request.user)
-    user_datetime_end = user_datetime + datetime.timedelta(minutes=field.interview_duration)
 
-    dt = (field.interview_datetime.date() - to_user_timezone(datetime.datetime.now(), request.user).date())
+    user_datetime = to_user_timezone(field.start, request.user)
+    user_datetime_end = to_user_timezone(field.end, request.user)
+
+    dt = (field.start.date() - to_user_timezone(datetime.datetime.now(), request.user).date())
     user_date = user_datetime.date()
     if dt.days == 0:
         date_string = 'today'
@@ -53,9 +54,9 @@ def interview_single_component(field, request):
 
     return {
         'id': field.id,
-        'name': field.candidate_name,
-        'surname': field.candidate_surname,
-        'job_position': field.interview_position,
+        'name': field.candidate.name,
+        'surname': field.candidate.surname,
+        'job_position': field.job_position.position,
         'time': user_datetime.time(),
         'end': user_datetime_end.time(),
         'date_string': date_string,
