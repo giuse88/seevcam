@@ -86,10 +86,14 @@ define(function (require) {
       this.$el.find(".interview-view-type .active").removeClass("active");
     },
 
-    updateNestedView:function(newNestedView) {
-      if(this.nestedView && this.nestedView.close  && _.isFunction(this.nestedView.close)) {
+    closeNestedView: function () {
+      if (this.nestedView && this.nestedView.close && _.isFunction(this.nestedView.close)) {
         this.nestedView.close();
       }
+    },
+
+    updateNestedView:function(newNestedView) {
+      this.closeNestedView();
       this.nestedView = newNestedView;
     },
 
@@ -97,6 +101,10 @@ define(function (require) {
     renderOpenInterview : function () {},
 
     close: function (){
+      this.closeNestedView();
+      this.remove();
+      this.unbind();
+      this.undelegateEvents();
     }
 
   });
