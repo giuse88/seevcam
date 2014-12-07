@@ -10,7 +10,7 @@
     {% load interviews_filters %}
     {% load base_extras %}
 
-    <div id="interview">
+    <div id="interviews" class="interviews">
 
         <!-- LEFT REPORT SIDEBAR -->
 {#        <div id="report-side-bar">#}
@@ -34,24 +34,24 @@
         {% endif %}
 
         {% block search_box %}
-        <div class="row" id="interviews-upper-bar">
+        <div class="row upper-bar" id="interviews-upper-bar">
             <div id="searchbox-container" class="col-md-6 col-md-offset-3">
-                <form data-pjax>
-                    <span class="input-group-addon">
-                        <i class="glyphicon glyphicon-search"></i>
-                    </span>
-                    <input name="search" type="text" class="form-control" placeholder="Search" autofocus>
+                <form data-pjax class="search-interview-form">
+                    <input name="search" type="text" class="form-control search-input" placeholder="Search" autofocus>
+                    <span class="search-icon"> <i class="glyphicon glyphicon-search"></i> </span>
                 </form>
             </div>
-            <div id="interview-view-type" class="col-md-3">
-                {% block nav_interviews_grid %}<a class="pjax glyphicon glyphicon-th" href="{% url "interviews" %}"></a>{% endblock nav_interviews_grid %}
-{#                {% block nav_interviews_list %} <a class="pjax glyphicon glyphicon-align-justify" href="{% url "interviews-list" %}"></a>{% endblock nav_interviews_list %}#}
-{#                {% block nav_interviews_calendar %}<a class="pjax glyphicon glyphicon-calendar" href="{% url "interviews-calendar" %}"></a>{% endblock nav_interviews_calendar %}#}
+            <div class="col-md-3 interview-view-type">
+                <div class="tab-icons">
+                    <a class="glyphicon glyphicon-th" href="#interview-grid" role="tab" data-toggle="tab"></a>
+                    <a class="glyphicon glyphicon-align-justify" href="#interview-list" role="tab" data-toggle="tab"></a>
+                    <a class="glyphicon glyphicon-calendar" href="#interview-calendar" role="tab" data-toggle="tab"></a>
+                </div>
             </div>
         </div>
         {% endblock search_box %}
 
-        <div class="row">
+        <div class="row interviews-container">
             <div class="col-md-3" id="upcoming-interviews">
                 <div class="interview-items">
                     {% for interview in today_interviews %}
@@ -64,12 +64,17 @@
                 </div>
             </div>
 
-            <div id="interviews-view-container" class="col-md-9">
-            {% block interviews_list %}
-            {% endblock interviews_list %}
+            <div id="interviews-view-container" class="col-md-9 tab-content">
+                <div id="interviews-grid" class="tab-pane fade active in"> Grid </div>
+                <div id="interviews-list" class="tab-pane"> List </div>
+                <div id="interviews-calendar" class="tab-pane">Calendar</div>
             </div>
 
         </div>
+
+        <script type="text/javascript">
+            window.interviewGrid && window.interviewGrid.installInterviewGrid();
+        </script>
     </div>
 
 {% endblock content %}

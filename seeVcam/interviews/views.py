@@ -102,7 +102,7 @@ class InterviewsView(LoginRequired, ListView):
 
 
 class GridInterviewsView(InterviewsView):
-    template_name = 'interviews-grid.html'
+    template_name = 'interviews.html'
 
 
 class ListInterviewsView(InterviewsView):

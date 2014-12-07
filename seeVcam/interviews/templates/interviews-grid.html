@@ -1,18 +1,11 @@
-{% extends "interviews.html" %}
-
-{% load interviews_filters %}
-
-{% block interviews_list %}
-    <div id="interviews-grid-view">
+{% block interview_block %}
+    <div id="interviews-grid" class="active">
     {% for interview in interviews %}
             <div class="interview-item-container col-lg-4">
                 {% interview_single_component interview request %}
             </div>
     {% endfor %}
 
-    <script type="text/javascript">
-        window.interviewGrid && window.interviewGrid.installInterviewGrid();
-    </script>
 
     </div>
-{% endblock interviews_list %}
+{% endblock interviews_block %}
