@@ -5,6 +5,7 @@ define(function(require){
   var Backbone = require("backbone");
   var CreateInterview = require("modules/interviews/pjax_views/CreateInterview");
   var LoadingBar = require("nanobar");
+  var InterviewApp = require("modules/interviews/views/InterviewView");
 
   return  Backbone.Router.extend({
     routes: {
@@ -25,16 +26,9 @@ define(function(require){
     interviews: function () {
       console.log("Interviews route");
       Utils.updateActiveLink(this.navbarElement);
-      LoadingBar.go(10);
-      $.pjax({
-        url: "pjax/",
-        container: '#container',
-        push: false,
-        pjax_end: function () {
-          LoadingBar.go(100);
-          console.log("Installed interview page");
-        }
-      });
+      var interviewsApp = new InterviewApp();
+      Utils.safelyUpdateCurrentView(interviewsApp);
+      $("#container").html(interviewsApp.render().$el);
       Utils.safelyUpdateCurrentView();
     },
 
