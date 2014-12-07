@@ -29,7 +29,6 @@ define(function(require){
       var interviewsApp = new InterviewApp();
       Utils.safelyUpdateCurrentView(interviewsApp);
       $("#container").html(interviewsApp.render().$el);
-      Utils.safelyUpdateCurrentView();
     },
 
     createInterview: function() {

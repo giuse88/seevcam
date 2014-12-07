@@ -13,7 +13,6 @@ define(function (require) {
     className : 'interviews-calendar',
 
     render : function() {
-      console.log("Calendar full render");
       _.defer(this.renderCalendar.bind(this));
       return this;
       },
