@@ -3,6 +3,7 @@ define(function (require) {
   var $ = require("jquery");
   var _ = require("underscore");
   var Backbone = require("backbone");
+  var Calendar = require("modules/interviews/views/InterviewCalendarView");
 
   return  Backbone.View.extend({
 
@@ -41,8 +42,13 @@ define(function (require) {
         '                <p class="no-interview ">No interview scheduled for today.</p>'+
          '       </div>'+
          '   </div>'+
-         '   <div id="interviews-view-container" class="col-md-9 interview-view-container"> Inner container </div>'+
+         '   <div id="interviews-view-container" class="col-md-8 interview-view-container"> Inner container </div>'+
         '</div>'),
+
+    initialize : function (){
+      console.log("Initializing interview page");
+      this.nestedView = null;
+    },
 
     render : function(){
       this.$el.html(this.template);
@@ -55,23 +61,38 @@ define(function (require) {
       this.removeActiveClass();
       this.$el.find(".interview-view-type .block").addClass("active");
       this.$interviewViewContainer.html("Block View");
+      return this;
     },
+
     renderInterviewList : function () {
       event && event.preventDefault();
       this.removeActiveClass();
       this.$el.find(".interview-view-type .list").addClass("active");
       this.$interviewViewContainer.html("List view");
+      return this;
     },
+
     renderInterviewCalendar : function () {
       event && event.preventDefault();
       this.removeActiveClass();
       this.$el.find(".interview-view-type .calendar").addClass("active");
-      this.$interviewViewContainer.html("Calendar view");
+      var calendarView = new Calendar();
+      this.updateNestedView(calendarView);
+      this.$interviewViewContainer.html(this.nestedView.render().$el);
+      return this;
     },
 
     removeActiveClass:function () {
       this.$el.find(".interview-view-type .active").removeClass("active");
     },
+
+    updateNestedView:function(newNestedView) {
+      if(this.nestedView && this.nestedView.close  && _.isFunction(this.nestedView.close)) {
+        this.nestedView.close();
+      }
+      this.nestedView = newNestedView;
+    },
+
     renderTodayInterviews : function () {},
     renderOpenInterview : function () {},
 

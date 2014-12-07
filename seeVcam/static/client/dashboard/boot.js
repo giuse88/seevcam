@@ -20,7 +20,7 @@ require.config({
     "typeahead"     : "bower_components/typeahead.js/dist/typeahead.jquery",
     "bloodhound"    : "bower_components/typeahead.js/dist/bloodhound",
     "parsley"       : "bower_components/parsleyjs/dist/parsley",
-    "fullcalendar"  : "bower_components/fullcalendar/d"
+    "fullcalendar"  : "bower_components/fullcalendar/fullcalendar",
     //
     "notification"  : "client/dashboard/modules/notification/notification",
     "utils"         : "client/misc/utils",
@@ -65,6 +65,9 @@ require.config({
     },
     "notification":{
       deps:["bootstrap"]
+    },
+    "fullcalendar":{
+      deps:["jquery"]
     }
   }
 });
