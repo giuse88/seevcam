@@ -2,6 +2,8 @@ from django.test import TestCase
 from rest_framework.compat import BytesIO
 from rest_framework.parsers import JSONParser
 from rest_framework.renderers import JSONRenderer
+from authentication.models import SeevcamUser
+from company_profile.models import Company
 
 from questions.serializers import QuestionSerializer
 from questions.models import Question, QuestionCatalogue
@@ -21,6 +23,7 @@ class QuestionSerializerTest(TestCase):
     ##############################################################################
 
     def setUp(self):
+
         self.question_catalogue = QuestionCatalogue(pk=1, catalogue_scope='private', catalogue_name='tests')
         self.question_catalogue.save()
         question = Question(pk=1, question_text="text", question_catalogue=self.question_catalogue)
