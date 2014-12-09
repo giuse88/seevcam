@@ -10,8 +10,7 @@ define(function (require) {
     className : 'interview-item',
 
     template : _.template('' +
-//      '<div data-interview-id="<%= id %>" class="interview-item <%= date_string %>" >' +
-      '<span class="glyphicon glyphicon-remove"></span> ' +
+      '<span class="glyphicon glyphicon-remove delete-interview"></span> ' +
       '<header>' +
       '<div class="row">' +
       '         <div class="col-sm-12">' +
@@ -34,6 +33,10 @@ define(function (require) {
       '   <p class="interview-hours"><%= time %></p>' +
       '</section>'),
 
+    events : {
+      'click .delete-interview' : 'removeInterview'
+    },
+
     getDataForTemplate : function(){
       var interviewStart = new Date(this.model.get('start'));
       return {
@@ -50,10 +53,23 @@ define(function (require) {
       }
     },
 
+    removeInterview : function (event) {
+      console.log("remove Interview");
+    },
+
     render : function() {
       console.log(this.getDataForTemplate());
       this.$el.html(this.template(this.getDataForTemplate()));
       return this;
+    },
+
+
+
+    close: function (){
+      this.closeNestedView();
+      this.remove();
+      this.unbind();
+      this.undelegateEvents();
     }
 
   });

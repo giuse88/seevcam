@@ -16,7 +16,6 @@ define(function (require) {
       this.collection= options.collection;
 
       this.listenTo(this.collection, 'add', this.render);
-      this.listenTo(this.collection, 'remove', this.render);
       this.listenTo(this.collection, 'reset', this.render);
       this.listenTo(this.collection, 'error', Utils.syncError);
       this.listenTo(this.collection, 'sync', Utils.syncSuccess);
@@ -27,17 +26,29 @@ define(function (require) {
       this.$el.append(interview.render().$el);
     },
 
+    setCollection : function ( collection ) {
+      this.collection = collection;
+    },
+
     renderAllInterviews : function () {
       this.collection.each(this.renderInterview, this);
     },
 
     render : function () {
+      this.$el.empty();
+      console.log("rendering");
       if (this.collection.length === 0)
               this.$el.append(this.template_no_interview);
           else
              this.renderAllInterviews();
           return this;
       return this;
+    },
+
+    close: function (){
+      this.remove();
+      this.unbind();
+      this.undelegateEvents();
     }
 
   });

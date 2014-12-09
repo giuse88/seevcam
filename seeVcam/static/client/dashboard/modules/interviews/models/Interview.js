@@ -6,6 +6,10 @@ define(function(require) {
 
   return Backbone.DeepModel.extend({
 
+    getCandidateFullName : function () {
+      return this.get("candidate.name") + " " + this.get("candidate.surname");
+    }
+
   });
 
 });

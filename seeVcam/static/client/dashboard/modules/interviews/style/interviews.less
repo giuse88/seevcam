@@ -237,6 +237,7 @@
 	display: none;
 }
 .interview-item{
+    position: relative;
     width: ~"calc(33.33333% - 30px)";
     margin-left: 30px;
     float: left;
@@ -247,8 +248,8 @@
 }
 .interview-item .glyphicon-remove{
 	position: absolute;
-	right: 26px;
-	top: 7px;
+	right: 7px;
+	top: 0px;
 	color: white;
 	display: none;
 	width: 20px;
@@ -256,6 +257,7 @@
 	text-align: center;
 	line-height: 19px;
 	z-index: 10;
+    cursor: pointer;
 }
 .interview-item:hover .glyphicon-remove{
 	display: block;

@@ -37,9 +37,11 @@ define(function(require){
         return;
       }
 
-      var interviewsApp = new InterviewApp();
+      var interviewsApp = new InterviewApp({interviews : window.cache.interviews});
       Utils.safelyUpdateCurrentView(interviewsApp);
       $("#container").html(interviewsApp.render().$el);
+      // default inner view
+      interviewsApp.renderInterviewBlock();
     },
 
     createInterview: function() {

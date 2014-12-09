@@ -24,10 +24,10 @@ define(function (require) {
       '<div id="pending-interview" class="col-md-3"></div>'+
       '<div class="row upper-bar" id="interviews-upper-bar">'+
        '     <div id="searchbox-container" class="col-md-6 col-md-offset-3">'+
-       '        <form data-pjax class="search-interview-form">'+
-        '            <input name="search" type="text" class="form-control search-input" placeholder="Search" autofocus>'+
+       '        <div class="search-interview-form">'+
+        '            <input name="search" type="text" class="form-control search-input" placeholder="Search">'+
         '            <span class="search-icon"> <i class="glyphicon glyphicon-search"></i> </span>'+
-         '       </form>'+
+         '       </div>'+
          '   </div>'+
          '   <div class="col-md-3 interview-view-type">'+
          '       <div class="tab-icons">'+
@@ -46,17 +46,26 @@ define(function (require) {
          '   <div id="interviews-view-container" class="col-md-8 interview-view-container"> Inner container </div>'+
         '</div>'),
 
-    initialize : function (){
+    initialize : function (options){
       console.log("Initializing interview page");
       this.nestedView = null;
-      this.interviews = window.cache.interviews;
+      this.interviews = options.interviews;
     },
 
     render : function(){
       this.$el.html(this.template);
       this.$interviewViewContainer = this.$el.find('.interview-view-container');
-      this.renderInterviewBlock();
+      this.$searchBox = this.$el.find('#searchbox-container input');
+      console.log(this.$searchBox);
+      this.$searchBox.bind('input propertychange', this.filterInterviews.bind(this));
       return this;
+    },
+
+    filterInterviews : function(e) {
+      var $target = $(e.currentTarget);
+      var currentValue = $target.val();
+      this.nestedView.setCollection(this.interviews.filterByName(currentValue));
+      this.$interviewViewContainer.html(this.nestedView.render().$el);
     },
 
     renderInterviewBlock : function (event) {
