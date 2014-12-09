@@ -51,6 +51,10 @@ class Interview(UpdateCreateTimeStamp):
     job_position = models.ForeignKey(JobPosition, null=False, blank=False)
     candidate = models.ForeignKey(Candidate, null=False, blank=False)
 
+    @property
+    def job_position_name(self):
+        return self.job_position.position
+
     class Meta:
         verbose_name = 'interview'
         verbose_name_plural = 'interviews'

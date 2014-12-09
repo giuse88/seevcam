@@ -8,6 +8,9 @@ define(function (require) {
   var router = require("dashboard/router");
   var profile = require("modules/profile/profilePjax");
 
+    var Interview = require("modules/interviews/models/InterviewList");
+
+
   $.ajaxSetup({
     headers: { "X-CSRFToken": window.CONSTANTS.csrft_token}
   });

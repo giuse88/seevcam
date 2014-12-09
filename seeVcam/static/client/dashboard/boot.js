@@ -21,6 +21,7 @@ require.config({
     "bloodhound"    : "bower_components/typeahead.js/dist/bloodhound",
     "parsley"       : "bower_components/parsleyjs/dist/parsley",
     "fullcalendar"  : "bower_components/fullcalendar/fullcalendar",
+    "deep-model"     : "bower_components/backbone-deep-model/distribution/deep-model",
     //
     "notification"  : "client/dashboard/modules/notification/notification",
     "utils"         : "client/misc/utils",
@@ -68,6 +69,9 @@ require.config({
     },
     "fullcalendar":{
       deps:["jquery"]
+    },
+    "deep-model":{
+      deps:["backbone"]
     }
   }
 });
