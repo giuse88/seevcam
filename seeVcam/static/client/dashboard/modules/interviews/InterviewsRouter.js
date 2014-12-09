@@ -5,6 +5,7 @@ define(function(require){
   var Backbone = require("backbone");
   var CreateInterview = require("modules/interviews/pjax_views/CreateInterview");
   var LoadingBar = require("nanobar");
+  var Interviews = require("modules/interviews/models/InterviewList");
   var InterviewApp = require("modules/interviews/views/InterviewView");
 
   return  Backbone.Router.extend({
@@ -26,6 +27,16 @@ define(function(require){
     interviews: function () {
       console.log("Interviews route");
       Utils.updateActiveLink(this.navbarElement);
+
+      if (!window.cache.interviews){
+        LoadingBar.go(40);
+        this.loadInterviews(_.bind(function(){
+          LoadingBar.go(100);
+          this.interviews();
+          }, this));
+        return;
+      }
+
       var interviewsApp = new InterviewApp();
       Utils.safelyUpdateCurrentView(interviewsApp);
       $("#container").html(interviewsApp.render().$el);
@@ -58,7 +69,32 @@ define(function(require){
     goToInterviews: function(trigger){
       console.log("fff");
       this.navigate("/interviews/", {trigger:!!trigger});
+    },
+
+
+    loadInterviews: function (success, error) {
+
+    function fetchFailure (model,response){
+      var message = "Error fetching interviews!";
+      console.error(message);
+      console.log(response.responseText);
+      Notification.error(message, "Re-loading the page might fix this problem.");
+      error && error(model, response);
     }
+
+    function fetchSuccess(model, response){
+      success && success(model, response);
+    }
+
+    window.cache.interviews = new Interviews();
+    window.cache.interviews.fetch({
+      reset: true,
+      success: fetchSuccess,
+      error: fetchFailure
+    });
+
+  }
+
 
   });
 

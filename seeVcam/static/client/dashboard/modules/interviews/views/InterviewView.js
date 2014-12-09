@@ -4,6 +4,7 @@ define(function (require) {
   var _ = require("underscore");
   var Backbone = require("backbone");
   var Calendar = require("modules/interviews/views/InterviewCalendarView");
+  var InterviewBlocks = require("modules/interviews/views/BlocksView");
 
   return  Backbone.View.extend({
 
@@ -48,19 +49,23 @@ define(function (require) {
     initialize : function (){
       console.log("Initializing interview page");
       this.nestedView = null;
+      this.interviews = window.cache.interviews;
     },
 
     render : function(){
       this.$el.html(this.template);
       this.$interviewViewContainer = this.$el.find('.interview-view-container');
+      this.renderInterviewBlock();
       return this;
     },
 
     renderInterviewBlock : function (event) {
       event && event.preventDefault();
       this.removeActiveClass();
+      var interviewView = new InterviewBlocks({ collection: this.interviews});
+      this.updateNestedView(interviewView);
       this.$el.find(".interview-view-type .block").addClass("active");
-      this.$interviewViewContainer.html("Block View");
+      this.$interviewViewContainer.html(this.nestedView.render().$el);
       return this;
     },
 
