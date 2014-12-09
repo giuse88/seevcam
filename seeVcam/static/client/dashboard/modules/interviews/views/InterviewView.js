@@ -40,7 +40,7 @@ define(function (require) {
         '<div class="row interviews-container">'+
         '    <div class="col-md-3" id="upcoming-interviews">'+
         '        <div class="interview-items">'+
-        '                <p class="no-interview ">No interview scheduled for today.</p>'+
+        '                <p class="no-interview shadow-text">No interview scheduled for today.</p>'+
          '       </div>'+
          '   </div>'+
          '   <div id="interviews-view-container" class="col-md-8 interview-view-container"> Inner container </div>'+

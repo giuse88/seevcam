@@ -10,7 +10,7 @@ define(function (require) {
 
     tagName :'div',
     className : 'interview-grid',
-    template_no_interview : '<div class="no-interview">No interview.</div>',
+    template_no_interview : '<div class="no-interview text-shadow ">No interview</div>',
 
     initialize : function(options){
       this.collection= options.collection;
@@ -21,9 +21,13 @@ define(function (require) {
       this.listenTo(this.collection, 'sync', Utils.syncSuccess);
     },
 
-    renderInterview : function(interview) {
+    renderInterview : function(interview, index) {
       var interview = new InterviewBlock({model:interview});
-      this.$el.append(interview.render().$el);
+      var interviewRendered = interview.render().$el;
+      if ( index == 0 ) {
+        interviewRendered.addClass('first');
+      }
+      this.$el.append(interviewRendered);
     },
 
     setCollection : function ( collection ) {

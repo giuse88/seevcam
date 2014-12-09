@@ -1,10 +1,14 @@
 .interviews{
 
   .no-interview {
-    color: #a6a6a6;
     font-size: 12px;
-    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
     text-align: center;
+    width: 100%;
+    font-weight: bold;
+    text-align: center;
+    color: #b3b3b3;
+    color: rgba(255, 255, 255, 0.3);
+    text-shadow: -1px -1px rgba(0, 0, 0, 0.25);
   }
 
   .upper-bar {
@@ -68,6 +72,14 @@
   .interviews-container {
     margin-bottom: 20px;
     margin-top : 50px;
+
+    .interview-grid {
+      .no-interview {
+        font-size: 25px;
+        margin-top : 20%;
+      }
+    }
+
   }
 
     /** Interviews List Section */
@@ -236,7 +248,7 @@
 .interview-item footer{
 	display: none;
 }
-.interview-item{
+.interview-item {
     position: relative;
     width: ~"calc(33.33333% - 30px)";
     margin-left: 30px;
@@ -245,7 +257,13 @@
 	border-top: 7px solid @blue;
 	border-radius: 0px;
 	box-shadow: 0px 0px 3px #e4e4e4;
+
+    &.first {
+      margin-left: 0;
+    }
 }
+
+
 .interview-item .glyphicon-remove{
 	position: absolute;
 	right: 7px;
