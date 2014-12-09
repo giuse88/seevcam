@@ -24,7 +24,7 @@ define(function (require) {
     renderInterview : function(interview, index) {
       var interview = new InterviewBlock({model:interview});
       var interviewRendered = interview.render().$el;
-      if ( index == 0 ) {
+      if ( index === 0 ) {
         interviewRendered.addClass('first');
       }
       this.$el.append(interviewRendered);

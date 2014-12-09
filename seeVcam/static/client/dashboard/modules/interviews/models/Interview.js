@@ -8,6 +8,17 @@ define(function(require) {
 
     getCandidateFullName : function () {
       return this.get("candidate.name") + " " + this.get("candidate.surname");
+    },
+
+    toCalendarEvent : function() {
+      return {
+        id : this.get("id"),
+        title : this.getCandidateFullName(),
+        start : this.get("start"),
+        end : this.get("end"),
+        allDay : false,
+        color : '#0071bb'
+      }
     }
 
   });

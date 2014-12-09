@@ -90,7 +90,7 @@ define(function (require) {
       event && event.preventDefault();
       this.removeActiveClass();
       this.$el.find(".interview-view-type .calendar").addClass("active");
-      var calendarView = new Calendar();
+      var calendarView = new Calendar({collection:this.interviews});
       this.updateNestedView(calendarView);
       this.$interviewViewContainer.html(this.nestedView.render().$el);
       return this;

@@ -47,7 +47,7 @@ define(function (require) {
         year : interviewStart.getUTCFullYear(),
         time : interviewStart.getHours() + ":" + interviewStart.getMinutes(),
         day  : interviewStart.getDay(),
-        month : interviewStart.getMonth(),
+        month : interviewStart.getMonth() + 1,
         date_string : "",
         date_separator : "-"
       }

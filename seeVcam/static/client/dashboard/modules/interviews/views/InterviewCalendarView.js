@@ -12,10 +12,22 @@ define(function (require) {
     tagName : 'div',
     className : 'interviews-calendar',
 
+    initialize : function(options) {
+     this.collection = options.collection
+    },
+
     render : function() {
       _.defer(this.renderCalendar.bind(this));
       return this;
-      },
+     },
+
+    getEvents : function () {
+      var events = [];
+      this.collection.each(function(interview)  {
+        events.push(interview.toCalendarEvent());
+      });
+      return events;
+    },
 
     renderCalendar : function() {
       var self = this;
@@ -28,7 +40,7 @@ define(function (require) {
         editable: false,
         droppable: false,
         allDaySlot: true,
-        events: [],
+        events: self.getEvents(),
         dayClick: function(date, allDay, jsEvent, view) {
           if (allDay){
             self.$el.fullCalendar('changeView','agendaDay');
