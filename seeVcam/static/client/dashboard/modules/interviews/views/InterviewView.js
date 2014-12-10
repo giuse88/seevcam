@@ -17,7 +17,8 @@ define(function (require) {
     events: {
       'click a.calendar' : 'renderInterviewCalendar',
       'click a.list'     : 'renderInterviewList',
-      'click a.block'    : 'renderInterviewBlock'
+      'click a.block'    : 'renderInterviewBlock',
+      'click .search-icon': 'filterInterviews'
     },
 
     template : _.template("" +
@@ -62,6 +63,7 @@ define(function (require) {
     },
 
     filterInterviews : function(e) {
+      console.log("Searching...");
       var $target = $(e.currentTarget);
       var currentValue = $target.val();
       this.nestedView.setCollection(this.interviews.filterByName(currentValue));
