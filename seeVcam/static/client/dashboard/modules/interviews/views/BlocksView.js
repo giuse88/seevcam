@@ -10,9 +10,12 @@ define(function (require) {
 
     tagName :'div',
     className : 'interview-grid',
-    template_no_interview : '<div class="no-interview text-shadow ">No interview</div>',
+    template_no_interview : function() {
+      return '<div class="no-interview text-shadow ">No interview ' +(this.options.today ? "today" : "") + "</div>";
+    },
 
     initialize : function(options){
+      this.options = options || {};
       this.collection= options.collection;
 
       this.listenTo(this.collection, 'add', this.render);
@@ -22,7 +25,10 @@ define(function (require) {
     },
 
     renderInterview : function(interview, index) {
-      var interview = new InterviewBlock({model:interview});
+      var interview = new InterviewBlock({
+        model:interview,
+        today:this.options.today
+      });
       var interviewRendered = interview.render().$el;
       if ( index === 0 ) {
         interviewRendered.addClass('first');
@@ -42,10 +48,10 @@ define(function (require) {
       this.$el.empty();
       console.log("rendering");
       if (this.collection.length === 0)
-              this.$el.append(this.template_no_interview);
-          else
-             this.renderAllInterviews();
-          return this;
+        this.$el.append(this.template_no_interview());
+      else
+        this.renderAllInterviews();
+
       return this;
     },
 

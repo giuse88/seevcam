@@ -37,6 +37,10 @@ define(function (require) {
       'click .delete-interview' : 'removeInterview'
     },
 
+    initialize : function(options) {
+      this.options = options || {};
+    },
+
     getDataForTemplate : function(){
       var interviewStart = new Date(this.model.get('start'));
       return {
@@ -60,10 +64,12 @@ define(function (require) {
     render : function() {
       console.log(this.getDataForTemplate());
       this.$el.html(this.template(this.getDataForTemplate()));
+      // This should be in the template
+      if (this.options.today) {
+        this.$el.addClass('today');
+      }
       return this;
     },
-
-
 
     close: function (){
       this.closeNestedView();

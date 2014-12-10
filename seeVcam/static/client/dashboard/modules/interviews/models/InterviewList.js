@@ -5,8 +5,9 @@ define(function(require){
   var notification = require("notification");
 
   var InterviewList =  Backbone.Collection.extend({
-        model: Interview,
-        url: "/dashboard/interviews/interviews",
+
+      model: Interview,
+      url: "/dashboard/interviews/interviews",
 
       initialize: function (interviews) {
       },
@@ -21,7 +22,17 @@ define(function(require){
           return fullName.indexOf(name.toLowerCase()) > -1;
         });
         return new InterviewList(filtered);
-      }
+      },
+
+     getTodayInterviews : function () {
+      var todayInterviews = this.filter(function(interview) {
+         var interviewStart = new Date(interview.start);
+         var today = new Date();
+         return today.getDay() === interviewStart.getDay();
+      });
+      return todayInterviews;
+     }
+
     });
 
     return InterviewList;

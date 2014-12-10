@@ -5,6 +5,7 @@ define(function (require) {
   var Backbone = require("backbone");
   var Calendar = require("modules/interviews/views/InterviewCalendarView");
   var InterviewBlocks = require("modules/interviews/views/BlocksView");
+  var Interviews = require("modules/interviews/models/InterviewList");
 
   return  Backbone.View.extend({
 
@@ -39,7 +40,7 @@ define(function (require) {
          '   </div>'+
         '</div>'+
         '<div class="row interviews-container">'+
-        '    <div class="col-md-3" id="upcoming-interviews">'+
+        '    <div class="col-md-3 upcoming-interviews" id="upcoming-interviews">'+
         '        <div class="interview-items">'+
         '                <p class="no-interview shadow-text">No interview scheduled for today.</p>'+
          '       </div>'+
@@ -57,7 +58,9 @@ define(function (require) {
       this.$el.html(this.template);
       this.$interviewViewContainer = this.$el.find('.interview-view-container');
       this.$searchBox = this.$el.find('#searchbox-container input');
-      console.log(this.$searchBox);
+      this.$todayInterview = this.$el.find(".upcoming-interviews");
+      // today
+      this.renderTodayInterviews();
       this.$searchBox.bind('input propertychange', this.filterInterviews.bind(this));
       return this;
     },
@@ -113,7 +116,18 @@ define(function (require) {
       this.nestedView = newNestedView;
     },
 
-    renderTodayInterviews : function () {},
+    renderTodayInterviews : function () {
+      var todayInterviews = this.interviews.getTodayInterviews();
+      if (todayInterviews.length > 3) {
+        todayInterviews = todayInterviews.slice(0,2);
+      }
+      var interviewView = new InterviewBlocks({
+        collection: new Interviews(todayInterviews),
+        today: true
+      });
+      this.$todayInterview.html(interviewView.render().$el);
+      return this;
+    },
     renderOpenInterview : function () {},
 
     close: function (){
