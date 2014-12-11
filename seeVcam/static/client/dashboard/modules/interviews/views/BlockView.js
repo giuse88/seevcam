@@ -9,7 +9,7 @@ define(function (require) {
     tagName : 'div',
     className : 'interview-item',
 
-    template : _.template('' +
+    block_item_template : _.template('' +
       '<span class="glyphicon glyphicon-remove delete-interview"></span> ' +
       '<header>' +
       '<div class="row">' +
@@ -32,6 +32,18 @@ define(function (require) {
       '    </p> ' +
       '   <p class="interview-hours"><%= time %></p>' +
       '</section>'),
+
+    list_item_template : _.template('' +
+        '<div class="interview-date"><span class="date-string"> <%= date_string %></span>' +
+        '<span class="date-month"><%= month %></span> <span class="date-separator"><%= date_separator %></span>' +
+        '<span class="date-day"><%= day %></span> <span class="date-separator"><%= date_separator %></span>' +
+        '<span class="date-year"><%= year %></span></div>' +
+        '<div class="interview-time"><%= time %></div>' +
+        '<h4><%= name %>  <%= surname %></h4>' +
+        '<p><%= job_position%> </p>' +
+        '<div class="action-icons">' +
+            '<span class="glyphicon glyphicon-remove delete-interview"></span> ' +
+        '</div>'),
 
     events : {
       'click .delete-interview' : 'removeInterview'
@@ -63,7 +75,8 @@ define(function (require) {
 
     render : function() {
       console.log(this.getDataForTemplate());
-      this.$el.html(this.template(this.getDataForTemplate()));
+      var template = this.options.list ? this.list_item_template : this.block_item_template;
+      this.$el.html(template(this.getDataForTemplate()));
       // This should be in the template
       if (this.options.today) {
         this.$el.addClass('today');
@@ -72,7 +85,6 @@ define(function (require) {
     },
 
     close: function (){
-      this.closeNestedView();
       this.remove();
       this.unbind();
       this.undelegateEvents();

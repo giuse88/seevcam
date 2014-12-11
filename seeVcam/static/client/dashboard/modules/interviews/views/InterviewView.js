@@ -86,8 +86,13 @@ define(function (require) {
     renderInterviewList : function () {
       event && event.preventDefault();
       this.removeActiveClass();
+      var interviewView = new InterviewBlocks({
+        collection: this.interviews,
+        list : true
+      });
+      this.updateNestedView(interviewView);
       this.$el.find(".interview-view-type .list").addClass("active");
-      this.$interviewViewContainer.html("List view");
+      this.$interviewViewContainer.html(this.nestedView.render().$el);
       return this;
     },
 
@@ -118,6 +123,7 @@ define(function (require) {
 
     renderTodayInterviews : function () {
       var todayInterviews = this.interviews.getTodayInterviews();
+      // This is wrong
       if (todayInterviews.length > 3) {
         todayInterviews = todayInterviews.slice(0,2);
       }

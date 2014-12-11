@@ -442,93 +442,108 @@
 }
 
 
-
 /*INTERVIEWS LIST ITEM*/
-#interviews-list-view .interview-item{
-	border-top: none;
-	margin-bottom: 7px;
-	padding: 0px;
-	position: relative;
+  .interviews-list-view {
 
-}
-#interviews-list-view .interview-item > *{
-	display: inline-block;
-}
-#interviews-list-view .interview-item > .interview-date{
-	font-size: 16px;
-	padding-left: 15px;
-	padding-right: 15px;
-	background-color: black;
-	color: #999;
-	width: 130px;
-	text-align: center;
-	border: 1px solid #999;
-}
-#interviews-list-view .interview-item > .interview-time{
-	font-size: 14px;
-	padding: 0px;
-	width: 80px;
-	border-right: 1px solid #999;
-}
-#interviews-list-view .interview-item > h4{
-	margin: 0px;
-	padding-left: 10px;
-	width: 250px;
-	border-right: 1px solid #999;
-}
-#interviews-list-view .interview-item > p{
-	margin: 0px;
-	padding-left: 10px;
-	color: #999;
-}
-#interviews-list-view .interview-item > .action-icons{
-	position: absolute;
-	right: 9px;
-	top: 9px;
-}
-#interviews-list-view .interview-item > .action-icons > .glyphicon{
-	margin-left: 3px;
-	margin-right: 3px;
-	color: #e0e0e0;
-}
-#interviews-list-view .interview-item > .action-icons > .glyphicon:hover{
-	color: white;
-}
+    .interview-item {
+      border-top: none;
+      margin: 0 0 7px;
+      padding: 0px;
+      width: 100%;
+    }
 
-#interviews-list-view .interview-item:hover > .interview-time{
-	color: #999;
-}
-#interviews-list-view .interview-item:hover > h4{
-	color: #eee;
-}
-#interviews-list-view .date-separator{
-	color: #222;
-}
+    .interview-item > * {
+      display: inline-block;
+    }
+    .interview-item > .interview-date {
+      font-size: 16px;
+      padding-left: 15px;
+      padding-right: 15px;
+      background-color: black;
+      color: #999;
+      width: 130px;
+      text-align: center;
+      border: 1px solid #999;
+    }
+    .interview-item > .interview-time {
+      font-size: 14px;
+      padding: 0px;
+      width: 80px;
+      border-right: 1px solid #999;
+    }
+    .interview-item > h4 {
+      margin: 0px;
+      padding-left: 10px;
+      width: 250px;
+      border-right: 1px solid #999;
+    }
+    .interview-item > p {
+      margin: 0px;
+      padding-left: 10px;
+      color: #999;
+    }
+    .interview-item > .action-icons {
+      display: none;
+      position: absolute;
+      right: 5px;
+      top: 9px;
+      .glyphicon-remove {
+        right: 0px;
+      }
+    }
+    .interview-item > .action-icons > .glyphicon {
+      margin-left: 3px;
+      margin-right: 3px;
+      color: #e0e0e0;
+    }
+    .interview-item > .action-icons > .glyphicon:hover {
+      color: white;
+    }
 
+    .interview-item:hover {
+      .action-icons{
+        display: block;
+      }
+    }
 
-/*TODAY ITEM*/
-#interviews-list-view .interview-item.today > .interview-date{
-	background-color: #009145;
-	color: #a8d9c0;
-}
-#interviews-list-view .interview-item.today:hover > .interview-time{
-	color: #a8d9c0;
-}
-#interviews-list-view .interview-item.today:hover > p{
-	color: #a8d9c0;
-}
+    .interview-item:hover > .interview-time {
+       color: #eee;
+    }
+    .interview-item:hover > h4 {
+      color: #eee;
+    }
+    .interview-item:hover > p {
+      color: #eee;
+    }
+    .date-separator {
+      color: #999;
+      margin-right: 4px;
+    }
 
-/*TOMORROW ITEM*/
-#interviews-list-view .interview-item.tomorrow > .interview-date{
-	background-color: #0071bb;
-	color: #80b8dd;
-}
-#interviews-list-view .interview-item.tomorrow:hover > .interview-time{
-	color: #80b8dd;
-}
-#interviews-list-view .interview-item.tomorrow:hover > p{
-	color: #80b8dd;
-}
+    /*TODAY ITEM*/
+    .interview-item.today > .interview-date {
+      background-color: #009145;
+      color: #a8d9c0;
+    }
+    .interview-item.today:hover > .interview-time {
+      color: #a8d9c0;
+    }
+    .interview-item.today:hover > p {
+      color: #a8d9c0;
+    }
+
+    /*TOMORROW ITEM*/
+    .interview-item.tomorrow > .interview-date {
+      background-color: #0071bb;
+      color: #80b8dd;
+    }
+    .interview-item.tomorrow:hover > .interview-time {
+      color: #80b8dd;
+    }
+    .interview-item.tomorrow:hover > p {
+      color: #80b8dd;
+    }
+  }
 
 
 #report-side-bar{
