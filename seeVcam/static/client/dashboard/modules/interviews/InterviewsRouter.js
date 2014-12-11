@@ -37,7 +37,11 @@ define(function(require){
         return;
       }
 
-      var interviewsApp = new InterviewApp({interviews : window.cache.interviews});
+      var interviewsApp = new InterviewApp({
+        interviews : window.cache.interviews,
+        activeClock: true
+      });
+
       Utils.safelyUpdateCurrentView(interviewsApp);
       $("#container").html(interviewsApp.render().$el);
       // default inner view

@@ -6,6 +6,7 @@ define(function (require) {
   var Calendar = require("modules/interviews/views/InterviewCalendarView");
   var InterviewBlocks = require("modules/interviews/views/InterviewListView");
   var Interviews = require("modules/interviews/models/InterviewList");
+  var ClockView = require("modules/interviews/views/ClockView");
 
   return  Backbone.View.extend({
 
@@ -20,6 +21,10 @@ define(function (require) {
       'click a.list'     : 'renderInterviewList',
       'click a.block'    : 'renderInterviewBlock',
       'click .search-icon': 'filterInterviews'
+    },
+
+    defaults : {
+     activeClock : false
     },
 
     template : _.template("" +
@@ -50,8 +55,11 @@ define(function (require) {
 
     initialize : function (options){
       console.log("Initializing interview page");
+      this.options = _.extend( this.defaults, options);
+      console.log(options);
+      console.log(this.options);
       this.nestedView = null;
-      this.interviews = options.interviews;
+      this.interviews = this.options.interviews;
     },
 
     render : function(){
@@ -61,7 +69,17 @@ define(function (require) {
       this.$todayInterview = this.$el.find(".upcoming-interviews");
       // today
       this.renderTodayInterviews();
+      // clock
+      if(this.options.activeClock)  {
+        this.renderClock();
+      }
       this.$searchBox.bind('input propertychange', this.filterInterviews.bind(this));
+      return this;
+    },
+
+    renderClock : function () {
+      this.clockView = new ClockView();
+      this.$el.prepend(this.clockView.render().$el);
       return this;
     },
 
@@ -138,6 +156,9 @@ define(function (require) {
 
     close: function (){
       this.closeNestedView();
+      if (this.clockView) {
+        this.clockView.close();
+      }
       this.remove();
       this.unbind();
       this.undelegateEvents();
