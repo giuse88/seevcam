@@ -4,7 +4,7 @@ define(function (require) {
   var _ = require("underscore");
   var Backbone = require("backbone");
   var Utils = require("utils");
-  var InterviewBlock = require("modules/interviews/views/BlockView");
+  var InterviewBlock = require("modules/interviews/views/InterviewView");
 
   return  Backbone.View.extend({
 

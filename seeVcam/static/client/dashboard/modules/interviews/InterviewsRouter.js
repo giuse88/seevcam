@@ -6,7 +6,7 @@ define(function(require){
   var CreateInterview = require("modules/interviews/pjax_views/CreateInterview");
   var LoadingBar = require("nanobar");
   var Interviews = require("modules/interviews/models/InterviewList");
-  var InterviewApp = require("modules/interviews/views/InterviewView");
+  var InterviewApp = require("modules/interviews/views/InterviewAppView");
 
   return  Backbone.Router.extend({
     routes: {

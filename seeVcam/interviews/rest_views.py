@@ -20,7 +20,7 @@ class InterviewList(generics.ListCreateAPIView):
         set_company_info(obj.candidate, self.request.user.company, self.request.user)
 
     def get_queryset(self):
-        return Interview.objects.filter(owner=self.request.user.id, status=Interview.OPEN)
+        return Interview.objects.filter(owner=self.request.user.id, status=Interview.OPEN).order_by('start')
 
 
 class InterviewDetail(generics.RetrieveUpdateDestroyAPIView):
