@@ -149,16 +149,20 @@ define(function (require) {
         collection: new Interviews(todayInterviews),
         today: true
       });
+      this.todayInterview = interviewView;
       this.$todayInterview.html(interviewView.render().$el);
       return this;
     },
-    renderOpenInterview : function () {},
+
+    renderOpenInterview : function () {
+    },
 
     close: function (){
       this.closeNestedView();
-      if (this.clockView) {
-        this.clockView.close();
-      }
+
+      this.clockView && this.clockView.close();
+      this.todayInterview && this.todayInterview.close();
+
       this.remove();
       this.unbind();
       this.undelegateEvents();

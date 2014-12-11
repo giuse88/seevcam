@@ -21,8 +21,10 @@ define(function (require) {
 
     initialize : function(options){
       console.log("initializing block view");
+
       this.options = options || {};
       this.collection= options.collection;
+      this.views = [];
 
       this.listenTo(this.collection, 'add', this.render);
       this.listenTo(this.collection, 'reset', this.render);
@@ -32,20 +34,18 @@ define(function (require) {
 
     renderInterview : function(interview, index) {
 
-      // I should save the nested interviews so that I can safely remove them when this view is destroyed
-
       var interview = new InterviewBlock({
         model: interview,
         today: this.options.today,
         list : !!this.options.list
       });
+      this.views.push(interview);
 
       var interviewRendered = interview.render().$el;
       if ( index === 0 ) {
         interviewRendered.addClass('first');
       }
       this.$el.append(interviewRendered);
-
     },
 
     setCollection : function ( collection ) {
@@ -70,6 +70,9 @@ define(function (require) {
     },
 
     close: function (){
+      _.each(this.views, function (view) {
+        view.close();
+      });
       this.remove();
       this.unbind();
       this.undelegateEvents();
