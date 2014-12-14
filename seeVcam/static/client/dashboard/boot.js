@@ -1,6 +1,8 @@
 require.config({
   baseUrl: '/static/',
+
   paths: {
+    "text" : "bower_components/requirejs-text/text",
     // App.js
     "app" : "client/dashboard/app",
     // maps
@@ -21,7 +23,8 @@ require.config({
     "bloodhound"    : "bower_components/typeahead.js/dist/bloodhound",
     "parsley"       : "bower_components/parsleyjs/dist/parsley",
     "fullcalendar"  : "bower_components/fullcalendar/fullcalendar",
-    "deep-model"     : "bower_components/backbone-deep-model/distribution/deep-model",
+    "deep-model"    : "bower_components/backbone-deep-model/distribution/deep-model",
+    "backbone-forms": "bower_components/backbone-forms/distribution/backbone-forms",
     //
     "notification"  : "client/dashboard/modules/notification/notification",
     "utils"         : "client/misc/utils",
@@ -29,6 +32,9 @@ require.config({
   },
 
   shim: {
+    "backbone-forms" : {
+      deps:["backbone"]
+    },
     "jquery-ui":{
       deps : ["jquery"]
     },

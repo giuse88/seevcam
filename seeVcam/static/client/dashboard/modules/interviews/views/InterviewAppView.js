@@ -159,10 +159,9 @@ define(function (require) {
 
     close: function (){
       this.closeNestedView();
-
       this.clockView && this.clockView.close();
       this.todayInterview && this.todayInterview.close();
-
+      this.openInterview && this.openInterview.close();
       this.remove();
       this.unbind();
       this.undelegateEvents();

@@ -7,6 +7,8 @@ define(function(require){
   var LoadingBar = require("nanobar");
   var Interviews = require("modules/interviews/models/InterviewList");
   var InterviewApp = require("modules/interviews/views/InterviewAppView");
+  var CreateInterviewView = require("modules/interviews/views/CreateInterviewView");
+  var Interview = require("modules/interviews/models/Interview");
 
   return  Backbone.Router.extend({
     routes: {
@@ -39,7 +41,7 @@ define(function(require){
 
       var interviewsApp = new InterviewApp({
         interviews : window.cache.interviews,
-        activeClock: true
+        activeClock: false
       });
 
       Utils.safelyUpdateCurrentView(interviewsApp);
@@ -51,22 +53,10 @@ define(function(require){
     createInterview: function() {
       console.log("Create interview route");
       Utils.updateActiveLink(this.navbarElement);
-      Utils.safelyUpdateCurrentView();
-      console.log(Backbone.history);
-
-      // this happens when you load directly the interview page
-      if (Backbone.history.fragment === "interviews/create/") {
-        CreateInterview.installCreateInterview();
-      } else {
-        $.pjax({
-          url: "interviews/create/",
-          container: '#container',
-          push: false,
-          pjax_end: function () {
-            CreateInterview.installCreateInterview();
-          }
-        });
-      }
+      var createInterview = new CreateInterviewView({model : new Interview()});
+      window.form = createInterview;
+      Utils.safelyUpdateCurrentView(createInterview);
+      $("#container").html(createInterview.render().$el);
     },
 
     goToCreateInterview: function(trigger){
@@ -76,7 +66,6 @@ define(function(require){
       console.log("fff");
       this.navigate("/interviews/", {trigger:!!trigger});
     },
-
 
     loadInterviews: function (success, error) {
 

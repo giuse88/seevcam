@@ -1,0 +1,88 @@
+    <div class="create-interview">
+    <h1>New Interview</h1>
+
+    <form id="createInterview" name="createInterview" class="form-horizontal create-interview-form"
+          enctype="multipart/form-data" action="" method="post" role="form">
+
+        <div class="row">
+            <div class="col-lg-6">
+            <hr>
+
+            <div class="form-group ">
+                <label for="id-candidate-name"> Name : </label>
+                <input class="form-control" data-parsley-errors-container=".candidate_name.error-form"
+                       data-parsley-trigger="focusout" id="candidate_name" maxlength="255" name="candidate_name"
+                       placeholder="Candidate name" required="true" type="text">
+            </div>
+
+            <div class="form-group ">
+                <label for="id_candidate-surname"> Surname : </label>
+                <input class="form-control" data-parsley-errors-container=".candidate_surname.error-form"
+                       data-parsley-trigger="focusout" id="candidate_surname" maxlength="255" name="candidate_surname"
+                       placeholder="Candidate surname" required="true" type="text">
+            </div>
+
+            <div class="form-group ">
+                <label for="id_candidate-email"> Email : </label>
+                <input class="form-control" data-parsley-errors-container=".candidate_email.error-form"
+                       data-parsley-trigger="focusout" id="candidate_email" maxlength="75" name="candidate_email"
+                       placeholder="Candidate email" required="true" type="email" >
+                <div class=" email error-form"> </div>
+            </div>
+
+
+            <div class="cv-uploader form-group">
+                <input class="hidden file-id-input" data-parsley-errors-container=".cv-uploader .cv.error-form"
+                       id="candidate_cv" name="candidate_cv" type="number" required="true">
+                <div class="fileupload-container">
+                    <span class="btn btn-primary fileinput-button">
+                        <i class="glyphicon glyphicon-plus"></i>
+                        <span>Select curriculum</span>
+                        <input class="fileupload" type="file" name="file" data-url="/dashboard/files/">
+                    </span>
+                    <span class="uploaded-file-link"> No file uploaded yet </span>
+                    <div class="progress file-upload-progress" style="display:none">
+                    <div class="progress-bar progress-bar-success"></div>
+                    </div>
+                 </div>
+                <div class="cv error-form"> </div>
+            </div>
+            <hr>
+<!--
+
+<div class="form-group ">
+    <label for="id_job-position-position"> Position : </label>
+    <input class="form-control" data-parsley-errors-container=".position.error-form" id="id_job-position-position" maxlength="255" name="job-position-position" placeholder="Position" type="text">
+    <div class=" position error-form">
+
+    </div>
+</div>
+
+
+
+<div class=" job-description-uploader form-group">
+    <input class="hidden file-id-input" id="id_job-position-job_description" name="job-position-job_description" type="number">
+    <div class="fileupload-container">
+        <span class="btn btn-primary fileinput-button">
+            <i class="glyphicon glyphicon-plus"></i>
+            <span>Select job spec</span>
+            <input class="fileupload" type="file" name="file" data-url="/dashboard/files/">
+        </span>
+        <span class="uploaded-file-link"> No file uploaded yet </span>
+        <div class="progress file-upload-progress" style="display:none">
+            <div class="progress-bar progress-bar-success"></div>
+        </div>
+    </div>
+
+</div>
+
+
+-->
+                <hr>
+                <input class="btn btn-primary" type="submit" value="Create">
+
+           </div>
+        </div>
+    </form>
+
+</div>

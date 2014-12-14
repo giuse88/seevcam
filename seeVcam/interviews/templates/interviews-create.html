@@ -25,9 +25,9 @@
             <div class="col-lg-6">
 
                 <hr/>
-                {% interviews_field candidate_form.name|parsley:"required:true,data-parsley-trigger:focusout" %}
-                {% interviews_field candidate_form.surname|parsley:'required:true,data-parsley-trigger:focusout' %}
-                {% interviews_field candidate_form.email|parsley:'required:true,data-parsley-trigger:focusout' %}
+                {% interviews_field candidate_form.name %}
+                {% interviews_field candidate_form.surname %}
+                {% interviews_field candidate_form.email %}
                 {% file_upload candidate_form.cv 'cv-uploader' 'Select curriculum' %}
 
                 <hr/>
@@ -35,7 +35,6 @@
                 {{ form.start }}
                 {{ form.end }}
 {#                {% calendar_field form.interview_datetime form.interview_datetime_end request.user %}#}
-
 
                 <div class="interview-catalogue form-group has-feedback
                             {% if form.catalogue.errors %} has-error {% endif %}">
@@ -60,7 +59,7 @@
 
                 <hr/>
 
-                {% interviews_field job_position_form.position|parsley:'required:true,data-parsley-trigger:focusout' %}
+                {% interviews_field job_position_form.position %}
                 {% file_upload job_position_form.job_description 'job-description-uploader' 'Select job spec' %}
 
                 <hr/>

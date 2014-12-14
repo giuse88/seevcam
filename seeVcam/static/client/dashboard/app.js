@@ -2,13 +2,10 @@ define(function (require) {
 
   require("jquery-pjax");
   require("bootstrap");
-  require("jquery-ui");
 
   var $ = require("jquery");
   var router = require("dashboard/router");
   var profile = require("modules/profile/profilePjax");
-
-    var Interview = require("modules/interviews/models/InterviewList");
 
 
   $.ajaxSetup({
