@@ -28,14 +28,18 @@ def file_upload(request):
         return HttpResponseBadRequest(UNSUPPORTED_REQUEST)
 
 
-def file_delete(request, pk):
+def file_handler(request, pk):
     if request.method == 'DELETE':
-        # pk = request.kwargs['pk']
         uploaded_file = get_object_or_404(UploadedFile, pk=pk)
         #this should be async
         os.remove(str(uploaded_file.file))
         uploaded_file.delete()
         response_data = {'status': 'deleted'}
+        return HttpResponse(json.dumps(response_data), content_type="application/json")
+    if request.method == 'GET':
+        uploaded_file = get_object_or_404(UploadedFile, pk=pk)
+        serializer = UploadedFileSerializer(uploaded_file)
+        response_data = serializer.data
         return HttpResponse(json.dumps(response_data), content_type="application/json")
     else:
         return HttpResponseBadRequest(UNSUPPORTED_REQUEST)
