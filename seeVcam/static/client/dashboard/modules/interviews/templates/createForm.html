@@ -1,5 +1,6 @@
     <div class="create-interview">
-    <h1>New Interview</h1>
+
+    <h1> <%= title %></h1>
 
     <form id="createInterview" name="createInterview" class="form-horizontal create-interview-form"
           enctype="multipart/form-data" action="" method="post" role="form">
@@ -11,6 +12,7 @@
             <div class="form-group ">
                 <label for="id-candidate-name"> Name : </label>
                 <input class="form-control" data-parsley-errors-container=".candidate_name.error-form"
+                       <% if ( interview ) { %> value = <%= interview.candidate.name %> <% } %>
                        data-parsley-trigger="focusout" id="candidate_name" maxlength="255" name="candidate_name"
                        placeholder="Candidate name" required="true" type="text">
             </div>
@@ -18,6 +20,7 @@
             <div class="form-group ">
                 <label for="id_candidate-surname"> Surname : </label>
                 <input class="form-control" data-parsley-errors-container=".candidate_surname.error-form"
+                       <% if ( interview ) { %> value = <%= interview.candidate.surname %> <% } %>
                        data-parsley-trigger="focusout" id="candidate_surname" maxlength="255" name="candidate_surname"
                        placeholder="Candidate surname" required="true" type="text">
             </div>
@@ -25,11 +28,11 @@
             <div class="form-group ">
                 <label for="id_candidate-email"> Email : </label>
                 <input class="form-control" data-parsley-errors-container=".candidate_email.error-form"
+                       <% if ( interview ) { %> value = <%= interview.candidate.email %> <% } %>
                        data-parsley-trigger="focusout" id="candidate_email" maxlength="75" name="candidate_email"
                        placeholder="Candidate email" required="true" type="email" >
                 <div class=" email error-form"> </div>
             </div>
-
 
             <div class="cv-uploader form-group">
                 <div class="fileupload-container">
@@ -38,7 +41,14 @@
                         <span>Select curriculum</span>
                         <input class="fileupload" type="file" name="file" data-url="/dashboard/files/">
                     </span>
-                    <span class="uploaded-file-link"> No file uploaded yet </span>
+                    <span class="uploaded-file-link">
+                       <% if ( cv ) { %>
+                            <a target="_blank" data-delete-url= "<%= cv.delete_url %>" href="<%= cv.url %>">
+                                <%= cv.original_name %></a>
+                        <% } else { %>
+                            No file uploaded yet
+                        <% } %>
+                    </span>
                     <div class="progress file-upload-progress" style="display:none">
                     <div class="progress-bar progress-bar-success"></div>
                 </div>
@@ -77,7 +87,7 @@
 
 -->
                 <hr>
-                <input class="btn btn-primary" type="submit" value="Create">
+                <input class="btn btn-primary" type="submit" value=" <% if (create){ %> Create <% } else { %> Update <% } %> ">
 
            </div>
         </div>

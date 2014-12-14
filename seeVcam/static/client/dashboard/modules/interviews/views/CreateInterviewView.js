@@ -17,15 +17,33 @@ define(function (require) {
     },
 
     initialize:function(options){
-      console.log(this.model);
-      console.log(options.model);
       this.options = options;
       this.interviewCollection = options.interviews;
       this.interviewRouter = options.router;
     },
 
+    getTemplateData : function() {
+
+      if(!this.model) {
+        return {
+          create : true,
+          title : "New interview",
+          interview : null,
+          cv : null
+        };
+      }
+
+      return {
+        create : false,
+        title : "Update interview",
+        interview : this.model.toJSON(),
+        cv : this.model.getCV().toJSON()
+      }
+
+    },
+
     render: function (){
-      this.$el.html(this.template());
+      this.$el.html(this.template(this.getTemplateData()));
       this.$form = this.$el.find("form");
       this.installParsely();
       this.installCVUploader();

@@ -63,7 +63,8 @@ class UploadedFile(models.Model):
 
     def get_delete_url(self):
         from django.core.urlresolvers import reverse_lazy
-        return reverse_lazy('file_delete', kwargs={'pk': str(self.id)})
+        url = reverse_lazy('file_detail', kwargs={'pk': str(self.id)})
+        return url
 
 
 

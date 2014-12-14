@@ -37,6 +37,10 @@ define(function(require) {
       return !!this.cvFetched;
     },
 
+    getCV : function () {
+      return this.candidateCv;
+    },
+
     fetchCV :function (successCb, errocb ) {
       var self = this;
 
