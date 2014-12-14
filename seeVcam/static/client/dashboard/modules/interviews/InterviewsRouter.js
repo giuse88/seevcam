@@ -52,9 +52,24 @@ define(function(require){
 
     createInterview: function() {
       console.log("Create interview route");
+
       Utils.updateActiveLink(this.navbarElement);
-      var createInterview = new CreateInterviewView({model : new Interview()});
-      window.form = createInterview;
+
+      // find a better way
+      if (!window.cache.interviews){
+        LoadingBar.go(40);
+        this.loadInterviews(_.bind(function(){
+          LoadingBar.go(100);
+          this.createInterview();
+          }, this));
+        return;
+      }
+
+      var createInterview = new CreateInterviewView({
+        router: this,
+        interviews: window.cache.interviews
+      });
+
       Utils.safelyUpdateCurrentView(createInterview);
       $("#container").html(createInterview.render().$el);
     },

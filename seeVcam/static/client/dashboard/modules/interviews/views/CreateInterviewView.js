@@ -16,6 +16,12 @@ define(function (require) {
      'submit #createInterview'  : 'handleFormSubmit'
     },
 
+    initialize:function(options){
+      this.options = options;
+      this.interviewCollection = options.interviews;
+      this.interviewRouter = options.router;
+    },
+
     render: function (){
       this.$el.html(this.template());
       this.$form = this.$el.find("form");
@@ -41,6 +47,26 @@ define(function (require) {
 
     handleFormSubmit: function (event) {
       event.preventDefault();
+      var interview  = this.serializeForm();
+      this.createInterview(interview);
+      console.log(interview);
+    },
+
+    createInterview:function (new_interview) {
+      var baseInterview = {
+        "start": "2014-12-12T11:30:00Z",
+        "end": "2014-12-12T12:30:00Z",
+        "job_position": 2,
+        "catalogue": 1
+        };
+      var interview = _.extend(baseInterview, new_interview);
+      this.interviewCollection.create(interview, {wait:true});
+      this.interviewRouter.goToInterviews(true);
+      console.log(interview);
+
+    },
+
+    serializeForm : function( ){
       var interview = {
         candidate : {}
       };
@@ -52,8 +78,7 @@ define(function (require) {
           interview[item.name] = item.value;
         }
       });
-      console.log(interview);
-      console.log(event);
+      return interview;
     },
 
     installCVUploader: function() {
