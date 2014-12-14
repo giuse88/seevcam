@@ -42,7 +42,7 @@ define(function (require) {
       this.views.push(interview);
 
       var interviewRendered = interview.render().$el;
-      if ( index === 0 ) {
+      if ((index%3) === 0 ) {
         interviewRendered.addClass('first');
       }
       this.$el.append(interviewRendered);

@@ -32,8 +32,6 @@
 
 
             <div class="cv-uploader form-group">
-                <input class="hidden file-id-input" data-parsley-errors-container=".cv-uploader .cv.error-form"
-                       id="candidate_cv" name="candidate_cv" type="number" required="true">
                 <div class="fileupload-container">
                     <span class="btn btn-primary fileinput-button">
                         <i class="glyphicon glyphicon-plus"></i>
@@ -43,11 +41,11 @@
                     <span class="uploaded-file-link"> No file uploaded yet </span>
                     <div class="progress file-upload-progress" style="display:none">
                     <div class="progress-bar progress-bar-success"></div>
-                    </div>
+                </div>
+                <input class="hidden file-id-input" id="candidate_cv" name="candidate_cv"
+                       type="number" required="true">
                  </div>
-                <div class="cv error-form"> </div>
             </div>
-            <hr>
 <!--
 
 <div class="form-group ">

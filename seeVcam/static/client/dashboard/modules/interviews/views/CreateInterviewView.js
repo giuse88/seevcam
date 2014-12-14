@@ -83,19 +83,15 @@ define(function (require) {
 
     installCVUploader: function() {
       this.installFileUploader("cv", ".cv-uploader");
-      console.log("installFileUploader");
       return this;
     },
 
     installFileUploader: function (type, containerClass) {
-
       var self = this;
 
       function deleteOldFileIfAny() {
-
         var deleteUrl = self.$el.find(containerClass + " .uploaded-file-link a").data("delete-url");
         var fileName = self.$el.find(containerClass + " .uploaded-file-link a").html();
-
         deleteUrl && $.ajax({
             url: deleteUrl,
             type: 'DELETE',
