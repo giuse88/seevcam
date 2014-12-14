@@ -17,6 +17,8 @@ define(function (require) {
     },
 
     initialize:function(options){
+      console.log(this.model);
+      console.log(options.model);
       this.options = options;
       this.interviewCollection = options.interviews;
       this.interviewRouter = options.router;
@@ -35,7 +37,7 @@ define(function (require) {
     },
 
     installParsely : function(){
-      this.$el.find("form").parsley({
+      this.$form.parsley({
         errorClass: 'has-error',
         classHandler: function (el) {
           return el.$element.closest('.form-group');

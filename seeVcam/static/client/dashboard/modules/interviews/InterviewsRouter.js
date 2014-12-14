@@ -9,11 +9,14 @@ define(function(require){
   var InterviewApp = require("modules/interviews/views/InterviewAppView");
   var CreateInterviewView = require("modules/interviews/views/CreateInterviewView");
   var Interview = require("modules/interviews/models/Interview");
+  var FileUploaded = require("modules/interviews/models/FileUploaded");
 
   return  Backbone.Router.extend({
+
     routes: {
       "interviews(/)": "interviews",
-      "interviews/create(/)": "createInterview"
+      "interviews/create(/)": "createInterview",
+      "interviews/:interviewId(/)": "updateInterview"
     },
 
     initialize: function () {
@@ -25,6 +28,10 @@ define(function(require){
       this.navbarElement.click(navigator.bind(this));
       console.log("Interiview router installed.");
     },
+
+    /*
+        Interview page
+     */
 
     interviews: function () {
       console.log("Interviews route");
@@ -50,6 +57,10 @@ define(function(require){
       interviewsApp.renderInterviewBlock();
     },
 
+    /*
+        Create page
+     */
+
     createInterview: function() {
       console.log("Create interview route");
 
@@ -68,6 +79,55 @@ define(function(require){
       var createInterview = new CreateInterviewView({
         router: this,
         interviews: window.cache.interviews
+      });
+
+      Utils.safelyUpdateCurrentView(createInterview);
+      $("#container").html(createInterview.render().$el);
+    },
+
+    updateInterview: function(interviewId) {
+      console.log("Going to update interview");
+
+      var self= this;
+
+      Utils.updateActiveLink(this.navbarElement);
+
+      /*
+          Resource to access this page
+          - interviews
+          - fileUpload
+       */
+
+      if (!window.cache.interviews){
+        LoadingBar.go(20);
+        this.loadInterviews(_.bind(function(){
+          LoadingBar.go(50);
+          this.updateInterview(interviewId);
+        }, this));
+        return;
+      }
+
+      var interview = window.cache.interviews.get(interviewId);
+
+      if(interview) {
+        if (!interview.isCVFetched()) {
+          interview.fetchCV(function () {
+            console.log("File fetched from remote server");
+            self.updateInterview(interviewId);
+          });
+          return;
+        } else {
+          LoadingBar.go(100);
+        }
+      } else {
+        console.log("Error redirect to 404");
+        return;
+      }
+
+      var createInterview = new CreateInterviewView({
+        router: this,
+        interviews: window.cache.interviews,
+        model : interview
       });
 
       Utils.safelyUpdateCurrentView(createInterview);

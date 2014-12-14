@@ -3,24 +3,13 @@ define(function(require) {
   require("deep-model");
   require("backbone-forms");
   var Backbone = require("backbone");
-  var Questions = require("modules/questions/models/Questions");
+  var FileUploaded = require("modules/interviews/models/FileUploaded");
 
   var FIVE_MINUTES = 60000 *5;
   var BLUE = '#0071bb';
 
   return Backbone.DeepModel.extend({
 
-    schema: {
-        candidate : { type : 'Object', subSchema : {
-          name:       { type:'Text', validators: ['required']},
-          surname:    { type:'Text', validators: ['required']},
-          email:      { validators: ['required', 'email'] },
-          cv:         { type: 'Number', validators:['required']}
-          }
-        },
-        start:      { type:'DateTime', validators:['required']},
-        end:        { type:'DateTime', validators:['required']}
-    },
 
     getCandidateFullName : function () {
       return this.get("candidate.name") + " " + this.get("candidate.surname");
@@ -42,7 +31,29 @@ define(function(require) {
       var startTime = new Date(this.get("start"));
       var endTime = new Date(this.get("end"));
       return now.getTime() >= (startTime.getTime() - FIVE_MINUTES) &&  now.getTime() < endTime.getTime();
+    },
+
+    isCVFetched : function () {
+      return !!this.cvFetched;
+    },
+
+    fetchCV :function (successCb, errocb ) {
+      var self = this;
+
+      if ( this.candidateCv ) {
+        return successCb(this);
+      }
+
+      this.candidateCv = new FileUploaded({id:this.get('candidate.cv')});
+      this.candidateCv.fetch({
+          success: function () {
+            self.cvFetched = true;
+            successCb.apply(arguments);
+          },
+          error : errocb
+      });
     }
+
 
   });
 
