@@ -68,8 +68,27 @@ define(function (require) {
     handleFormSubmit: function (event) {
       event.preventDefault();
       var interview  = this.serializeForm();
-      this.createInterview(interview);
       console.log(interview);
+      if (!this.model) {
+        this.createInterview(interview);
+      }else {
+        this.updateInterview(interview);
+      }
+    },
+
+    updateInterview : function(interview) {
+      var self = this;
+      this.model.save(interview, {
+        success: function (response) {
+          console.log("SUCCESS : interview updated.");
+          self.interviewRouter.goToInterviews(true);
+        },
+        error: function (response) {
+          console.error("FAILED : interview  not updated");
+          console.error(response);
+          Notification.warning("Update failed", "Reloading the page should fix the issue");
+        }
+      });
     },
 
     createInterview:function (new_interview) {

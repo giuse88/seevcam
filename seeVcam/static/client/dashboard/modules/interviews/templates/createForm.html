@@ -53,7 +53,7 @@
                     <div class="progress-bar progress-bar-success"></div>
                 </div>
                 <input class="hidden file-id-input" id="candidate_cv" name="candidate_cv"
-                       type="number" required="true">
+                       type="number" required="true" <% if (cv) { %> value="<%= cv.id %>" <% } %>  >
                  </div>
             </div>
 <!--
