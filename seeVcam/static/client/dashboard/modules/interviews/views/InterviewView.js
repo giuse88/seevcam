@@ -76,6 +76,10 @@ define(function (require) {
 
     removeInterview : function (event) {
       console.log("remove Interview");
+      //Delete model
+      this.model.destroy();
+      //Delete view
+      this.close();
     },
 
     render : function() {
