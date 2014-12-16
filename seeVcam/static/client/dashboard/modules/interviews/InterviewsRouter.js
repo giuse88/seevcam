@@ -85,6 +85,7 @@ define(function(require){
       $("#container").html(createInterview.render().$el);
     },
 
+
     updateInterview: function(interviewId) {
       console.log("Going to update interview");
 
@@ -137,6 +138,11 @@ define(function(require){
     goToCreateInterview: function(trigger){
         this.navigate("/interviews/create/", {trigger:!!trigger});
     },
+
+    goToInterview:function(id, trigger) {
+       this.navigate("/interviews/" + id + "/", {trigger:!!trigger});
+    },
+
     goToInterviews: function(trigger){
       console.log("fff");
       this.navigate("/interviews/", {trigger:!!trigger});

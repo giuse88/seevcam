@@ -45,7 +45,8 @@ define(function (require) {
         '</div>'),
 
     events : {
-      'click .delete-interview' : 'removeInterview'
+      'click .delete-interview' : 'removeInterview',
+      'click '   : 'handleItemClick'
     },
 
     initialize : function(options) {
@@ -66,6 +67,11 @@ define(function (require) {
         date_string : "",
         date_separator : "-"
       }
+    },
+
+    handleItemClick : function(event) {
+      window.app && window.app.router && window.app.router.InterviewsRouter &&
+      window.app.router.InterviewsRouter.goToInterview(this.model.get("id"), true);
     },
 
     removeInterview : function (event) {
