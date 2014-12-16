@@ -1,0 +1,23 @@
+{
+  "name": "InterviewRoom",
+  "version": "0.0.0",
+  "homepage": "https://github.com/giuse88/InterviewRoom",
+  "authors": [
+    "Giuseppe <giuse88@gmail.com>"
+  ],
+  "license": "PRIVATE",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "less": "~2.1.1",
+    "requirejs": "~2.1.15",
+    "jquery": "~2.1.1",
+    "backbone": "~1.1.2",
+    "underscore": "~1.7.0"
+  }
+}
