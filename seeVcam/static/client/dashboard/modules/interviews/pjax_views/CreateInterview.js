@@ -5,7 +5,6 @@ define(function (require) {
 
   require("typeahead");
   require("parsley");
-  require("jquery-fileupload");
 
 
   (function (_) {

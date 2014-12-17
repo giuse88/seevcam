@@ -1,9 +1,10 @@
 define(function (require) {
 
+  require("jquery.fileupload-validate");
+
   var $ = require("jquery");
   var _ = require("underscore");
   var Backbone = require("backbone");
-  require("backbone-forms");
 
   var Interview = require("modules/interviews/models/Interview");
   var createFormTemplate = require("text!modules/interviews/templates/createForm.html");
@@ -93,8 +94,8 @@ define(function (require) {
 
     createInterview:function (new_interview) {
       var baseInterview = {
-        "start": "2014-12-12T11:30:00Z",
-        "end": "2014-12-12T12:30:00Z",
+        "start": "2015-12-12T11:30:00Z",
+        "end": "2015-12-12T12:30:00Z",
         "job_position": 2,
         "catalogue": 1
         };
@@ -139,9 +140,13 @@ define(function (require) {
       }
 
       this.$el.find(containerClass + ' .fileupload').fileupload({
+
         dataType: 'json',
+        maxFileSize : 3000000,
         maxNumberOfFiles : 1,
+        acceptFileTypes: /(\.|\/)(docx|doc|pdf)$/i,
         formData: {type: type},
+
         progressall: function (e, data) {
            $(containerClass + ' .progress').show();
            var progress = parseInt(data.loaded / data.total * 100, 10);
@@ -150,19 +155,27 @@ define(function (require) {
             }, 500);
         },
         done: function (e, data) {
-            deleteOldFileIfAny();
-            $.each(data.result.files, function (index, file) {
-              // upload input form
-              self.$el.find(containerClass + ' .file-id-input').val(file.id);
-              // upload link
-              self.$el.find(containerClass + ' .uploaded-file-link')
-                .html("<a target='_blank' data-delete-url="+file.delete_url
-                      +" href='"+file.url +"'>" + file.original_name+"</a>");
-            });
-            setTimeout(function(){
-              self.$el.find(containerClass + ' .progress').hide();
-              self.$el.find(containerClass + ' .progress .progress-bar').css( 'width', 0);
-            }, 1000);
+          deleteOldFileIfAny();
+          $(containerClass +" .fileupload-container .errorlist ").empty();
+          $.each(data.result.files, function (index, file) {
+            // upload input form
+            self.$el.find(containerClass + ' .file-id-input').val(file.id);
+            // upload link
+            self.$el.find(containerClass + ' .uploaded-file-link')
+              .html("<a target='_blank' data-delete-url="+file.delete_url
+                    +" href='"+file.url +"'>" + file.original_name+"</a>");
+          });
+          setTimeout(function(){
+            self.$el.find(containerClass + ' .progress').hide();
+            self.$el.find(containerClass + ' .progress .progress-bar').css( 'width', 0);
+          }, 1000);
+        }
+      })
+      .on('fileuploadprocessalways', function (e, data) {
+        var file = data.files[0],
+          node = $(containerClass +" .fileupload-container > .errorlist ");
+        if (file.error) {
+          node.html($('<li class="file-error"/>').text(file.error));
         }
       });
       return this;

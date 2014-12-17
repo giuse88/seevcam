@@ -1,5 +1,6 @@
 require.config({
   baseUrl: '/static/',
+  waitSeconds: 200,
 
   paths: {
     "text" : "bower_components/requirejs-text/text",
@@ -15,7 +16,9 @@ require.config({
     "jquery-ui"     : "bower_components/jquery-ui/jquery-ui",
     "jquery.ui.widget" : "bower_components/jquery-file-upload/js/vendor/jquery.ui.widget",
     "jquery-iframe-transport" :  "bower_components/jquery-file-upload/js/jquery.iframe-transport",
-    "jquery-fileupload" : "bower_components/jquery-file-upload/js/jquery.fileupload",
+    "jquery.fileupload" : "bower_components/jquery-file-upload/js/jquery.fileupload",
+    "jquery.fileupload-validate" : "bower_components/jquery-file-upload/js/jquery.fileupload-validate",
+    "jquery.fileupload-process" : "bower_components/jquery-file-upload/js/jquery.fileupload-process",
     "backbone"      : "bower_components/backbone/backbone",
     "underscore"    : "bower_components/underscore/underscore",
     "bootstrap"     : "bower_components/bootstrap/dist/js/bootstrap",
@@ -32,21 +35,25 @@ require.config({
   },
 
   shim: {
+
+//    "jquery.fileupload-process" : {
+//      deps : ["jquery"]
+//    },
     "backbone-forms" : {
       deps:["backbone"]
     },
     "jquery-ui":{
       deps : ["jquery"]
     },
-    "jquery-ui-widget" : {
-      deps : ["jquery-ui"]
-    },
-    "jquery-iframe-transport" : {
-      deps : ["jquery"]
-    },
-    "jquery-fileupload" : {
-      deps : ["jquery-iframe-transport", "jquery.ui.widget"]
-    },
+//    "jquery-ui-widget" : {
+//      deps : ["jquery-ui"]
+//    },
+//    "jquery-iframe-transport" : {
+//      deps : ["jquery"]
+//    },
+//    "jquery.fileupload" : {
+//      deps : ["jquery.ui.widget"]
+//    },
     "jquery-pjax":{
       deps : ["jquery"]
     },

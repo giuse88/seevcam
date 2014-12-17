@@ -1,7 +1,6 @@
 define(function(require) {
 
   require("deep-model");
-  require("backbone-forms");
   var Backbone = require("backbone");
   var FileUploaded = require("modules/interviews/models/FileUploaded");
 
