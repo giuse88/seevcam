@@ -21,55 +21,66 @@ define(function (require) {
       console.log(events);
 
       this.$el.fullCalendar({
+
         header: {
           left: 'prev,next today',
           center: 'title',
           right: 'month,agendaWeek,agendaDay'
         },
+
+        columnFormat : {
+          month: 'ddd',
+          week: 'ddd D/M',
+          day: 'dddd'
+        },
+
+        firstDay : 1, // Moday
         editable: false,
         droppable: false,
         eventOverlap : false,
         slotEventOverlap : false,
         allDaySlot: true,
         events: events,
+        eventBackgroundColor: '#ddd',
 
-    viewRender: function(view) {
-      // Disable back buttons
-      var tomorrow = moment().add(1,'d');
-      var start = view.start;
-      if(start.isBefore(tomorrow)) {
-        self.$el.find('.fc-prev-button').addClass("fc-state-disabled");
-      } else {
-        self.$el.find('.fc-prev-button').removeClass("fc-state-disabled");
-      }
+        viewRender: function(view) {
+          var tomorrow = moment().add(1,'d');
+          var start = view.start;
+          if(start.isBefore(tomorrow)) {
+            self.$el.find('.fc-prev-button').addClass("fc-state-disabled");
+          } else {
+            self.$el.find('.fc-prev-button').removeClass("fc-state-disabled");
+          }
+        },
 
-    },
-      eventRender: function(ev,element,view){
-        if (ev.currentEvent){
-          currentEventID = ev._id;
-        }
-      },
-      dayClick: function(date, allDay, jsEvent, view) {
-        if (allDay){
-          self.$el.fullCalendar('changeView','agendaDay');
-          self.$el.fullCalendar('gotoDate',date.getFullYear(),date.getMonth(),date.getDate());
-        } else {
-          var endDateTime = new Date(date.getTime() + 30*60000);
-          var startDateTime = date;
-          if (!!currentEventID)
-            self.$el.fullCalendar('removeEvents',currentEventID);
-          var eventObj = {
-            title:"New Interview",
-            start:startDateTime,
-            end: endDateTime,
-            allDay:false,
-            editable:true,
-            currentEvent:true,
-            color: 'red'
-          };
-          self.$el.fullCalendar('renderEvent',eventObj,true);
-        }
-    },
+        eventRender: function(ev,element,view){
+          if (ev.currentEvent){
+            currentEventID = ev._id;
+          }
+        },
+
+        dayClick: function(date, allDay, jsEvent, view) {
+          if (allDay){
+            self.$el.fullCalendar('changeView','agendaDay');
+            self.$el.fullCalendar('gotoDate',date.getFullYear(),date.getMonth(),date.getDate());
+          } else {
+            var endDateTime = new Date(date.getTime() + 30*60000);
+            var startDateTime = date;
+            if (!!currentEventID)
+              self.$el.fullCalendar('removeEvents',currentEventID);
+            var eventObj = {
+              title:"New Interview",
+              start:startDateTime,
+              end: endDateTime,
+              allDay:false,
+              editable:true,
+              currentEvent:true,
+              color: 'red'
+            };
+            self.$el.fullCalendar('renderEvent',eventObj,true);
+          }
+        },
+
         eventClick: function(ev,jsev,view){
           if (view.name=="month") {
             self.$el.fullCalendar('changeView','agendaDay');
@@ -90,27 +101,32 @@ define(function (require) {
 
       // all day from first day to last day
       events.push({
-            start: firstDay,
-            end: end,
-            allDay:true,
-            overlap :false,
-            rendering: 'background'
+        editable:false,
+        start: firstDay,
+        end: end,
+        allDay:true,
+        overlap :false,
+        rendering: 'background'
       });
+
       // Yestarday all day view
       events.push({
+        editable:false,
         start:end,
         end:moment(),
         allDay:true,
         overlap :false,
         rendering: 'background'
       });
+
       // agenda/day view from first day to last day
       events.push({
         start: firstDay,
         end: end,
         overlap :false,
         rendering: 'background'
-    });
+      });
+
       return events;
     },
 
