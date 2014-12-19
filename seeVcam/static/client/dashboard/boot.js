@@ -25,9 +25,13 @@ require.config({
     "typeahead"     : "bower_components/typeahead.js/dist/typeahead.jquery",
     "bloodhound"    : "bower_components/typeahead.js/dist/bloodhound",
     "parsley"       : "bower_components/parsleyjs/dist/parsley",
-    "fullcalendar"  : "bower_components/fullcalendar/fullcalendar",
+    "fullcalendar"  : "bower_components/fullcalendar/dist/fullcalendar",
     "deep-model"    : "bower_components/backbone-deep-model/distribution/deep-model",
+    "moment"        : "bower_components/moment/moment",
+    // to be removed
     "backbone-forms": "bower_components/backbone-forms/distribution/backbone-forms",
+    "backbone.boostrap-modal" : "bower_components/backbone.bootstrap-modal/src/backbone.bootstrap-modal",
+
     //
     "notification"  : "client/dashboard/modules/notification/notification",
     "utils"         : "client/misc/utils",
@@ -35,6 +39,9 @@ require.config({
   },
 
   shim: {
+    "backbone.boostrap-modal" : {
+      deps : ["backbone"]
+    },
 
 //    "jquery.fileupload-process" : {
 //      deps : ["jquery"]

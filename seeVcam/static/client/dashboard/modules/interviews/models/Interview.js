@@ -21,6 +21,7 @@ define(function(require) {
         start : this.get("start"),
         end : this.get("end"),
         allDay : false,
+        overlap :false,
         color : BLUE
       }
     },

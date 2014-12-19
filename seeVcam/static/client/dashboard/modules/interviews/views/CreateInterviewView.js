@@ -1,6 +1,7 @@
 define(function (require) {
 
   require("jquery.fileupload-validate");
+  require("backbone.boostrap-modal");
 
   var $ = require("jquery");
   var _ = require("underscore");
@@ -8,13 +9,25 @@ define(function (require) {
 
   var Interview = require("modules/interviews/models/Interview");
   var createFormTemplate = require("text!modules/interviews/templates/createForm.html");
+  var Calendar = require("modules/interviews/views/InterviewCalendarView");
+
+  var ModalView = Backbone.View.extend({
+    tagName: 'p',
+    template: 'this is modal content',
+    render: function() {
+        this.$el.html(this.template);
+        console.log('modal rendered');
+        return this;
+    }
+});
 
   return Backbone.View.extend({
 
     template : _.template(createFormTemplate),
 
     events : {
-     'submit #createInterview'  : 'handleFormSubmit'
+     'submit #createInterview'  : 'handleFormSubmit',
+     'click .open-calendar' : 'openCalendar'
     },
 
     initialize:function(options){
@@ -51,6 +64,25 @@ define(function (require) {
       return this;
     },
 
+    openCalendar: function() {
+
+      var calendar =  new Calendar({collection:window.cache.interviews});
+
+      var modal = new Backbone.BootstrapModal({
+          content: calendar,
+          animate: true
+      });
+
+      modal.render().$el.find(".modal-dialog").width("60%");
+
+      modal.open(function(){
+      });
+
+      setTimeout(function() {
+        calendar.render();
+      } ,200);
+    },
+
     installTypeAhead: function(){
 
     },
@@ -67,6 +99,7 @@ define(function (require) {
     },
 
     handleFormSubmit: function (event) {
+      console.log("submit");
       event.preventDefault();
       var interview  = this.serializeForm();
       console.log(interview);

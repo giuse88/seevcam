@@ -13,13 +13,111 @@ define(function (require) {
     className : 'interviews-calendar',
 
     initialize : function(options) {
-     this.collection = options.collection
+      var self = this;
+      this.collection = options.collection;
+      var currentEventID = undefined;
+      var events = self.getBackgroundEvents().concat(self.getEvents());
+      console.log("Events");
+      console.log(events);
+
+      this.$el.fullCalendar({
+        header: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'month,agendaWeek,agendaDay'
+        },
+        editable: false,
+        droppable: false,
+        eventOverlap : false,
+        slotEventOverlap : false,
+        allDaySlot: true,
+        events: events,
+
+    viewRender: function(view) {
+      // Disable back buttons
+      var tomorrow = moment().add(1,'d');
+      var start = view.start;
+      if(start.isBefore(tomorrow)) {
+        self.$el.find('.fc-prev-button').addClass("fc-state-disabled");
+      } else {
+        self.$el.find('.fc-prev-button').removeClass("fc-state-disabled");
+      }
+
+    },
+      eventRender: function(ev,element,view){
+        if (ev.currentEvent){
+          currentEventID = ev._id;
+        }
+      },
+      dayClick: function(date, allDay, jsEvent, view) {
+        if (allDay){
+          self.$el.fullCalendar('changeView','agendaDay');
+          self.$el.fullCalendar('gotoDate',date.getFullYear(),date.getMonth(),date.getDate());
+        } else {
+          var endDateTime = new Date(date.getTime() + 30*60000);
+          var startDateTime = date;
+          if (!!currentEventID)
+            self.$el.fullCalendar('removeEvents',currentEventID);
+          var eventObj = {
+            title:"New Interview",
+            start:startDateTime,
+            end: endDateTime,
+            allDay:false,
+            editable:true,
+            currentEvent:true,
+            color: 'red'
+          };
+          self.$el.fullCalendar('renderEvent',eventObj,true);
+        }
+    },
+        eventClick: function(ev,jsev,view){
+          if (view.name=="month") {
+            self.$el.fullCalendar('changeView','agendaDay');
+            self.$el.fullCalendar('gotoDate',ev.start.getFullYear(),ev.start.getMonth(),ev.start.getDate());
+          }
+        }
+      });
+    },
+
+    getBackgroundEvents: function () {
+      var firstDay = moment().
+                      startOf('month').
+                      subtract(1, 'week');
+      var end = moment()
+                  .subtract(1,'day')
+                  .endOf('day');
+      var events = [];
+
+      // all day from first day to last day
+      events.push({
+            start: firstDay,
+            end: end,
+            allDay:true,
+            overlap :false,
+            rendering: 'background'
+      });
+      // Yestarday all day view
+      events.push({
+        start:end,
+        end:moment(),
+        allDay:true,
+        overlap :false,
+        rendering: 'background'
+      });
+      // agenda/day view from first day to last day
+      events.push({
+        start: firstDay,
+        end: end,
+        overlap :false,
+        rendering: 'background'
+    });
+      return events;
     },
 
     render : function() {
       _.defer(this.renderCalendar.bind(this));
       return this;
-     },
+    },
 
     getEvents : function () {
       var events = [];
@@ -30,30 +128,7 @@ define(function (require) {
     },
 
     renderCalendar : function() {
-      var self = this;
-      this.$el.fullCalendar({
-        header: {
-          left: 'prev,next today',
-          center: 'title',
-          right: 'month,agendaWeek,agendaDay'
-        },
-        editable: false,
-        droppable: false,
-        allDaySlot: true,
-        events: self.getEvents(),
-        dayClick: function(date, allDay, jsEvent, view) {
-          if (allDay){
-            self.$el.fullCalendar('changeView','agendaDay');
-            self.$el.fullCalendar('gotoDate',date.getFullYear(),date.getMonth(),date.getDate());
-          }
-        },
-        eventClick: function(ev,jsev,view){
-          if (view.name=="month") {
-            self.$el.fullCalendar('changeView','agendaDay');
-            self.$el.fullCalendar('gotoDate',ev.start.getFullYear(),ev.start.getMonth(),ev.start.getDate());
-          }
-        }
-      });
+      this.$el.fullCalendar('render');
     }
   });
 });
