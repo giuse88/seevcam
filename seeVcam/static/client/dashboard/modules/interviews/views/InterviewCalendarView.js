@@ -1,11 +1,9 @@
 define(function (require) {
 
-  var $ = require("jquery");
-  var _ = require("underscore");
-  var Backbone = require("backbone");
-
   require("fullcalendar");
 
+  var _ = require("underscore");
+  var Backbone = require("backbone");
 
   return  Backbone.View.extend({
 
@@ -13,12 +11,12 @@ define(function (require) {
     className : 'interviews-calendar',
 
     initialize : function(options) {
+
       var self = this;
+      this.options = options;
       this.collection = options.collection;
       var currentEventID = undefined;
       var events = self.getBackgroundEvents().concat(self.getEvents());
-      console.log("Events");
-      console.log(events);
 
       this.$el.fullCalendar({
 
@@ -59,15 +57,23 @@ define(function (require) {
           }
         },
 
-        dayClick: function(date, allDay, jsEvent, view) {
-          if (allDay){
+        dayClick: function(date, jsEvent, view) {
+
+          if (date.isBefore(moment())) {
+            return;
+          }
+
+          if (!date.hasTime()){
             self.$el.fullCalendar('changeView','agendaDay');
-            self.$el.fullCalendar('gotoDate',date.getFullYear(),date.getMonth(),date.getDate());
-          } else {
-            var endDateTime = new Date(date.getTime() + 30*60000);
-            var startDateTime = date;
-            if (!!currentEventID)
-              self.$el.fullCalendar('removeEvents',currentEventID);
+            self.$el.fullCalendar('gotoDate',date);
+          } else if (!self.options.readOnly) {
+
+            var startDateTime = moment(date);
+            var endDateTime = moment(date).add(1, 'hours');
+
+            if (!!currentEventID) {
+              self.$el.fullCalendar('removeEvents', currentEventID);
+            }
             var eventObj = {
               title:"New Interview",
               start:startDateTime,
@@ -77,7 +83,7 @@ define(function (require) {
               currentEvent:true,
               color: 'red'
             };
-            self.$el.fullCalendar('renderEvent',eventObj,true);
+            self.$el.fullCalendar('renderEvent', eventObj, true);
           }
         },
 
@@ -94,9 +100,7 @@ define(function (require) {
       var firstDay = moment().
                       startOf('month').
                       subtract(1, 'week');
-      var end = moment()
-                  .subtract(1,'day')
-                  .endOf('day');
+      var end = moment();
       var events = [];
 
       // all day from first day to last day
@@ -104,16 +108,6 @@ define(function (require) {
         editable:false,
         start: firstDay,
         end: end,
-        allDay:true,
-        overlap :false,
-        rendering: 'background'
-      });
-
-      // Yestarday all day view
-      events.push({
-        editable:false,
-        start:end,
-        end:moment(),
         allDay:true,
         overlap :false,
         rendering: 'background'
