@@ -15,6 +15,22 @@ define(function (require) {
 
     url: function () {
       return '/files/' + this.id;
+    },
+
+    absoluteUrl: function () {
+      var result;
+      var url = this.get('url') || '';
+
+      if (url.indexOf('http') == -1) {
+        var documentRelativeUrl = this.model.get('url');
+        var baseUrl = document.location.origin;
+
+        result = baseUrl + documentRelativeUrl;
+      } else {
+        result = url;
+      }
+
+      return result;
     }
   });
 });

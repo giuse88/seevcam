@@ -5,10 +5,7 @@ define(function (require) {
     template: require('text!templates/document.html'),
 
     documentUrl: function () {
-      var documentRelativeUrl = this.model.get('url');
-      var baseUrl = document.location.origin;
-
-      return baseUrl + documentRelativeUrl;
+      return 'http://docs.google.com/viewer?embedded=true&url=' + encodeURIComponent(this.model.absoluteUrl());
     }
   });
 });
