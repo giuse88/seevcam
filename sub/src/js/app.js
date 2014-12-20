@@ -7,11 +7,13 @@ define(function (require) {
   var Candidate = require('models/candidate');
   var Questions = require('collections/questions');
   var Events = require('collections/events');
+  var Answers = require('collections/answers');
 
   var session = require('services/session');
 
   session.set('interview', new Interview(window.cache.interview));
   session.set('questions', new Questions(window.cache.questions, {catalogueId: session.get('interview').get('catalogue')}));
+  session.set('answers', new Answers([], {interviewId: session.get('interview').get('id')}));
   session.set('jobPosition', new JobPosition(window.cache.jobPosition));
   session.set('candidate', new Candidate(window.cache.interview.candidate));
   session.set('events', new Events([], {interviewId: session.get('interview').get('id')}));
