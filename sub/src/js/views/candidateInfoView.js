@@ -1,0 +1,52 @@
+define(function (require) {
+  var _ = require('underscore');
+  var BaseView = require('baseView');
+
+  return BaseView.extend({
+    template: require('text!templates/candidate-info.html'),
+
+    getRenderContext: function () {
+      return {
+        candidate: this.model.get('candidate'),
+        jobPosition: this.model.get('jobPosition'),
+        interview: this.model.get('interview'),
+        model: this.model,
+        view: this
+      };
+    },
+
+    postRender: function () {
+      this.refreshInterval = setInterval(_.bind(this.refreshRemainingTime, this), 10000);
+      this.progressBarInterval = setInterval(_.bind(this.updateProgress, this), 1000);
+    },
+
+    teardown: function () {
+      if (this.refreshInterval != undefined) {
+        clearTimeout(this.refreshInterval);
+      }
+      if (this.progressBarInterval != undefined) {
+        clearTimeout(this.progressBarInterval);
+      }
+
+      BaseView.prototype.teardown.apply(this, arguments);
+    },
+
+    updateProgress: function () {
+      var elapsedTime = this.model.elapsedTime('seconds');
+      var totalTime = this.model.get('interview').duration('seconds');
+      var elapsedPercentage = (elapsedTime / totalTime) * 100;
+
+      if (elapsedPercentage <= 100) {
+        this.$('#progress').css("width", elapsedPercentage + "%");
+      }
+    },
+
+    refreshRemainingTime: function () {
+      var elapsedTime = this.model.elapsedTime();
+
+      if (elapsedTime < this.model.get('interview').duration()) {
+        this.$('.passed').text(this.model.elapsedTime());
+      }
+    }
+  });
+});

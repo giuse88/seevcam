@@ -1,29 +1,28 @@
 <!DOCTYPE html>
-<head>
+<html>
+    <head>
 
-    <title>SeeVcam Interview </title>
+        <title>SeeVcam Interview </title>
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet/less" type="text/css" href="./client/main.less"  />
-    <script type="text/javascript" src="./bower_components/less/dist/less.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="./bower_components/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" type="text/css" href="./src/css/style.css" />
+        <script type="text/javascript" data-main="src/js/boot.js"  src="./bower_components/requirejs/require.js"></script>
 
-    <script type="text/javascript" data-main="./"  src="./bower_components/requirejs/require.js"></script>
-    <script type="text/javascript" src="./client/boot.js" ></script>
+        <script type="application/javascript">
+            window.cache = {
+                interview : { "id": 4, "start": "2014-12-12T11:30:00Z", "end": "2014-12-12T12:30:00Z", "status": "OPEN", "job_position": 2, "candidate": { "id": 4, "name": "f", "email": "ff@gg.com", "surname": "f", "cv": 75 }, "catalogue": 1, "job_position_name": "job_position" },
+                questions : [ { "id": 1, "question_text": "question_1", "question_catalogue": 1 }, { "id": 3, "question_text": "question 2", "question_catalogue": 1 }, { "id": 5, "question_text": "testfgfdg", "question_catalogue": 1 }, { "id": 6, "question_text": "test", "question_catalogue": 1 }, { "id": 7, "question_text": "testdfdsf", "question_catalogue": 1 } ],
+                jobPosition: { id:1, position : "job_position", job_specification : 2}
+            }
+        </script>
 
-    <script type="application/javascript">
-        window.cache = {
-            interview : { "id": 4, "start": "2014-12-12T11:30:00Z", "end": "2014-12-12T12:30:00Z", "status": "OPEN", "job_position": 2, "candidate": { "id": 4, "name": "f", "email": "ff@gg.com", "surname": "f", "cv": 75 }, "catalogue": 1, "job_position_name": "job_position" },
-            questions : [ { "id": 1, "question_text": "question_1", "question_catalogue": 1 }, { "id": 3, "question_text": "question 2", "question_catalogue": 1 }, { "id": 5, "question_text": "testfgfdg", "question_catalogue": 1 }, { "id": 6, "question_text": "test", "question_catalogue": 1 }, { "id": 7, "question_text": "testdfdsf", "question_catalogue": 1 } ],
-            jobPosition: { id:1, position : "job_position", job_specification : 2}
-        }
-    </script>
-
-</head>
+    </head>
     <body>
-        <h1> Interview room </h1>
+        <div class="main-content container-fluid"></div>
     </body>
 </html>

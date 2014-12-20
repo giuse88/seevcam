@@ -1,0 +1,159 @@
+.content {
+  .question-text {
+    min-height: 125px;
+    width: 100%;
+    background: @color3;
+    font-size: 20px;
+    color: @color5;
+    padding: 30px 40px 30px 40px;
+    position: relative;
+
+    span {
+      font-weight: bold;
+      margin-right: 10px;
+      color: @color8;
+    }
+
+    .arrow {
+      position: absolute;
+      display: flex;
+      vertical-align: middle;
+      height: 100%;
+      width: 50px;
+      top: 0;
+
+      &.right {
+        right: 0;
+      }
+
+      &.left {
+        left: 0;
+      }
+
+      > span {
+        margin: auto;
+      }
+    }
+  }
+
+  .question-navigation {
+    margin: 0;
+    width: 100%;
+
+    .question {
+      display: block;
+      float: left;
+      height: 25px;
+      width: 15px;
+      margin-right: 5px;
+      margin-top: 10px;
+      background: @color4;
+
+      &.current {
+        margin-top: 0;
+        height: 45px;
+        background: @color3;
+      }
+
+      &.rated {
+        height: 15px;
+        font-weight: bold;
+        font-size: 12px;
+        text-decoration: none;
+        text-align: center;
+
+        &.positive {
+          background: @color9;
+        }
+
+        &.negative {
+          background: @color10;
+        }
+
+        &.neuter {
+          background: @color11;
+        }
+
+        &.answered:after {
+          content: "A";
+          color: @color3;
+          opacity: 0.6;
+          display: block;
+        }
+      }
+    }
+  }
+
+  .question-selection-preview {
+    width: 100%;
+    float: left;
+    color: @color3;
+
+    .header {
+      font-size: 12px;
+      margin: 0;
+    }
+
+    .text {
+      font-size: 16px;
+    }
+  }
+
+  hr {
+    border: 2px solid @color2;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  textarea {
+    width: 100%;
+    border: 0;
+  }
+
+  .question-answer {
+    width: 100%;
+    position: relative;
+    height: 25%;
+
+    .ratings {
+      top: -15px;
+      right: 0;
+      padding-left: 15px;
+      background: @color5;
+      position: absolute;
+
+      button {
+        border: 0;
+        margin: 2px;
+      }
+    }
+
+    .status {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      padding: 0 25px 15px 0;
+      .glyphicon-ok {
+        color: @color10;
+      }
+      .glyphicon-refresh {
+        color: @color9;
+      }
+    }
+
+    .answer {
+      height: 100%;
+      font-size: 18px;
+    }
+  }
+
+  .notes {
+    height: 17%;
+    margin-top: 10px;
+    padding-left: 10px;
+    border-top: 3px solid @color3;
+    background: @color2;
+    font-size: 16px;
+    font-style: italic;
+  }
+}

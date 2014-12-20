@@ -1,2 +1,6 @@
 # Created by .gitignore support plugin (hsz.mobi)
 atlassian-ide-plugin.xml
+.idea
+bower_components
+node_modules
+src/css/*
