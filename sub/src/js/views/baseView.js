@@ -1,4 +1,6 @@
-define(['backbone'], function (Backbone) {
+define(function (require) {
+  var Backbone = require('backbone');
+
   return Backbone.View.extend({
     initialize: function () {
       Backbone.View.prototype.initialize.apply(this, arguments);
@@ -16,19 +18,24 @@ define(['backbone'], function (Backbone) {
 
       var html = templateFn(this.getRenderContext());
       this.$el.html(html);
+      this.rendered = true;
 
       this.eachSubView(function (subView, selector) {
-        var $container = this.$(selector);
-
-        if ($container.length) {
-          $container.append(subView.$el);
-          subView.render();
-        }
-      });
+        this.renderSubView(subView, selector);
+      }, this);
 
       this.postRender();
 
       return this;
+    },
+
+    renderSubView: function (subView, selector) {
+      var $container = this.$(selector);
+
+      if ($container.length) {
+        $container.append(subView.$el);
+        subView.render();
+      }
     },
 
     teardown: function () {
@@ -44,14 +51,17 @@ define(['backbone'], function (Backbone) {
 
     hasSubView: function (selector, subView) {
       this.subViews.push([selector, subView]);
+      if (this.rendered) {
+        this.renderSubView(subView, selector);
+      }
     },
 
-    eachSubView: function (callback) {
+    eachSubView: function (callback, ctx) {
       _.each(this.subViews, function (arr) {
         var selector = arr[0],
           subView = arr[1];
 
-        callback(subView, selector);
+        callback.apply(ctx, [subView, selector]);
       });
     },
 
