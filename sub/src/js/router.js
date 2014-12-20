@@ -28,7 +28,7 @@ define(function (require) {
 
     jobSpec: function () {
       var session = require('services/session');
-      var jobSpecId = session.get('jobPosition').get('job_spec');
+      var jobSpecId = session.get('jobPosition').get('job_specification');
       this.renderDocumentPage(jobSpecId);
     },
 
