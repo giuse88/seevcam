@@ -9,6 +9,7 @@ define(function (require) {
     routes: {
       'interview/questions': 'questions',
       'interview/jobSpec': 'jobSpec',
+      'interview/cv': 'cv',
       'interview': 'interview',
       'review': 'review'
     },
@@ -26,15 +27,15 @@ define(function (require) {
     },
 
     jobSpec: function () {
-      var session = require('session');
+      var session = require('services/session');
       var jobSpecId = session.get('jobPosition').get('job_spec');
-      var jobSpec = new File({id: jobSpecId});
-      var self = this;
+      this.renderDocumentPage(jobSpecId);
+    },
 
-      jobSpec.fetch()
-        .done(function () {
-          self.renderPage(new DocumentPage({model: jobSpec}));
-        });
+    cv: function () {
+      var session = require('services/session');
+      var cvId = session.get('candidate').get('cv');
+      this.renderDocumentPage(cvId);
     },
 
     review: function () {
@@ -48,6 +49,16 @@ define(function (require) {
       this.currentPage = page;
       this.$container.empty().append(this.currentPage.$el);
       this.currentPage.render();
+    },
+
+    renderDocumentPage: function (documentId) {
+      var documentFile = new File({id: documentId});
+      var self = this;
+
+      documentFile.fetch()
+        .done(function () {
+          self.renderPage(new DocumentPage({model: documentFile}));
+        });
     }
   });
 });
