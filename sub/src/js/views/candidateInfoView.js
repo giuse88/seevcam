@@ -42,7 +42,11 @@ define(function (require) {
     },
 
     refreshRemainingTime: function () {
-      this.$('.passed').text(this.model.elapsedTime());
+      var elapsedTime = this.model.elapsedTime();
+
+      if (elapsedTime < this.model.get('interview').duration()) {
+        this.$('.passed').text(this.model.elapsedTime());
+      }
     }
   });
 });
