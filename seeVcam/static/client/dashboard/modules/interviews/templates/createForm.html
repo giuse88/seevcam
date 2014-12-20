@@ -55,22 +55,53 @@
                        type="number" required="true" <% if (cv) { %> value="<%= cv.id %>" <% } %>  >
                  </div>
             </div>
+
             <hr>
 
+            <div class="interview-catalogue form-group ">
+                    <div class="input-group full-width">
+                        <label for="catalogue"> Catalogue :  </label>
+                        <select class="form-control"
+                                seletected = "<% if ( interview.catalogue ) { %>
+                                 value = <%= interview.catalogue %> <% } %>">
+
+                            <% if ( !interview.catalogue ) { %>
+                            <option selected disabled hidden value=''>Select a catalogue</option>
+                            <%} %>
+                              <% _.each(catalogues, function(c) { %>
+                                    <option value="<%= c.id %>"> <%= c.catalogue_name %> </option>
+                              <% }); %>
+                        </select>
+                     </div>
+            </div>
+            <div class="job-position form-group ">
+                <div class="input-group full-width">
+                    <label for="catalogue"> Job Position :  </label>
+                    <select class="form-control"
+                    seletected = "<% if ( interview ) { %> value = <%= interview.job_position %> <% } %>">
+                        <% if ( !interview.catalogue ) { %>
+                        <option selected disabled hidden value=''>Select a job position</option>
+                        <%} %>
+                        <% _.each(jobPositions, function(c) { %>
+                            <option value="<%= c.id %>"> <%= c.position %> </option>
+                        <% }); %>
+                    </select>
+                </div>
+            </div>
 
             <div class="form-group datetime">
                 <div class="row">
                     <span class="col-md-6">
                         <a class="interview-datetime open-calendar"  href="javascript:void(0)"> Pick a time : </a>
                     </span>
-                    <span class="col-md-6">
-                        <p>No time selected.</p>
+                    <span class="col-md-6 datetime-display">
+                        <p><% if (interview) { %> <%= interview.start %>  <% } else { %> Not time selected. <% } %></p>
                     </span>
                 </div>
-                <input class="hidden start" id=start_cv name="start_cv"
-                       type="text" required="true" <% if (cv) { %> value="<%= cv.start %>" <% } %>  >
-                <input class="hidden end" id="end_cv" name="end_cv"
-                       type="text" <% if (cv) { %> value="<%= cv.end %>" <% } %>  >
+                <input class="hidden start"  name="start"
+                       type="text" required="true" <% if (interview) { %> value="<%= interview.start %>" <% } %>  >
+                <input class="hidden end"  name="end"
+                       type="text" <% if (interview) { %> value="<%= interview.end %>" <% } %>  >
              </div>
 
  <!--
@@ -99,32 +130,6 @@
            </div>
         </div>
     </form>
-        <!-- Button trigger modal -
 
-<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-  Launch demo modal
-</button>
-
-<!-- Modal --
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span>
-         <span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-
--->
 
 </div>

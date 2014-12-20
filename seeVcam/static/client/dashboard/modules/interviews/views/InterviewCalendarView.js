@@ -85,7 +85,24 @@ define(function (require) {
             };
             self.$el.fullCalendar('renderEvent', eventObj, true);
           }
-        }
+        },
+
+        eventResize: function(event, delta, revertFunc) {
+          var currentInterview = self.options.interview;
+          self.startDateTime= event.start;
+          self.endDateTime = event.end;
+          currentInterview.set('start', self.startDateTime.format());
+          currentInterview.set('end', self.endDateTime.format());
+        },
+
+        eventDrop: function (event, delta, revertFunc, jsEvent, ui, view ) {
+          var currentInterview = self.options.interview;
+          self.startDateTime= event.start;
+          self.endDateTime = event.end;
+          currentInterview.set('start', self.startDateTime.format());
+          currentInterview.set('end', self.endDateTime.format());
+         }
+
       });
     },
 
@@ -132,9 +149,20 @@ define(function (require) {
 
     getEvents : function () {
       var events = [];
+      var currentInterview = this.options.interview;
       this.collection.each(function(interview)  {
-        events.push(interview.toCalendarEvent());
-      });
+        var event = interview.toCalendarEvent();
+        if ( currentInterview &&  !_.isEmpty(currentInterview) &&
+             event.id === currentInterview.get('id')){
+
+          event.editable= true;
+          event.currentEvent = true;
+          event.color = 'red';
+          event.start = currentInterview.get('start');
+          event.end = currentInterview.get('end');
+        }
+        events.push(event);
+      },this);
       return events;
     },
 

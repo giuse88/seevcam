@@ -10,6 +10,7 @@ define(function(require){
   var CreateInterviewView = require("modules/interviews/views/CreateInterviewView");
   var Interview = require("modules/interviews/models/Interview");
   var FileUploaded = require("modules/interviews/models/FileUploaded");
+  var Loader = require("modules/http/Loader");
 
   return  Backbone.Router.extend({
 
@@ -99,40 +100,30 @@ define(function(require){
           - fileUpload
        */
 
-      if (!window.cache.interviews){
-        LoadingBar.go(20);
-        this.loadInterviews(_.bind(function(){
-          LoadingBar.go(50);
-          this.updateInterview(interviewId);
-        }, this));
-        return;
-      }
+      $.when(Loader.loadCatalogues(), Loader.loadJobPositions(), Loader.loadInterviews())
+      .then(function(){
+        LoadingBar.go(70);
+        var interview  = window.cache.interviews.get(interviewId);
+        var loadingFile = Loader.loadFile(interview.get("candidate.cv"));
+        $.when(loadingFile)
+          .then(function(file){
 
-      var interview = window.cache.interviews.get(interviewId);
+            interview.setCV(file);
+            LoadingBar.go(100);
 
-      if(interview) {
-        if (!interview.isCVFetched()) {
-          interview.fetchCV(function () {
-            console.log("File fetched from remote server");
-            self.updateInterview(interviewId);
+            var createInterview = new CreateInterviewView({
+              router: this,
+              interviews: window.cache.interviews,
+              catalogues : window.cache.catalogues.toJSON(),
+              jobPositions : window.cache.jobPositions,
+              model : interview
+            });
+
+            Utils.safelyUpdateCurrentView(createInterview);
+            $("#container").html(createInterview.render().$el);
+
           });
-          return;
-        } else {
-          LoadingBar.go(100);
-        }
-      } else {
-        console.log("Error redirect to 404");
-        return;
-      }
-
-      var createInterview = new CreateInterviewView({
-        router: this,
-        interviews: window.cache.interviews,
-        model : interview
       });
-
-      Utils.safelyUpdateCurrentView(createInterview);
-      $("#container").html(createInterview.render().$el);
     },
 
     goToCreateInterview: function(trigger){

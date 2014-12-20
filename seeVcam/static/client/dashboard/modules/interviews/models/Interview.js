@@ -41,6 +41,11 @@ define(function(require) {
       return this.candidateCv;
     },
 
+    setCV : function( cv) {
+      self.cvFetched = true;
+      this.candidateCv= new FileUploaded(cv);
+    },
+
     fetchCV :function (successCb, errocb ) {
       var self = this;
 

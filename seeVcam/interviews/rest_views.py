@@ -1,18 +1,19 @@
 from rest_framework import generics
 from common.helpers.views_helper import set_company_info
-from interviews.models import Interview
-from interviews.serializers import InterviewSerializer
+from interviews.models import Interview, JobPosition
+from interviews.serializers import InterviewSerializer, JobPositionSerializer
+import datetime
 
 
 class IsOwner(object):
 
     def has_object_permission(self, request, view, obj):
-        return obj.catalogue_owner == request.user
-
+        return obj.owner == request.user
 
 
 class InterviewList(generics.ListCreateAPIView):
     serializer_class = InterviewSerializer
+    # permission_classes = (IsAuthenticated, IsOwner,)
 
     def pre_save(self, obj):
         obj.owner = self.request.user
@@ -20,7 +21,9 @@ class InterviewList(generics.ListCreateAPIView):
         set_company_info(obj.candidate, self.request.user.company, self.request.user)
 
     def get_queryset(self):
-        return Interview.objects.filter(owner=self.request.user.id, status=Interview.OPEN).order_by('start')
+        return Interview.objects.filter(
+            owner=self.request.user.id,
+            end__gt=datetime.datetime.now()).order_by('start')
 
 
 class InterviewDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -35,3 +38,12 @@ class InterviewDetail(generics.RetrieveUpdateDestroyAPIView):
         return Interview.objects.filter(owner=self.request.user.id, status=Interview.OPEN)
 
 
+class JobPositionList(generics.ListCreateAPIView):
+    serializer_class = JobPositionSerializer
+
+    def pre_save(self, obj):
+        obj.created_by = self.request.user
+        obj.company = self.request.user.company
+
+    def get_queryset(self):
+        return JobPosition.objects.filter(company=self.request.user.company)
