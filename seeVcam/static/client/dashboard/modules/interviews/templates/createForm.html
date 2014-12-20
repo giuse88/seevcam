@@ -56,17 +56,24 @@
                  </div>
             </div>
             <hr>
-<!--
-
-<div class="form-group ">
-    <label for="id_job-position-position"> Position : </label>
-    <input class="form-control" data-parsley-errors-container=".position.error-form" id="id_job-position-position" maxlength="255" name="job-position-position" placeholder="Position" type="text">
-    <div class=" position error-form">
-
-    </div>
-</div>
 
 
+            <div class="form-group datetime">
+                <div class="row">
+                    <span class="col-md-6">
+                        <a class="interview-datetime open-calendar"  href="javascript:void(0)"> Pick a time : </a>
+                    </span>
+                    <span class="col-md-6">
+                        <p>No time selected.</p>
+                    </span>
+                </div>
+                <input class="hidden start" id=start_cv name="start_cv"
+                       type="text" required="true" <% if (cv) { %> value="<%= cv.start %>" <% } %>  >
+                <input class="hidden end" id="end_cv" name="end_cv"
+                       type="text" <% if (cv) { %> value="<%= cv.end %>" <% } %>  >
+             </div>
+
+ <!--
 
 <div class=" job-description-uploader form-group">
     <input class="hidden file-id-input" id="id_job-position-job_description" name="job-position-job_description" type="number">
@@ -92,10 +99,6 @@
            </div>
         </div>
     </form>
-    <button type="button" class="btn btn-primary btn-lg open-calendar">
-  Launch demo modal
-</button>
-
         <!-- Button trigger modal -
 
 <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">

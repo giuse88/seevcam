@@ -68,16 +68,16 @@ define(function (require) {
             self.$el.fullCalendar('gotoDate',date);
           } else if (!self.options.readOnly) {
 
-            var startDateTime = moment(date);
-            var endDateTime = moment(date).add(1, 'hours');
+            self.startDateTime = moment(date);
+            self.endDateTime = moment(date).add(1, 'hours');
 
             if (!!currentEventID) {
               self.$el.fullCalendar('removeEvents', currentEventID);
             }
             var eventObj = {
               title:"New Interview",
-              start:startDateTime,
-              end: endDateTime,
+              start:self.startDateTime,
+              end: self.endDateTime,
               allDay:false,
               editable:true,
               currentEvent:true,
@@ -85,21 +85,22 @@ define(function (require) {
             };
             self.$el.fullCalendar('renderEvent', eventObj, true);
           }
-        },
-
-        eventClick: function(ev,jsev,view){
-          if (view.name=="month") {
-            self.$el.fullCalendar('changeView','agendaDay');
-            self.$el.fullCalendar('gotoDate',ev.start.getFullYear(),ev.start.getMonth(),ev.start.getDate());
-          }
         }
       });
     },
 
+    start : function () {
+     return this.startDateTime;
+    },
+
+    end : function(){
+      return this.endDateTime;
+    },
+
     getBackgroundEvents: function () {
-      var firstDay = moment().
-                      startOf('month').
-                      subtract(1, 'week');
+      var firstDay = moment()
+                      .startOf('month')
+                      .subtract(1, 'week');
       var end = moment();
       var events = [];
 

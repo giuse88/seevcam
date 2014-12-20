@@ -67,6 +67,7 @@ define(function (require) {
     openCalendar: function() {
 
       var calendar =  new Calendar({collection:window.cache.interviews});
+      var self = this;
 
       var modal = new Backbone.BootstrapModal({
           content: calendar,
@@ -76,11 +77,20 @@ define(function (require) {
       modal.render().$el.find(".modal-dialog").width("60%");
 
       modal.open(function(){
+        var start = calendar.start();
+        var end = calendar.end();
+        self.updateDateTimeForm(start.format(), end.format());
       });
 
       setTimeout(function() {
         calendar.render();
       } ,200);
+    },
+
+    updateDateTimeForm : function (start, end) {
+      console.log(this.$el.find(".datetime .start"));
+      this.$el.find(".datetime .start").val(start);
+      this.$el.find(".datetime .end").val(end);
     },
 
     installTypeAhead: function(){
