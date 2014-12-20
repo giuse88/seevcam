@@ -1,6 +1,12 @@
-define(['baseView', 'text!templates/candidate-info.html'], function (BaseView, template) {
+define(function (require) {
+  var BaseView = require('baseView');
+
   return BaseView.extend({
-    template: template,
+    template: require('text!templates/candidate-info.html'),
+
+    setUp: function () {
+      this.refreshInterval = setInterval(_.bind(this.refreshRemainingTime, this), 10000);
+    },
 
     getRenderContext: function () {
       return {
@@ -10,6 +16,16 @@ define(['baseView', 'text!templates/candidate-info.html'], function (BaseView, t
         model: this.model,
         view: this
       };
+    },
+
+    teardown: function () {
+      clearTimeout(this.refreshInterval);
+
+      BaseView.prototype.teardown.apply(this, arguments);
+    },
+
+    refreshRemainingTime: function () {
+      this.$('.passed').text(this.model.elapsedTime());
     }
   });
 });

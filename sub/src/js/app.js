@@ -1,4 +1,5 @@
 define(function (require) {
+  var moment = require('moment');
   var Router = require('./router');
   var Backbone = require('backbone');
   var Interview = require('models/interview');
@@ -12,6 +13,7 @@ define(function (require) {
   session.set('questions', new Questions(window.cache.questions, {catalogueId: session.get('interview').get('catalogue')}));
   session.set('jobPosition', new JobPosition(window.cache.jobPosition));
   session.set('candidate', new Candidate(window.cache.interview.candidate));
+  session.set('sessionStart', moment.utc());
 
   new Router();
   Backbone.history.start();

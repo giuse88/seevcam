@@ -4,5 +4,5 @@
 <div class="candidate-details-container">
     <h1 class="candidate-name"><%= candidate.get('name') %> <span class="candidate-last-name"><%= candidate.get('surname') %></span></h1>
     <h3 class="candidate-position">> <%= jobPosition.get('position') %></h3>
-    <span class="elapsed-time">20min/ <%= interview.duration() %>min</span>
+    <span class="elapsed-time"><span class="passed"><%= model.elapsedTime() %></span>min/<%= interview.duration() %>min</span>
 </div>

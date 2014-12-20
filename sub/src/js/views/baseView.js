@@ -30,14 +30,15 @@ define(['backbone'], function (Backbone) {
       return this;
     },
 
-    remove: function () {
+    teardown: function () {
       var args = arguments;
 
       this.eachSubView(function (subView) {
-        subView.remove.apply(subView, args);
+        subView.teardown.apply(subView, args);
       });
 
-      Backbone.View.prototype.remove.apply(this, args);
+      this.stopListening();
+      this.undelegateEvents();
     },
 
     hasSubView: function (selector, subView) {

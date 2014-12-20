@@ -23,7 +23,7 @@ define(["backbone", "underscore", "pages/interviewPage"], function (Backbone, _,
 
     renderPage: function (page) {
       if (this.currentPage) {
-        this.currentPage.remove();
+        this.currentPage.teardown();
       }
 
       this.currentPage = page;
