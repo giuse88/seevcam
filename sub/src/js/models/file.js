@@ -21,7 +21,7 @@ define(function (require) {
       var result;
       var url = this.get('url') || '';
 
-      if (url.indexOf('http') == -1) {
+      if (url.indexOf('http') != 0) {
         var documentRelativeUrl = this.model.get('url');
         var baseUrl = document.location.origin;
 
