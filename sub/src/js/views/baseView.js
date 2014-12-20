@@ -8,10 +8,9 @@ define(['backbone'], function (Backbone) {
       this.setUp();
     },
 
-    setUp: function () {
-    },
-
     render: function () {
+      this.preRender();
+
       var template = _.result(this, 'template');
       var templateFn = _.template(template);
 
@@ -26,6 +25,8 @@ define(['backbone'], function (Backbone) {
           subView.render();
         }
       });
+
+      this.postRender();
 
       return this;
     },
@@ -59,6 +60,15 @@ define(['backbone'], function (Backbone) {
         model: this.model,
         view: this
       }
+    },
+
+    setUp: function () {
+    },
+
+    preRender: function () {
+    },
+
+    postRender: function () {
     }
   });
 });
