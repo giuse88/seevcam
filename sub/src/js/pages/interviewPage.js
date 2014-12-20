@@ -3,7 +3,7 @@ define(['baseView', 'text!templates/interview-page.html', 'views/candidateInfoVi
     template: template,
 
     setUp: function () {
-      this.hasSubView('.candidate-details-container', new CandidateInfoView());
+      this.hasSubView('.candidate-info-container', new CandidateInfoView());
     }
   });
 });
