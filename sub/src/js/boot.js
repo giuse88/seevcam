@@ -10,8 +10,11 @@ require.config({
     backbone : "../../bower_components/backbone/backbone",
     text : "../../bower_components/requirejs-text/text",
     baseView: "views/baseView",
+    models: "models",
+    collections: "collections",
     views: "views",
-    pages: "pages"
+    pages: "pages",
+    services: "services"
   },
   shim: {
     "backbone": {

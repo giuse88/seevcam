@@ -1,17 +1,16 @@
 define(function(require){
-
-  var Question = require("modules/questions/models/Question");
+  var Question = require("models/question");
   var Backbone = require("backbone");
 
   return Backbone.Collection.extend({
-
     model: Question,
 
+    url: function () {
+      return "questions/catalogue/" + this.catalogueId + "/list/"
+    },
+
     initialize: function (models, options) {
-      this.catalogue = options.catalogue;
-      this.url = "questions/catalogue/" + this.catalogue.get('id') + "/list/";
+      this.catalogueId = options.catalogueId;
     }
-
   });
-
 });
