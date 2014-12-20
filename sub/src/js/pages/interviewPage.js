@@ -1,9 +1,9 @@
-define(['backbone', 'underscore', 'text!templates/interview-template.html'], function (Backbone, _, template) {
-  return Backbone.View.extend({
-    render: function () {
-      this.$el.html(_.template(template)());
+define(['baseView', 'text!templates/interview-page.html', 'views/candidateInfoView'], function (BaseView, template, CandidateInfoView) {
+  return BaseView.extend({
+    template: template,
 
-      return this;
+    setUp: function () {
+      this.hasSubView('.candidate-details-container', new CandidateInfoView());
     }
   });
 });

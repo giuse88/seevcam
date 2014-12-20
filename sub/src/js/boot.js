@@ -9,6 +9,8 @@ require.config({
     underscore : "../../bower_components/underscore/underscore",
     backbone : "../../bower_components/backbone/backbone",
     text : "../../bower_components/requirejs-text/text",
+    baseView: "views/baseView",
+    views: "views",
     pages: "pages"
   },
   shim: {
