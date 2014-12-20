@@ -7,7 +7,8 @@ require.config({
     // lib
     jquery : "../../bower_components/jquery/dist/jquery",
     underscore : "../../bower_components/underscore/underscore",
-    backbone : "../../bower_components/backbone/backbone"
+    backbone : "../../bower_components/backbone/backbone",
+    pages: "pages"
   },
   shim: {
     "backbone": {

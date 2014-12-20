@@ -1,14 +1,7 @@
 define(function (require) {
+  var Router = require('./router');
+  var Backbone = require('backbone');
 
-  var $ = require("jquery");
-
-  console.log("App.js");
-
-  $("body").append("Hope");
-
-  window.app = {
-    name: "interview"
-  };
-
+  new Router();
+  Backbone.history.start();
 });
-
