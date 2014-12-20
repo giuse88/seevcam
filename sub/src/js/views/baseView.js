@@ -2,9 +2,10 @@ define(function (require) {
   var Backbone = require('backbone');
 
   return Backbone.View.extend({
-    initialize: function () {
+    initialize: function (options) {
       Backbone.View.prototype.initialize.apply(this, arguments);
 
+      this.options = options || {};
       this.subViews = [];
 
       this.setUp();

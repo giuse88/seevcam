@@ -15,7 +15,7 @@ define(["backbone", "underscore", "pages/interviewPage"], function (Backbone, _,
         return;
       }
 
-      this.renderPage(new InterviewPage())
+      this.renderPage(new InterviewPage({type: resource}));
     },
 
     review: function () {
