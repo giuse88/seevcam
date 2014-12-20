@@ -6,6 +6,7 @@ define(function (require) {
   var JobPosition = require('models/jobPosition');
   var Candidate = require('models/candidate');
   var Questions = require('collections/questions');
+  var Events = require('collections/events');
 
   var session = require('services/session');
 
@@ -13,6 +14,7 @@ define(function (require) {
   session.set('questions', new Questions(window.cache.questions, {catalogueId: session.get('interview').get('catalogue')}));
   session.set('jobPosition', new JobPosition(window.cache.jobPosition));
   session.set('candidate', new Candidate(window.cache.interview.candidate));
+  session.set('events', new Events([], {interviewId: session.get('interview').get('id')}));
   session.set('sessionStart', moment.utc());
 
   new Router();
