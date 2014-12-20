@@ -16,5 +16,14 @@ define(['backbone', 'moment'], function (Backbone, moment) {
         cv: null
       }
     },
+
+    duration: function (unit) {
+      unit = unit || "minutes";
+
+      var startMoment = moment(this.get('start'));
+      var endMoment = moment(this.get('end'));
+
+      return endMoment.diff(startMoment, unit);
+    }
   });
 });

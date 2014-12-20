@@ -7,6 +7,7 @@ require.config({
     // lib
     jquery : "../../bower_components/jquery/dist/jquery",
     underscore : "../../bower_components/underscore/underscore",
+    moment: "../../bower_components/momentjs/moment",
     backbone : "../../bower_components/backbone/backbone",
     text : "../../bower_components/requirejs-text/text",
     baseView: "views/baseView",
