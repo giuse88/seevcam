@@ -1,6 +1,6 @@
 require.config({
 
-  baseUrl: './client/',
+  baseUrl: './src/',
   paths: {
     // App.js
     app : "./app",
