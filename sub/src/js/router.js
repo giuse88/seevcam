@@ -1,7 +1,12 @@
-define(["backbone", "underscore", "pages/interviewPage"], function (Backbone, _, InterviewPage) {
+define(function (require) {
+  var Backbone = require('backbone');
+  var _ = require('underscore');
+  var QuestionsPage = require('pages/questionsPage');
+
   return Backbone.Router.extend({
     routes: {
-      'interview(/:type)': 'interview',
+      'interview/questions': 'questions',
+      'interview': 'interview',
       'review': 'review'
     },
 
@@ -9,13 +14,12 @@ define(["backbone", "underscore", "pages/interviewPage"], function (Backbone, _,
       this.$container = $('.main-content');
     },
 
-    interview: function (resource) {
-      if (_.isEmpty(resource)) {
-        this.navigate('interview/questions', {trigger: true});
-        return;
-      }
+    interview: function () {
+      this.navigate('interview/questions', {trigger: true});
+    },
 
-      this.renderPage(new InterviewPage({type: resource}));
+    questions: function () {
+      this.renderPage(new QuestionsPage());
     },
 
     review: function () {
