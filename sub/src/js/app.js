@@ -19,6 +19,8 @@ define(function (require) {
   session.set('events', new Events([], {interviewId: session.get('interview').get('id')}));
   session.set('sessionStart', moment.utc());
 
+  require('services/mocks'); // TODO: Remove mocks
+
   new Router();
   Backbone.history.start();
 });

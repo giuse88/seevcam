@@ -6,6 +6,7 @@ require.config({
     app : "./app",
     // lib
     jquery : "../../bower_components/jquery/dist/jquery",
+    'jquery.mockjax' : "../../bower_components/jquery-mockjax/jquery.mockjax",
     underscore : "../../bower_components/underscore/underscore",
     moment: "../../bower_components/momentjs/moment",
     backbone : "../../bower_components/backbone/backbone",
@@ -29,8 +30,11 @@ require.config({
     "underscore": {
       deps: [],
       exports: "_"
+    },
+    "jquery.mockjax": {
+      deps: ['jquery']
     }
   }
 });
-// kick off the apps
+
 require(["app"]);
