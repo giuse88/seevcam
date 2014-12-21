@@ -8,12 +8,14 @@ define(function (require) {
       var question = questions.findWhere({id: this.options.questionId}) || questions.first();
       var answers = this.model.get('answers');
       var answer = answers.findWhere({question: question.id});
+      var notes = this.model.get('notes');
 
       return new QuestionView({
         model: question,
         answer: answer,
         questions: questions,
-        answers: answers
+        answers: answers,
+        notes: notes
       });
     }
   })

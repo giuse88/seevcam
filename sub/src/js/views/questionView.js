@@ -1,6 +1,7 @@
 define(function (require) {
   var BaseView = require('baseView');
   var AnswerView = require('views/answerView');
+  var NotesView = require('views/notesView');
 
   return BaseView.extend({
     template: require('text!templates/question.html'),
@@ -14,12 +15,14 @@ define(function (require) {
       this.questions = options.questions;
       this.answers = options.answers;
       this.answer = options.answer;
+      this.notes = options.notes;
 
       BaseView.prototype.initialize.apply(this, arguments);
     },
 
     setUp: function () {
       this.hasSubView('.question-answer', new AnswerView({model: this.answer}));
+      this.hasSubView('.notes', new NotesView({model: this.notes}));
     },
 
     questionNumber: function (question) {

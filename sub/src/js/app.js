@@ -8,15 +8,18 @@ define(function (require) {
   var Questions = require('collections/questions');
   var Events = require('collections/events');
   var Answers = require('collections/answers');
+  var Notes = require('models/notes');
 
   var session = require('services/session');
 
-  session.set('interview', new Interview(window.cache.interview));
+  var interviewId = window.cache.interview.id;
+  session.set('interview', new Interview());
   session.set('questions', new Questions(window.cache.questions, {catalogueId: session.get('interview').get('catalogue')}));
-  session.set('answers', new Answers([], {interviewId: session.get('interview').get('id')}));
+  session.set('answers', new Answers([], {interviewId: interviewId}));
   session.set('jobPosition', new JobPosition(window.cache.jobPosition));
   session.set('candidate', new Candidate(window.cache.interview.candidate));
-  session.set('events', new Events([], {interviewId: session.get('interview').get('id')}));
+  session.set('events', new Events([], {interviewId: interviewId}));
+  session.set('notes', new Notes({}, {interviewId: interviewId}));
   session.set('sessionStart', moment.utc());
 
   require('services/mocks'); // TODO: Remove mocks
