@@ -27,7 +27,9 @@ define(function (require) {
   var $ = require('jquery');
 
   $.when(
-    session.get('answers').fetch()
+    session.get('answers').fetch(),
+    session.get('events').fetch(),
+    session.get('notes').fetch()
     )
     .done(function () {
       new Router();
