@@ -5,6 +5,7 @@ define(function (require) {
   var NavigationBarView = require('views/navigationBarView');
 
   return BaseView.extend({
+    className: 'interview-page',
     template: require('text!templates/interview-page.html'),
 
     setUp: function () {
