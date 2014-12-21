@@ -15,7 +15,7 @@ define(function (require) {
       this.listenTo(this.model, 'sync', this.answerSaved, this);
       this.listenTo(this.model, 'change:rating', this.highlightRating, this);
 
-      this.hasSubView('.answer', new TextArea({model: this.model, attribute: 'content', autoSave: true}));
+      this.hasSubView('.answer', new TextArea({model: this.model, attribute: 'content'}));
     },
 
     postRender: function () {

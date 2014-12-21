@@ -6,7 +6,7 @@ define(function (require) {
     template: require('text!templates/notes.html'),
 
     setUp: function () {
-      this.hasSubView('.notes', new TextArea({model: this.model, attribute: 'content', autoSave: true}));
+      this.hasSubView('.notes', new TextArea({model: this.model, attribute: 'content'}));
     }
   });
 });
