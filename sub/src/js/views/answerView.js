@@ -11,6 +11,9 @@ define(function (require) {
 
     setUp: function () {
       this.listenTo(this.model, 'change:content', this.answerUpdated, this);
+      this.listenTo(this.model, 'request', this.answerSaving, this);
+      this.listenTo(this.model, 'sync', this.answerSaved, this);
+      this.listenTo(this.model, 'change:rating', this.highlightRating, this);
 
       this.hasSubView('.answer', new TextArea({model: this.model, attribute: 'content', autoSave: true}));
     },
@@ -24,6 +27,14 @@ define(function (require) {
       eventLogger.log(eventLogger.eventType.answerUpdate, {content: this.model.get('content'), question_id: this.model.get('question')});
     },
 
+    answerSaving: function () {
+      this.$('.status').removeClass('saved').addClass('saving');
+    },
+
+    answerSaved: function () {
+      this.$('.status').removeClass('saving').addClass('saved');
+    },
+
     ratingClicked: function (e) {
       var newRating = parseInt($(e.currentTarget).data('rating'));
       var oldRating = this.model.get('rating');
@@ -31,7 +42,6 @@ define(function (require) {
       if (newRating == oldRating) return;
 
       this.model.set('rating', newRating);
-      this.highlightRating();
 
       var eventLogger = require('services/eventLogger');
       if (oldRating === null || oldRating === undefined) {

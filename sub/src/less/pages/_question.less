@@ -140,12 +140,43 @@
       position: absolute;
       right: 0;
       bottom: 0;
-      padding: 0 25px 15px 0;
+
+      span, i {
+        float: left;
+        padding: 5px;
+      }
+
       .glyphicon-ok {
+        display: none;
         color: @color10;
       }
       .glyphicon-refresh {
+        display: none;
         color: @color9;
+      }
+
+      .status-label {
+        display: none;
+      }
+
+      &.saving {
+        .glyphicon-refresh {
+          display: block;
+        }
+      }
+
+      &.saved {
+        .glyphicon-ok {
+          display: block;
+        }
+
+        .status-label {
+          display: block;
+          text-transform: uppercase;
+          background: @color8;
+          color: @color5;
+          font-size: 12px;
+        }
       }
     }
 
@@ -155,6 +186,10 @@
       .answer {
         height: 100%;
         font-size: 18px;
+
+        div {
+          height: 100%;
+        }
       }
     }
   }
