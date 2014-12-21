@@ -54,11 +54,15 @@
 
       &.current {
         margin-top: 0;
-        height: 45px;
+        height: 45px !important;
         background: @color3;
 
         &.answered:after {
           color: @color8;
+        }
+
+        &.rated:after {
+          color: @color3 !important;
         }
       }
 

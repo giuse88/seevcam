@@ -69,6 +69,8 @@ define(function (require) {
       }
       var rating = questionAnswer.get('rating');
       if (rating != null && rating != undefined) {
+        classes.push('rated');
+
         if (rating < 4) {
           classes.push('negative');
         } else if (rating < 8) {
