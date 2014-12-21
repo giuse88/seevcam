@@ -14,8 +14,13 @@
         <script type="text/javascript" data-main="src/js/boot.js"  src="./bower_components/requirejs/require.js"></script>
 
         <script type="application/javascript">
+            var startDate = new Date();
+            startDate.setMinutes(startDate.getMinutes() - 10);
+            var endDate = new Date();
+            endDate.setMinutes(endDate.getMinutes() + 10);
+
             window.cache = {
-                interview : { "id": 4, "start": "2014-12-12T11:30:00Z", "end": "2014-12-12T12:30:00Z", "status": "OPEN", "job_position": 2, "candidate": { "id": 4, "name": "f", "email": "ff@gg.com", "surname": "f", "cv": 75 }, "catalogue": 1, "job_position_name": "job_position" },
+                interview : { "id": 4, "start": startDate.toISOString(), "end": endDate.toISOString(), "status": "OPEN", "job_position": 2, "candidate": { "id": 4, "name": "f", "email": "ff@gg.com", "surname": "f", "cv": 75 }, "catalogue": 1, "job_position_name": "job_position" },
                 questions : [ { "id": 1, "question_text": "question_1", "question_catalogue": 1 }, { "id": 3, "question_text": "question 2", "question_catalogue": 1 }, { "id": 5, "question_text": "testfgfdg", "question_catalogue": 1 }, { "id": 6, "question_text": "test", "question_catalogue": 1 }, { "id": 7, "question_text": "testdfdsf", "question_catalogue": 1 } ],
                 jobPosition: { id:1, position : "job_position", job_specification : 2}
             }
