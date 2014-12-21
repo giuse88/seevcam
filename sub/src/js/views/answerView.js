@@ -5,7 +5,8 @@ define(function (require) {
     template: require('text!templates/answer.html'),
 
     events: {
-      'click .rating-button': 'ratingClicked'
+      'click .rating-button': 'ratingClicked',
+      'keyup': 'onKeyUp'
     },
 
     bindings: {
@@ -17,10 +18,18 @@ define(function (require) {
 
     setUp: function () {
       this.listenTo(this.model, 'change:content', this.answerUpdated, this);
+
+      this.saveAnswer = _.debounce(_.bind(function () {
+        this.model.set('content', this.$('.answer').val());
+      }, this), 2000);
     },
 
     postRender: function () {
       this.highlightRating();
+    },
+
+    onKeyUp: function () {
+      this.saveAnswer();
     },
 
     answerUpdated: function () {
