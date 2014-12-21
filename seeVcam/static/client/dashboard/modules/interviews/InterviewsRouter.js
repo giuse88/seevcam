@@ -38,52 +38,46 @@ define(function(require){
       console.log("Interviews route");
       Utils.updateActiveLink(this.navbarElement);
 
-      if (!window.cache.interviews){
-        LoadingBar.go(40);
-        this.loadInterviews(_.bind(function(){
+      LoadingBar.go(40);
+      $.when(Loader.loadJobPositions(), Loader.loadInterviews())
+        .then(function() {
           LoadingBar.go(100);
-          this.interviews();
-          }, this));
-        return;
-      }
 
-      var interviewsApp = new InterviewApp({
-        interviews : window.cache.interviews,
-        activeClock: false
-      });
+          var interviewsApp = new InterviewApp({
+            interviews: window.cache.interviews,
+            activeClock: false
+          });
 
-      Utils.safelyUpdateCurrentView(interviewsApp);
-      $("#container").html(interviewsApp.render().$el);
-      // default inner view
-      interviewsApp.renderInterviewBlock();
+          Utils.safelyUpdateCurrentView(interviewsApp);
+          $("#container").html(interviewsApp.render().$el);
+          // default inner view
+          interviewsApp.renderInterviewBlock();
+
+        });
     },
-
-    /*
-        Create page
-     */
 
     createInterview: function() {
       console.log("Create interview route");
 
       Utils.updateActiveLink(this.navbarElement);
 
-      // find a better way
-      if (!window.cache.interviews){
-        LoadingBar.go(40);
-        this.loadInterviews(_.bind(function(){
+      LoadingBar.go(30);
+
+      $.when(Loader.loadCatalogues(), Loader.loadJobPositions(), Loader.loadInterviews())
+        .then(function() {
+
           LoadingBar.go(100);
-          this.createInterview();
-          }, this));
-        return;
-      }
 
-      var createInterview = new CreateInterviewView({
-        router: this,
-        interviews: window.cache.interviews
-      });
+          var createInterview = new CreateInterviewView({
+            router: this,
+            interviews: window.cache.interviews,
+            catalogues : window.cache.catalogues.toJSON(),
+            jobPositions : window.cache.jobPositions
+          });
 
-      Utils.safelyUpdateCurrentView(createInterview);
-      $("#container").html(createInterview.render().$el);
+          Utils.safelyUpdateCurrentView(createInterview);
+          $("#container").html(createInterview.render().$el);
+        });
     },
 
 
@@ -93,17 +87,17 @@ define(function(require){
       var self= this;
 
       Utils.updateActiveLink(this.navbarElement);
-
-      /*
-          Resource to access this page
-          - interviews
-          - fileUpload
-       */
+      LoadingBar.go(30);
 
       $.when(Loader.loadCatalogues(), Loader.loadJobPositions(), Loader.loadInterviews())
       .then(function(){
         LoadingBar.go(70);
         var interview  = window.cache.interviews.get(interviewId);
+
+        if (!interview) {
+          console.err("Interview not found");
+          return;
+        }
         var loadingFile = Loader.loadFile(interview.get("candidate.cv"));
         $.when(loadingFile)
           .then(function(file){
@@ -112,7 +106,7 @@ define(function(require){
             LoadingBar.go(100);
 
             var createInterview = new CreateInterviewView({
-              router: this,
+              router: self,
               interviews: window.cache.interviews,
               catalogues : window.cache.catalogues.toJSON(),
               jobPositions : window.cache.jobPositions,

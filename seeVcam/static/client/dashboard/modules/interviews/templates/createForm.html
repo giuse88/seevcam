@@ -62,10 +62,10 @@
                     <div class="input-group full-width">
                         <label for="catalogue"> Catalogue :  </label>
                         <select class="form-control"
-                                seletected = "<% if ( interview.catalogue ) { %>
+                                seletected = "<% if ( interview && interview.catalogue ) { %>
                                  value = <%= interview.catalogue %> <% } %>">
 
-                            <% if ( !interview.catalogue ) { %>
+                            <% if ( !interview || !interview.catalogue ) { %>
                             <option selected disabled hidden value=''>Select a catalogue</option>
                             <%} %>
                               <% _.each(catalogues, function(c) { %>
@@ -79,7 +79,7 @@
                     <label for="catalogue"> Job Position :  </label>
                     <select class="form-control"
                     seletected = "<% if ( interview ) { %> value = <%= interview.job_position %> <% } %>">
-                        <% if ( !interview.catalogue ) { %>
+                        <% if ( !interview ||  !interview.job_position) { %>
                         <option selected disabled hidden value=''>Select a job position</option>
                         <%} %>
                         <% _.each(jobPositions, function(c) { %>
