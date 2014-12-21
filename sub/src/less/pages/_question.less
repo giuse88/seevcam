@@ -41,26 +41,35 @@
     width: 100%;
 
     .question {
-      display: block;
       float: left;
       height: 25px;
       width: 15px;
       margin-right: 5px;
       margin-top: 10px;
       background: @color4;
+      font-weight: bold;
+      font-size: 12px;
+      text-decoration: none;
+      text-align: center;
 
       &.current {
         margin-top: 0;
         height: 45px;
         background: @color3;
+
+        &.answered:after {
+          color: @color8;
+        }
+      }
+
+      &.answered:after {
+        content: "A";
+        color: @color3;
+        opacity: 0.6;
       }
 
       &.rated {
         height: 15px;
-        font-weight: bold;
-        font-size: 12px;
-        text-decoration: none;
-        text-align: center;
 
         &.positive {
           background: @color9;
@@ -72,13 +81,6 @@
 
         &.neuter {
           background: @color11;
-        }
-
-        &.answered:after {
-          content: "A";
-          color: @color3;
-          opacity: 0.6;
-          display: block;
         }
       }
     }
@@ -143,9 +145,13 @@
       }
     }
 
-    .answer {
+    > div {
       height: 100%;
-      font-size: 18px;
+
+      .answer {
+        height: 100%;
+        font-size: 18px;
+      }
     }
   }
 

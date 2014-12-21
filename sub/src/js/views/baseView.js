@@ -1,5 +1,6 @@
 define(function (require) {
   var Backbone = require('backbone');
+  require('backbone.stickit');
 
   return Backbone.View.extend({
     initialize: function (options) {
@@ -20,6 +21,10 @@ define(function (require) {
       var html = templateFn(this.getRenderContext());
       this.$el.html(html);
       this.rendered = true;
+
+      if (this.bindings && this.model) {
+        this.stickit();
+      }
 
       this.eachSubView(function (subView, selector) {
         this.renderSubView(subView, selector);

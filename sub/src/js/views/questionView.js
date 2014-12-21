@@ -1,5 +1,6 @@
 define(function (require) {
   var BaseView = require('baseView');
+  var AnswerView = require('views/answerView');
 
   return BaseView.extend({
     template: require('text!templates/question.html'),
@@ -13,6 +14,12 @@ define(function (require) {
       this.questions = options.questions;
       this.answers = options.answers;
       this.answer = options.answer;
+
+      BaseView.prototype.initialize.apply(this, arguments);
+    },
+
+    setUp: function () {
+      this.hasSubView('.question-answer', new AnswerView({model: this.answer}));
     },
 
     questionNumber: function (question) {
@@ -24,19 +31,25 @@ define(function (require) {
     },
 
     previousQuestionUrl: function () {
+      var result = '';
       var questionIndex = this.questionIndex();
       if (questionIndex > 0) {
         var previousQuestion = this.questions.at(questionIndex - 1);
-        return this.questionUrl(previousQuestion.id);
+        result = this.questionUrl(previousQuestion.id);
       }
+
+      return result;
     },
 
     nextQuestionUrl: function () {
+      var result = '';
       var questionIndex = this.questionIndex();
       if (questionIndex < this.questions.length - 1) {
         var nextQuestion = this.questions.at(questionIndex + 1);
-        return this.questionUrl(nextQuestion.id);
+        result = this.questionUrl(nextQuestion.id);
       }
+
+      return result;
     },
 
     questionIndex: function () {
@@ -50,10 +63,11 @@ define(function (require) {
     questionButtonClass: function (question) {
       var classes = ['question'];
 
-      if (!this.answer.empty()) {
+      var questionAnswer = this.answers.findWhere({question: question.id});
+      if (!questionAnswer.empty()) {
         classes.push('answered');
       }
-      var rating = this.answer.get('rating');
+      var rating = questionAnswer.get('rating');
       if (rating != null && rating != undefined) {
         if (rating < 4) {
           classes.push('negative');
