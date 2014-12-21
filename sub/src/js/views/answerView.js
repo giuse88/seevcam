@@ -15,8 +15,17 @@ define(function (require) {
       }
     },
 
+    setUp: function () {
+      this.listenTo(this.model, 'change:content', this.answerUpdated, this);
+    },
+
     postRender: function () {
       this.highlightRating();
+    },
+
+    answerUpdated: function () {
+      var eventLogger = require('services/eventLogger');
+      eventLogger.log(eventLogger.eventType.answerUpdate, {content: this.model.get('content'), question_id: this.model.get('question')});
     },
 
     ratingClicked: function (e) {
