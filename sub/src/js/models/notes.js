@@ -1,5 +1,6 @@
 define(function (require) {
   var BaseModel = require('baseModel');
+  var AutoSaveBehavior = require('behaviors/autosaveBehavior');
 
   return BaseModel.extend({
     defaults: {
@@ -15,6 +16,10 @@ define(function (require) {
       this.interviewId = options.interviewId;
 
       BaseModel.prototype.initialize.apply(this, arguments);
+    },
+
+    initBehaviors: function () {
+      this.attachBehavior(new AutoSaveBehavior());
     }
   });
 });
