@@ -5,7 +5,7 @@ define(function (require) {
   return InterviewPage.extend({
     createContentView: function () {
       var questions = this.model.get('questions');
-      var question = questions.findWhere({id: this.options.questionId}) || questions.first();
+      var question = questions.findWhere({id: this.options.questionId});
       var answers = this.model.get('answers');
       var answer = answers.findWhere({question: question.id});
       var notes = this.model.get('notes');

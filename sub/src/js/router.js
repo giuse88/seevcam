@@ -24,7 +24,12 @@ define(function (require) {
 
     questions: function (questionId) {
       var session = require('services/session');
-      this.renderPage(new QuestionsPage({model: session, questionId: parseInt(questionId)}));
+      questionId = parseInt(questionId) || session.get('questions').first().get('id');
+
+      var eventLogger = require('services/eventLogger');
+      eventLogger.log(eventLogger.eventType.questionSelected, {question_id: questionId});
+
+      this.renderPage(new QuestionsPage({model: session, questionId: questionId}));
     },
 
     jobSpec: function () {
