@@ -33,8 +33,9 @@ define(function (require) {
     },
 
     updateProgress: function () {
-      var elapsedTime = this.model.elapsedTime('seconds');
-      var totalTime = this.model.get('interview').duration('seconds');
+      var interview = this.model.get('interview');
+      var elapsedTime = interview.elapsedTime('seconds');
+      var totalTime = interview.duration('seconds');
       var elapsedPercentage = (elapsedTime / totalTime) * 100;
 
       if (elapsedPercentage <= 100) {
@@ -43,10 +44,11 @@ define(function (require) {
     },
 
     refreshRemainingTime: function () {
-      var elapsedTime = this.model.elapsedTime();
+      var interview = this.model.get('interview');
+      var elapsedTime = interview.elapsedTime();
 
-      if (elapsedTime < this.model.get('interview').duration()) {
-        this.$('.passed').text(this.model.elapsedTime());
+      if (elapsedTime < interview.duration()) {
+        this.$('.passed').text(interview.elapsedTime());
       }
     }
   });

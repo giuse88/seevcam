@@ -20,10 +20,18 @@ define(['backbone', 'moment'], function (Backbone, moment) {
     duration: function (unit) {
       unit = unit || "minutes";
 
-      var startMoment = moment(this.get('start'));
-      var endMoment = moment(this.get('end'));
+      var startMoment = moment.utc(this.get('start'));
+      var endMoment = moment.utc(this.get('end'));
 
       return endMoment.diff(startMoment, unit);
+    },
+
+    elapsedTime: function (unit) {
+      unit = unit || 'minutes';
+      var startMoment = moment.utc(this.get('start'));
+      var currentMoment = moment.utc();
+
+      return currentMoment.diff(startMoment, unit);
     }
   });
 });

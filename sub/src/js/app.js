@@ -13,14 +13,13 @@ define(function (require) {
   var session = require('services/session');
 
   var interviewId = window.cache.interview.id;
-  session.set('interview', new Interview());
+  session.set('interview', new Interview(window.cache.interview));
   session.set('questions', new Questions(window.cache.questions, {catalogueId: session.get('interview').get('catalogue')}));
   session.set('answers', new Answers([], {interviewId: interviewId}));
   session.set('jobPosition', new JobPosition(window.cache.jobPosition));
   session.set('candidate', new Candidate(window.cache.interview.candidate));
   session.set('events', new Events([], {interviewId: interviewId}));
   session.set('notes', new Notes({}, {interviewId: interviewId}));
-  session.set('sessionStart', moment.utc());
 
   require('services/mocks'); // TODO: Remove mocks
 
