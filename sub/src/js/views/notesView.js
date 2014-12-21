@@ -1,14 +1,12 @@
 define(function (require) {
   var BaseView = require('baseView');
+  var TextArea = require('views/textArea');
 
   return BaseView.extend({
     template: require('text!templates/notes.html'),
 
-    bindings: {
-      '.notes-input' : {
-        observe: 'content',
-        events: ['change']
-      }
+    setUp: function () {
+      this.hasSubView('.notes', new TextArea({model: this.model, attribute: 'content', autoSave: true}));
     }
   });
 });

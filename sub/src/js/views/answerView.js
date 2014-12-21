@@ -1,35 +1,22 @@
 define(function (require) {
   var BaseView = require('baseView');
+  var TextArea = require('views/textArea');
 
   return BaseView.extend({
     template: require('text!templates/answer.html'),
 
     events: {
-      'click .rating-button': 'ratingClicked',
-      'keyup': 'onKeyUp'
-    },
-
-    bindings: {
-      '.answer': {
-        observe: 'content',
-        events: ['change']
-      }
+      'click .rating-button': 'ratingClicked'
     },
 
     setUp: function () {
       this.listenTo(this.model, 'change:content', this.answerUpdated, this);
 
-      this.saveAnswer = _.debounce(_.bind(function () {
-        this.model.set('content', this.$('.answer').val());
-      }, this), 2000);
+      this.hasSubView('.answer', new TextArea({model: this.model, attribute: 'content', autoSave: true}));
     },
 
     postRender: function () {
       this.highlightRating();
-    },
-
-    onKeyUp: function () {
-      this.saveAnswer();
     },
 
     answerUpdated: function () {

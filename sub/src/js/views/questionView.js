@@ -21,8 +21,8 @@ define(function (require) {
     },
 
     setUp: function () {
-      this.hasSubView('.question-answer', new AnswerView({model: this.answer}));
-      this.hasSubView('.notes', new NotesView({model: this.notes}));
+      this.hasSubView('.answer-container', new AnswerView({model: this.answer}));
+      this.hasSubView('.notes-container', new NotesView({model: this.notes}));
     },
 
     questionNumber: function (question) {

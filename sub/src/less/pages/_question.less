@@ -118,7 +118,7 @@
     border: 0;
   }
 
-  .question-answer {
+  .answer-container {
     width: 100%;
     position: relative;
     height: 25%;
@@ -159,23 +159,29 @@
     }
   }
 
-
-  .notes {
+  .notes-container {
     height: 17%;
     margin-top: 10px;
     padding-left: 10px;
     border-top: 3px solid @color3;
     background: @color2;
-    font-size: 16px;
-    font-style: italic;
 
     div {
       height: 100%;
     }
 
-    textarea {
-      height: 100%;
-      background: transparent;
+    .notes {
+      font-size: 16px;
+      font-style: italic;
+
+      div {
+        height: 100%;
+      }
+
+      textarea {
+        height: 100%;
+        background: transparent;
+      }
     }
   }
 }
