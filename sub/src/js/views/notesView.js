@@ -6,7 +6,8 @@ define(function (require) {
 
     bindings: {
       '.notes-input' : {
-        observe: 'content'
+        observe: 'content',
+        events: ['change']
       }
     }
   });

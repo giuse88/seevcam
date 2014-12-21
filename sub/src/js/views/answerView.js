@@ -10,7 +10,8 @@ define(function (require) {
 
     bindings: {
       '.answer': {
-        observe: 'content'
+        observe: 'content',
+        events: ['change']
       }
     },
 
