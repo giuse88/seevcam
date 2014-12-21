@@ -1,5 +1,8 @@
-define(['backbone', 'moment'], function (Backbone, moment) {
-  return Backbone.Model.extend({
+define(function (require) {
+  var BaseModel = require('baseModel');
+  var moment = require('moment');
+
+  return BaseModel.extend({
     defaults: {
       id: null,
       start: null,

@@ -1,5 +1,7 @@
-define(['backbone'], function(Backbone){
-  return Backbone.Model.extend({
+define(function(require){
+  var BaseModel = require('baseModel');
+
+  return BaseModel.extend({
     defaults: {
       question_text: ""
     }

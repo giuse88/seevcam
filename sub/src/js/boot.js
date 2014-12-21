@@ -12,6 +12,7 @@ require.config({
     backbone : "../../bower_components/backbone/backbone",
     'backbone.stickit' : "../../bower_components/backbone.stickit/backbone.stickit",
     text : "../../bower_components/requirejs-text/text",
+    baseModel: "models/baseModel",
     baseView: "views/baseView",
     models: "models",
     collections: "collections",

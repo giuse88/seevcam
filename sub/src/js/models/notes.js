@@ -1,7 +1,7 @@
 define(function (require) {
-  var Backbone = require('backbone');
+  var BaseModel = require('baseModel');
 
-  return Backbone.Model.extend({
+  return BaseModel.extend({
     defaults: {
       id: null,
       content: null
@@ -13,6 +13,8 @@ define(function (require) {
 
     initialize: function (models, options) {
       this.interviewId = options.interviewId;
+
+      BaseModel.prototype.initialize.apply(this, arguments);
     }
   });
 });

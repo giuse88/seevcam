@@ -1,8 +1,8 @@
 define(function (require) {
   var _ = require('underscore');
-  var Backbone = require('backbone');
+  var BaseModel = require('baseModel');
 
-  return Backbone.Model.extend({
+  return BaseModel.extend({
     defaults: {
       id: null,
       content: null,
