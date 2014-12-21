@@ -20,8 +20,19 @@ define(function (require) {
 
     ratingClicked: function (e) {
       var newRating = parseInt($(e.currentTarget).data('rating'));
+      var oldRating = this.model.get('rating');
+
+      if (newRating == oldRating) return;
+
       this.model.set('rating', newRating);
       this.highlightRating();
+
+      var eventLogger = require('services/eventLogger');
+      if (oldRating === null || oldRating === undefined) {
+        eventLogger.log(eventLogger.eventType.rated, {rating: newRating, question_id: this.model.get('question')});
+      } else {
+        eventLogger.log(eventLogger.eventType.rateUpdated, {new_rating: newRating, old_rating: oldRating, question_id: this.model.get('question')});
+      }
     },
 
     highlightRating: function () {
