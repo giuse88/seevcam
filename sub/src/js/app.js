@@ -21,6 +21,16 @@ define(function (require) {
 
   require('services/mocks'); // TODO: Remove mocks
 
-  new Router();
-  Backbone.history.start();
+  var $ = require('jquery');
+
+  $.when(
+    session.get('answers').fetch()
+    )
+    .done(function () {
+      new Router();
+      Backbone.history.start();
+    })
+    .fail(function (resp) {
+      $('.main-content').html('<h1>Cannot initiate session because server responded with ' + resp.status + '</h1>')
+    });
 });

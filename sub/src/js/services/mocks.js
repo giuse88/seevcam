@@ -27,4 +27,15 @@ define(['jquery', 'jquery.mockjax'], function ($, mockjax) {
       "name": "_1.pdf"
     }
   });
+
+  $.mockjax({
+    url: '/interviews/4/answers',
+    responseText: [
+      { "id": 2, "question": 1 },
+      { "id": 4, "question": 3 },
+      { "id": 8, "question": 5 },
+      { "id": 9, "question": 6 },
+      { "id": 10, "question": 7 }
+    ]
+  });
 });
