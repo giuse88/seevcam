@@ -1,5 +1,5 @@
 # settings.local.py
-from .base import *
+from .seeVcam.settings.base import *
 
 # Debug options
 DEBUG = True
