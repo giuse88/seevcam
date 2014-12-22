@@ -54,9 +54,7 @@ define(function (require) {
     },
 
     getDataForTemplate : function(){
-      console.log(this.model.get('start'));
       var interviewStart = new Date(this.model.get('start'));
-      console.log(interviewStart);
       return {
         id : this.model.get('id'),
         name : this.model.get("candidate.name"),

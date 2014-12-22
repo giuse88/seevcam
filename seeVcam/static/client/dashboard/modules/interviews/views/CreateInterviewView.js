@@ -102,8 +102,8 @@ define(function (require) {
     },
 
     updateDateTimeForm : function (start, end) {
-      this.$el.find(".datetime .start").val(start.format("YYYY-MM-DD hh:mm"));
-      this.$el.find(".datetime .end").val(end.format("YYYY-MM-DD hh:mm"));
+      this.$el.find(".datetime .start").val(start.format("YYYY-MM-DD HH:mm"));
+      this.$el.find(".datetime .end").val(end.format("YYYY-MM-DD HH:mm"));
       this.displayTime(start, end);
     },
 

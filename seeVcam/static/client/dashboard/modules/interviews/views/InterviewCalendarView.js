@@ -22,8 +22,8 @@ define(function (require) {
       var events = self.getBackgroundEvents().concat(self.getEvents());
 
       if ( currentInterview &&  !_.isEmpty(currentInterview)){
-        this.startDateTime = currentInterview.get('start');
-        this.endDateTime = currentInterview.get('end');
+        this.startDateTime = moment(currentInterview.get('start'));
+        this.endDateTime = moment(currentInterview.get('end'));
       }
 
       this.$el.fullCalendar({

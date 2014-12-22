@@ -54,21 +54,21 @@ define(function (require) {
         '</div>'),
 
     initialize : function (options){
-      console.log("Initializing interview page");
+
       this.options = _.extend( this.defaults, options);
-      console.log(options);
-      console.log(this.options);
       this.nestedView = null;
-      this.interviews = this.options.interviews;
+      this.interviews = new Interviews(this.options.interviews.sortBy('start'));
     },
 
     render : function(){
+
       this.$el.html(this.template);
       this.$interviewViewContainer = this.$el.find('.interview-view-container');
       this.$searchBox = this.$el.find('#searchbox-container input');
       this.$todayInterview = this.$el.find(".upcoming-interviews");
       // today
       this.renderTodayInterviews();
+
       // clock
       if(this.options.activeClock)  {
         this.renderClock();
@@ -143,8 +143,14 @@ define(function (require) {
     },
 
     renderTodayInterviews : function () {
+
       var todayInterviews = this.interviews.getTodayInterviews();
-      // This is wrong
+      var isTheFirstInterviewOpened = this.interviews.first().isOpen();
+
+      if (isTheFirstInterviewOpened) {
+        todayInterviews.shift();
+      }
+
       if (todayInterviews.length > 3) {
         todayInterviews = todayInterviews.slice(0,2);
       }
@@ -152,8 +158,10 @@ define(function (require) {
         collection: new Interviews(todayInterviews),
         today: true
       });
+
       this.todayInterview = interviewView;
       this.$todayInterview.html(interviewView.render().$el);
+
       return this;
     },
 

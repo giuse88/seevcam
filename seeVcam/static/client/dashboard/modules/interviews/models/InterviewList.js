@@ -12,6 +12,10 @@ define(function(require){
       initialize: function (interviews) {
       },
 
+      comparator : function () {
+        return this.get("start");
+      },
+
       filterByName: function (name) {
         if (!name) {
           return this;
@@ -26,9 +30,9 @@ define(function(require){
 
      getTodayInterviews : function () {
       var todayInterviews = this.filter(function(interview) {
-         var interviewStart = new Date(interview.start);
+         var interviewStart = new Date(interview.get('start'));
          var today = new Date();
-         return today.getDay() === interviewStart.getDay();
+         return today.getUTCDay() === interviewStart.getUTCDay();
       });
       return todayInterviews;
      }
