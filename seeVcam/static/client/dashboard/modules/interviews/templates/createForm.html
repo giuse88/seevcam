@@ -6,8 +6,10 @@
           enctype="multipart/form-data" action="" method="post" role="form">
 
         <div class="row">
+
+            <hr/>
+
             <div class="col-lg-6">
-            <hr>
 
             <div class="form-group ">
                 <label for="id-candidate-name"> Name : </label>
@@ -55,8 +57,9 @@
                        type="number" required="true" <% if (cv) { %> value="<%= cv.id %>" <% } %>  >
                  </div>
             </div>
+         </div>
 
-            <hr>
+            <div class="col-lg-6">
 
             <div class="interview-catalogue form-group ">
                     <div class="input-group full-width">
@@ -130,12 +133,15 @@
 
 
 -->
-                <hr>
-                <input class="btn btn-primary" type="submit" value=" <% if (create){ %> Create <% } else { %> Update <% } %> ">
 
-           </div>
-        </div>
+
+             </div>
+
+ </div>
+             <hr/>
+            <input class="btn btn-primary" type="submit" value=" <% if (create){ %> Create <% } else { %> Update <% } %> ">
+
+
     </form>
-
 
 </div>
