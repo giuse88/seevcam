@@ -43,14 +43,17 @@ define(function (require) {
 
     getTemplateData : function() {
 
+      /*
+        This is piece of shi
+       */
       if(!this.model) {
         return {
           create : true,
           title : "New interview",
           interview : null,
           cv : null,
-          catalogues : this.options.catalogues,
-          jobPositions : this.options.jobPositions
+          catalogues : this.options.catalogues.toJSON(),
+          jobPositions : this.options.jobPositions.toJSON()
         };
       }
 
@@ -59,8 +62,8 @@ define(function (require) {
         title : "Update interview",
         interview : this.model.toJSON(),
         cv : this.model.getCV().toJSON(),
-        catalogues : this.options.catalogues,
-        jobPositions : this.options.jobPositions
+        catalogues : this.options.catalogues.toJSON(),
+        jobPositions : this.options.jobPositions.toJSON()
       }
 
     },
@@ -151,12 +154,12 @@ define(function (require) {
     },
 
     createInterview:function (new_interview) {
-      var baseInterview = {
-        "job_position": 2,
-        "catalogue": 1
-        };
-      var interview = _.extend(baseInterview, new_interview);
-      this.interviewCollection.create(interview, {wait:true});
+//      var baseInterview = {
+//        "job_position": 2,
+//        "catalogue": 1
+//        };
+//      var interview = _.extend(baseInterview, new_interview);
+      this.interviewCollection.create(new_interview);
       // error handling in case of an error
       this.interviewRouter.goToInterviews(true);
       console.log(interview);

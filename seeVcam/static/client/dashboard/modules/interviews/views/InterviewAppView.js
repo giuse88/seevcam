@@ -118,7 +118,7 @@ define(function (require) {
       this.removeActiveClass();
       this.$el.find(".interview-view-type .calendar").addClass("active");
       var calendarView = new Calendar({
-        collection:this.interviews,
+        collection:window.cache.interviews,
         readOnly : true
       });
       this.updateNestedView(calendarView);

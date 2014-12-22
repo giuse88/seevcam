@@ -12,8 +12,6 @@ define(function (require) {
 
     initialize : function(options) {
 
-      debugger;
-
       var self = this;
       this.options = options;
       this.collection = options.collection;

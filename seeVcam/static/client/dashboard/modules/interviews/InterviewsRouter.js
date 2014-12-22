@@ -72,7 +72,7 @@ define(function(require){
           var createInterview = new CreateInterviewView({
             router: self,
             interviews: window.cache.interviews,
-            catalogues : window.cache.catalogues.toJSON(),
+            catalogues : window.cache.catalogues,
             jobPositions : window.cache.jobPositions
           });
 
@@ -109,7 +109,7 @@ define(function(require){
             var createInterview = new CreateInterviewView({
               router: self,
               interviews: window.cache.interviews,
-              catalogues : window.cache.catalogues.toJSON(),
+              catalogues : window.cache.catalogues,
               jobPositions : window.cache.jobPositions,
               model : interview
             });

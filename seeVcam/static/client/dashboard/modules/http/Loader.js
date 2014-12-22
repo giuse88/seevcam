@@ -1,8 +1,10 @@
 define(function (require) {
 
   var $ = require("jquery");
+
   var Interviews = require("modules/interviews/models/InterviewList");
   var Catalogues = require("modules/questions/models/Catalogues");
+  var JobPosition = require("modules/interviews/models/JobPosition");
 
   return {
 
@@ -33,7 +35,7 @@ define(function (require) {
 
     loadJobPositions : function () {
       function cacheJobPositions(positions) {
-        window.cache.jobPositions = positions;
+        window.cache.jobPositions = new JobPosition(positions);
       }
       return window.cache.jobPositions || this.load("/dashboard/interviews/jobPositions", cacheJobPositions);
     },

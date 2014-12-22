@@ -61,15 +61,17 @@
             <div class="interview-catalogue form-group ">
                     <div class="input-group full-width">
                         <label for="catalogue"> Catalogue :  </label>
-                        <select class="form-control"
-                                seletected = "<% if ( interview && interview.catalogue ) { %>
-                                 value = <%= interview.catalogue %> <% } %>">
+                        <select class="form-control" name="catalogue">
 
                             <% if ( !interview || !interview.catalogue ) { %>
                             <option selected disabled hidden value=''>Select a catalogue</option>
                             <%} %>
                               <% _.each(catalogues, function(c) { %>
-                                    <option value="<%= c.id %>"> <%= c.catalogue_name %> </option>
+                                    <option value="<%= c.id %>"
+                                     <% if ( interview && interview.catalogue === c.id )
+                                         { %> selected <% } %>
+                                    >
+                                    <%= c.catalogue_name %> </option>
                               <% }); %>
                         </select>
                      </div>
@@ -77,13 +79,17 @@
             <div class="job-position form-group ">
                 <div class="input-group full-width">
                     <label for="catalogue"> Job Position :  </label>
-                    <select class="form-control"
-                    seletected = "<% if ( interview ) { %> value = <%= interview.job_position %> <% } %>">
+                    <select class="form-control" name="job_position"
+                    <% if ( interview ) { %> value ="<%= interview.job_position %>" <% } %> >
                         <% if ( !interview ||  !interview.job_position) { %>
                         <option selected disabled hidden value=''>Select a job position</option>
                         <%} %>
                         <% _.each(jobPositions, function(c) { %>
-                            <option value="<%= c.id %>"> <%= c.position %> </option>
+
+                            <option value="<%= c.id %>"
+                                    <% if ( interview && interview.job_position === c.id ) { %> selected <% } %>
+                                    >
+                            <%= c.position %> </option>
                         <% }); %>
                     </select>
                 </div>
