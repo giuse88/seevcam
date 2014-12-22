@@ -23,11 +23,11 @@ define(function (require) {
       '<section class="interview-time">' +
       '   <p class="interview-date">' +
       '       <span class="date-string"><%= date_string %></span>' +
-      '       <span class="date-year"><%= year %></span>' +
+      '       <span class="date-day"><%= day %></span>' +
       '       <span class="date-separator"><%= date_separator %></span>' +
       '       <span class="date-month"><%= month %></span>' +
       '       <span class="date-separator"><%=  date_separator %></span>' +
-      '       <span class="date-day"><%= day %></span>' +
+      '       <span class="date-year"><%= year %></span>' +
       '    </p> ' +
       '   <p class="interview-hours"><%= time %></p>' +
       '</section>'),
@@ -54,28 +54,37 @@ define(function (require) {
     },
 
     getDataForTemplate : function(){
+      console.log(this.model.get('start'));
       var interviewStart = new Date(this.model.get('start'));
+      console.log(interviewStart);
       return {
         id : this.model.get('id'),
         name : this.model.get("candidate.name"),
         surname : this.model.get("candidate.surname"),
         job_position  : this.model.get("job_position_name"),
         year : interviewStart.getUTCFullYear(),
-        time : interviewStart.getHours() + ":" + interviewStart.getMinutes(),
-        day  : interviewStart.getDay(),
-        month : interviewStart.getMonth() + 1,
+        time : this.toTimeString(interviewStart.getUTCHours()) + ":" + this.toTimeString(interviewStart.getUTCMinutes()),
+        day  : interviewStart.getUTCDate(),
+        month : interviewStart.getUTCMonth() + 1,
         date_string : "",
         date_separator : "-"
       }
     },
 
+    toTimeString: function(number){
+     return number > 9 ? String(number) : "0" +  number;
+    },
+
     handleItemClick : function(event) {
+      event.preventDefault();
       window.app && window.app.router && window.app.router.InterviewsRouter &&
       window.app.router.InterviewsRouter.goToInterview(this.model.get("id"), true);
     },
 
     removeInterview : function (event) {
       console.log("remove Interview");
+      event.preventDefault();
+      event.stopPropagation();
       //Delete model
       this.model.destroy();
       //Delete view

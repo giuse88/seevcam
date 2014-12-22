@@ -12,11 +12,19 @@ define(function (require) {
 
     initialize : function(options) {
 
+      debugger;
+
       var self = this;
       this.options = options;
       this.collection = options.collection;
+      var currentInterview = this.options.interview;
       var currentEventID = undefined;
       var events = self.getBackgroundEvents().concat(self.getEvents());
+
+      if ( currentInterview &&  !_.isEmpty(currentInterview)){
+        this.startDateTime = currentInterview.get('start');
+        this.endDateTime = currentInterview.get('end');
+      }
 
       this.$el.fullCalendar({
 

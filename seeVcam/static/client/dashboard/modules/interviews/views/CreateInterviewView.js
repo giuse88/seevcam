@@ -3,9 +3,11 @@ define(function (require) {
   require("jquery.fileupload-validate");
   require("backbone.boostrap-modal");
 
+  var Utils = require("utils");
   var $ = require("jquery");
   var _ = require("underscore");
   var Backbone = require("backbone");
+  var Notification = require("notification");
 
   var Interview = require("modules/interviews/models/Interview");
   var createFormTemplate = require("text!modules/interviews/templates/createForm.html");
@@ -35,6 +37,8 @@ define(function (require) {
       this.interviewCollection = options.interviews;
       this.interviewRouter = options.router;
       this.dirtyInterview = $.extend(true, {}, this.model);
+      //
+      this.listenTo(this.interviewCollection, 'error', Utils.syncError);
     },
 
     getTemplateData : function() {
@@ -98,8 +102,8 @@ define(function (require) {
     },
 
     updateDateTimeForm : function (start, end) {
-      this.$el.find(".datetime .start").val(start.format());
-      this.$el.find(".datetime .end").val(end.format());
+      this.$el.find(".datetime .start").val(start.format("YYYY-MM-DD hh:mm"));
+      this.$el.find(".datetime .end").val(end.format("YYYY-MM-DD hh:mm"));
       this.displayTime(start, end);
     },
 
@@ -153,6 +157,7 @@ define(function (require) {
         };
       var interview = _.extend(baseInterview, new_interview);
       this.interviewCollection.create(interview, {wait:true});
+      // error handling in case of an error
       this.interviewRouter.goToInterviews(true);
       console.log(interview);
 

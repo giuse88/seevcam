@@ -57,6 +57,7 @@ define(function(require){
     },
 
     createInterview: function() {
+      var self= this;
       console.log("Create interview route");
 
       Utils.updateActiveLink(this.navbarElement);
@@ -69,7 +70,7 @@ define(function(require){
           LoadingBar.go(100);
 
           var createInterview = new CreateInterviewView({
-            router: this,
+            router: self,
             interviews: window.cache.interviews,
             catalogues : window.cache.catalogues.toJSON(),
             jobPositions : window.cache.jobPositions
