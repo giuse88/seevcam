@@ -54,7 +54,6 @@ define(function (require) {
         '</div>'),
 
     initialize : function (options){
-
       this.options = _.extend( this.defaults, options);
       this.nestedView = null;
       this.interviews = new Interviews(this.options.interviews.sortBy('start'));
@@ -67,8 +66,8 @@ define(function (require) {
       this.$searchBox = this.$el.find('#searchbox-container input');
       this.$todayInterview = this.$el.find(".upcoming-interviews");
       // today
+      this.renderOpenInterview();
       this.renderTodayInterviews();
-
       // clock
       if(this.options.activeClock)  {
         this.renderClock();
@@ -145,15 +144,17 @@ define(function (require) {
     renderTodayInterviews : function () {
 
       var todayInterviews = this.interviews.getTodayInterviews();
-      var isTheFirstInterviewOpened = this.interviews.first().isOpen();
-
-      if (isTheFirstInterviewOpened) {
-        todayInterviews.shift();
-      }
+      var howManyInterviewToday = todayInterviews.length;
 
       if (todayInterviews.length > 3) {
         todayInterviews = todayInterviews.slice(0,2);
+        howManyInterviewToday = 3;
       }
+
+      for (var i=0; i< howManyInterviewToday; i++) {
+        this.interviews.shift();
+      }
+
       var interviewView = new InterviewBlocks({
         collection: new Interviews(todayInterviews),
         today: true
@@ -166,6 +167,10 @@ define(function (require) {
     },
 
     renderOpenInterview : function () {
+
+      if ( this.interviews.first().isOpen() )  {
+        this.interviews.shift();
+      }
     },
 
     close: function (){
