@@ -8,11 +8,10 @@ __pycache__/
 # secrets.json
 secrets.json
 atlassian-ide-plugin.xml
-seeVcam/log/
-seeVcam/media/
-migration/
-seeVcam/static/node_modules/*
-seeVcam/static/bower_components/*
-*/node_modules/*
-seeVcam/media
+log/
+media/
+static/node_modules/*
+static/bower_components/*
+*/*/node_modules/*
+./media
 */*/atlassian-ide-plugin.xml
