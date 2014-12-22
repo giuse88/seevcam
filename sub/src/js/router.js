@@ -7,7 +7,7 @@ define(function (require) {
 
   return Backbone.Router.extend({
     routes: {
-      'interview/questions': 'questions',
+      'interview/questions(/:questionId)': 'questions',
       'interview/jobSpec': 'jobSpec',
       'interview/cv': 'cv',
       'interview': 'interview',
@@ -22,8 +22,14 @@ define(function (require) {
       this.navigate('interview/questions', {trigger: true});
     },
 
-    questions: function () {
-      this.renderPage(new QuestionsPage());
+    questions: function (questionId) {
+      var session = require('services/session');
+      questionId = parseInt(questionId) || session.get('questions').first().get('id');
+
+      var eventLogger = require('services/eventLogger');
+      eventLogger.log(eventLogger.eventType.questionSelected, {question_id: questionId});
+
+      this.renderPage(new QuestionsPage({model: session, questionId: questionId}));
     },
 
     jobSpec: function () {

@@ -41,44 +41,50 @@
     width: 100%;
 
     .question {
-      display: block;
       float: left;
       height: 25px;
       width: 15px;
       margin-right: 5px;
       margin-top: 10px;
       background: @color4;
+      font-weight: bold;
+      font-size: 12px;
+      text-decoration: none;
+      text-align: center;
 
       &.current {
         margin-top: 0;
-        height: 45px;
+        height: 45px !important;
         background: @color3;
+
+        &.answered:after {
+          color: @color8;
+        }
+
+        &.rated:after {
+          color: @color3 !important;
+        }
+      }
+
+      &.answered:after {
+        content: "A";
+        color: @color3;
+        opacity: 0.6;
       }
 
       &.rated {
         height: 15px;
-        font-weight: bold;
-        font-size: 12px;
-        text-decoration: none;
-        text-align: center;
 
         &.positive {
-          background: @color9;
+          background: @color10;
         }
 
         &.negative {
-          background: @color10;
+          background: @color9;
         }
 
         &.neuter {
           background: @color11;
-        }
-
-        &.answered:after {
-          content: "A";
-          color: @color3;
-          opacity: 0.6;
-          display: block;
         }
       }
     }
@@ -86,6 +92,8 @@
 
   .question-selection-preview {
     width: 100%;
+    min-height: 70px;
+    padding: 5px;
     float: left;
     color: @color3;
 
@@ -110,7 +118,7 @@
     border: 0;
   }
 
-  .question-answer {
+  .answer-container {
     width: 100%;
     position: relative;
     height: 25%;
@@ -132,28 +140,87 @@
       position: absolute;
       right: 0;
       bottom: 0;
-      padding: 0 25px 15px 0;
+
+      span, i {
+        float: left;
+        padding: 5px;
+      }
+
       .glyphicon-ok {
+        display: none;
         color: @color10;
       }
       .glyphicon-refresh {
+        display: none;
         color: @color9;
+      }
+
+      .status-label {
+        display: none;
+      }
+
+      &.saving {
+        .glyphicon-refresh {
+          display: block;
+        }
+      }
+
+      &.saved {
+        .glyphicon-ok {
+          display: block;
+        }
+
+        .status-label {
+          display: block;
+          text-transform: uppercase;
+          background: @color8;
+          color: @color5;
+          font-size: 12px;
+        }
       }
     }
 
-    .answer {
+    > div {
       height: 100%;
-      font-size: 18px;
+
+      .answer {
+        height: 100%;
+        font-size: 18px;
+
+        div {
+          height: 100%;
+        }
+
+        textarea {
+          height: 100%;
+        }
+      }
     }
   }
 
-  .notes {
+  .notes-container {
     height: 17%;
     margin-top: 10px;
     padding-left: 10px;
     border-top: 3px solid @color3;
     background: @color2;
-    font-size: 16px;
-    font-style: italic;
+
+    div {
+      height: 100%;
+    }
+
+    .notes {
+      font-size: 16px;
+      font-style: italic;
+
+      div {
+        height: 100%;
+      }
+
+      textarea {
+        height: 100%;
+        background: transparent;
+      }
+    }
   }
 }

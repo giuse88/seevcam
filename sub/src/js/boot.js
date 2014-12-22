@@ -10,7 +10,9 @@ require.config({
     underscore : "../../bower_components/underscore/underscore",
     moment: "../../bower_components/momentjs/moment",
     backbone : "../../bower_components/backbone/backbone",
+    'backbone.stickit' : "../../bower_components/backbone.stickit/backbone.stickit",
     text : "../../bower_components/requirejs-text/text",
+    baseModel: "models/baseModel",
     baseView: "views/baseView",
     models: "models",
     collections: "collections",
@@ -33,6 +35,9 @@ require.config({
     },
     "jquery.mockjax": {
       deps: ['jquery']
+    },
+    "backbone.stickit": {
+      deps: ['backbone']
     }
   }
 });

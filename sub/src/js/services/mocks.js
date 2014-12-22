@@ -27,4 +27,36 @@ define(['jquery', 'jquery.mockjax'], function ($, mockjax) {
       "name": "_1.pdf"
     }
   });
+
+  // --------------  Answers  --------------
+  $.mockjax({
+    url: '/interviews/4/answers',
+    responseText: [
+      { "id": 2, "question": 1, content: 'this is my answer?' },
+      { "id": 4, "question": 3 },
+      { "id": 8, "question": 5 },
+      { "id": 9, "question": 6 },
+      { "id": 10, "question": 7 }
+    ]
+  });
+
+  // --------------  Notes  --------------
+  $.mockjax({
+    url: '/interviews/4/notes',
+    responseText: {
+      id: 42,
+      content: 'My notes'
+    }
+  });
+
+  // --------------  Events  --------------
+  $.mockjax({
+    url: '/interviews/4/events',
+    responseText: [
+      {id: 1, type: 'QUESTION_SELECTED', content: {question_id: 1}},
+      {id: 2, type: 'ANSWER_UPDATE', content: {content: 'this is my answer ?', question_id: 1}},
+      {id: 3, type: 'ANSWER_RATE', content: {rating: 3, question_id: 1}},
+      {id: 4, type: 'RATED_UPDATE', content: {new_rating: 9, old_rating: 6, question_id: 1}}
+    ]
+  });
 });

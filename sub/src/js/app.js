@@ -8,19 +8,33 @@ define(function (require) {
   var Questions = require('collections/questions');
   var Events = require('collections/events');
   var Answers = require('collections/answers');
+  var Notes = require('models/notes');
 
   var session = require('services/session');
 
+  var interviewId = window.cache.interview.id;
   session.set('interview', new Interview(window.cache.interview));
   session.set('questions', new Questions(window.cache.questions, {catalogueId: session.get('interview').get('catalogue')}));
-  session.set('answers', new Answers([], {interviewId: session.get('interview').get('id')}));
+  session.set('answers', new Answers([], {interviewId: interviewId}));
   session.set('jobPosition', new JobPosition(window.cache.jobPosition));
   session.set('candidate', new Candidate(window.cache.interview.candidate));
-  session.set('events', new Events([], {interviewId: session.get('interview').get('id')}));
-  session.set('sessionStart', moment.utc());
+  session.set('events', new Events([], {interviewId: interviewId}));
+  session.set('notes', new Notes({}, {interviewId: interviewId}));
 
   require('services/mocks'); // TODO: Remove mocks
 
-  new Router();
-  Backbone.history.start();
+  var $ = require('jquery');
+
+  $.when(
+    session.get('answers').fetch(),
+    session.get('events').fetch(),
+    session.get('notes').fetch()
+    )
+    .done(function () {
+      new Router();
+      Backbone.history.start();
+    })
+    .fail(function (resp) {
+      $('.main-content').html('<h1>Cannot initiate session because server responded with ' + resp.status + '</h1>')
+    });
 });
