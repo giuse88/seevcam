@@ -45,11 +45,7 @@ define(function (require) {
 
     refreshRemainingTime: function () {
       var interview = this.model.get('interview');
-      var elapsedTime = interview.elapsedTime();
-
-      if (elapsedTime < interview.duration()) {
-        this.$('.passed').text(interview.elapsedTime());
-      }
+      this.$('.passed').text(interview.elapsedTime());
     }
   });
 });
