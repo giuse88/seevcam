@@ -79,14 +79,20 @@ define(function (require) {
       var modal = new Backbone.BootstrapModal({
           content: jobPositionCreator,
           title : "Create job interview",
-          animate: true
+          animate: true,
+          okCloses:true,
+          footer: false
       });
 
+      modal.render().$el
+        .find(".modal-dialog")
+        .width("40%");
 
-      modal.render().$el.find(".modal-dialog").width("40%");
+      jobPositionCreator.setModalView(modal);
 
       this.intsallJobSpecUploader(jobPositionCreator);
       this.installParsely.call(jobPositionCreator);
+
       modal.open();
 
       console.log("Open create");
@@ -103,7 +109,9 @@ define(function (require) {
 
       var modal = new Backbone.BootstrapModal({
           content: calendar,
-          animate: true
+          animate: true,
+          okCloses:true,
+          footer: true
       });
 
       modal.render().$el.find(".modal-dialog").width("60%");

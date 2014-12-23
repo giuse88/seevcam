@@ -10,6 +10,7 @@ define(function (require) {
   var Backbone = require("backbone");
   var createFormTemplate = require("text!modules/interviews/templates/createJobPosition.html");
   var JobPosition = require("modules/interviews/models/JobPosition");
+  var Overlay = require("misc/overlay/overlay");
 
  return Backbone.View.extend({
     className : "job-position-create-container",
@@ -19,25 +20,39 @@ define(function (require) {
       'submit #createJobSpec'  : 'handleFormSubmit'
     },
 
+    initialize : function(options) {
+     this.options = options;
+    },
+
     render: function() {
       this.$el.html(this.template);
       this.$form = this.$el.find("form");
       return this;
     },
 
+     setModalView :function (modal) {
+      this.modal = modal;
+     },
+
     handleFormSubmit : function(event) {
       event.preventDefault();
       var jobPostion = new JobPosition(this.serializer());
+      var self = this;
       console.log(jobPostion.get("position"));
       console.log(jobPostion.toJSON());
+      var overlay = new Overlay();
+      overlay.render();
+      this.$el.prepend(this.$el);
       window.cache.jobPositions.create(jobPostion,
         {
         success: function (response) {
+          overlay.remove();
+          self.modal && self.modal.close();
           console.log("Job spec created ");
         },
         error: function (response) {
-          console.error("FAILED : job Spec");
-          console.error(response);
+          overlay.remove();
+          console.error("FAILED : job Spec", response);
           Notification.warning("Update failed", "Reloading the page should fix the issue");
         }
       });

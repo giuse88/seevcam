@@ -19,6 +19,7 @@
       </div>\
     <% } %>\
     <div class="modal-body">{{content}}</div>\
+    <% if (footer) { %>\
     <div class="modal-footer">\
       <% if (allowCancel) { %>\
         <% if (cancelText) { %>\
@@ -27,6 +28,7 @@
       <% } %>\
       <a href="#" class="btn ok btn-primary">{{okText}}</a>\
     </div>\
+    <% } %>\
     </div><!-- /.modal-content -->\
     </div><!-- /.modal-dialog -->\
   ');
