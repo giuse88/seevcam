@@ -12,16 +12,8 @@ define(function (require) {
   var Interview = require("modules/interviews/models/Interview");
   var createFormTemplate = require("text!modules/interviews/templates/createForm.html");
   var Calendar = require("modules/interviews/views/InterviewCalendarView");
+  var JobPositionCreator = require("modules/interviews/views/CreateJobPosition");
 
-  var ModalView = Backbone.View.extend({
-    tagName: 'p',
-    template: 'this is modal content',
-    render: function() {
-        this.$el.html(this.template);
-        console.log('modal rendered');
-        return this;
-    }
-});
 
   return Backbone.View.extend({
 
@@ -29,6 +21,7 @@ define(function (require) {
 
     events : {
      'submit #createInterview'  : 'handleFormSubmit',
+     'click .open-create-job-position' : 'openCreateJobPosition',
      'click .open-calendar' : 'openCalendar'
     },
 
@@ -75,6 +68,23 @@ define(function (require) {
       this.installCVUploader();
       this.installTypeAhead();
       return this;
+    },
+
+    openCreateJobPosition : function (event){
+
+      var jobPositionCreator  = new JobPositionCreator();
+
+            var self = this;
+
+      var modal = new Backbone.BootstrapModal({
+          content: jobPositionCreator,
+          animate: true
+      });
+
+      modal.render().$el.find(".modal-dialog").width("40%");
+      modal.open();
+
+      console.log("Open create");
     },
 
     openCalendar: function() {

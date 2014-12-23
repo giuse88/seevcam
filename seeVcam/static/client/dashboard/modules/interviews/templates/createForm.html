@@ -80,7 +80,9 @@
                      </div>
             </div>
             <div class="job-position form-group ">
-                <div class="input-group full-width">
+
+                <div class="row">
+                <div class=" col-md-6">
                     <label for="catalogue"> Job Position :  </label>
                     <select class="form-control" name="job_position"
                     <% if ( interview ) { %> value ="<%= interview.job_position %>" <% } %> >
@@ -88,13 +90,14 @@
                         <option selected disabled hidden value=''>Select a job position</option>
                         <%} %>
                         <% _.each(jobPositions, function(c) { %>
-
-                            <option value="<%= c.id %>"
-                                    <% if ( interview && interview.job_position === c.id ) { %> selected <% } %>
-                                    >
+                            <option value="<%= c.id %>" <% if ( interview && interview.job_position === c.id ) { %> selected <% } %> >
                             <%= c.position %> </option>
                         <% }); %>
                     </select>
+                </div>
+                <div class="col-md-6 datetime-display">
+                    <a class="interview-datetime open-create-job-position"  href="javascript:void(0)"> Create job position </a>
+                </div>
                 </div>
             </div>
 
