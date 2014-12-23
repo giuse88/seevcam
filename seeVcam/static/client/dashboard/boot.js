@@ -30,12 +30,11 @@ require.config({
     "moment"        : "bower_components/moment/moment",
     // to be removed
     "backbone-forms": "bower_components/backbone-forms/distribution/backbone-forms",
-    "backbone.boostrap-modal" : "bower_components/backbone.bootstrap-modal/src/backbone.bootstrap-modal",
-
     //
     "notification"  : "client/dashboard/modules/notification/notification",
     "utils"         : "client/misc/utils",
-    "nanobar"       : "client/misc/nanobar"
+    "nanobar"       : "client/misc/nanobar",
+    "backbone.boostrap-modal" : "client/misc/backbone.bootstrap-modal"
   },
 
   shim: {
