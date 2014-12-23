@@ -18,6 +18,16 @@ define(function (require) {
       'mouseleave': 'mouseleave'
     },
 
+    initialize: function (options) {
+      this.answer = options.answer;
+
+      BaseView.prototype.initialize.apply(this, arguments);
+    },
+
+    setUp: function () {
+      this.listenTo(this.answer, 'change', this.onAnswerChanged, this);
+    },
+
     questionButtonClass: function (answer, isSelected) {
       var classes = ['question'];
 
@@ -42,6 +52,10 @@ define(function (require) {
       }
 
       return classes.join(' ');
+    },
+
+    onAnswerChanged: function () {
+      this.$el.attr(_.result(this, 'attributes'));
     }
   });
 });
