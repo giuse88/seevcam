@@ -4,7 +4,7 @@ define(function (require) {
 
   var Interviews = require("modules/interviews/models/InterviewList");
   var Catalogues = require("modules/questions/models/Catalogues");
-  var JobPosition = require("modules/interviews/models/JobPosition");
+  var JobPositions = require("modules/interviews/models/JobPositionList");
 
   return {
 
@@ -35,7 +35,7 @@ define(function (require) {
 
     loadJobPositions : function () {
       function cacheJobPositions(positions) {
-        window.cache.jobPositions = new JobPosition(positions);
+        window.cache.jobPositions = new JobPositions(positions);
       }
       return window.cache.jobPositions || this.load("/dashboard/interviews/jobPositions", cacheJobPositions);
     },

@@ -86,6 +86,7 @@ define(function (require) {
       modal.render().$el.find(".modal-dialog").width("40%");
 
       this.intsallJobSpecUploader(jobPositionCreator);
+      this.installParsely.call(jobPositionCreator);
       modal.open();
 
       console.log("Open create");
