@@ -40,6 +40,8 @@ define(function (require) {
 
       if (elapsedPercentage <= 100) {
         this.$('#progress').css("width", elapsedPercentage + "%");
+      } else {
+        this.$('#progress').addClass('overtime');
       }
     },
 

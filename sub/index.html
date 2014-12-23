@@ -15,9 +15,9 @@
 
         <script type="application/javascript">
             var startDate = new Date();
-            startDate.setMinutes(startDate.getMinutes() - 10);
+            startDate.setSeconds(startDate.getSeconds() - 30);
             var endDate = new Date();
-            endDate.setMinutes(endDate.getMinutes() + 10);
+            endDate.setSeconds(endDate.getSeconds() + 30);
 
             window.cache = {
                 interview : { "id": 4, "start": startDate.toISOString(), "end": endDate.toISOString(), "status": "OPEN", "job_position": 2, "candidate": { "id": 4, "name": "f", "email": "ff@gg.com", "surname": "f", "cv": 75 }, "catalogue": 1, "job_position_name": "job_position" },
