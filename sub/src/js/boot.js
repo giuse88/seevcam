@@ -16,6 +16,7 @@ require.config({
     baseView: "views/baseView",
     models: "models",
     collections: "collections",
+    presenters: "presenters",
     views: "views",
     pages: "pages",
     services: "services"
