@@ -168,7 +168,7 @@ define(function (require) {
 
     renderOpenInterview : function () {
 
-      if ( this.interviews.first().isOpen() )  {
+      if ( this.interviews.first() && this.interviews.first().isOpen() )  {
         this.interviews.shift();
       }
     },

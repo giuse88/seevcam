@@ -74,14 +74,18 @@ define(function (require) {
 
       var jobPositionCreator  = new JobPositionCreator();
 
-            var self = this;
+      var self = this;
 
       var modal = new Backbone.BootstrapModal({
           content: jobPositionCreator,
+          title : "Create job interview",
           animate: true
       });
 
+
       modal.render().$el.find(".modal-dialog").width("40%");
+
+      this.intsallJobSpecUploader(jobPositionCreator);
       modal.open();
 
       console.log("Open create");
@@ -164,11 +168,7 @@ define(function (require) {
     },
 
     createInterview:function (new_interview) {
-//      var baseInterview = {
-//        "job_position": 2,
-//        "catalogue": 1
-//        };
-//      var interview = _.extend(baseInterview, new_interview);
+
       this.interviewCollection.create(new_interview);
       // error handling in case of an error
       this.interviewRouter.goToInterviews(true);
@@ -193,6 +193,11 @@ define(function (require) {
 
     installCVUploader: function() {
       this.installFileUploader("cv", ".cv-uploader");
+      return this;
+    },
+
+    intsallJobSpecUploader : function(form){
+      this.installFileUploader.call(form, "jobSpec", ".job-spec-uploader");
       return this;
     },
 

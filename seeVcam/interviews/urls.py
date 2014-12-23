@@ -11,7 +11,6 @@ rest_patterns = patterns('',
 
 html_patterns = patterns('',
                          url(r'^$', EmptyView.as_view(), name='interviews'),
-                         # url(r'^pjax/?$', GridInterviewsView.as_view(), name='interviews'),
                          url(r'(?P<pk>[0-9]+)/?$', EmptyView.as_view(), name='interview'),
                          url(r'^create/', EmptyView.as_view(), name='create-interview'),)
 
