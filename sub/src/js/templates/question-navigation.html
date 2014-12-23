@@ -1,8 +1,4 @@
-<div class="question-navigation">
-    <% view.collection.each(function (question) { %>
-    <a href="<%= view.questionUrl(question) %>" data-question-id="<%= question.id %>" class="<%= view.questionButtonClass(question) %>"></a>
-    <% }); %>
-</div>
+<div class="question-navigation"></div>
 <div class="question-selection-preview not-visible">
     <p class="header"><b>Question <b class="number"></b></b>/<%= view.collection.length %></p>
     <p class="text"></p>
