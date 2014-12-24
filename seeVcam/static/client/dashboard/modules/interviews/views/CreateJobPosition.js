@@ -15,6 +15,9 @@ define(function (require) {
  return Backbone.View.extend({
     className : "job-position-create-container",
     template: _.template(createFormTemplate),
+    error_template: _.template('<div class="alert alert-danger" role="alert"> ' +
+                                '<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>' +
+                                '<span class="sr-only">Error:</span> <%= error_message %></div>'),
 
     events :  {
       'submit #createJobSpec'  : 'handleFormSubmit'
@@ -41,17 +44,28 @@ define(function (require) {
       console.log(jobPostion.get("position"));
       console.log(jobPostion.toJSON());
       var overlay = new Overlay();
-      overlay.render();
-      this.$el.prepend(this.$el);
+      this.$el.prepend(overlay.render().$el);
       window.cache.jobPositions.create(jobPostion,
         {
-        success: function (response) {
+        success: function (savedJobPosition) {
           overlay.remove();
           self.modal && self.modal.close();
+          /* TODO find a better solution */
+          $('.select-job-position')
+           .append($("<option></option>")
+           .attr("value",savedJobPosition.get('id'))
+           .text(savedJobPosition.get('position')))
+           .val(savedJobPosition.get('id'));
+          /**********************************/
           console.log("Job spec created ");
         },
         error: function (response) {
+          //render error messag
           overlay.remove();
+          this.$form
+            .children()
+            .first()
+            .prepend(this.error_template(response.job_description[0]));
           console.error("FAILED : job Spec", response);
           Notification.warning("Update failed", "Reloading the page should fix the issue");
         }
