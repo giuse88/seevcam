@@ -32,7 +32,7 @@ define(function(require){
       var todayInterviews = this.filter(function(interview) {
          var interviewStart = new Date(interview.get('start'));
          var today = new Date();
-         return today.getUTCDay() === interviewStart.getUTCDay();
+         return today.getUTCDate() === interviewStart.getUTCDate();
       });
       return todayInterviews;
      }
