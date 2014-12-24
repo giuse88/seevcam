@@ -13,7 +13,7 @@
 
             <div class="form-group ">
                 <label for="id-candidate-name"> Name : </label>
-                <input class="form-control" data-parsley-errors-container=".candidate_name.error-form"
+                <input class="form-control"
                        <% if ( interview ) { %> value = <%= interview.candidate.name %> <% } %>
                        data-parsley-trigger="focusout" id="candidate_name" maxlength="255" name="candidate_name"
                        placeholder="Candidate name" required="true" type="text">
@@ -21,7 +21,7 @@
 
             <div class="form-group ">
                 <label for="id_candidate-surname"> Surname : </label>
-                <input class="form-control" data-parsley-errors-container=".candidate_surname.error-form"
+                <input class="form-control"
                        <% if ( interview ) { %> value = <%= interview.candidate.surname %> <% } %>
                        data-parsley-trigger="focusout" id="candidate_surname" maxlength="255" name="candidate_surname"
                        placeholder="Candidate surname" required="true" type="text">
@@ -29,7 +29,7 @@
 
             <div class="form-group ">
                 <label for="id_candidate-email"> Email : </label>
-                <input class="form-control" data-parsley-errors-container=".candidate_email.error-form"
+                <input class="form-control"
                        <% if ( interview ) { %> value = <%= interview.candidate.email %> <% } %>
                        data-parsley-trigger="focusout" id="candidate_email" maxlength="75" name="candidate_email"
                        placeholder="Candidate email" required="true" type="email" >
@@ -64,7 +64,7 @@
             <div class="interview-catalogue form-group ">
                     <div class="input-group full-width">
                         <label for="catalogue"> Catalogue :  </label>
-                        <select class="form-control" name="catalogue">
+                        <select class="form-control" name="catalogue" required="true">
 
                             <% if ( !interview || !interview.catalogue ) { %>
                             <option selected disabled hidden value=''>Select a catalogue</option>
@@ -82,10 +82,10 @@
             <div class="job-position form-group ">
 
                 <div class="row">
-                <div class=" col-md-6">
+                <div class="col-md-6 job-selector">
                     <label for="catalogue"> Job Position :  </label>
-                    <select class="form-control select-job-position" name="job_position"
-                    <% if ( interview ) { %> value ="<%= interview.job_position %>" <% } %> >
+                    <select class="form-control select-job-position" name="job_position" required="true"
+                    <% if ( interview ) { %> value ="<%= interview.job_position %>" <% } %>  >
                         <% if ( !interview ||  !interview.job_position) { %>
                         <option selected disabled hidden value=''>Select a job position</option>
                         <%} %>
@@ -95,7 +95,7 @@
                         <% }); %>
                     </select>
                 </div>
-                <div class="col-md-6 datetime-display">
+                <div class="col-md-6 job-spec-display">
                     <a class="interview-datetime open-create-job-position"  href="javascript:void(0)"> Create job position </a>
                 </div>
                 </div>
@@ -119,7 +119,8 @@
 
              </div>
              <hr/>
-            <input class="btn btn-primary" type="submit" value=" <% if (create){ %> Create <% } else { %> Update <% } %> ">
+            <input class="btn btn-primary" style="margin-left: 10%; margin-bottom: 2%;"
+                   type="submit" value=" <% if (create){ %> Create <% } else { %> Update <% } %> ">
 
     </form>
 

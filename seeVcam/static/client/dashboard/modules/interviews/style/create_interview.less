@@ -1,14 +1,44 @@
-.uploaded-file-link {
-    margin-left: 50px;
-    font-style: italic;
-}
 
 .create-interview{
+
+  h1 {
+    margin-left: 10%;
+  }
+
+
+  .datetime {
+    margin-top: 7%;
+  }
+
+  .uploaded-file-link {
+    margin-left: 50px;
+    font-style: italic;
+  }
+
+  .errorlist {
+    display:  none;
+    &.filled {
+      display: block !important;
+    }
+  }
 
   .form-group {
     margin-right : 0;
     margin-left : 0;
     margin-bottom: 15px;
+  }
+
+  .job-position {
+
+    .job-selector {
+      padding-left: 0;
+    }
+
+    .job-spec-display {
+      position: relative;
+      margin-top: 4%;
+    }
+
   }
 
   .fileupload-container {
@@ -66,4 +96,6 @@
   hr {
     margin-top:0;
   }
+
 }
+
