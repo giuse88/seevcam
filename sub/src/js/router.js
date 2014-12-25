@@ -3,6 +3,7 @@ define(function (require) {
   var _ = require('underscore');
   var QuestionsPage = require('pages/questionsPage');
   var DocumentPage = require('pages/documentPage');
+  var ReviewPage = require('pages/reviewPage');
   var File = require('models/file');
 
   return Backbone.Router.extend({
@@ -45,6 +46,8 @@ define(function (require) {
     },
 
     review: function () {
+      var session = require('services/session');
+      this.renderPage(new ReviewPage({model: session}));
     },
 
     renderPage: function (page) {
