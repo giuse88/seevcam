@@ -1,6 +1,8 @@
 define(function (require) {
   var Backbone = require('backbone');
   require('backbone.stickit');
+  require('bootstrap');
+  require('backbone.bootstrap-modal');
   var _ = require('underscore');
 
   return Backbone.View.extend({
@@ -71,6 +73,10 @@ define(function (require) {
       if (this.rendered) {
         this.renderSubView(subView, selector);
       }
+    },
+
+    openModal: function (contentView) {
+      new Backbone.BootstrapModal({content: contentView}).open();
     },
 
     eachSubView: function (callback, ctx) {
