@@ -18,7 +18,10 @@ def upload_to_user_folder(instance, filename):
     user_id = str(instance.created_by.id)
     folder_name = str(instance.type)
     normalized_file_name = normalize_name(instance, filename)
-    return os.path.join(settings.SEEVCAM_UPLOAD_FILE_FOLDER, user_id, folder_name, normalized_file_name)
+    folder = os.path.join(settings.MEDIA_ROOT,
+                          settings.SEEVCAM_UPLOAD_FILE_FOLDER,
+                          user_id, folder_name, normalized_file_name)
+    return folder
 
 
 def upload_cv(instance, filename):
@@ -60,7 +63,8 @@ class UploadedFile(models.Model):
 
     def get_delete_url(self):
         from django.core.urlresolvers import reverse_lazy
-        return reverse_lazy('file_delete', kwargs={'pk': str(self.id)})
+        url = reverse_lazy('file_detail', kwargs={'pk': str(self.id)})
+        return url
 
 
 

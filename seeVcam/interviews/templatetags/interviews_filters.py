@@ -13,6 +13,14 @@ def error_container_selector(name):
     _error_container_selector += "." + name + ".error-form"
     return _error_container_selector
 
+@register.inclusion_tag("components/fileUpload.html")
+def file_upload(field, uploader_name, button_text):
+    return {
+        'field': field,
+        'uploader_name': uploader_name,
+        'button_text': button_text
+    }
+
 
 @register.inclusion_tag("components/filter-singlefield.html")
 def interviews_field(field):
@@ -22,10 +30,11 @@ def interviews_field(field):
 
 @register.inclusion_tag("components/interviews-single.html")
 def interview_single_component(field, request):
-    user_datetime = to_user_timezone(field.interview_datetime, request.user)
-    user_datetime_end = user_datetime + datetime.timedelta(minutes=field.interview_duration)
 
-    dt = (field.interview_datetime.date() - to_user_timezone(datetime.datetime.now(), request.user).date())
+    user_datetime = to_user_timezone(field.start, request.user)
+    user_datetime_end = to_user_timezone(field.end, request.user)
+
+    dt = (field.start.date() - to_user_timezone(datetime.datetime.now(), request.user).date())
     user_date = user_datetime.date()
     if dt.days == 0:
         date_string = 'today'
@@ -45,9 +54,9 @@ def interview_single_component(field, request):
 
     return {
         'id': field.id,
-        'name': field.candidate_name,
-        'surname': field.candidate_surname,
-        'job_position': field.interview_position,
+        'name': field.candidate.name,
+        'surname': field.candidate.surname,
+        'job_position': field.job_position.position,
         'time': user_datetime.time(),
         'end': user_datetime_end.time(),
         'date_string': date_string,
@@ -172,16 +181,6 @@ def calendar_field(field, end, user, min='', max='', format='y-m-d'):
     }
 
 
-@register.inclusion_tag("components/filter-fileField.html")
-def file_field(field, newLabel='Select File'):
-    if field.name == 'interview_job_description':
-        field.label = 'Job description'
-    return {
-        'field': field,
-        'newLabel': newLabel,
-        'error_container': error_container_selector(field.name + " ")
-    }
-
 
 @register.filter
 def placeholder(value, text):
@@ -242,14 +241,14 @@ def to_seevcam_format(value):
 @register.filter
 def selected_catalogue_name(form):
     interview = form.instance
-    if interview.interview_catalogue is not None:
-        return interview.interview_catalogue.catalogue_name
+    if interview.catalogue is not None:
+        return interview.catalogue.catalogue_name
     return ""
 
 
 @register.filter
 def selected_catalogue_id(form):
     interview = form.instance
-    if interview.interview_catalogue is not None:
-        return interview.interview_catalogue.id
+    if interview.catalogue is not None:
+        return interview.catalogue.id
     return ""

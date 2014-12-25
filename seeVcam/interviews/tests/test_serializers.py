@@ -43,7 +43,7 @@ class CandidateSerializerTest(TestCase):
         self.catalogue.save()
 
         self.job_position = JobPosition(pk=1, position='text', company=self.company, created_by=self.user,
-                                        job_description=None)
+                                        job_description=self.uploaded_file)
         self.job_position.save()
 
         self.interview = Interview(pk=1, status=Interview.OPEN, start='2014-12-23 11:30', end='2014-12-23 12:00',

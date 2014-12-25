@@ -1,0 +1,35 @@
+<form id="createJobSpec" class="form-horizontal create-job-position"
+          enctype="multipart/form-data" action="" method="post" role="form">
+
+      <div class="row">
+
+
+          <div class="form-group ">
+            <label for="position"> Job Position : </label>
+            <input class="form-control"
+                   data-parsley-trigger="focusout" id="position" maxlength="255" name="position"
+                   placeholder="Job position name" required="true" type="text">
+          </div>
+
+
+          <div class="job-spec-uploader form-group">
+              <div class="fileupload-container">
+                    <span class="btn btn-primary fileinput-button">
+                        <i class="glyphicon glyphicon-plus"></i>
+                        <span>Select job spec</span>
+                        <input class="fileupload" type="file" name="file" data-url="/dashboard/files/">
+                    </span>
+                    <span class="uploaded-file-link"> No file uploaded yet </span>
+                  <div class="progress file-upload-progress" style="display:none">
+                      <div class="progress-bar progress-bar-success"></div>
+                  </div>
+                  <input class="hidden file-id-input" id="job_description" name="job_description"
+                         type="number" required="true" >
+              </div>
+          </div>
+
+      </div>
+    <hr/>
+    <input class="btn btn-primary" type="submit" value="Create">
+
+</form>

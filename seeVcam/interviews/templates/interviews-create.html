@@ -8,10 +8,10 @@
     {% load widget_tweaks %}
     {% load static %}
 
-    <div class ="create-interview">
+    <div class ="create-interview" class="create-interview">
     <h1>New Interview</h1>
 
-    <form id='createInterview' data-pjax name='createInterview' class="form-horizontal" enctype="multipart/form-data"
+    <form id='createInterview' data-pjax name='createInterview' class="form-horizontal create-interview-form" enctype="multipart/form-data"
           action="" method="post" role="form" >
         {% csrf_token %}
 
@@ -25,53 +25,49 @@
             <div class="col-lg-6">
 
                 <hr/>
-
-                {% interviews_field form.candidate_name|parsley:"required:true,data-parsley-trigger:focusout" %}
-                {% interviews_field form.candidate_surname|parsley:'required:true,data-parsley-trigger:focusout' %}
-                {% interviews_field form.candidate_email|parsley:'required:true,data-parsley-trigger:focusout' %}
-                {% file_field form.candidate_cv|parsley:"required:true,data-parsley-trigger:focusout" %}
-
-                <hr/>
-
-                {% calendar_field form.interview_datetime form.interview_datetime_end request.user %}
+                {% interviews_field candidate_form.name %}
+                {% interviews_field candidate_form.surname %}
+                {% interviews_field candidate_form.email %}
+                {% file_upload candidate_form.cv 'cv-uploader' 'Select curriculum' %}
 
                 <hr/>
+
+                {{ form.start }}
+                {{ form.end }}
+{#                {% calendar_field form.interview_datetime form.interview_datetime_end request.user %}#}
 
                 <div class="interview-catalogue form-group has-feedback
-                            {% if form.interview_catalogue.errors %} has-error {% endif %}">
+                            {% if form.catalogue.errors %} has-error {% endif %}">
                     <div class="input-group full-width">
-                        <label for="{{ form.interview_catalogue.id_for_label }}">
-                            {{ form.interview_catalogue.label }} :
+                        <label for="{{ form.catalogue.id_for_label }}">
+                            {{ form.catalogue.label }} :
                         </label>
-                        <input type="text" data-field-name="{{ form.interview_catalogue.name }}" required
+                        <input type="text" data-field-name="{{ form.catalogue.name }}" required
                                data-parsley-trigger="focusout"
                                data-parsley-errors-container=".interview-catalogue .error-form"
-                               placeholder="{{ form.interview_catalogue.label }}"
+                               placeholder="{{ form.catalogue.label }}"
                                value="{{ form|selected_catalogue_name }}"
                                class="form-control typeahead" />
-                        <input type="hidden" name="{{ form.interview_catalogue.name }}" required
+                        <input type="hidden" name="{{ form.catalogue.name }}" required
                                value = "{{ form|selected_catalogue_id }}" />
 
                         <div class="error-form">
-                            {{ form.interview_catalogue.errors }}
+                            {{ form.catalogue.errors }}
                         </div>
-                    </div>
+                     </div>
                 </div>
 
-                {% interviews_field form.interview_position|parsley:'required:true,data-parsley-trigger:focusout' %}
+                <hr/>
+
+                {% interviews_field job_position_form.position %}
+                {% file_upload job_position_form.job_description 'job-description-uploader' 'Select job spec' %}
 
                 <hr/>
 
                 <input class="btn btn-primary" type="submit" value="Create"/>
-
-            </div>
+           </div>
         </div>
     </form>
-
-    <script type="text/javascript">
-        window.createInterview && window.createInterview.installCreateInterviewModule();
-    </script>
-
 
 </div>
 

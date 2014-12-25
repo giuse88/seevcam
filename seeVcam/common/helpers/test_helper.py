@@ -1,5 +1,6 @@
 from django.core.files.uploadedfile import SimpleUploadedFile
 from authentication.models import SeevcamUser
+from company_profile.models import Company
 from interviews.models import Interview
 from questions.models import QuestionCatalogue
 from StringIO import StringIO
@@ -27,6 +28,12 @@ def create_dummy_user(email, company, password='test'):
     user = SeevcamUser.objects.create_user(email, password, company)
     user.save()
     return user
+
+
+def create_dummy_company(name="company"):
+    company = Company(name=name)
+    company.save()
+    return company
 
 
 def create_dummy_catalogue(name, user):

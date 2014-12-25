@@ -1,0 +1,127 @@
+    <div class="create-interview">
+
+    <h1> <%= title %></h1>
+
+    <form id="createInterview" name="createInterview" class="form-horizontal create-interview-form"
+          enctype="multipart/form-data" action="" method="post" role="form">
+
+        <div class="row">
+
+            <hr/>
+
+            <div class="col-lg-6">
+
+            <div class="form-group ">
+                <label for="id-candidate-name"> Name : </label>
+                <input class="form-control"
+                       <% if ( interview ) { %> value = <%= interview.candidate.name %> <% } %>
+                       data-parsley-trigger="focusout" id="candidate_name" maxlength="255" name="candidate_name"
+                       placeholder="Candidate name" required="true" type="text">
+            </div>
+
+            <div class="form-group ">
+                <label for="id_candidate-surname"> Surname : </label>
+                <input class="form-control"
+                       <% if ( interview ) { %> value = <%= interview.candidate.surname %> <% } %>
+                       data-parsley-trigger="focusout" id="candidate_surname" maxlength="255" name="candidate_surname"
+                       placeholder="Candidate surname" required="true" type="text">
+            </div>
+
+            <div class="form-group ">
+                <label for="id_candidate-email"> Email : </label>
+                <input class="form-control"
+                       <% if ( interview ) { %> value = <%= interview.candidate.email %> <% } %>
+                       data-parsley-trigger="focusout" id="candidate_email" maxlength="75" name="candidate_email"
+                       placeholder="Candidate email" required="true" type="email" >
+            </div>
+
+            <div class="cv-uploader form-group">
+                <div class="fileupload-container">
+                    <span class="btn btn-primary fileinput-button">
+                        <i class="glyphicon glyphicon-plus"></i>
+                        <span>Select curriculum</span>
+                        <input class="fileupload" type="file" name="file" data-url="/dashboard/files/">
+                    </span>
+                    <span class="uploaded-file-link">
+                       <% if ( cv ) { %>
+                            <a target="_blank" data-delete-url= "<%= cv.delete_url %>" href="<%= cv.url %>">
+                                <%= cv.original_name %></a>
+                        <% } else { %>
+                            No file uploaded yet
+                        <% } %>
+                    </span>
+                    <div class="progress file-upload-progress" style="display:none">
+                    <div class="progress-bar progress-bar-success"></div>
+                </div>
+                <input class="hidden file-id-input" id="candidate_cv" name="candidate_cv"
+                       type="number" required="true" <% if (cv) { %> value="<%= cv.id %>" <% } %>  >
+                 </div>
+            </div>
+         </div>
+
+            <div class="col-lg-6">
+
+            <div class="interview-catalogue form-group ">
+                    <div class="input-group full-width">
+                        <label for="catalogue"> Catalogue :  </label>
+                        <select class="form-control" name="catalogue" required="true">
+
+                            <% if ( !interview || !interview.catalogue ) { %>
+                            <option selected disabled hidden value=''>Select a catalogue</option>
+                            <%} %>
+                              <% _.each(catalogues, function(c) { %>
+                                    <option value="<%= c.id %>"
+                                     <% if ( interview && interview.catalogue === c.id )
+                                         { %> selected <% } %>
+                                    >
+                                    <%= c.catalogue_name %> </option>
+                              <% }); %>
+                        </select>
+                     </div>
+            </div>
+            <div class="job-position form-group ">
+
+                <div class="row">
+                <div class="col-md-6 job-selector">
+                    <label for="catalogue"> Job Position :  </label>
+                    <select class="form-control select-job-position" name="job_position" required="true"
+                    <% if ( interview ) { %> value ="<%= interview.job_position %>" <% } %>  >
+                        <% if ( !interview ||  !interview.job_position) { %>
+                        <option selected disabled hidden value=''>Select a job position</option>
+                        <%} %>
+                        <% _.each(jobPositions, function(c) { %>
+                            <option value="<%= c.id %>" <% if ( interview && interview.job_position === c.id ) { %> selected <% } %> >
+                            <%= c.position %> </option>
+                        <% }); %>
+                    </select>
+                </div>
+                <div class="col-md-6 job-spec-display">
+                    <a class="interview-datetime open-create-job-position"  href="javascript:void(0)"> Create job position </a>
+                </div>
+                </div>
+            </div>
+
+            <div class="form-group datetime">
+                <div class="row">
+                    <span class="col-md-6">
+                        <a class="interview-datetime open-calendar"  href="javascript:void(0)"> Pick a time : </a>
+                    </span>
+                    <span class="col-md-6 datetime-display">
+                        <p><% if (interview) { %> <%= interview.start %>  <% } else { %> Not time selected. <% } %></p>
+                    </span>
+                </div>
+                <input class="hidden start"  name="start"
+                       type="text" required="true" <% if (interview) { %> value="<%= interview.start %>" <% } %>  >
+                <input class="hidden end"  name="end"
+                       type="text" <% if (interview) { %> value="<%= interview.end %>" <% } %>  >
+             </div>
+             </div>
+
+             </div>
+             <hr/>
+            <input class="btn btn-primary" style="margin-left: 10%; margin-bottom: 2%;"
+                   type="submit" value=" <% if (create){ %> Create <% } else { %> Update <% } %> ">
+
+    </form>
+
+</div>

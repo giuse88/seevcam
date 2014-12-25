@@ -1,6 +1,9 @@
 require.config({
   baseUrl: '/static/',
+  waitSeconds: 200,
+
   paths: {
+    "text" : "bower_components/requirejs-text/text",
     // App.js
     "app" : "client/dashboard/app",
     // maps
@@ -11,21 +14,63 @@ require.config({
     "jquery"        : "bower_components/jquery/dist/jquery",
     "jquery-pjax"   : "bower_components/jquery-pjax/jquery.pjax",
     "jquery-ui"     : "bower_components/jquery-ui/jquery-ui",
+    "jquery.ui.widget" : "bower_components/jquery-file-upload/js/vendor/jquery.ui.widget",
+    "jquery-iframe-transport" :  "bower_components/jquery-file-upload/js/jquery.iframe-transport",
+    "jquery.fileupload" : "bower_components/jquery-file-upload/js/jquery.fileupload",
+    "jquery.fileupload-validate" : "bower_components/jquery-file-upload/js/jquery.fileupload-validate",
+    "jquery.fileupload-process" : "bower_components/jquery-file-upload/js/jquery.fileupload-process",
     "backbone"      : "bower_components/backbone/backbone",
     "underscore"    : "bower_components/underscore/underscore",
     "bootstrap"     : "bower_components/bootstrap/dist/js/bootstrap",
+    "typeahead"     : "bower_components/typeahead.js/dist/typeahead.jquery",
+    "bloodhound"    : "bower_components/typeahead.js/dist/bloodhound",
+    "parsley"       : "bower_components/parsleyjs/dist/parsley",
+    "fullcalendar"  : "bower_components/fullcalendar/dist/fullcalendar",
+    "deep-model"    : "bower_components/backbone-deep-model/distribution/deep-model",
+    "moment"        : "bower_components/moment/moment",
+    // to be removed
+    "backbone-forms": "bower_components/backbone-forms/distribution/backbone-forms",
     //
     "notification"  : "client/dashboard/modules/notification/notification",
     "utils"         : "client/misc/utils",
-    "nanobar"       : "client/misc/nanobar"
+    "nanobar"       : "client/misc/nanobar",
+    "backbone.boostrap-modal" : "client/misc/backbone.bootstrap-modal"
   },
 
   shim: {
+    "backbone.boostrap-modal" : {
+      deps : ["backbone"]
+    },
+
+//    "jquery.fileupload-process" : {
+//      deps : ["jquery"]
+//    },
+    "backbone-forms" : {
+      deps:["backbone"]
+    },
     "jquery-ui":{
       deps : ["jquery"]
     },
+//    "jquery-ui-widget" : {
+//      deps : ["jquery-ui"]
+//    },
+//    "jquery-iframe-transport" : {
+//      deps : ["jquery"]
+//    },
+//    "jquery.fileupload" : {
+//      deps : ["jquery.ui.widget"]
+//    },
     "jquery-pjax":{
       deps : ["jquery"]
+    },
+    "parsley":{
+      deps : ["jquery"]
+    },
+    "bloodhound" : {
+       deps : ["jquery"]
+    },
+    "typeahead":{
+      deps : ["jquery", "bloodhound"]
     },
     "bootstrap": {
       deps: ["jquery"]
@@ -40,6 +85,12 @@ require.config({
     },
     "notification":{
       deps:["bootstrap"]
+    },
+    "fullcalendar":{
+      deps:["jquery"]
+    },
+    "deep-model":{
+      deps:["backbone"]
     }
   }
 });

@@ -111,7 +111,7 @@ class InterviewViewTest(TestCase):
     def test_user_can_update_candidate_info(self):
         self.client.force_authenticate(user=self.user)
         interview = {"id": 2, "start": "2014-12-23T11:30:00Z", "end": "2014-12-23T12:00:00Z", "status": "OPEN",
-                     "job_position": {"id": 2, "position": "update"},
+                     "job_position": 2,
                      "candidate": {"id": 2, "name": "update", "email": "test_1@test.com", "surname": "pes"},
                      "catalogue": 1}
         response = self.client.put("/dashboard/interviews/interviews/1/", interview, format='json')

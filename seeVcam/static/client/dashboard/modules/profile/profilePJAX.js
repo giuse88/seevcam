@@ -16,8 +16,14 @@ define(function (require) {
     $.pjax.defaults.timeout = 3000;
     var overlay = new Overlay();
 
-    $(document).on('click', 'a[data-pjax="container"].profile-link', function(event) {
+    function profile_pjax_end(a, xhr, options) {
+      if (options.container.hasClass("container")) {
+        LoadingBar.go(100);
+      }
+      overlay.remove();
+    }
 
+    $(document).on('click', 'a[data-pjax="container"].profile-link', function(event) {
       /* This is the router for the profile page */
 
       if (Backbone.history.fragment.indexOf(profileFragment) > -1) {
@@ -32,21 +38,21 @@ define(function (require) {
       // hack to make pjax working with backbone
       Backbone.history.fragment = profileFragment;
       LoadingBar.go(10);
-      $.pjax.click(event, {container: $("#container")});
+      $.pjax.click(event, {
+        container: $("#container"),
+        pjax_end: profile_pjax_end
+      });
     });
 
     $(document).on('click', '.profile-container a[data-pjax="inner-container"]', function(event) {
-      $.pjax.click(event, {container: $(".inner-container")});
+      $.pjax.click(event, {
+        container: $(".inner-container"),
+        pjax_end: profile_pjax_end
+      });
       $(".profile-options .active").removeClass("active");
       $(event.target).addClass("active");
     });
 
-    $(document).on('pjax:end', function(a, xhr, options) {
-      if (options.container.hasClass("container")) {
-        LoadingBar.go(100);
-      }
-      overlay.remove();
-    });
 
     $(document).on('submit', '.profile-container form[data-pjax]', function(event) {
       $.pjax.submit(event, '.inner-container');
