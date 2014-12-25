@@ -11,6 +11,7 @@ define(function(require){
   var Interview = require("modules/interviews/models/Interview");
   var FileUploaded = require("modules/interviews/models/FileUploaded");
   var Loader = require("modules/http/Loader");
+  var Catalogues = require("modules/questions/models/Catalogues");
 
   return  Backbone.Router.extend({
 
@@ -65,14 +66,14 @@ define(function(require){
       LoadingBar.go(30);
 
       $.when(Loader.loadCatalogues(), Loader.loadJobPositions(), Loader.loadInterviews())
-        .then(function() {
+        .then(function(catalogues) {
 
           LoadingBar.go(100);
 
           var createInterview = new CreateInterviewView({
             router: self,
             interviews: window.cache.interviews,
-            catalogues : window.cache.catalogues,
+            catalogues : new Catalogues(catalogues),
             jobPositions : window.cache.jobPositions
           });
 
@@ -91,7 +92,7 @@ define(function(require){
       LoadingBar.go(30);
 
       $.when(Loader.loadCatalogues(), Loader.loadJobPositions(), Loader.loadInterviews())
-      .then(function(){
+      .then(function(catalogues){
         LoadingBar.go(70);
         var interview  = window.cache.interviews.get(interviewId);
 
@@ -109,7 +110,7 @@ define(function(require){
             var createInterview = new CreateInterviewView({
               router: self,
               interviews: window.cache.interviews,
-              catalogues : window.cache.catalogues,
+              catalogues : new Catalogues(catalogues),
               jobPositions : window.cache.jobPositions,
               model : interview
             });
