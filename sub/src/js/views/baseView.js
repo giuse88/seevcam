@@ -75,8 +75,8 @@ define(function (require) {
       }
     },
 
-    openModal: function (contentView) {
-      new Backbone.BootstrapModal({content: contentView}).open();
+    openModal: function (contentView, options) {
+      new Backbone.BootstrapModal(_.extend(options, {content: contentView})).open();
     },
 
     eachSubView: function (callback, ctx) {
