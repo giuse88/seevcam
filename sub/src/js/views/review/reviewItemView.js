@@ -1,6 +1,7 @@
 define(function (require) {
   var BaseView = require('baseView');
   var QuestionView = require('views/review/questionView');
+  var AnswerView = require('views/review/answerView');
 
   return BaseView.extend({
     template: require('text!templates/review/review-item.html'),
@@ -12,7 +13,11 @@ define(function (require) {
     },
 
     setUp: function () {
-      this.hasSubView('.question', new QuestionView({model: this.question}));
+      this.hasSubView('.question-container', new QuestionView({model: this.question}));
+
+      if (this.model.hasContent()) {
+        this.hasSubView('.answer-container', new AnswerView({model: this.model}));
+      }
     }
   });
 });
