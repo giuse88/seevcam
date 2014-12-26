@@ -5,7 +5,7 @@ from django.views.generic import ListView, CreateView, TemplateView, UpdateView
 from django.views.generic.edit import BaseDeleteView
 
 from common.mixins.ajax import AJAXPost
-from models import QuestionCatalogue, Question
+from .models import QuestionCatalogue, Question
 from common.mixins.authorization import LoginRequired
 from common.mixins.pjax import PJAXResponseMixin
 from questions.helpers import CatalogueQuerySetHelper

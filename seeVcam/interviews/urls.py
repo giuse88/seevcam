@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, url, include
 
 from dashboard.views import DashboardView as EmptyView
-from rest_views import InterviewDetail, InterviewList, JobPositionList
+from .rest_views import InterviewDetail, InterviewList, JobPositionList
 
 rest_patterns = patterns('',
                          url(r'interviews/(?P<pk>[0-9]+)/?$', InterviewDetail.as_view()),
