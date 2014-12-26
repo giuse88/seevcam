@@ -1,9 +1,9 @@
 define(function (require) {
   var BaseView = require('baseView');
-  var AnswerView = require('views/review/answerView');
+  var ReviewItemView = require('views/review/reviewItemView');
 
   return BaseView.extend({
-    template: require('text!templates/review/answer-list.html'),
+    template: require('text!templates/review/review-item-list.html'),
 
     initialize: function (options) {
       this.questions = options.questions;
@@ -26,7 +26,7 @@ define(function (require) {
           return item.question.id; // TODO: replace with position
         })
         .each(function (item) {
-          this.hasSubView('.answers', new AnswerView({model: item.answer, question: item.question}));
+          this.hasSubView('.items', new ReviewItemView({model: item.answer, question: item.question}));
         }, this)
         .value();
     }

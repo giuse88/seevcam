@@ -3,7 +3,7 @@ define(function (require) {
   var QuestionView = require('views/review/questionView');
 
   return BaseView.extend({
-    template: require('text!templates/review/answer.html'),
+    template: require('text!templates/review/review-item.html'),
 
     initialize: function (options) {
       this.question = options.question;
