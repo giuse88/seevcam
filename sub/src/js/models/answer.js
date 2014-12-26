@@ -15,8 +15,12 @@ define(function (require) {
       this.attachBehavior(new AutoSaveBehavior({ignore: ['id', 'question']}));
     },
 
-    empty: function () {
-      return _.isEmpty(this.get('content'));
+    hasContent: function () {
+      return !_.isEmpty(this.get('content'));
+    },
+
+    hasRating: function () {
+      return typeof this.get('rating') === 'number';
     }
   });
 });

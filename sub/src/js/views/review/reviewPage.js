@@ -8,7 +8,7 @@ define(function (require) {
     template: require('text!templates/review/review-page.html'),
 
     setUp: function () {
-      this.hasSubView('.content', new AnswerListView({collection: this.model.get('answers'), questions: this.model.get('questions')}));
+      this.hasSubView('.answer-list-container', new AnswerListView({collection: this.model.get('answers'), questions: this.model.get('questions')}));
     },
 
     postRender: function () {

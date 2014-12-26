@@ -31,13 +31,14 @@ define(function (require) {
     questionButtonClass: function (answer, isSelected) {
       var classes = ['question'];
 
-      if (!answer.empty()) {
+      if (answer.hasContent()) {
         classes.push('answered');
       }
-      var rating = answer.get('rating');
-      if (rating != null && rating != undefined) {
+
+      if (answer.hasRating()) {
         classes.push('rated');
 
+        var rating = answer.get('rating');
         if (rating < 4) {
           classes.push('negative');
         } else if (rating < 8) {
