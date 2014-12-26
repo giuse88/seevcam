@@ -9,6 +9,7 @@ define(function (require) {
   var Events = require('collections/events');
   var Answers = require('collections/answers');
   var Notes = require('models/notes');
+  var OverallRatings = require('collections/overallRatings');
 
   var session = require('services/session');
 
@@ -20,6 +21,7 @@ define(function (require) {
   session.set('candidate', new Candidate(window.cache.interview.candidate));
   session.set('events', new Events([], {interviewId: interviewId}));
   session.set('notes', new Notes({}, {interviewId: interviewId}));
+  session.set('overallRatings', new OverallRatings(window.cache.overallRatings));
 
   require('services/mocks'); // TODO: Remove mocks
 
