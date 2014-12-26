@@ -3,7 +3,7 @@ define(function (require) {
   var BaseView = require('baseView');
 
   return BaseView.extend({
-    template: require('text!templates/candidate-info.html'),
+    template: require('text!templates/interview/candidate-info.html'),
 
     getRenderContext: function () {
       return {

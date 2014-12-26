@@ -1,12 +1,12 @@
 define(function (require) {
   var BaseView = require('baseView');
-  var AnswerView = require('views/answerView');
-  var NotesView = require('views/notesView');
-  var QuestionNavigationView = require('views/questionNavigationView');
+  var AnswerView = require('views/interview/answerView');
+  var NotesView = require('views/interview/notesView');
+  var QuestionNavigationView = require('views/interview/questionNavigationView');
   var QuestionPresenter = require('presenters/questionPresenter');
 
   return BaseView.extend({
-    template: require('text!templates/question.html'),
+    template: require('text!templates/interview/question.html'),
 
     initialize: function (options) {
       this.questions = options.questions;

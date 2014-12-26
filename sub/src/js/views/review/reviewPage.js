@@ -1,11 +1,11 @@
 define(function (require) {
   var BaseView = require('baseView');
-  var OverallRatingListView = require('views/overallRatingListView');
-  var AnswerListView = require('views/answerListView');
+  var OverallRatingListView = require('views/review/overallRatingListView');
+  var AnswerListView = require('views/review/answerListView');
 
   return BaseView.extend({
     className: 'review-page',
-    template: require('text!templates/review-page.html'),
+    template: require('text!templates/review/review-page.html'),
 
     setUp: function () {
       this.hasSubView('.content', new AnswerListView({collection: this.model.get('answers'), questions: this.model.get('questions')}));

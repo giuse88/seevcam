@@ -1,9 +1,9 @@
 define(function (require) {
   var BaseView = require('baseView');
-  var EventView = require('views/eventView');
+  var EventView = require('views/interview/eventView');
 
   return BaseView.extend({
-    template: require('text!templates/event-list.html'),
+    template: require('text!templates/interview/event-list.html'),
     listSelector: '.event-list',
 
     setUp: function () {

@@ -1,6 +1,6 @@
 define(function (require) {
-  var InterviewPage = require('pages/interviewPage');
-  var QuestionView = require('views/questionView');
+  var InterviewPage = require('views/interview/interviewPage');
+  var QuestionView = require('views/interview/questionView');
 
   return InterviewPage.extend({
     createContentView: function () {

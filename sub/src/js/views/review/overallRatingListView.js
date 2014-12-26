@@ -1,9 +1,9 @@
 define(function (require) {
   var BaseView = require('baseView');
-  var OverallRatingView = require('views/overallRatingView');
+  var OverallRatingView = require('views/review/overallRatingView');
 
   return BaseView.extend({
-    template: require('text!templates/overall-rating-list.html'),
+    template: require('text!templates/review/overall-rating-list.html'),
 
     setUp: function () {
       this.collection.each(function (overallRating) {

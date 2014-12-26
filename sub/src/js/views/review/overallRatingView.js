@@ -3,7 +3,7 @@ define(function (require) {
   var _ = require('underscore');
 
   return BaseView.extend({
-    template: require('text!templates/overall-rating.html'),
+    template: require('text!templates/review/overall-rating.html'),
 
     events: {
       'mouseover [data-rating-value]': 'onMouseEnterRating',

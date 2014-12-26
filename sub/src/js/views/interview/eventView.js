@@ -8,16 +8,16 @@ define(function (require) {
 
       switch (this.model.get('type')) {
         case Event.type.rated:
-          result = require("text!templates/event-question-rated.html");
+          result = require("text!templates/interview/event-question-rated.html");
           break;
         case Event.type.rateUpdated:
-          result = require("text!templates/event-question-rating-updated.html");
+          result = require("text!templates/interview/event-question-rating-updated.html");
           break;
         case Event.type.answerUpdate:
-          result = require("text!templates/event-answer-update.html");
+          result = require("text!templates/interview/event-answer-update.html");
           break;
         case Event.type.questionSelected:
-          result = require("text!templates/event-question-selected.html");
+          result = require("text!templates/interview/event-question-selected.html");
           break;
         default:
           result = "";

@@ -2,7 +2,7 @@ define(function(require) {
   var BaseView = require('baseView');
 
   return BaseView.extend({
-    template: require('text!templates/text-area.html'),
+    template: require('text!templates/controls/text-area.html'),
 
     bindings: {},
 

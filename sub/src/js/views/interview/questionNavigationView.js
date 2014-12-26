@@ -1,10 +1,10 @@
 define(function (require) {
   var BaseView = require('baseView');
-  var QuestionNavigationItemView = require('views/questionNavigationItemView');
+  var QuestionNavigationItemView = require('views/interview/questionNavigationItemView');
   var QuestionPresenter = require('presenters/questionPresenter');
 
   return BaseView.extend({
-    template: require('text!templates/question-navigation.html'),
+    template: require('text!templates/interview/question-navigation.html'),
 
     initialize: function (options) {
       this.answers = options.answers;

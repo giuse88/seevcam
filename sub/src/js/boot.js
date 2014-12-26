@@ -20,7 +20,6 @@ require.config({
     collections: "collections",
     presenters: "presenters",
     views: "views",
-    pages: "pages",
     services: "services"
   },
   shim: {

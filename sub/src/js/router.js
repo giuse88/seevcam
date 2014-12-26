@@ -1,9 +1,9 @@
 define(function (require) {
   var Backbone = require('backbone');
   var _ = require('underscore');
-  var QuestionsPage = require('pages/questionsPage');
-  var DocumentPage = require('pages/documentPage');
-  var ReviewPage = require('pages/reviewPage');
+  var QuestionsPage = require('views/interview/questionsPage');
+  var DocumentPage = require('views/interview/documentPage');
+  var ReviewPage = require('views/review/reviewPage');
   var File = require('models/file');
 
   return Backbone.Router.extend({

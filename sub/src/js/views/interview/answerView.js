@@ -1,9 +1,9 @@
 define(function (require) {
   var BaseView = require('baseView');
-  var TextArea = require('views/textArea');
+  var TextArea = require('views/controls/textArea');
 
   return BaseView.extend({
-    template: require('text!templates/answer.html'),
+    template: require('text!templates/interview/answer.html'),
 
     events: {
       'click .rating-button': 'ratingClicked'
