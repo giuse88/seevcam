@@ -7,7 +7,8 @@ define(function (require) {
 
     events: {
       'mouseover [data-rating-value]': 'onMouseEnterRating',
-      'mouseleave [data-rating-value]': 'onMouseLeaveRating'
+      'mouseleave [data-rating-value]': 'onMouseLeaveRating',
+      'click [data-rating-value]': 'onClickRating'
     },
 
     postRender: function () {
@@ -21,6 +22,11 @@ define(function (require) {
 
     onMouseLeaveRating: function () {
       this.highlightRating(this.model.get('rating'));
+    },
+
+    onClickRating: function (e) {
+      var ratingValue = parseInt($(e.currentTarget).data('rating-value'));
+      this.model.set('rating', ratingValue);
     },
 
     highlightRating: function (ratingValue) {
