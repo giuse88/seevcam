@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from models import QuestionCatalogue, Question
+from .models import QuestionCatalogue, Question
 
 
 class QuestionCatalogueAdmin(admin.ModelAdmin):

@@ -8,7 +8,7 @@ from django.forms.models import inlineformset_factory
 
 from common.helpers.timezone import now_timezone, to_system_timezone
 from file_upload.models import UploadedFile
-from models import Interview, Candidate, JobPosition
+from .models import Interview, Candidate, JobPosition
 
 
 class CreateInterviewForm(forms.ModelForm):

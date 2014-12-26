@@ -2,7 +2,7 @@ from django.conf.urls import patterns, url
 from django.core.urlresolvers import reverse_lazy
 from django.views.generic import RedirectView
 
-from views import UserProfileUpdate, UserProfileNotifications, UserProfileSettings, UserProfileIntegration
+from .views import UserProfileUpdate, UserProfileNotifications, UserProfileSettings, UserProfileIntegration
 
 html_patterns = patterns('',
                          url(r'^update/$', UserProfileUpdate.as_view(), name='profile_update'),

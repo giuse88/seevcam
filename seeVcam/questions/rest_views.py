@@ -2,9 +2,9 @@ from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 
 from django.db.models import Q
-from models import QuestionCatalogue, Question
-from serializers import QuestionCatalogueSerializer, QuestionSerializer
-from permissions import IsOwner, IsCatalogueOwnerOrSeevcamScope, ReadOnly
+from .models import QuestionCatalogue, Question
+from .serializers import QuestionCatalogueSerializer, QuestionSerializer
+from .permissions import IsOwner, IsCatalogueOwnerOrSeevcamScope, ReadOnly
 
 
 class QuestionCatalogueSeevcam(generics.ListAPIView):

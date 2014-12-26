@@ -1,6 +1,6 @@
 from rest_framework import permissions
 
-from models import QuestionCatalogue
+from .models import QuestionCatalogue
 
 
 class SeevcamPermissionHelper(object):
