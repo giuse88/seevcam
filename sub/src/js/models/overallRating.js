@@ -1,4 +1,4 @@
-define(function () {
+define(function (require) {
   var BaseModel = require('baseModel');
 
   return BaseModel.extend({

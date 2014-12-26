@@ -91,6 +91,7 @@ define(function (require) {
     getRenderContext: function () {
       return {
         model: this.model,
+        collection: this.collection,
         view: this
       }
     },

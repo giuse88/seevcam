@@ -6,7 +6,7 @@ define(function (require) {
     template: require('text!templates/review-page.html'),
 
     postRender: function () {
-      this.openModal(new OverallRatingListView());
+      this.openModal(new OverallRatingListView({collection: this.model.get('overallRatings')}));
     }
   });
 });

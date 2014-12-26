@@ -1,0 +1,36 @@
+ol.overall-rating-list {
+  list-style: decimal;
+  padding-bottom: 21px;
+
+  > li {
+    clear: both;
+
+    ul {
+      list-style: none;
+      float: right;
+      display: block;
+
+      li {
+        height: 21px;
+        width: 21px;
+        float: left;
+
+        &.empty {
+          background: url('../img/star-empty.png');
+        }
+
+        &.positive {
+          background: url('../img/star-green.png');
+        }
+
+        &.neuter {
+          background: url('../img/star-gray.png');
+        }
+
+        &.negative {
+          background: url('../img/star-red.png');
+        }
+      }
+    }
+  }
+}
