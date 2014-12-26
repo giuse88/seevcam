@@ -32,10 +32,7 @@ Requirements and Dependencies
 Environments
 ---
 We define 4 enviroments, each has its own requirement file.
-- local: local development
-- staging:
-- production:
-- test and ci: we might need to add specific requirements file for test and continuous integration server(django-jenkins).
+Local, Staging, Production, (Test and CI, we might need to add specific requirements file for test and continuous integration server(django-jenkins)).
 
 Requirments are in the requirements/'environment_name'.txt file. To update the requirements file:
 ```sh
@@ -93,6 +90,36 @@ Quit the server with CONTROL-C.
 ```
 *Note that "seeVcam.settings.local" has to be modified to match the correct environment.*
 
+Install MySql
+===
+Easiest way to install Mysql is via Homebrew.
+```sh
+# install the binary
+brew install mysql
+```
+After this it is necessary to install the Sql adapter. From [here][mysql_driver] the suggested way it is to install [mysqlclient][mysqlclient]
+```sh
+# install the binary
+brew install mysqlclient
+```
+Once mysql and the mysql adapter are installed we need to run the mysql server, create a database and a user who can access it, to do so (note that the following command can be optimized, will update later):
+```sh
+#launch the server, this can be optimized to start with the machine
+$ mysqld
+[...]
+2014-12-26 23:29:45 24641 [Note] mysqld: ready for connections.
+Version: '5.6.21'  socket: '/tmp/mysql.sock'  port: 3306  Homebrew
+```
+then launch
+```sh
+$ mysql --user=root mysql
+```
+```SQL
+mysql> CREATE DATABASE 'seevcamdb'
+mysql> CREATE USER 'seevcam'@'localhost' IDENTIFIED BY 'seevcam';
+mysql> GRANT ALL PRIVILEGES ON * . * TO 'seevcam'@'localhost';
+```
+
 Install PostgreSQL
 ===
 Guide to setup PostgreSQL for Mac can be found [here][1]
@@ -145,8 +172,17 @@ South
 ./manage.py migrate interviews
 ```
 
-
+Utilities
+===
+When porting from python 2.x to python 3.x I got the error:
+` ImportError: bad magic number in [...]`, the reason is that the magic number comes from UNIX-type systems where the first few bytes of a file held a marker indicating the file type. Python puts a similar marker into its pyc files when it creates them
+The quick solution is to remove all the .pyc files in the folder structure and let the new interpreter create the correct compiled versions. You can run the following command, you can run it without the ` -delete` option first to get the list.
+```sh 
+find . -name "*.bak" -type f -delete
+```
 
 [1]:https://gist.github.com/panuta/1852087
 [postgres_recipe]:http://braumeister.org/formula/postgresql
 [Migration issues]:http://stackoverflow.com/questions/14645675/cant-perform-data-migrations-using-django-1-5-custom-user-class
+[mysql_driver]:https://docs.djangoproject.com/en/1.7/ref/databases/#mysql-db-api-drivers
+[mysqlclient]:https://pypi.python.org/pypi/mysqlclient
