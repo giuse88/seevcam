@@ -4,6 +4,7 @@ define(function (require) {
   var AnswerListView = require('views/answerListView');
 
   return BaseView.extend({
+    className: 'review-page',
     template: require('text!templates/review-page.html'),
 
     setUp: function () {

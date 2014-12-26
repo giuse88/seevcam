@@ -1,3 +1,136 @@
 .review-page {
+  background: @color2;
+  min-height: 100%;
+  margin: -15px;
+  padding: 30px;
 
+  .answer-row {
+    display: flex;
+  }
+
+  .left-col, .right-col {
+    width: 48%;
+    display: inline-block;
+  }
+
+  .center-col {
+    width: 2%;
+    display: inline-block;
+  }
+
+  .right-col {
+    margin-top: 40px;
+    font-size: 12px;
+  }
+
+  .question-text {
+    width: 100%;
+    min-height: 80px;
+    background: @color3;
+    font-size: 12px;
+    color: @color5;
+    padding: 10px;
+
+    span {
+      font-weight: bold;
+      margin-right: 10px;
+      color: @color8;
+    }
+  }
+
+  .rating-container {
+    padding: 10px;
+    background: @color5;
+    width: 100%;
+    min-height: 50px;
+    margin-top: 10px;
+
+    .rating-info {
+      width: 260px;
+      float: left;
+
+      .rating {
+        font-weight: bold;
+        font-style: italic;
+        margin: 0;
+      }
+
+      .rating-change {
+        font-size: 8px;
+        line-height: 8px;
+        font-weight: light;
+        float: right;
+        margin: 0;
+        margin-right: 60px;
+      }
+
+      i {
+        display: inline-block;
+        margin: 0;
+        margin-bottom: -3px;
+      }
+    }
+
+    .rating-control {
+      float: right;
+
+      ul {
+        list-style: none;
+
+        li {
+          float: left;
+
+          a {
+            font-size: 12px;
+            margin: 2px;
+            color: @color8;
+            text-decoration: none;
+
+            &.active {
+              font-size: 24px;
+              line-height: 8px;
+              font-weight: 600;
+            }
+          }
+        }
+      }
+
+      p {
+        font-size: 8px;
+        font-weight: light;
+        float: right;
+      }
+    }
+  }
+
+  .answer-container {
+    min-height: 80px;
+    padding: 10px;
+    background: @color5;
+    width: 100%;
+
+    > p {
+      margin: 0;
+    }
+
+    .answer {
+      display: flex;
+      width: 100%;
+
+      p {
+        width: 100%;
+      }
+
+      p, a {
+        vertical-align: middle;
+        display: block;
+        float: left;
+        margin: auto;
+      }
+    }
+  }
+
+  .conclude-control {
+    margin-left: -15px;
+  }
 }
