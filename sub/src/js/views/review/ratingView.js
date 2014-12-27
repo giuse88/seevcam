@@ -12,11 +12,13 @@ define(function (require) {
     },
 
     setUp: function () {
+      this.listenTo(this.model, 'change:rating', this.onChangeRating, this);
+
       this.attachSubView('.ratings-container', new AnswerRating({model: this.model}));
     },
 
     postRender: function () {
-      this.highlightRating();
+      this.highlightRatingButton();
     },
 
     onClickRating: function (e) {
@@ -25,15 +27,11 @@ define(function (require) {
 
       var newRating = parseInt($(e.currentTarget).data('rating-value'));
       this.model.set('rating', newRating);
-      this.highlightRating(true);
     },
 
-    highlightRating: function (hasChanged) {
+    onChangeRating: function () {
       this.highlightRatingButton();
-
-      if (hasChanged) {
-        this.displayChangedValue();
-      }
+      this.displayChangedValue();
     },
 
     displayChangedValue: function () {
