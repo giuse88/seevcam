@@ -10,12 +10,17 @@ define(function (require) {
       'click [data-rating-value]': 'onClickRating'
     },
 
-    setUp: function () {
-      this.listenTo(this.model, 'change:rating', this.onChangeRating, this);
-    },
-
     postRender: function () {
       this.highlightRating();
+    },
+
+    onClickRating: function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      var newRating = parseInt($(e.currentTarget).data('rating-value'));
+      this.model.set('rating', newRating);
+      this.highlightRating(true);
     },
 
     highlightRating: function (hasChanged) {
@@ -28,15 +33,25 @@ define(function (require) {
         this.$('.rating-change b').text(this.model.previous('rating'));
         this.$('.rating-change').show();
       }
-    },
 
-    onChangeRating: function () {
-      this.highlightRating(true);
-    },
+      var rating = this.model.get('rating');
+      this.$('.rating-icon').each(function () {
+        var $this = $(this);
+        $this.removeClass($this.data('default-icon'))
+          .removeClass($this.data('active-icon'))
+          .removeClass($this.data('inactive-icon'));
 
-    onClickRating: function (e) {
-      var newRating = parseInt($(e.currentTarget).data('rating-value'));
-      this.model.set('rating', newRating);
+        var minRating = $this.data('min-rating');
+        var maxRating = $this.data('max-rating');
+
+        if (rating === null || rating === undefined) {
+          $this.addClass($this.data('default-icon'));
+        } else if (minRating <= rating && rating <= maxRating) {
+          $this.addClass($this.data('active-icon'));
+        } else {
+          $this.addClass($this.data('inactive-icon'));
+        }
+      });
     }
   })
 });
