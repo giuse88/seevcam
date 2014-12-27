@@ -63,7 +63,7 @@ define(function(require){
       var self= this;
       console.log("Create interview route");
 
-      Utils.updateActiveLink(this.navbarElement);
+      Utils.updateActiveLink();
 
       LoadingBar.go(30);
 
@@ -90,7 +90,7 @@ define(function(require){
 
       var self= this;
 
-      Utils.updateActiveLink(this.navbarElement);
+      Utils.updateActiveLink();
       LoadingBar.go(30);
 
       $.when(Loader.loadCatalogues(), Loader.loadJobPositions(), Loader.loadInterviews())
