@@ -15,14 +15,8 @@ define(function (require) {
 
     setUp: function () {
       this.hasSubView('.question-container', new QuestionView({model: this.question}));
-
-      if (this.model.hasContent()) {
-        this.hasSubView('.answer-container', new AnswerView({model: this.model}));
-      }
-
-      if (this.model.hasRating()) {
-        this.hasSubView('.rating-container', new RatingView({model: this.model}));
-      }
+      this.hasSubView('.answer-container', new AnswerView({model: this.model}));
+      this.hasSubView('.rating-container', new RatingView({model: this.model}));
     }
   });
 });
