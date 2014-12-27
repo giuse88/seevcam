@@ -23,6 +23,7 @@
     "momentjs": "~2.8.4",
     "requirejs-text": "~2.0.12",
     "jquery-mockjax": "~1.6.1",
-    "backbone.stickit": "~0.8.0"
+    "backbone.stickit": "~0.8.0",
+    "jquery.textarea.autoresize": "~0.1.1"
   }
 }

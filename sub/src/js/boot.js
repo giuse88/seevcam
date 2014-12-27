@@ -7,6 +7,7 @@ require.config({
     // lib
     bootstrap : "../../bower_components/bootstrap/dist/js/bootstrap",
     jquery : "../../bower_components/jquery/dist/jquery",
+    'jquery.textarea.autoresize' : "../../bower_components/jquery.textarea.autoresize/js/jquery.textarea.autoresize",
     'jquery.mockjax' : "../../bower_components/jquery-mockjax/jquery.mockjax",
     underscore : "../../bower_components/underscore/underscore",
     moment: "../../bower_components/momentjs/moment",
@@ -36,6 +37,9 @@ require.config({
     "jquery" : {
       deps: [],
       exports: "$"
+    },
+    "jquery.textarea.autoresize": {
+      deps: ['jquery']
     },
     "jquery.mockjax": {
       deps: ['jquery']

@@ -63,16 +63,21 @@ define(function (require) {
       this.eachSubView(function (subView) {
         subView.teardown.apply(subView, args);
       });
-
+      this.trigger('teardown');
       this.stopListening();
       this.undelegateEvents();
     },
 
     hasSubView: function (selector, subView) {
-      this.subViews.push([selector, subView]);
+      var entry = [selector, subView];
+      var index = this.subViews.push(entry) - 1;
       if (this.rendered) {
         this.renderSubView(subView, selector);
       }
+
+      this.listenTo(subView, 'teardown', function () {
+        this.subViews.splice(index, 1);
+      }, this);
     },
 
     openModal: function (contentView, options) {
