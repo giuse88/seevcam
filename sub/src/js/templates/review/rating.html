@@ -9,17 +9,9 @@
 </div>
 <div class="rating-control">
     <ul>
-        <li><a href="#">0</a></li>
-        <li><a href="#">1</a></li>
-        <li><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">4</a></li>
-        <li><a href="#">5</a></li>
-        <li><a href="#">6</a></li>
-        <li><a href="#">7</a></li>
-        <li><a href="#">8</a></li>
-        <li><a href="#">9</a></li>
-        <li><a href="#">10</a></li>
+        <% _.each(_.range(0,11), function (ratingValue) { %>
+            <li><a href="#" data-rating-value="<%= ratingValue %>"><%= ratingValue %></a></li>
+        <% }); %>
     </ul>
     <p>click a number to change or tune your feedback</p>
 </div>
