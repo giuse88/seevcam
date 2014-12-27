@@ -1,6 +1,7 @@
 define(function (require) {
   var BaseView = require('baseView');
   var QuestionNavigationItemView = require('views/interview/questionNavigationItemView');
+  var QuestionPreviewView = require('views/interview/questionPreviewView');
   var QuestionPresenter = require('presenters/questionPresenter');
 
   return BaseView.extend({
@@ -30,18 +31,12 @@ define(function (require) {
     },
 
     onQuestionButtonOver: function (questionItemView) {
-      var question = questionItemView.model;
-      var $questionPreview = this.$('.question-selection-preview');
-      $questionPreview.find('.number').text(QuestionPresenter.questionNumber(question));
-      $questionPreview.find('.text').text(question.get('question_text'));
-      $questionPreview.removeClass('not-visible').addClass('visible');
+      this.currentPreview = new QuestionPreviewView({model: questionItemView.model});
+      this.attachSubView('.question-selection-preview', this.currentPreview);
     },
 
     onQuestionButtonLeave: function () {
-      var $questionPreview = this.$('.question-selection-preview');
-      $questionPreview.find('.number').text('');
-      $questionPreview.find('.text').text('');
-      $questionPreview.removeClass('visible').addClass('not-visible');
+      this.detachSubView(this.currentPreview);
     }
   });
 });

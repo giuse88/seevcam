@@ -75,8 +75,8 @@ define(function (require) {
     },
 
     detachSubView: function (subView) {
-      var subViewDefinition = _.findWhere(this.subViews, function (arr) {
-        return arr[1] == subView;
+      var subViewDefinition = _.find(this.subViews, function (arr) {
+        return arr[1] === subView;
       });
 
       this.subViews = _.without(this.subViews, subViewDefinition);
