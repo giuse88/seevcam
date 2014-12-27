@@ -29,7 +29,7 @@ define(function (require) {
       this.options = options;
       this.interviewCollection = options.interviews;
       this.interviewRouter = options.router;
-      this.dirtyInterview = $.extend(true, {}, this.model);
+      this.dirtyInterview = this.model ? $.extend(true, {}, this.model) : undefined;
       //
       this.listenTo(this.interviewCollection, 'error', Utils.syncError);
     },

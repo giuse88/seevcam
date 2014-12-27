@@ -94,19 +94,23 @@ define(function (require) {
         },
 
         eventResize: function(event, delta, revertFunc) {
-          var currentInterview = self.options.interview;
           self.startDateTime= event.start;
           self.endDateTime = event.end;
-          currentInterview.set('start', self.startDateTime.format());
-          currentInterview.set('end', self.endDateTime.format());
+          if (self.options.interview) {
+            var currentInterview = self.options.interview;
+            currentInterview.set('start', self.startDateTime.format());
+            currentInterview.set('end', self.endDateTime.format());
+          }
         },
 
         eventDrop: function (event, delta, revertFunc, jsEvent, ui, view ) {
-          var currentInterview = self.options.interview;
           self.startDateTime= event.start;
           self.endDateTime = event.end;
-          currentInterview.set('start', self.startDateTime.format());
-          currentInterview.set('end', self.endDateTime.format());
+          if (self.options.interview) {
+            var currentInterview = self.options.interview;
+            currentInterview.set('start', self.startDateTime.format());
+            currentInterview.set('end', self.endDateTime.format());
+          }
          }
 
       });
