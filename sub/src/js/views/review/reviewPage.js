@@ -7,6 +7,10 @@ define(function (require) {
     className: 'review-page',
     template: require('text!templates/review/review-page.html'),
 
+    events: {
+      'click .conclude-control': 'onClickConclude'
+    },
+
     setUp: function () {
       this.attachSubView('.review-item-list-container', new ReviewItemListView({collection: this.model.get('answers'), questions: this.model.get('questions')}));
     },
@@ -17,6 +21,10 @@ define(function (require) {
         allowCancel: false,
         footer: true
       });
+    },
+
+    onClickConclude: function () {
+      alert('Closing ...');
     }
   });
 });
