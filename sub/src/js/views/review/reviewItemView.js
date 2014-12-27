@@ -14,9 +14,9 @@ define(function (require) {
     },
 
     setUp: function () {
-      this.hasSubView('.question-container', new QuestionView({model: this.question}));
-      this.hasSubView('.answer-container', new AnswerView({model: this.model}));
-      this.hasSubView('.rating-container', new RatingView({model: this.model}));
+      this.attachSubView('.question-container', new QuestionView({model: this.question}));
+      this.attachSubView('.answer-container', new AnswerView({model: this.model}));
+      this.attachSubView('.rating-container', new RatingView({model: this.model}));
     }
   });
 });

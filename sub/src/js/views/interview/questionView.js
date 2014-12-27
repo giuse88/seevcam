@@ -18,9 +18,9 @@ define(function (require) {
     },
 
     setUp: function () {
-      this.hasSubView('.answer-container', new AnswerView({model: this.answer}));
-      this.hasSubView('.notes-container', new NotesView({model: this.notes}));
-      this.hasSubView('.question-navigation-container', new QuestionNavigationView({collection: this.questions, currentQuestion: this.model, answers: this.answers}));
+      this.attachSubView('.answer-container', new AnswerView({model: this.answer}));
+      this.attachSubView('.notes-container', new NotesView({model: this.notes}));
+      this.attachSubView('.question-navigation-container', new QuestionNavigationView({collection: this.questions, currentQuestion: this.model, answers: this.answers}));
     },
 
     questionNumber: function (question) {

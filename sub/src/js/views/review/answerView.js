@@ -16,13 +16,12 @@ define(function (require) {
       var $answer = this.$('.answer');
       var textArea = new TextArea({model: this.model, attribute: 'content', autoSize: true});
       this.listenTo(textArea, 'focusout', function () {
-        textArea.teardown();
-        $answer.empty();
+        this.detachSubView(textArea);
         this.render();
       }, this);
 
       $answer.empty();
-      this.hasSubView('.answer', textArea);
+      this.attachSubView('.answer', textArea);
       textArea.focus();
     }
   });

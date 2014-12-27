@@ -11,11 +11,11 @@ define(function (require) {
     setUp: function () {
       var session = require('services/session');
 
-      this.hasSubView('.candidate-info-container', new CandidateInfoView({model: session}));
-      this.hasSubView('.events-container', new EventListView({collection: session.get('events')}));
-      this.hasSubView('.navigation-bar', new NavigationBarView({collection: session.get('events')}));
+      this.attachSubView('.candidate-info-container', new CandidateInfoView({model: session}));
+      this.attachSubView('.events-container', new EventListView({collection: session.get('events')}));
+      this.attachSubView('.navigation-bar', new NavigationBarView({collection: session.get('events')}));
 
-      this.hasSubView('.content', this.createContentView());
+      this.attachSubView('.content', this.createContentView());
     },
 
     createContentView: function () {

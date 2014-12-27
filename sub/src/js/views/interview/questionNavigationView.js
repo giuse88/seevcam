@@ -17,7 +17,7 @@ define(function (require) {
           isSelected: question == this.currentQuestion
         });
 
-        this.hasSubView('.question-navigation', navigationItemView);
+        this.attachSubView('.question-navigation', navigationItemView);
         this.listenTo(navigationItemView, 'mouseover', this.onQuestionButtonOver, this);
         this.listenTo(navigationItemView, 'mouseleave', this.onQuestionButtonLeave, this);
       }, this);

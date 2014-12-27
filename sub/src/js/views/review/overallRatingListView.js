@@ -7,7 +7,7 @@ define(function (require) {
 
     setUp: function () {
       this.collection.each(function (overallRating) {
-        this.hasSubView('.overall-rating-list', new OverallRatingView({model: overallRating, tagName: 'li'}));
+        this.attachSubView('.overall-rating-list', new OverallRatingView({model: overallRating, tagName: 'li'}));
       }, this);
     }
   });

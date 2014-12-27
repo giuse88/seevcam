@@ -15,7 +15,7 @@ define(function (require) {
     },
 
     addEvent: function (event) {
-      this.hasSubView(this.listSelector, new EventView({model: event, el: $('<li></li>')}));
+      this.attachSubView(this.listSelector, new EventView({model: event, el: $('<li></li>')}));
 
       if (this.rendered) {
         this.scrollToBottom();

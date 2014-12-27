@@ -26,7 +26,7 @@ define(function (require) {
           return item.question.id; // TODO: replace with position
         })
         .each(function (item) {
-          this.hasSubView('.items', new ReviewItemView({model: item.answer, question: item.question}));
+          this.attachSubView('.items', new ReviewItemView({model: item.answer, question: item.question}));
         }, this)
         .value();
     }
