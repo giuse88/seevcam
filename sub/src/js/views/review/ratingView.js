@@ -10,12 +10,25 @@ define(function (require) {
     },
 
     setUp: function () {
-      this.listenTo(this.model, 'change:rating', this.highlightRating, this);
+      this.listenTo(this.model, 'change:rating', this.onChangeRating, this);
     },
 
-    highlightRating: function () {
+    postRender: function () {
+      this.highlightRating();
+    },
+
+    highlightRating: function (hasChanged) {
       this.$('[data-rating-value].active').removeClass('active');
       this.$('[data-rating-value="' + this.model.get('rating') + '"]').addClass('active');
+
+      if (hasChanged) {
+        this.$('.rating-change b').text(this.model.previous('rating'));
+        this.$('.rating-change').show();
+      }
+    },
+
+    onChangeRating: function () {
+      this.highlightRating(true);
     },
 
     onClickRating: function (e) {
