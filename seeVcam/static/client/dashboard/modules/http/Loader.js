@@ -23,7 +23,7 @@ define(function (require) {
       function cacheCatalogues(catalogues) {
         window.cache.catalogues = new Catalogues(catalogues);
       }
-      return window.cache.catalogues || this.load("/dashboard/questions/catalogue");
+      return window.cache.catalogues || this.load("/dashboard/questions/catalogue", cacheCatalogues);
     },
 
     loadInterviews : function () {

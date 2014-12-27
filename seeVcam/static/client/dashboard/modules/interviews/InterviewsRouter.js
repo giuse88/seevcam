@@ -68,14 +68,14 @@ define(function(require){
       LoadingBar.go(30);
 
       $.when(Loader.loadCatalogues(), Loader.loadJobPositions(), Loader.loadInterviews())
-        .then(function(catalogues) {
+        .then(function() {
 
           LoadingBar.go(100);
 
           var createInterview = new CreateInterviewView({
             router: self,
             interviews: window.cache.interviews,
-            catalogues : new Catalogues(catalogues),
+            catalogues : window.cache.catalogues,
             jobPositions : window.cache.jobPositions
           });
 
@@ -94,7 +94,7 @@ define(function(require){
       LoadingBar.go(30);
 
       $.when(Loader.loadCatalogues(), Loader.loadJobPositions(), Loader.loadInterviews())
-      .then(function(catalogues){
+      .then(function(){
         LoadingBar.go(70);
         var interview  = window.cache.interviews.get(interviewId);
 
@@ -112,7 +112,7 @@ define(function(require){
             var createInterview = new CreateInterviewView({
               router: self,
               interviews: window.cache.interviews,
-              catalogues : new Catalogues(catalogues),
+              catalogues : window.cache.catalogues,
               jobPositions : window.cache.jobPositions,
               model : interview
             });

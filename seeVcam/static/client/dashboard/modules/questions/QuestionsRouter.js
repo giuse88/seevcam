@@ -7,6 +7,11 @@ define(function(require){
   var CataloguesView = require("modules/questions/views/CataloguesView");
   var LoadingBar = require("nanobar");
   var Notification = require("notification");
+  var Loader = require("modules/http/Loader");
+
+  /*
+    To be rewritten with promises
+   */
 
   return  Backbone.Router.extend({
 
@@ -25,51 +30,58 @@ define(function(require){
       console.log("Questions router installed.");
     },
 
+
     questions: function () {
-      if (!window.cache.catalogues){
-        LoadingBar.go(40);
-        this.loadCatalogues(true, _.bind(function(){
-          LoadingBar.go(100);
-          this.questions();
-          }, this));
-        return;
-      }
+
+      var self = this;
       Utils.updateActiveLink(this.navbarElement);
-      var catalogueView = new CataloguesView({collection:window.cache.catalogues});
-      Utils.safelyUpdateCurrentView(catalogueView);
-      $("#container").html(catalogueView.render().$el);
+      LoadingBar.go(30);
+
+      $.when(Loader.loadCatalogues()).then(function(){
+        LoadingBar.go(100);
+
+        // lazy load questions
+        self.fetchQuestions(window.cache.catalogues);
+
+        var catalogueView = new CataloguesView({collection:window.cache.catalogues});
+        Utils.safelyUpdateCurrentView(catalogueView);
+        $("#container").html(catalogueView.render().$el);
+
+      });
+
     },
 
     openCatalogue: function(catalogueId) {
       console.log("Router : open catalogue");
-      var self= this;
-      if (!window.cache.catalogues){
-        LoadingBar.go(40);
-        this.loadCatalogues(true, _.bind(function(catalogues){
-          var catalogue = catalogues.get(catalogueId);
-          LoadingBar.go(80);
-          if (catalogue) {
-            catalogue.fetchQuestions(function(){
-             LoadingBar.go(100);
-             self.openCatalogue(catalogueId);
-             });
-           }else {
-            console.err("Catalogue not found");
-            // redirect to 404
-          }
-          }, this));
-        return;
-      }
 
+      var self= this;
       Utils.updateActiveLink(this.navbarElement);
-      var catalogueView = new CataloguesView({
-        collection:window.cache.catalogues,
-        catalogue : catalogueId
+      LoadingBar.go(30);
+
+      $.when(Loader.loadCatalogues()).then(function() {
+        LoadingBar.go(50);
+        var catalogue = window.cache.catalogues.get(catalogueId);
+        if (catalogue) {
+            catalogue.fetchQuestions(function () {
+              // success
+              var catalogueView = new CataloguesView({
+                collection:window.cache.catalogues,
+                catalogue : catalogueId
+              });
+
+              Utils.safelyUpdateCurrentView(catalogueView);
+              $("#container").html(catalogueView.render().$el);
+              // open catalogue
+              LoadingBar.go(100);
+              catalogueView.afterRender();
+              // lazy load questions
+              self.fetchQuestions(window.cache.catalogues);
+          });
+        } else {
+          console.err("Catalogue not found");
+          // TODO redirect to 404
+        }
       });
-      Utils.safelyUpdateCurrentView(catalogueView);
-      $("#container").html(catalogueView.render().$el);
-      // open catalogue
-      catalogueView.afterRender();
     },
 
     goToCatalogue: function(id, trigger ){
@@ -78,6 +90,12 @@ define(function(require){
 
     goToQuestions: function( trigger ){
       this.navigate("questions/", {trigger:!!trigger});
+    },
+
+    fetchQuestions: function(catalogues) {
+      catalogues.each(function(catalogue){
+        catalogue.fetchQuestions();
+      });
     },
 
     loadCatalogues: function (lazyLoading, success, error) {
@@ -97,6 +115,11 @@ define(function(require){
         });
       }
       success && success(model, response);
+    }
+
+    if (window.cache && window.cache.catalogues) {
+      fetchSuccess(window.cache.catalogues);
+      return;
     }
 
     window.cache.catalogues = new Catalogues();
