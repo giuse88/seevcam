@@ -26,8 +26,12 @@ module.exports = function(grunt) {
         options: {
           baseUrl: "seeVcam/static/",
           mainConfigFile: "./seeVcam/static/client/dashboard/boot.js",
-          name: "app",
-          out: "public/js/seevcam.min.js"
+          paths: {
+            requireLib: 'bower_components/requirejs/require'
+          },
+          name: "./client/dashboard/boot",
+          out: "public/js/seevcam.min.js",
+          include: ["requireLib"]
         }
       }
     }

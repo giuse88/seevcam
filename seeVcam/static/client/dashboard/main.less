@@ -1,3 +1,7 @@
+@import (inline) "modules/interviews/style/fullcalendar.css";
+@import (inline) "../../bower_components/bootstrap/dist/css/bootstrap.css";
+@import (inline) "../../bower_components/bootstrap/dist/css/bootstrap-theme.css";
+@import (inline) "modules/questions/questions.css";
 /*
   Colors
 */
@@ -16,8 +20,13 @@
 
 @nav-height : 40px;
 
-body{
+body, html{
   font: 13px/1.4 Helvetica, arial, freesans, clean, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-size: 13px;
+  background-color: #eeeeee;
 }
 
 
@@ -53,11 +62,67 @@ body{
   border-color : @orange;
 }
 
+hr {
+    border-color : #D1D1D1;
+}
+
+.dashed-border {
+    border: 1px dashed #D1D1D1;
+}
+
+
+.inline-block {
+    display: inline-block;
+}
+
+#container {
+}
+
+#content-wrap {
+    min-width: 100%;
+    height: calc(100% - 60px);
+    margin-top: 20px;
+}
+/** Adjusting Bootstrap classes */
+.container {
+    /*max-width: 1000px;*/
+    height: 100%;
+    width: 100%;
+    margin:0;
+    padding:0;
+}
+.row{
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.panel-default > .panel-heading {
+    background-color: #F5F5F5;
+    background-image: none;
+    box-shadow: none;
+}
+
+.panel-heading h3 {
+    font-weight: bold;
+}
+
+label {
+    color: #666666;
+}
+
+[type=text],
+[type=password],
+[type=email],
+select.form-control {
+    background-color: #fafafa;
+    border-radius: 3px;
+}
+
+
+
 @import "../misc/overlay/overlay";
 @import "modules/profile/profile";
-@import (less) "modules/questions/questions.css";
 @import "modules/navbar/navbar";
 @import "modules/notification/notification";
 @import "modules/interviews/style/create_interview";
-@import (less) "modules/interviews/style/fullcalendar.css";
 @import "modules/interviews/style/interviews";

@@ -1,7 +1,6 @@
 define(function (require) {
 
   require("jquery.fileupload-validate");
-  require("backbone.boostrap-modal");
 
   var Utils = require("utils");
   var $ = require("jquery");
@@ -13,6 +12,7 @@ define(function (require) {
   var createFormTemplate = require("text!modules/interviews/templates/createForm.html");
   var Calendar = require("modules/interviews/views/InterviewCalendarView");
   var JobPositionCreator = require("modules/interviews/views/CreateJobPosition");
+  var Modal = require("backbone.boostrap-modal");
 
 
   return Backbone.View.extend({
@@ -76,7 +76,7 @@ define(function (require) {
 
       var self = this;
 
-      var modal = new Backbone.BootstrapModal({
+      var modal = new Modal({
           content: jobPositionCreator,
           title : "Create job interview",
           animate: true,
@@ -107,7 +107,7 @@ define(function (require) {
 
       var self = this;
 
-      var modal = new Backbone.BootstrapModal({
+      var modal = new Modal({
           content: calendar,
           animate: true,
           okCloses:true,
