@@ -177,12 +177,18 @@ define(function (require) {
     },
 
     createInterview:function (new_interview) {
-
-      this.interviewCollection.create(new_interview);
-      // error handling in case of an error
-      this.interviewRouter.goToInterviews(true);
-      console.log(interview);
-
+      var self = this;
+      this.interviewCollection.create(new_interview, {
+        success: function (response) {
+          console.log("SUCCESS : interview updated.");
+          self.interviewRouter.goToInterviews(true);
+        },
+        error: function (response) {
+          console.error("FAILED : interview  not updated");
+          console.error(response);
+          Notification.warning("Update failed", "Reloading the page should fix the issue");
+        }
+      });
     },
 
     serializeForm : function( ){
