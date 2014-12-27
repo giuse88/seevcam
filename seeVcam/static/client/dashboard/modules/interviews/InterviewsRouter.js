@@ -27,6 +27,8 @@ define(function(require){
         console.log("Going to interiviews");
       }
       this.navbarElement = $('.navbar-nav *[data-route="interviews"]');
+      this.createInterview = $('.navbar-nav .btn-create');
+      this.createInterview.click(this.goToCreateInterview.bind(this,true));
       this.navbarElement.click(navigator.bind(this));
       console.log("Interiview router installed.");
     },
