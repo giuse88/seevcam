@@ -24,16 +24,27 @@ define(function (require) {
     },
 
     highlightRating: function (hasChanged) {
+      this.highlightRatingButton();
+      this.highlightRatingIcons();
+
+      if (hasChanged) {
+        this.displayChangedValue();
+      }
+    },
+
+    displayChangedValue: function () {
+      this.$('.rating-change b').text(this.model.previous('rating'));
+      this.$('.rating-change').show();
+    },
+
+    highlightRatingButton: function () {
       this.$('[data-rating-value].active').attr('class', '');
       this.$('[data-rating-value="' + this.model.get('rating') + '"]')
         .addClass('active')
         .addClass(AnswerPresenter.ratingType(this.model));
+    },
 
-      if (hasChanged) {
-        this.$('.rating-change b').text(this.model.previous('rating'));
-        this.$('.rating-change').show();
-      }
-
+    highlightRatingIcons: function () {
       var rating = this.model.get('rating');
       this.$('.rating-icon').each(function () {
         var $this = $(this);
@@ -53,5 +64,5 @@ define(function (require) {
         }
       });
     }
-  })
+  });
 });
