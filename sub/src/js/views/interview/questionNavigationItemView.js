@@ -1,6 +1,7 @@
 define(function (require) {
   var BaseView = require('baseView');
   var QuestionPresenter = require('presenters/questionPresenter');
+  var AnswerPresenter = require('presenters/answerPresenter');
 
   return BaseView.extend({
     tagName: 'a',
@@ -38,14 +39,7 @@ define(function (require) {
       if (answer.hasRating()) {
         classes.push('rated');
 
-        var rating = answer.get('rating');
-        if (rating < 4) {
-          classes.push('negative');
-        } else if (rating < 8) {
-          classes.push('neuter');
-        } else {
-          classes.push('positive');
-        }
+        classes.push(AnswerPresenter.ratingType(answer));
       }
 
       if (isSelected) {

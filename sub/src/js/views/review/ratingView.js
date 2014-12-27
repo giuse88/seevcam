@@ -1,5 +1,6 @@
 define(function (require) {
   var BaseView = require('baseView');
+  var AnswerPresenter = require('presenters/answerPresenter');
 
   return BaseView.extend({
     className: 'rating',
@@ -18,8 +19,10 @@ define(function (require) {
     },
 
     highlightRating: function (hasChanged) {
-      this.$('[data-rating-value].active').removeClass('active');
-      this.$('[data-rating-value="' + this.model.get('rating') + '"]').addClass('active');
+      this.$('[data-rating-value].active').attr('class', '');
+      this.$('[data-rating-value="' + this.model.get('rating') + '"]')
+        .addClass('active')
+        .addClass(AnswerPresenter.ratingType(this.model));
 
       if (hasChanged) {
         this.$('.rating-change b').text(this.model.previous('rating'));
