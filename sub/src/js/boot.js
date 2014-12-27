@@ -9,6 +9,7 @@ require.config({
     jquery : "../../bower_components/jquery/dist/jquery",
     'jquery.textarea.autoresize' : "../../bower_components/jquery.textarea.autoresize/js/jquery.textarea.autoresize",
     'jquery.mockjax' : "../../bower_components/jquery-mockjax/jquery.mockjax",
+    'slimscroll': "../../bower_components/slimScroll/jquery.slimscroll",
     underscore : "../../bower_components/underscore/underscore",
     moment: "../../bower_components/momentjs/moment",
     backbone : "../../bower_components/backbone/backbone",
@@ -37,6 +38,9 @@ require.config({
     "jquery" : {
       deps: [],
       exports: "$"
+    },
+    "slimscroll": {
+      deps: ['jquery']
     },
     "jquery.textarea.autoresize": {
       deps: ['jquery']
