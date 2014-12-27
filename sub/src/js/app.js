@@ -31,10 +31,22 @@ define(function (require) {
     session.get('notes').fetch()
     )
     .done(function () {
+      ensureQuestionsHaveCorrespondingAnswer();
       new Router();
       Backbone.history.start();
     })
     .fail(function (resp) {
       $('.main-content').html('<h1>Cannot initiate session because server responded with ' + resp.status + '</h1>')
     });
+
+  function ensureQuestionsHaveCorrespondingAnswer() {
+    var answers = session.get('answers');
+    var questions = session.get('questions');
+
+    questions.each(function (question) {
+      if (!answers.any({question: question.id})) {
+        answers.add({question: question.id});
+      }
+    });
+  }
 });

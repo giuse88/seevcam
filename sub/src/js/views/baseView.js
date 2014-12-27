@@ -1,13 +1,24 @@
 define(function (require) {
   var Backbone = require('backbone');
   require('backbone.stickit');
+  var _ = require('underscore');
 
   return Backbone.View.extend({
-    initialize: function (options) {
-      Backbone.View.prototype.initialize.apply(this, arguments);
+    events: {},
+    propagatedEvents: {},
 
+    constructor: function (options) {
       this.options = options || {};
       this.subViews = [];
+      this.events = _.extend({}, this.events);
+
+      _.each(this.propagatedEvents, function (propagatedEvent, delegatingEvent) {
+        this.events[delegatingEvent] = _.bind(function () {
+          this.trigger(propagatedEvent, this);
+        }, this);
+      }, this);
+
+      Backbone.View.apply(this, arguments);
 
       this.setUp();
     },
@@ -15,7 +26,7 @@ define(function (require) {
     render: function () {
       this.preRender();
 
-      var template = _.result(this, 'template');
+      var template = _.result(this, 'template') || '';
       var templateFn = _.template(template);
 
       var html = templateFn(this.getRenderContext());

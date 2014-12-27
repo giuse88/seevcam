@@ -16,7 +16,7 @@ define(function (require) {
     },
 
     postRender: function () {
-      this.refreshInterval = setInterval(_.bind(this.refreshRemainingTime, this), 10000);
+      this.refreshInterval = setInterval(_.bind(this.refreshRemainingTime, this), 1000);
       this.progressBarInterval = setInterval(_.bind(this.updateProgress, this), 1000);
       this.updateProgress();
     },
@@ -40,16 +40,14 @@ define(function (require) {
 
       if (elapsedPercentage <= 100) {
         this.$('#progress').css("width", elapsedPercentage + "%");
+      } else {
+        this.$('#progress').addClass('overtime');
       }
     },
 
     refreshRemainingTime: function () {
       var interview = this.model.get('interview');
-      var elapsedTime = interview.elapsedTime();
-
-      if (elapsedTime < interview.duration()) {
-        this.$('.passed').text(interview.elapsedTime());
-      }
+      this.$('.passed').text(interview.elapsedTime());
     }
   });
 });

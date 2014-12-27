@@ -14,17 +14,21 @@ define(function (require) {
       this.listenTo(this.collection, 'add', this.addEvent, this);
     },
 
-    renderSubView: function (subView, selector) {
-      var $container = this.$(selector);
+    addEvent: function (event) {
+      this.hasSubView(this.listSelector, new EventView({model: event, el: $('<li></li>')}));
 
-      if ($container.length) {
-        $container.prepend(subView.$el);
-        subView.render();
+      if (this.rendered) {
+        this.scrollToBottom();
       }
     },
 
-    addEvent: function (event) {
-      this.hasSubView(this.listSelector, new EventView({model: event, el: $('<li></li>')}));
+    postRender: function () {
+      this.scrollToBottom();
+    },
+
+    scrollToBottom: function () {
+      var $scrollable = this.$('.events-wrapper').get(0);
+      $scrollable.scrollTop = $scrollable.scrollHeight;
     }
   });
 });

@@ -1,5 +1,5 @@
 <div class="question-text">
-    <span>Q<%= view.questionNumber(model) %>/<%= view.totalQuestionsCount() %></span>  <%= model.get('question_text') %>
+    <span>Q<%= view.questionNumber(model) %>/<%= view.questions.length %></span>  <%= model.get('question_text') %>
 
     <% var previousQuestionUrl = view.previousQuestionUrl(); %>
     <% if (previousQuestionUrl) { %>
@@ -15,18 +15,8 @@
         </a>
     <% } %>
 </div>
-<div class="question-navigation">
-    <% view.questions.each(function (question) { %>
-        <a href="<%= view.questionUrl(question.id) %>" data-question-id="<%= question.id %>" class="<%= view.questionButtonClass(question) %>"></a>
-    <% }); %>
-</div>
-<div class="question-selection-preview not-visible">
-    <p class="header"><b>Question <b class="number"></b></b>/<%= view.totalQuestionsCount() %></p>
-    <p class="text"></p>
-</div>
+<div class="question-navigation-container"></div>
 <div class="clearfix"></div>
 <hr>
-
 <div class="answer-container"></div>
-
 <div class="notes-container"></div>

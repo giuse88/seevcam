@@ -12,7 +12,7 @@ define(function (require) {
     },
 
     initBehaviors: function () {
-      this.attachBehavior(new AutoSaveBehavior());
+      this.attachBehavior(new AutoSaveBehavior({ignore: ['id', 'question']}));
     },
 
     empty: function () {
