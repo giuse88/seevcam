@@ -7,7 +7,9 @@ define(function (require) {
     template: require('text!templates/common/answer-rating.html'),
 
     events: {
-      'click .rating-button': 'ratingClicked'
+      'click .rating-button': 'onClickRating',
+      'mouseenter .rating-button': 'onMouseEnterRating',
+      'mouseleave .rating-button': 'onMouseLeaveRating'
     },
 
     initialize: function (options) {
@@ -28,7 +30,7 @@ define(function (require) {
       this.highlightRating();
     },
 
-    ratingClicked: function (e) {
+    onClickRating: function (e) {
       var newRating = parseInt($(e.currentTarget).data('rating'));
       var oldRating = this.model.get('rating');
 
@@ -44,25 +46,46 @@ define(function (require) {
       }
     },
 
+    onMouseEnterRating: function (e) {
+      var self = this;
+      var $currentRating = $(e.currentTarget);
+      this.$('.rating-button')
+        .not($currentRating)
+        .each(function () {
+          self.setState($(this), 'inactive');
+        });
+
+      self.setState($currentRating, 'active');
+    },
+
+    onMouseLeaveRating: function () {
+      this.highlightRating();
+    },
+
     highlightRating: function () {
       var rating = this.model.get('rating');
+      var self = this;
+
       this.$('.rating-button').each(function () {
         var $this = $(this);
-        $this.removeClass($this.data('default-icon'))
-          .removeClass($this.data('active-icon'))
-          .removeClass($this.data('inactive-icon'));
 
         var minRating = $this.data('min-rating');
         var maxRating = $this.data('max-rating');
 
-        if (rating === null || rating === undefined) {
-          $this.addClass($this.data('default-icon'));
-        } else if (minRating <= rating && rating <= maxRating) {
-          $this.addClass($this.data('active-icon'));
-        } else {
-          $this.addClass($this.data('inactive-icon'));
+        var newState = 'inactive';
+        if (rating === null || rating === undefined || (minRating <= rating && rating <= maxRating)) {
+          newState = 'default';
         }
+
+        self.setState($this, newState);
       });
+    },
+
+    setState: function ($rating, state) {
+      $rating.removeClass($rating.data('default-icon'))
+        .removeClass($rating.data('active-icon'))
+        .removeClass($rating.data('inactive-icon'))
+        .addClass($rating.data(state + '-icon'));
     }
   });
 });
