@@ -35,4 +35,6 @@ define(function (require) {
     router : router
   };
 
+  router.InterviewsRouter.goToInterviews(true);
+
 });
