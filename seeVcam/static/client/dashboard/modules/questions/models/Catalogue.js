@@ -47,6 +47,10 @@ define(function(require){
 
     fetchQuestions:function(success){
 
+      if (this.questions) {
+        success && success();
+      }
+
      function fetchFailure(model, response) {
         var message = "Error fetching questions for " + model.catalogue.get('catalogue_name') + "!";
         console.error(message);

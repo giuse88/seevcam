@@ -62,27 +62,34 @@
             <div class="col-lg-6">
 
             <div class="interview-catalogue form-group ">
-                    <div class="input-group full-width">
-                        <label for="catalogue"> Catalogue :  </label>
-                        <select class="form-control" name="catalogue" required="true">
-
-                            <% if ( !interview || !interview.catalogue ) { %>
-                            <option selected disabled hidden value=''>Select a catalogue</option>
-                            <%} %>
-                              <% _.each(catalogues, function(c) { %>
-                                    <option value="<%= c.id %>"
-                                     <% if ( interview && interview.catalogue === c.id )
-                                         { %> selected <% } %>
-                                    >
-                                    <%= c.catalogue_name %> </option>
-                              <% }); %>
-                        </select>
-                     </div>
-            </div>
-            <div class="job-position form-group ">
-
                 <div class="row">
-                <div class="col-md-6 job-selector">
+                <div class="col-md-6 ">
+                    <label for="catalogue"> Catalogue :  </label>
+                    <select class="form-control catalogue-selector" name="catalogue" required="true">
+
+                        <% if ( !interview || !interview.catalogue ) { %>
+                        <option selected disabled hidden value=''>Select a catalogue</option>
+                        <%} %>
+                          <% _.each(catalogues, function(c) { %>
+                                <option value="<%= c.id %>"
+                                 <% if ( interview && interview.catalogue === c.id )
+                                     { %> selected <% } %>
+                                >
+                                <%= c.catalogue_name %> </option>
+                          <% }); %>
+                    </select>
+                 </div>
+                    <div class="col-md-6 create-catalogue-display">
+                        <a class="interview-datetime open-create-catalogue"  href="javascript:void(0)">
+                            Create catalogue
+                        </a>
+                    </div>
+                 </div>
+            </div>
+
+            <div class="job-position form-group ">
+                <div class="row">
+                <div class="col-md-6 ">
                     <label for="catalogue"> Job Position :  </label>
                     <select class="form-control select-job-position" name="job_position" required="true"
                     <% if ( interview ) { %> value ="<%= interview.job_position %>" <% } %>  >

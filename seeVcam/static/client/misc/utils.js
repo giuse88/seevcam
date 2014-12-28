@@ -28,7 +28,7 @@ define(function(require){
       return;
     }
     $(".navbar-nav").find("li .active").removeClass("active");
-    $selected.addClass("active");
+    $selected && $selected.addClass("active");
   }
 
   function safelyUpdateCurrentView(newView){

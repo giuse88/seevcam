@@ -13,6 +13,7 @@ define(function (require) {
   var createFormTemplate = require("text!modules/interviews/templates/createForm.html");
   var Calendar = require("modules/interviews/views/InterviewCalendarView");
   var JobPositionCreator = require("modules/interviews/views/CreateJobPosition");
+  var CataloguesView = require("modules/questions/views/CataloguesView");
 
 
   return Backbone.View.extend({
@@ -22,6 +23,7 @@ define(function (require) {
     events : {
      'submit #createInterview'  : 'handleFormSubmit',
      'click .open-create-job-position' : 'openCreateJobPosition',
+     'click .open-create-catalogue' : 'openCreateCatalogue',
      'click .open-calendar' : 'openCalendar'
     },
 
@@ -29,7 +31,7 @@ define(function (require) {
       this.options = options;
       this.interviewCollection = options.interviews;
       this.interviewRouter = options.router;
-      this.dirtyInterview = $.extend(true, {}, this.model);
+      this.dirtyInterview = this.model ? $.extend(true, {}, this.model) : undefined;
       //
       this.listenTo(this.interviewCollection, 'error', Utils.syncError);
     },
@@ -68,6 +70,41 @@ define(function (require) {
       this.installCVUploader();
       this.installTypeAhead();
       return this;
+    },
+    openCreateCatalogue : function (event) {
+      event.preventDefault();
+
+      function onOK () {
+        this.renderCatalogueSelector();
+      }
+
+
+      var catalogueView = new CataloguesView({
+        collection:window.cache.catalogues,
+        routing : false
+      });
+
+      var modal = new Backbone.BootstrapModal({
+        content: catalogueView,
+        title : "Create catalogue for interview",
+        animate: true,
+        okCloses:true,
+        allowCancel : false,
+        footer: true
+      });
+
+      // AWFUL
+      modal.render().$el
+        .find(".modal-dialog")
+        .width("80%")
+        .height("100%")
+        .find(".modal-content")
+        .height("90%")
+        .find(".modal-body")
+        .height("78%");
+
+      modal.open(onOK.bind(this));
+
     },
 
     openCreateJobPosition : function (event){
@@ -177,12 +214,18 @@ define(function (require) {
     },
 
     createInterview:function (new_interview) {
-
-      this.interviewCollection.create(new_interview);
-      // error handling in case of an error
-      this.interviewRouter.goToInterviews(true);
-      console.log(interview);
-
+      var self = this;
+      this.interviewCollection.create(new_interview, {
+        success: function (response) {
+          console.log("SUCCESS : interview updated.");
+          self.interviewRouter.goToInterviews(true);
+        },
+        error: function (response) {
+          console.error("FAILED : interview  not updated");
+          console.error(response);
+          Notification.warning("Update failed", "Reloading the page should fix the issue");
+        }
+      });
     },
 
     serializeForm : function( ){
@@ -263,6 +306,22 @@ define(function (require) {
         }
       });
       return this;
+    },
+
+    renderCatalogueSelector : function () {
+
+      var $selector = this.$el.find(".catalogue-selector");
+      var selectedId = $selector.find("option:selected" ).val();
+
+      $selector.empty();
+
+      this.options.catalogues.each(function(catalogue){
+         $selector.append($("<option></option>")
+           .attr("value",catalogue.get("id"))
+           .text(catalogue.get("catalogue_name")));
+      });
+
+      selectedId && $selector.val(selectedId);
     },
 
     installTypeAhead: function() {

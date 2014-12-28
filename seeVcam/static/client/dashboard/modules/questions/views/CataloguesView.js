@@ -169,7 +169,7 @@ define(function (require) {
         this.openedCatalogue.close(false);
       }
       this.openedCatalogue = new EditCatalogueView({catalogue: catalogue});
-      window.app.router.QuestionsRouter.goToCatalogue(catalogue.get("id"));
+      this.options.routing && window.app.router.QuestionsRouter.goToCatalogue(catalogue.get("id"));
       console.log("Catalogue " + catalogue.getName() + " opened.");
     },
 

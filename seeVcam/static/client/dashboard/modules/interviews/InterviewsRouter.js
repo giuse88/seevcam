@@ -27,6 +27,8 @@ define(function(require){
         console.log("Going to interiviews");
       }
       this.navbarElement = $('.navbar-nav *[data-route="interviews"]');
+      this.createInterview = $('.navbar-nav .btn-create');
+      this.createInterview.click(this.goToCreateInterview.bind(this,true));
       this.navbarElement.click(navigator.bind(this));
       console.log("Interiview router installed.");
     },
@@ -61,24 +63,27 @@ define(function(require){
       var self= this;
       console.log("Create interview route");
 
-      Utils.updateActiveLink(this.navbarElement);
+      Utils.updateActiveLink();
 
       LoadingBar.go(30);
 
       $.when(Loader.loadCatalogues(), Loader.loadJobPositions(), Loader.loadInterviews())
-        .then(function(catalogues) {
+        .then(function() {
 
           LoadingBar.go(100);
 
           var createInterview = new CreateInterviewView({
             router: self,
             interviews: window.cache.interviews,
-            catalogues : new Catalogues(catalogues),
+            catalogues : window.cache.catalogues,
             jobPositions : window.cache.jobPositions
           });
 
           Utils.safelyUpdateCurrentView(createInterview);
           $("#container").html(createInterview.render().$el);
+
+          // lazy load questions
+          Loader.fetchQuestions(window.cache.catalogues);
         });
     },
 
@@ -88,11 +93,11 @@ define(function(require){
 
       var self= this;
 
-      Utils.updateActiveLink(this.navbarElement);
+      Utils.updateActiveLink();
       LoadingBar.go(30);
 
       $.when(Loader.loadCatalogues(), Loader.loadJobPositions(), Loader.loadInterviews())
-      .then(function(catalogues){
+      .then(function(){
         LoadingBar.go(70);
         var interview  = window.cache.interviews.get(interviewId);
 
@@ -110,14 +115,15 @@ define(function(require){
             var createInterview = new CreateInterviewView({
               router: self,
               interviews: window.cache.interviews,
-              catalogues : new Catalogues(catalogues),
+              catalogues : window.cache.catalogues,
               jobPositions : window.cache.jobPositions,
               model : interview
             });
 
             Utils.safelyUpdateCurrentView(createInterview);
             $("#container").html(createInterview.render().$el);
-
+            // lazy load questions
+            Loader.fetchQuestions(window.cache.catalogues);
           });
       });
     },
