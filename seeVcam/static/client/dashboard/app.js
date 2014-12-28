@@ -5,7 +5,7 @@ define(function (require) {
 
   var $ = require("jquery");
   var router = require("dashboard/router");
-  var profile = require("modules/profile/profilePjax");
+  var profile = require("modules/profile/profilePJAX");
 
 
   $.ajaxSetup({
