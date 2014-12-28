@@ -1,7 +1,7 @@
 define(function(require){
 
   var Backbone = require("backbone");
-  var Catalogue = require("modules/questions/models/catalogue");
+  var Catalogue = require("modules/questions/models/Catalogue");
   var notification = require("notification");
 
   return  Backbone.Collection.extend({
