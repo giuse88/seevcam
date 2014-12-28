@@ -42,6 +42,12 @@ define(function (require) {
 
     loadFile : function (fileId) {
       return this.load("/dashboard/files/"+fileId +"/");
+    },
+
+    fetchQuestions: function(catalogues) {
+      catalogues.each(function(catalogue){
+        catalogue.fetchQuestions();
+      });
     }
 
   };

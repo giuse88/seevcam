@@ -81,6 +81,9 @@ define(function(require){
 
           Utils.safelyUpdateCurrentView(createInterview);
           $("#container").html(createInterview.render().$el);
+
+          // lazy load questions
+          Loader.fetchQuestions(window.cache.catalogues);
         });
     },
 
@@ -119,7 +122,8 @@ define(function(require){
 
             Utils.safelyUpdateCurrentView(createInterview);
             $("#container").html(createInterview.render().$el);
-
+            // lazy load questions
+            Loader.fetchQuestions(window.cache.catalogues);
           });
       });
     },

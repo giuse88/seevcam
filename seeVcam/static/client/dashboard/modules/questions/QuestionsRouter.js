@@ -41,9 +41,12 @@ define(function(require){
         LoadingBar.go(100);
 
         // lazy load questions
-        self.fetchQuestions(window.cache.catalogues);
+        Loader.fetchQuestions(window.cache.catalogues);
 
-        var catalogueView = new CataloguesView({collection:window.cache.catalogues});
+        var catalogueView = new CataloguesView({
+          collection:window.cache.catalogues,
+          routing : true
+          });
         Utils.safelyUpdateCurrentView(catalogueView);
         $("#container").html(catalogueView.render().$el);
 
@@ -66,6 +69,7 @@ define(function(require){
               // success
               var catalogueView = new CataloguesView({
                 collection:window.cache.catalogues,
+                routing : true,
                 catalogue : catalogueId
               });
 
@@ -75,7 +79,7 @@ define(function(require){
               LoadingBar.go(100);
               catalogueView.afterRender();
               // lazy load questions
-              self.fetchQuestions(window.cache.catalogues);
+              Loader.fetchQuestions(window.cache.catalogues);
           });
         } else {
           console.err("Catalogue not found");
@@ -92,11 +96,7 @@ define(function(require){
       this.navigate("questions/", {trigger:!!trigger});
     },
 
-    fetchQuestions: function(catalogues) {
-      catalogues.each(function(catalogue){
-        catalogue.fetchQuestions();
-      });
-    },
+
 
     loadCatalogues: function (lazyLoading, success, error) {
 
