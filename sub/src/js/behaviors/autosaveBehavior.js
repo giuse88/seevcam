@@ -11,11 +11,7 @@ define(function (require) {
     },
 
     execute: function (model, options) {
-      var notTracked = this.get('ignore') || [];
-      var changedAttributes = Object.keys(this.model.changed);
-      this.model.isDirty = this.model.isDirty || _.any(changedAttributes, function (changedAttribute) {
-        return !_.include(notTracked, changedAttribute);
-      });
+      this.model.isDirty = this.model.isDirty || this.hasChanges();
 
       var isFetchChange = options && options.parse;
       if (!this.model.isDirty || isFetchChange) return;
@@ -24,6 +20,13 @@ define(function (require) {
         .then(_.bind(function () {
           this.markClean();
         }, this));
+    },
+
+    hasChanges: function () {
+      var changedAttributes = Object.keys(this.model.changed);
+      return _.any(changedAttributes, function (changedAttribute) {
+        return !_.include(this.get('ignore') || [], changedAttribute);
+      }, this);
     },
 
     markClean: function () {
