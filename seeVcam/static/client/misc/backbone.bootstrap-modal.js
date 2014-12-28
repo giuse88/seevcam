@@ -226,7 +226,20 @@
         self.trigger('hidden');
       });
 
+
+      // closing nested view
+      if ( this.options.content.close && _.isFunction(this.options.content.close)){
+        console.log("Closing nested view");
+        this.options.content.close();
+      }
+
       $el.modal('hide');
+
+      _.delay(function(){
+        self.remove();
+        self.unbind();
+        self.undelegateEvents();
+      },200);
 
       Modal.count--;
     },
