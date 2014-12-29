@@ -16,4 +16,4 @@ seeVcam/static/bower_components/*
 */node_modules/*
 seeVcam/media
 node_modules/
-env/seevcam_3.4/lib/python3.4/site-packages/
+public/
