@@ -1,35 +1,42 @@
 from rest_framework import status
-from rest_framework.test import APITestCase, APIRequestFactory, APIClient
+from rest_framework.test import APITestCase, APIClient
+from common.helpers.test_helper import create_interview, create_candidate, create_job_position, create_question, \
+    create_catalogue, create_user, create_company, create_uploaded_file
 from notes.models import Notes
 
 
 class TestNotesRESTAPI(APITestCase):
-    factory = APIRequestFactory()
-    client = APIClient()
-    NOTE_URL = '/dashboard/interviews/{0}/notes/'
 
     def setUp(self):
-        self.interview = create_interview_model()
-        self.user_1 = create_dummy_user('test', 'test')
+        self.client = APIClient()
+        self.company = create_company()
+        self.user = create_user(self.company)
+        self.catalogue = create_catalogue(self.user)
+        self.question = create_question(self.catalogue)
+        self.job_position = create_job_position(self.user, self.company, create_uploaded_file(self.user))
+        self.candidate = create_candidate(self.user, self.company, create_uploaded_file(self.user))
+        notes = Notes(pk=1, content="content")
+        notes.save()
+        self.interview = create_interview(self.user, self.catalogue, self.candidate, self.job_position, notes)
+        self.url = '/dashboard/interviews/' + str(self.interview.id) + '/notes/'
+
+    def tearDown(self):
+        self.user.delete()
+        self.catalogue.delete()
+        self.question.delete()
+        self.job_position.delete()
+        self.company.delete()
+        self.candidate.delete()
 
     def test_user_can_retrieve_notes_attached_to_one_of_his_interviews(self):
-        notes = Notes.objects.get(interview=self.interview)
-        notes.text_content = "test"
-        notes.save()
-        self.client.force_authenticate(user=self.user_1)
-        response = self.client.get(self.NOTE_URL.format(self.interview.id))
+        self.client.force_authenticate(user=self.user)
+        response = self.client.get(self.url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['text_content'], "test")
+        self.assertEqual(response.data['content'], "content")
 
     def test_user_can_update_notes_attached_to_one_of_his_interviews(self):
-        notes = Notes.objects.get(interview=self.interview)
-        notes.text_content = "test"
-        notes.save()
-        self.client.force_authenticate(user=self.user_1)
-        response = self.client.get(self.NOTE_URL.format(self.interview.id))
+        self.client.force_authenticate(user=self.user)
+        update = {"content": "update"}
+        response = self.client.put(self.url, update, format="json")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['text_content'], "test")
-        update = {"text_content": "update"}
-        response = self.client.put(self.NOTE_URL.format(self.interview.id), update, format="json")
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['text_content'], "update")
+        self.assertEqual(response.data['content'], "update")
