@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from file_upload.models import UploadedFile
+from .models import UploadedFile
 
 
 class UploadedFileSerializer(serializers.ModelSerializer):

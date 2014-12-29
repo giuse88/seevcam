@@ -6,8 +6,9 @@ from answers.models import Answer
 from authentication.models import SeevcamUser
 from company_profile.models import Company
 from interviews.models import Interview, Candidate, JobPosition
+from file_upload_service.models import UploadedFile
+from notes.models import Notes
 from questions.models import QuestionCatalogue, Question
-from file_upload.models import UploadedFile
 
 
 def create_user(company, email="test@test.com", password='test'):
@@ -65,8 +66,14 @@ def create_answer(interview, question, content="This is an answer"):
     return answer
 
 
-def create_interview(user, catalogue, candidate, job_position):
+def create_notes(content="notes test"):
+    notes = Notes(content=content)
+    notes.save()
+    return notes
+
+
+def create_interview(user, catalogue, candidate, job_position, notes):
     interview = Interview(status=Interview.OPEN, start='2014-12-23 11:30', end='2014-12-23 12:00', duration=30,
-                          catalogue=catalogue, owner=user, candidate=candidate, job_position=job_position)
+                          catalogue=catalogue, owner=user, candidate=candidate, job_position=job_position, notes=notes)
     interview.save()
     return interview

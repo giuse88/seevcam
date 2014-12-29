@@ -35,7 +35,7 @@ LOCAL_APPS = (
     'interview_room',
     'company_profile',
     'answers',
-    'file_upload',
+    'file_upload_service',
     'notes',
     'reports'
 )

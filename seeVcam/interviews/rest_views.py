@@ -2,6 +2,7 @@ from rest_framework import generics
 from common.helpers.views_helper import set_company_info
 from interviews.models import Interview, JobPosition
 from interviews.serializers import InterviewSerializer, JobPositionSerializer
+from notes.models import Notes
 import datetime
 
 
@@ -13,9 +14,10 @@ class IsOwner(object):
 
 class InterviewList(generics.ListCreateAPIView):
     serializer_class = InterviewSerializer
-    # permission_classes = (IsAuthenticated, IsOwner,)
 
     def pre_save(self, obj):
+        obj.notes = Notes()
+        obj.notes.save()
         obj.owner = self.request.user
         set_company_info(obj.job_position, self.request.user.company, self.request.user)
         set_company_info(obj.candidate, self.request.user.company, self.request.user)

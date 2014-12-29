@@ -3,7 +3,6 @@ import os
 from django.conf import settings
 from django.test import TestCase
 
-from common.helpers.test_helper import create_upload_file, create_dummy_user
 from rest_framework.renderers import JSONRenderer
 from file_upload.models import UploadedFile
 from file_upload.serializers import UploadedFileSerializer

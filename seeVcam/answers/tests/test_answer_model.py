@@ -4,7 +4,7 @@ from django.test import TestCase
 from answers.models import Answer
 
 from common.helpers.test_helper import create_user, create_company, create_catalogue, create_question, \
-    create_job_position, create_uploaded_file, create_candidate, create_interview
+    create_job_position, create_uploaded_file, create_candidate, create_interview, create_notes
 
 
 class TestAnswer(TestCase):
@@ -16,7 +16,7 @@ class TestAnswer(TestCase):
         self.question = create_question(self.catalogue)
         self.job_position = create_job_position(self.user, self.company, create_uploaded_file(self.user))
         self.candidate = create_candidate(self.user, self.company, create_uploaded_file(self.user))
-        self.interview = create_interview(self.user, self.catalogue, self.candidate, self.job_position)
+        self.interview = create_interview(self.user, self.catalogue, self.candidate, self.job_position, create_notes())
 
     def tearDown(self):
         self.user.delete()

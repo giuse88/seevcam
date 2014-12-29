@@ -1,7 +1,8 @@
 from django.db import models
 from django.conf import settings
 from common.mixins.model import UpdateCreateTimeStamp, CompanyInfo
-from file_upload.models import UploadedFile
+from file_upload_service.models import UploadedFile
+from notes.models import Notes
 from questions.models import QuestionCatalogue
 
 
@@ -49,6 +50,7 @@ class Interview(UpdateCreateTimeStamp):
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, null=False, blank=False)
     job_position = models.ForeignKey(JobPosition, null=False, blank=False)
     candidate = models.ForeignKey(Candidate, null=False, blank=False)
+    notes = models.OneToOneField(Notes, null=False, blank=False)
 
     @property
     def job_position_name(self):

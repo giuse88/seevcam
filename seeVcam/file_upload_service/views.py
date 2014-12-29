@@ -3,8 +3,8 @@ import json
 import os
 from django.http import HttpResponseBadRequest, HttpResponse
 from django.shortcuts import get_object_or_404
-from file_upload.models import UploadedFile
-from file_upload.serializers import UploadedFileSerializer
+from .models import UploadedFile
+from .serializers import UploadedFileSerializer
 
 log = logging.getLogger(__name__)
 

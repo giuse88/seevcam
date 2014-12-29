@@ -1,9 +1,11 @@
 from django.db import models
 
-from interviews.models import Interview
-
 
 class Notes(models.Model):
-    text_content = models.TextField(null=False, blank=True, default='')
-    interview = models.ForeignKey(Interview, null=True, blank=True)
+    content = models.TextField(null=False, blank=True, default='')
+
+    class Meta:
+        verbose_name = 'notes'
+        verbose_name_plural = 'notes'
+        db_table = "notes"
 
