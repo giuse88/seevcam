@@ -32,7 +32,9 @@ define(['jquery', 'jquery.mockjax'], function ($, mockjax) {
   $.mockjax({
     url: '/interviews/4/answers',
     responseText: [
-      { "id": 2, "question": 1, content: 'this is my answer?' }
+      { "id": 2, "question": 1, content: 'this is my answer?' },
+      { "id": 3, "question": 3, rating: 4 },
+      { "id": 4, "question": 5, content: 'this is my answer?', rating: 8 }
     ]
   });
 

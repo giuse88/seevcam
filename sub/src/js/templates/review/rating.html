@@ -1,0 +1,15 @@
+<div class="rating-info">
+    <p class="rating-text">
+        Your feedback on this question is
+        <span class="ratings-container"></span>
+    </p>
+    <p class="rating-change">You changed it. Previous value: <b></b></p>
+</div>
+<div class="rating-control">
+    <ul>
+        <% _.each(_.range(0,11), function (ratingValue) { %>
+            <li><a href="#" data-rating-value="<%= ratingValue %>"><%= ratingValue %></a></li>
+        <% }); %>
+    </ul>
+    <p>click a number to change or tune your feedback</p>
+</div>

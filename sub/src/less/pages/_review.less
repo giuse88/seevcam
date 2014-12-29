@@ -1,0 +1,151 @@
+.review-page {
+  background: @color2;
+  min-height: 100%;
+  padding: 30px;
+  padding-bottom: 55px;
+  height: 100%;
+
+  .answer-row {
+    display: flex;
+  }
+
+  .left-col, .right-col {
+    width: 48%;
+    display: inline-block;
+  }
+
+  .center-col {
+    width: 2%;
+    display: inline-block;
+  }
+
+  .right-col {
+    margin-top: 40px;
+    font-size: 12px;
+  }
+
+  .question-text {
+    width: 100%;
+    min-height: 80px;
+    background: @color3;
+    font-size: 12px;
+    color: @color5;
+    padding: 10px;
+
+    span {
+      font-weight: bold;
+      margin-right: 10px;
+      color: @color8;
+    }
+  }
+
+  .rating {
+    padding: 10px;
+    background: @color5;
+    width: 100%;
+    min-height: 50px;
+    margin-top: 10px;
+
+    .rating-info {
+      width: 260px;
+      float: left;
+
+      .rating-text {
+        font-weight: bold;
+        font-style: italic;
+        margin: 0;
+      }
+
+      .rating-change {
+        font-size: 8px;
+        line-height: 8px;
+        font-weight: light;
+        float: right;
+        margin: 0;
+        margin-right: 60px;
+        display: none;
+      }
+
+      .icon-small {
+        float: right;
+        padding-right: 12px;
+        margin: 0;
+        border: 0;
+      }
+    }
+
+    .rating-control {
+      float: right;
+
+      ul {
+        list-style: none;
+
+        li {
+          float: left;
+
+          a {
+            font-size: 12px;
+            margin: 2px;
+            color: @color8;
+            text-decoration: none;
+
+            &.active {
+              font-size: 24px;
+              line-height: 8px;
+              font-weight: 600;
+            }
+
+            &.negative {
+              color: @color9;
+            }
+
+            &.neuter {
+              color: @color11;
+            }
+
+            &.positive {
+              color: @color10
+            }
+          }
+        }
+      }
+
+      p {
+        font-size: 8px;
+        font-weight: light;
+        float: right;
+      }
+    }
+  }
+
+  .answer {
+    min-height: 80px;
+    padding: 10px;
+    background: @color5;
+    width: 100%;
+    display: flex;
+
+    pre, div, textarea {
+      width: 100%;
+    }
+
+    pre {
+      background: none;
+      border: 0;
+      padding: 0;
+    }
+
+    pre, a {
+      vertical-align: middle;
+      display: block;
+      float: left;
+      margin: auto;
+      font-family: 'Open Sans', sans-serif;
+    }
+  }
+
+  .conclude-control {
+    margin-left: -15px;
+    z-index: 100
+  }
+}
