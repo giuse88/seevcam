@@ -118,29 +118,37 @@
     }
   }
 
-  .answer {
+  .question-answer {
     min-height: 80px;
     padding: 10px;
     background: @color5;
     width: 100%;
-    display: flex;
 
-    pre, div, textarea {
+    p {
+      margin: 0;
+    }
+
+    .answer {
       width: 100%;
-    }
+      display: flex;
 
-    pre {
-      background: none;
-      border: 0;
-      padding: 0;
-    }
+      pre, div, textarea {
+        width: 100%;
+      }
 
-    pre, a {
-      vertical-align: middle;
-      display: block;
-      float: left;
-      margin: auto;
-      font-family: 'Open Sans', sans-serif;
+      pre {
+        background: none;
+        border: 0;
+        padding: 0;
+      }
+
+      pre, a {
+        vertical-align: middle;
+        display: block;
+        float: left;
+        margin: auto;
+        font-family: 'Open Sans', sans-serif;
+      }
     }
   }
 
