@@ -18,7 +18,6 @@ DEFAULT_APPS = (
     'django.contrib.sites',
 )
 THIRD_PARTY_APPS = (
-    'south',
     'rest_framework',
     'easy_pjax',
     'django_countries',
