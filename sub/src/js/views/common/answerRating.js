@@ -1,5 +1,6 @@
 define(function (require) {
   var BaseView = require('baseView');
+  var AnswerPresenter = require('presenters/answerPresenter');
 
   return BaseView.extend({
     tagName: 'span',
@@ -62,6 +63,12 @@ define(function (require) {
       this.highlightRating();
     },
 
+    getRatingIntervals: function () {
+      return _.sortBy(AnswerPresenter.ratingIntervals, function (ratingInterval) {
+        return -ratingInterval.defaultValue;
+      });
+    },
+
     highlightRating: function () {
       var rating = this.model.get('rating');
       var self = this;
@@ -82,10 +89,16 @@ define(function (require) {
     },
 
     setState: function ($rating, state) {
-      $rating.removeClass($rating.data('default-icon'))
-        .removeClass($rating.data('active-icon'))
-        .removeClass($rating.data('inactive-icon'))
-        .addClass($rating.data(state + '-icon'));
+      var ratingType = $rating.data('rating-type');
+
+      function getIconName(state) {
+        return [ratingType, state, 'icon'].join('-');
+      }
+
+      $rating.removeClass(getIconName('default'))
+        .removeClass(getIconName('active'))
+        .removeClass(getIconName('inactive'))
+        .addClass(getIconName(state));
     }
   });
 });
