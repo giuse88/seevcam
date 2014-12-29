@@ -1,5 +1,4 @@
 from rest_framework import serializers
-from file_upload.serializers import UploadedFileSerializer
 from interviews.models import Candidate, JobPosition, Interview
 
 
