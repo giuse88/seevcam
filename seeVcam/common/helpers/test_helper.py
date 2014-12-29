@@ -3,11 +3,11 @@ from StringIO import StringIO
 from django.core.files.uploadedfile import SimpleUploadedFile
 from answers.models import Answer
 
+from file_upload.models import UploadedFile
 from authentication.models import SeevcamUser
 from company_profile.models import Company
 from interviews.models import Interview, Candidate, JobPosition
 from questions.models import QuestionCatalogue, Question
-from file_upload.models import UploadedFile
 
 
 def create_user(company, email="test@test.com", password='test'):

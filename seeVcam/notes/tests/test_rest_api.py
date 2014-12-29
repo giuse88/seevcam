@@ -1,7 +1,5 @@
 from rest_framework import status
 from rest_framework.test import APITestCase, APIRequestFactory, APIClient
-
-from common.helpers.test_helper import create_interview_model, create_dummy_user
 from notes.models import Notes
 
 
