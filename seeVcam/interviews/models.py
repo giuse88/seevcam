@@ -1,6 +1,5 @@
 from django.db import models
 from django.conf import settings
-from common.helpers.file_upload import upload_job_spec, upload_cv
 from common.mixins.model import UpdateCreateTimeStamp, CompanyInfo
 from file_upload.models import UploadedFile
 from questions.models import QuestionCatalogue
