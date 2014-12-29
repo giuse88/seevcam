@@ -13,6 +13,8 @@ class NotesRESTView(RetrieveAPIView, UpdateAPIView):
     serializer_class = NoteSerializer
     model = Notes
 
+# THIS IS THE WORST PIECE OF CODE EVER. TO BE DELETED ASAP
+
 class NotesListView(ListView):
     template_name = 'notes-list.html'
 

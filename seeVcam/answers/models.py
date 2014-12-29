@@ -1,9 +1,8 @@
 from django.core.exceptions import ValidationError
-from django.db import models
-from common.mixins.model import UpdateCreateTimeStamp, CompanyInfo
-
+from common.mixins.model import UpdateCreateTimeStamp
 from interviews.models import Interview
 from questions.models import Question
+from django.db import models
 
 
 def validate_rating(value):

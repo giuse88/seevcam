@@ -1,6 +1,7 @@
 from StringIO import StringIO
 
 from django.core.files.uploadedfile import SimpleUploadedFile
+from answers.models import Answer
 
 from authentication.models import SeevcamUser
 from company_profile.models import Company
@@ -56,6 +57,12 @@ def create_job_position(user, company, job_description, position="test position"
     job_position = JobPosition(position=position, company=company, created_by=user, job_description=job_description)
     job_position.save()
     return job_position
+
+
+def create_answer(interview, question, content="This is an answer"):
+    answer = Answer(pk=1, interview=interview, question=question, content=content)
+    answer.save()
+    return answer
 
 
 def create_interview(user, catalogue, candidate, job_position):
