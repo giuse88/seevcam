@@ -8,6 +8,9 @@ class AnswerList(ListCreateAPIView):
     serializer_class = AnswerSerializer
     model = Answer
 
+    def pre_save(self, obj):
+        obj.interview_id = self.kwargs['interview_id']
+
     def get_queryset(self):
         return Answer.objects.filter(interview=self.kwargs['interview_id'])
 
@@ -15,6 +18,9 @@ class AnswerList(ListCreateAPIView):
 class AnswerDetails(RetrieveUpdateDestroyAPIView):
     serializer_class = AnswerSerializer
     model = Answer
+
+    def pre_save(self, obj):
+        obj.interview_id = self.kwargs['interview_id']
 
     def get_queryset(self):
         return Answer.objects.filter(interview=self.kwargs['interview_id'],
