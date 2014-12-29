@@ -10,6 +10,6 @@ urlpatterns = patterns('',
                        url(r'^help', DashboardView.as_view()),
                        url(r'^questions/', include('questions.urls')),
                        url(r'^reports/', include('reports.urls')),
-                       url(r'^files/', include('file_upload.urls')),
+                       url(r'^files/', include('file_upload_service.urls')),
                        url(r'^profile/', include('userprofile.urls')),
 )

@@ -4,7 +4,7 @@ from rest_framework.test import APITestCase, APIClient
 from answers.models import Answer
 
 from common.helpers.test_helper import create_company, create_user, create_catalogue, create_question, \
-    create_job_position, create_candidate, create_interview, create_uploaded_file, create_answer
+    create_job_position, create_candidate, create_interview, create_uploaded_file, create_answer, create_notes
 
 
 class TestAnswerRESTAPI(APITestCase):
@@ -16,7 +16,7 @@ class TestAnswerRESTAPI(APITestCase):
         self.question = create_question(self.catalogue)
         self.job_position = create_job_position(self.user, self.company, create_uploaded_file(self.user))
         self.candidate = create_candidate(self.user, self.company, create_uploaded_file(self.user))
-        self.interview = create_interview(self.user, self.catalogue, self.candidate, self.job_position)
+        self.interview = create_interview(self.user, self.catalogue, self.candidate, self.job_position, create_notes())
         self.url = '/dashboard/interviews/' + str(self.interview.id) + '/answers/'
 
     def tearDown(self):

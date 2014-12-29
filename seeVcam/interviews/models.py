@@ -1,7 +1,7 @@
 from django.db import models
 from django.conf import settings
 from common.mixins.model import UpdateCreateTimeStamp, CompanyInfo
-from file_upload.models import UploadedFile
+from file_upload_service.models import UploadedFile
 from notes.models import Notes
 from questions.models import QuestionCatalogue
 
