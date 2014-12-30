@@ -44,6 +44,13 @@ define(function (require) {
       this.$('[data-rating-value="' + this.model.get('rating') + '"]')
         .addClass('active')
         .addClass(AnswerPresenter.ratingType(this.model));
+    },
+
+    getRatingValues: function () {
+      return _(AnswerPresenter.ratingIntervals).chain()
+        .pluck('values')
+        .flatten()
+        .value();
     }
   });
 });
