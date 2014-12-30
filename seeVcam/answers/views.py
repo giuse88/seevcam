@@ -24,4 +24,4 @@ class AnswerDetails(RetrieveUpdateDestroyAPIView):
 
     def get_queryset(self):
         return Answer.objects.filter(interview=self.kwargs['interview_id'],
-                                     pk=self.kwargs['interview_id'])
+                                     pk=self.kwargs['pk'])
