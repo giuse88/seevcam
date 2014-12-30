@@ -6,18 +6,13 @@ from notes.models import Notes
 import datetime
 
 
-class IsOwner(object):
-
-    def has_object_permission(self, request, view, obj):
-        return obj.owner == request.user
-
-
 class InterviewList(generics.ListCreateAPIView):
     serializer_class = InterviewSerializer
 
     def pre_save(self, obj):
-        obj.notes = Notes()
-        obj.notes.save()
+        notes = Notes()
+        notes.save()
+        obj.notes_id = notes.id
         obj.owner = self.request.user
         set_company_info(obj.job_position, self.request.user.company, self.request.user)
         set_company_info(obj.candidate, self.request.user.company, self.request.user)
