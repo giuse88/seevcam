@@ -68,7 +68,8 @@ class TestAnswerRESTAPI(APITestCase):
     def test_user_can_update_rating_put(self):
         answer = create_answer(self.interview, self.question, "answer")
         self.client.force_authenticate(user=self.user)
-        response = self.client.put(self.url + str(answer.id) + '/', {"rating": 1, "question": 1}, format="json")
+        response = self.client.put(self.url + str(answer.id) + '/',
+                                   {"id": answer.id, "rating": 1, "question": 1}, format="json")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['id'], 1)
         self.assertEqual(response.data['content'], "answer")
@@ -86,11 +87,12 @@ class TestAnswerRESTAPI(APITestCase):
     def test_user_can_update_content_put(self):
         answer = create_answer(self.interview, self.question, "answer")
         self.client.force_authenticate(user=self.user)
-        response = self.client.put(self.url + str(answer.id) + '/', {"content": "updated", "question": 1},
-                                   format="json")
+        response = self.client.put(self.url + str(answer.id) + '/',
+                                   {"id": answer.id, "content": "updated", "question": 1, "rating": None}, format="json")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['id'], 1)
+        self.assertEqual(response.data['id'], answer.id)
         self.assertEqual(response.data['content'], "updated")
+        self.assertEqual(response.data['rating'], None)
 
     def test_user_can_update_content_patch(self):
         answer = create_answer(self.interview, self.question, "answer")
