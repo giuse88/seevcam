@@ -36,3 +36,4 @@ class TestNotes(TestCase):
         self.assertEqual(event.type, event_from_db.type, "Comparing type content")
         self.assertJSONEqual(event.content, event_from_db.content, "Comparing content")
 
+
