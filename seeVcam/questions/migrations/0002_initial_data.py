@@ -3,21 +3,9 @@ from __future__ import unicode_literals
 
 from django.db import models, migrations
 import yaml
+import os.path
 
-document = """
-Catalog_1:
- - question_1.1
- - question_1.2
- - question_1.3
-Catalog_2:
- - question_2.1
- - question_2.2
- - question_2.3
-Catalog_3:
- - question_3.1
- - question_3.2
- - question_3.3
-"""
+BASE = os.path.dirname(os.path.abspath(__file__))
 
 
 def populate_catalogs(apps, schema_editor):
@@ -26,10 +14,9 @@ def populate_catalogs(apps, schema_editor):
     User = apps.get_model("authentication", "SeevcamUser")
     db_alias = schema_editor.connection.alias
     seevcam = User.objects.get(email="admin@admin.com")
+    document = open(os.path.join(BASE, '../fixtures/catalogs.yaml'), 'r')
     catalogs_to_load = yaml.load(document)
-    print()
-    print(type(catalogs_to_load))
-    print(catalogs_to_load)
+
     for k, v in catalogs_to_load.items():
         cat = Catalog.objects.using(db_alias).create(
             catalogue_scope="SEEVCAM", catalogue_name=k, catalogue_owner=seevcam
