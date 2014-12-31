@@ -22,10 +22,10 @@ def populate_superuser(apps, schema_editor):
                                                notifications=Notifications.objects.get(id=1))
 
     SeevcamUser.objects.using(db_alias).create(is_staff=True,
-                                               password=hasher.make_password(password="fady"),
-                                               email="fady@kalo.com",
-                                               first_name="fady",
-                                               last_name="kalo",
+                                               password=hasher.make_password(password="seevcam"),
+                                               email="seevcam@gmail.com",
+                                               first_name="Seev",
+                                               last_name="Cam",
                                                country='GB',
                                                timezone='Europe/London',
                                                company=seevcam_company,
