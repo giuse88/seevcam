@@ -8,6 +8,7 @@ from company_profile.models import Company
 from interviews.models import Interview, Candidate, JobPosition
 from file_upload_service.models import UploadedFile
 from notes.models import Notes
+from overall_ratings.models import OverallRatingQuestion
 from questions.models import QuestionCatalogue, Question
 
 
@@ -70,6 +71,12 @@ def create_notes(content="notes test"):
     notes = Notes(content=content)
     notes.save()
     return notes
+
+
+def create_overall_rating_question(question="this is a question for overall rating"):
+    overall_question = OverallRatingQuestion(question=question)
+    overall_question.save()
+    return overall_question
 
 
 def create_interview(user, catalogue, candidate, job_position, notes):

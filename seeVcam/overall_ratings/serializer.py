@@ -1,8 +1,10 @@
 from rest_framework import serializers
-from .models import Event
+from .models import OverallRating
 
 
-class EventSerializer(serializers.ModelSerializer):
+class OverallRatingSerializer(serializers.ModelSerializer):
+    question = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
+
     class Meta:
-        model = Event
-        fields = ('id', 'type', 'timestamp', 'content')
+        model = OverallRating
+        fields = ('id', 'rating', 'question')
