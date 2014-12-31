@@ -4,7 +4,7 @@ from common.mixins.model import UpdateCreateTimeStamp
 from interviews.models import Interview
 
 
-class OverallRatingQuestion(models.model):
+class OverallRatingQuestion(models.Model):
     question = models.TextField(null=False, blank=False, db_column='overall_rating_question')
 
     class Meta:
@@ -12,6 +12,11 @@ class OverallRatingQuestion(models.model):
         verbose_name_plural = 'overall_rating_questions'
         db_table = "overall_rating_questions"
 
+
+# I don't like it to have a validation function which is not contained within the model where it is used
+def validate_rating(value):
+    if value < 1 or value > 5:
+        raise ValidationError("Error : " + str(value) + " is a incorrect rating.")
 
 
 class OverallRating(UpdateCreateTimeStamp):
@@ -25,9 +30,3 @@ class OverallRating(UpdateCreateTimeStamp):
         verbose_name = 'overall_ratings'
         verbose_name_plural = 'overall_ratings'
         db_table = "overall_rating"
-
-
-# I don't like it to have a validation function which is not contained within the model where it is used
-def validate_rating(value):
-    if value < 1 or value > 5:
-        raise ValidationError("Error : " + str(value) + " is a incorrect rating.")

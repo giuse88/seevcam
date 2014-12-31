@@ -3,6 +3,7 @@ from .models import OverallRatingQuestion
 
 
 class OverallRatingQuestionAdmin(admin.ModelAdmin):
-    fields = ('id', 'question')
+    fields = ('question',)
+    list_display = ('id', 'question')
 
 admin.site.register(OverallRatingQuestion, OverallRatingQuestionAdmin)
