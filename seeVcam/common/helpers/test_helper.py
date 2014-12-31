@@ -8,7 +8,7 @@ from company_profile.models import Company
 from interviews.models import Interview, Candidate, JobPosition
 from file_upload_service.models import UploadedFile
 from notes.models import Notes
-from overall_ratings.models import OverallRatingQuestion
+from overall_ratings.models import OverallRatingQuestion, OverallRating
 from questions.models import QuestionCatalogue, Question
 
 
@@ -79,8 +79,16 @@ def create_overall_rating_question(question="this is a question for overall rati
     return overall_question
 
 
+def create_overall_rating(interview, question):
+    overall_question = OverallRating(question=question, interview=interview, rating=1)
+    overall_question.save()
+    return overall_question
+
+
 def create_interview(user, catalogue, candidate, job_position, notes):
     interview = Interview(status=Interview.OPEN, start='2014-12-23 11:30', end='2014-12-23 12:00', duration=30,
                           catalogue=catalogue, owner=user, candidate=candidate, job_position=job_position, notes=notes)
     interview.save()
     return interview
+
+

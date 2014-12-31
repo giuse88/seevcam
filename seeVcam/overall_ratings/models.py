@@ -12,6 +12,12 @@ class OverallRatingQuestion(models.Model):
         verbose_name_plural = 'overall_rating_questions'
         db_table = "overall_rating_questions"
 
+    def __unicode__(self):
+        return self.question
+
+    def __str__(self):
+        return self.question
+
 
 # I don't like it to have a validation function which is not contained within the model where it is used
 def validate_rating(value):

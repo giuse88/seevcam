@@ -3,7 +3,7 @@ from .models import OverallRating
 
 
 class OverallRatingSerializer(serializers.ModelSerializer):
-    question = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
+    question = serializers.RelatedField(many=False, read_only=True)
 
     class Meta:
         model = OverallRating
