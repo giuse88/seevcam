@@ -37,6 +37,7 @@ LOCAL_APPS = (
     'answers',
     'file_upload_service',
     'notes',
+    'events',
     'reports'
 )
 
