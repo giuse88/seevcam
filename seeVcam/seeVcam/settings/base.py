@@ -35,6 +35,7 @@ LOCAL_APPS = (
     'interview_room',
     'company_profile',
     'answers',
+    'overall_ratings',
     'file_upload_service',
     'notes',
     'events',
