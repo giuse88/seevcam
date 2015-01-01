@@ -41,9 +41,9 @@ define(function (require) {
 
       var eventLogger = require('services/eventLogger');
       if (oldRating === null || oldRating === undefined) {
-        eventLogger.log(eventLogger.eventType.rated, {rating: newRating, question_id: this.model.get('question')});
+        eventLogger.log(eventLogger.eventType.RATE_CREATED, {rating: newRating, question_id: this.model.get('question')});
       } else {
-        eventLogger.log(eventLogger.eventType.rateUpdated, {new_rating: newRating, old_rating: oldRating, question_id: this.model.get('question')});
+        eventLogger.log(eventLogger.eventType.RATE_UPDATED, {new_rating: newRating, old_rating: oldRating, question_id: this.model.get('question')});
       }
     },
 

@@ -52,9 +52,10 @@ define(['jquery', 'jquery.mockjax'], function ($, mockjax) {
     url: '/interviews/4/events',
     responseText: [
       {id: 1, type: 'QUESTION_SELECTED', content: {question_id: 1}},
-      {id: 2, type: 'ANSWER_UPDATE', content: {content: 'this is my answer ?', question_id: 1}},
-      {id: 3, type: 'ANSWER_RATE', content: {rating: 3, question_id: 1}},
-      {id: 4, type: 'RATED_UPDATE', content: {new_rating: 9, old_rating: 6, question_id: 1}}
+      {id: 2, type: 'ANSWER_CREATED', content: {content: 'this is my answer ?', question_id: 1}},
+      {id: 3, type: 'ANSWER_UPDATE', content: {content: 'this is my answer ? ok ?', question_id: 1}},
+      {id: 4, type: 'RATE_CREATED', content: {rating: 3, question_id: 1}},
+      {id: 5, type: 'RATE_UPDATED', content: {new_rating: 9, old_rating: 6, question_id: 1}}
     ]
   });
 });

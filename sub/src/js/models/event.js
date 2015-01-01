@@ -12,10 +12,11 @@ define(function (require) {
     }
   }, {
     type: {
-      rated: 'ANSWER_RATE',
-      rateUpdated: 'RATED_UPDATE',
-      answerUpdate: 'ANSWER_UPDATE',
-      questionSelected: 'QUESTION_SELECTED'
+      RATE_CREATED: 'RATE_CREATED',
+      RATE_UPDATED: 'RATE_UPDATED',
+      ANSWER_CREATED: 'ANSWER_CREATED',
+      ANSWER_UPDATED: 'ANSWER_UPDATED',
+      QUESTION_SELECTED: 'QUESTION_SELECTED'
     }
   });
 });

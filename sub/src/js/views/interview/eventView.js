@@ -7,16 +7,19 @@ define(function (require) {
       var result;
 
       switch (this.model.get('type')) {
-        case Event.type.rated:
+        case Event.type.RATE_CREATED:
           result = require("text!templates/interview/event-question-rated.html");
           break;
-        case Event.type.rateUpdated:
+        case Event.type.RATE_UPDATED:
           result = require("text!templates/interview/event-question-rating-updated.html");
           break;
-        case Event.type.answerUpdate:
+        case Event.type.ANSWER_CREATED:
           result = require("text!templates/interview/event-answer-update.html");
           break;
-        case Event.type.questionSelected:
+        case Event.type.ANSWER_UPDATED:
+          result = require("text!templates/interview/event-answer-update.html");
+          break;
+        case Event.type.QUESTION_SELECTED:
           result = require("text!templates/interview/event-question-selected.html");
           break;
         default:
