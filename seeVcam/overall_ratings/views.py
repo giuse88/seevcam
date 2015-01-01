@@ -3,7 +3,7 @@ from overall_ratings.models import OverallRating
 from overall_ratings.serializer import OverallRatingSerializer
 
 
-class ListOverviewRatting(ListAPIView):
+class OverallRatingList(ListAPIView):
     serializer_class = OverallRatingSerializer
     model = OverallRating
 
@@ -11,7 +11,7 @@ class ListOverviewRatting(ListAPIView):
         return OverallRating.objects.filter(interview=self.kwargs['interview_id'])
 
 
-class UpdateOverviewRatting(UpdateAPIView):
+class OverallRatingUpdate(UpdateAPIView):
     serializer_class = OverallRatingSerializer
     model = OverallRating
 
