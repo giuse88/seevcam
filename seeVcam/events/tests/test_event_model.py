@@ -5,7 +5,7 @@ from common.helpers.test_helper import create_company, create_user, create_catal
 from events.models import Event
 
 
-class TestNotes(TestCase):
+class TestEvents(TestCase):
 
     def setUp(self):
         self.company = create_company()
