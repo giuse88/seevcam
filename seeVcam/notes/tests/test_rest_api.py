@@ -15,9 +15,9 @@ class TestNotesRESTAPI(APITestCase):
         self.question = create_question(self.catalogue)
         self.job_position = create_job_position(self.user, self.company, create_uploaded_file(self.user))
         self.candidate = create_candidate(self.user, self.company, create_uploaded_file(self.user))
-        notes = Notes(pk=1, content="content")
+        self.interview = create_interview(self.user, self.catalogue, self.candidate, self.job_position)
+        notes = Notes(pk=1, content="content", interview=self.interview)
         notes.save()
-        self.interview = create_interview(self.user, self.catalogue, self.candidate, self.job_position, notes)
         self.url = '/dashboard/interviews/' + str(self.interview.id) + '/notes/'
 
     def tearDown(self):
