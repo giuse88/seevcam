@@ -3,7 +3,15 @@ import warnings
 
 import pytz
 
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, SiteProfileNotAvailable, BaseUserManager
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
+
+# Doesn't exist anymore in django 1.7
+try:
+    from django.contrib.auth.models import SiteProfileNotAvailable
+except ImportError:
+    # Dummy exception to keep the handling below identical
+    SiteProfileNotAvailable = ImportError
+
 from django_countries.fields import CountryField
 from django.utils import timezone
 from django.core.exceptions import ImproperlyConfigured

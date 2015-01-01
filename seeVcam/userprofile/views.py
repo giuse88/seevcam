@@ -6,7 +6,7 @@ from authentication.models import SeevcamUser
 from common.mixins.authorization import LoginRequired
 from common.mixins.pjax import PJAXResponseMixin
 from userprofile.forms import UserProfileForm, NotificationForm
-from models import UserNotifications
+from .models import UserNotifications
 
 
 class UserProfileUpdate(LoginRequired, PJAXResponseMixin, UpdateView):

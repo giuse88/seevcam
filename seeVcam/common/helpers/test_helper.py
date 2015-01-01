@@ -85,9 +85,9 @@ def create_overall_rating(interview, question):
     return overall_question
 
 
-def create_interview(user, catalogue, candidate, job_position, notes):
+def create_interview(user, catalogue, candidate, job_position):
     interview = Interview(status=Interview.OPEN, start='2014-12-23 11:30', end='2014-12-23 12:00', duration=30,
-                          catalogue=catalogue, owner=user, candidate=candidate, job_position=job_position, notes=notes)
+                          catalogue=catalogue, owner=user, candidate=candidate, job_position=job_position)
     interview.save()
     return interview
 

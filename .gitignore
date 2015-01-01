@@ -15,3 +15,8 @@ seeVcam/static/node_modules/*
 seeVcam/static/bower_components/*
 */node_modules/*
 seeVcam/media
+node_modules/
+public/js/*.js
+public/js/*.map
+public/css/*.css
+public/css/*.map

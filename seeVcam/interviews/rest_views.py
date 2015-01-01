@@ -10,12 +10,14 @@ class InterviewList(generics.ListCreateAPIView):
     serializer_class = InterviewSerializer
 
     def pre_save(self, obj):
-        notes = Notes()
-        notes.save()
-        obj.notes_id = notes.id
         obj.owner = self.request.user
         set_company_info(obj.job_position, self.request.user.company, self.request.user)
         set_company_info(obj.candidate, self.request.user.company, self.request.user)
+
+    def post_save(self, obj, created=False):
+        if created:
+            notes = Notes(interview=obj)
+            notes.save()
 
     def get_queryset(self):
         return Interview.objects.filter(

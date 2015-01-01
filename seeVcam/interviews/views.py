@@ -137,16 +137,16 @@ class CreateInterviewView(LoginRequired, CreateView):
     def post(self, request, *args, **kwargs):
 
         candidate_form = CandidateForm(request.POST, prefix='candidate')
-        print candidate_form.errors
-        print candidate_form.is_valid()
+        # print candidate_form.errors
+        # print candidate_form.is_valid()
 
         interview_form = CreateInterviewForm(request.POST)
-        print interview_form.errors
-        print interview_form.is_valid()
+        # print interview_form.errors
+        # print interview_form.is_valid()
 
         job_specification_form = JobPositionForm(request.POST, prefix='job-position')
-        print job_specification_form.errors
-        print job_specification_form.is_valid()
+        # print job_specification_form.errors
+        # print job_specification_form.is_valid()
 
         if candidate_form.is_valid() and interview_form.is_valid() and job_specification_form.is_valid():
 
