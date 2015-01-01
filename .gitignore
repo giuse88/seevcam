@@ -13,5 +13,5 @@ seeVcam/media/
 migration/
 seeVcam/static/node_modules/*
 seeVcam/static/bower_components/*
-*/node_modules/*
+node_modules/*
 seeVcam/media
