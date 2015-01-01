@@ -1,0 +1,7 @@
+<% _.each(view.getRatingIntervals(), function (interval) { %>
+    <button class="rating-button <%= view.buttonClass %>"
+            data-rating="<%= interval.defaultValue %>"
+            data-min-rating="<%= _.min(interval.values) %>"
+            data-max-rating="<%= _.max(interval.values) %>"
+            data-rating-type="<%= interval.type %>"></button>
+<% }); %>

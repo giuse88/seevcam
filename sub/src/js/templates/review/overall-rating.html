@@ -1,0 +1,6 @@
+<p><%= model.get('question') %></p>
+<ul>
+    <% _.each(_.range(1,6), function (value) { %>
+        <li class="empty" data-rating-value="<%= value %>"></li>
+    <% }); %>
+</ul>
