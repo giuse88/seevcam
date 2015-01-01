@@ -6,7 +6,11 @@ define(function (require) {
     model: OverallRating,
 
     url: function () {
-      return '/overallratings';
+      return '/interviews/' + this.interviewId + '/overallratings';
+    },
+
+    initialize: function (models, options) {
+      this.interviewId = options.interviewId;
     }
   });
 });
