@@ -17,7 +17,12 @@ define(function (require) {
 
     answerUpdated: function () {
       var eventLogger = require('services/eventLogger');
-      eventLogger.log(eventLogger.eventType.answerUpdate, {content: this.model.get('content'), question_id: this.model.get('question')});
+
+      if (_.isEmpty(this.model.previous('content'))) {
+        eventLogger.log(eventLogger.eventType.ANSWER_CREATED, {content: this.model.get('content'), question_id: this.model.get('question')});
+      } else {
+        eventLogger.log(eventLogger.eventType.ANSWER_UPDATED, {content: this.model.get('content'), question_id: this.model.get('question')});
+      }
     },
 
     answerSaving: function () {

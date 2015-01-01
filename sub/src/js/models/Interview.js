@@ -4,7 +4,6 @@ define(function (require) {
 
   return BaseModel.extend({
     defaults: {
-      id: null,
       start: null,
       end: null,
       status: null,
@@ -12,7 +11,6 @@ define(function (require) {
       catalogue: null,
       job_position_name: null,
       candiate: {
-        id: null,
         name: null,
         email: null,
         surname: null,

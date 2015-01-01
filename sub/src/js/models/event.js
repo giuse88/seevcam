@@ -5,18 +5,18 @@ define(function (require) {
   return BaseModel.extend({
     defaults: function () {
       return {
-        id: null,
         type: null,
-        timestamp: moment.utc().format(),
+        timestamp: moment().utc().format('HH:mm:ss.SSS'),
         content: {}
       }
     }
   }, {
     type: {
-      rated: 'ANSWER_RATE',
-      rateUpdated: 'RATED_UPDATE',
-      answerUpdate: 'ANSWER_UPDATE',
-      questionSelected: 'QUESTION_SELECTED'
+      RATE_CREATED: 'RATE_CREATED',
+      RATE_UPDATED: 'RATE_UPDATED',
+      ANSWER_CREATED: 'ANSWER_CREATED',
+      ANSWER_UPDATED: 'ANSWER_UPDATED',
+      QUESTION_SELECTED: 'QUESTION_SELECTED'
     }
   });
 });

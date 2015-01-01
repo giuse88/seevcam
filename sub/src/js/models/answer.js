@@ -5,7 +5,6 @@ define(function (require) {
 
   return BaseModel.extend({
     defaults: {
-      id: null,
       content: null,
       question: null,
       rating: null

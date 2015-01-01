@@ -28,7 +28,7 @@ define(function (require) {
       questionId = parseInt(questionId) || session.get('questions').first().get('id');
 
       var eventLogger = require('services/eventLogger');
-      eventLogger.log(eventLogger.eventType.questionSelected, {question_id: questionId});
+      eventLogger.log(eventLogger.eventType.QUESTION_SELECTED, {question_id: questionId});
 
       this.renderPage(new QuestionsPage({model: session, questionId: questionId}));
     },
