@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
             name='Notes',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
-                ('text_content', models.TextField(blank=True, default='')),
+                ('content', models.TextField(null=False, blank=True, default='')),
                 ('interview', models.ForeignKey(null=True, blank=True, to='interviews.Interview')),
             ],
             options={

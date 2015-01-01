@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('file_upload', '0001_initial'),
+        ('file_upload_service', '0001_initial'),
         ('company_profile', '0001_initial'),
         ('questions', '__first__'),
     ]
@@ -26,7 +26,7 @@ class Migration(migrations.Migration):
                 ('email', models.EmailField(max_length=75, db_index=True)),
                 ('company', models.ForeignKey(to='company_profile.Company')),
                 ('created_by', models.ForeignKey(to=settings.AUTH_USER_MODEL, db_column='created_by')),
-                ('cv', models.OneToOneField(to='file_upload.UploadedFile')),
+                ('cv', models.OneToOneField(to='file_upload_service.UploadedFile')),
             ],
             options={
                 'verbose_name': 'candidate',
@@ -64,7 +64,7 @@ class Migration(migrations.Migration):
                 ('position', models.CharField(max_length=255)),
                 ('company', models.ForeignKey(to='company_profile.Company')),
                 ('created_by', models.ForeignKey(to=settings.AUTH_USER_MODEL, db_column='created_by')),
-                ('job_description', models.OneToOneField(to='file_upload.UploadedFile')),
+                ('job_description', models.OneToOneField(to='file_upload_service.UploadedFile')),
             ],
             options={
                 'verbose_name': 'job_position',

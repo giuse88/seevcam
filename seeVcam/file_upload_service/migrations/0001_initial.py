@@ -2,8 +2,8 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
-import file_upload.models
 from django.conf import settings
+import file_upload_service
 
 
 class Migration(migrations.Migration):
@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
             name='UploadedFile',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('file', models.FileField(upload_to=file_upload.models.upload_to_user_folder)),
+                ('file', models.FileField(upload_to=file_upload_service.models.upload_to_user_folder)),
                 ('type', models.CharField(max_length=250)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('name', models.CharField(max_length=250)),

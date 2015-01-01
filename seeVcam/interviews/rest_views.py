@@ -10,9 +10,8 @@ class InterviewList(generics.ListCreateAPIView):
     serializer_class = InterviewSerializer
 
     def pre_save(self, obj):
-        notes = Notes()
+        notes = Notes(interview=obj)
         notes.save()
-        obj.notes_id = notes.id
         obj.owner = self.request.user
         set_company_info(obj.job_position, self.request.user.company, self.request.user)
         set_company_info(obj.candidate, self.request.user.company, self.request.user)
