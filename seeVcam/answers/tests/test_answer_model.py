@@ -16,7 +16,7 @@ class TestAnswer(TestCase):
         self.question = create_question(self.catalogue)
         self.job_position = create_job_position(self.user, self.company, create_uploaded_file(self.user))
         self.candidate = create_candidate(self.user, self.company, create_uploaded_file(self.user))
-        self.interview = create_interview(self.user, self.catalogue, self.candidate, self.job_position, create_notes())
+        self.interview = create_interview(self.user, self.catalogue, self.candidate, self.job_position)
 
     def tearDown(self):
         self.user.delete()

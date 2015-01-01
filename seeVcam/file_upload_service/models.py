@@ -71,7 +71,6 @@ class UploadedFile(models.Model):
 @receiver(pre_save, sender=UploadedFile)
 def skip_saving_file(sender, instance, **kwargs):
     if not instance.pk and not hasattr(instance, _UNSAVED_FILEFIELD):
-        print instance.name
         setattr(instance, _UNSAVED_FILEFIELD, instance.file)
         instance.file = None
 

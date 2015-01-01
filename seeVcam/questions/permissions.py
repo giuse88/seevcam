@@ -1,7 +1,7 @@
 from rest_framework import permissions
 
 from questions.models import QuestionCatalogue
-from helpers import ScopeHelper
+from .helpers import ScopeHelper
 
 
 class ReadOnly(permissions.BasePermission):

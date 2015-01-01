@@ -29,7 +29,7 @@ require.config({
     "deep-model"    : "bower_components/backbone-deep-model/distribution/deep-model",
     "moment"        : "bower_components/moment/moment",
     // to be removed
-    "backbone-forms": "bower_components/backbone-forms/distribution/backbone-forms",
+//    "backbone-forms": "bower_components/backbone-forms/distribution/backbone-forms",
     //
     "notification"  : "client/dashboard/modules/notification/notification",
     "utils"         : "client/misc/utils",
@@ -38,6 +38,12 @@ require.config({
   },
 
   shim: {
+
+    'backbone': {
+        deps: ['underscore', 'jquery'],
+        exports: 'Backbone'
+    },
+
     "backbone.boostrap-modal" : {
       deps : ["backbone"]
     },
@@ -45,9 +51,6 @@ require.config({
 //    "jquery.fileupload-process" : {
 //      deps : ["jquery"]
 //    },
-    "backbone-forms" : {
-      deps:["backbone"]
-    },
     "jquery-ui":{
       deps : ["jquery"]
     },
@@ -75,10 +78,7 @@ require.config({
     "bootstrap": {
       deps: ["jquery"]
     },
-    "backbone": {
-      deps: ["underscore", "jquery"],
-      exports: "Backbone"
-    },
+
     "underscore": {
       deps: [],
       exports: "_"
