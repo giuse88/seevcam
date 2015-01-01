@@ -3,7 +3,6 @@ define(function (require) {
 
   return BaseModel.extend({
     defaults: {
-      id: null,
       type: null,
       size: null,
       original_name: null,

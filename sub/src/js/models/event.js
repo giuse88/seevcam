@@ -5,7 +5,6 @@ define(function (require) {
   return BaseModel.extend({
     defaults: function () {
       return {
-        id: null,
         type: null,
         timestamp: moment.utc().format(),
         content: {}
