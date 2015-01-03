@@ -23,3 +23,6 @@ DATABASES = {
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+
+OPENTOK_API_KEY = '45119972'
+OPENTOK_SECRET = '5efd4d4019183140d4b34a40477732babbf56c10'
