@@ -6,6 +6,8 @@ from django.views.generic import TemplateView
 class InterviewRoomView(TemplateView):
     template_name = "interview-room.html"
 
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        return super(InterviewRoomView, self).dispatch(*args, **kwargs)
+
+    # this should be valid only for the interviewer
+    # @method_decorator(login_required)
+    # def dispatch(self, *args, **kwargs):
+    #     return super(InterviewRoomView, self).dispatch(*args, **kwargs)

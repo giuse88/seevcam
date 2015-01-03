@@ -216,3 +216,4 @@ SEEVCAM_UPLOAD_FILE_FOLDER = 'uploaded_files'
 SEEVCAM_UPLOAD_FILE_FOLDER_URL = os.path.join(MEDIA_URL, 'uploaded_files')
 APPEND_SLASH = True
 INTERVIEW_TEMPORAL_WINDOW = 900  # 15 minutes
+
