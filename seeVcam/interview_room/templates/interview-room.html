@@ -18,8 +18,23 @@
         <script type="text/javascript" src="{% static "bower_components/less/dist/less-1.7.5.min.js" %}"></script>
     {% endif %}
 
+    <script src="//static.opentok.com/webrtc/v2.2/js/opentok.min.js" ></script>
     <script type="text/javascript" data-main="{% static "" %}"  src="{% static "bower_components/requirejs/require.js" %}"></script>
     <script type="text/javascript" src="{% static "client/interview_room/boot.js" %}"></script>
+
+    <script type="text/javascript">
+      var apiKey    = "{{ api_key }}";
+      var sessionId = "{{ session_id }}";
+      var token     = "{{ token }}";
+      var session = OT.initSession(apiKey, sessionId);
+      session.on("streamCreated", function(event) {
+        session.subscribe(event.stream);
+      });
+      session.connect(token, function(error) {
+        var publisher = OT.initPublisher();
+        session.publish(publisher);
+      });
+    </script>
 
     <script type="application/javascript">
         var CONSTANTS = (function () {
