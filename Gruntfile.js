@@ -1,3 +1,5 @@
+var pkg = require('./package.json');
+
 module.exports = function(grunt) {
   grunt.initConfig({
 
@@ -34,10 +36,28 @@ module.exports = function(grunt) {
           include: ["requireLib"]
         }
       }
-    }
+    },
 
+		shipit: {
+			options: {
+
+				workspace: '/tmp/seevcam_tmp',
+				deployTo: 'app/seevcam',
+
+				repositoryUrl: pkg.repository.url,
+				ignores: ['.git', 'node_modules'],
+
+				keepReleases: 5
+			},
+
+			// Staging environment.
+			staging: {
+				servers: ['seevcam@ec2-54-154-138-99.eu-west-1.compute.amazonaws.com']
+			}
+		}
   });
 
   grunt.loadNpmTasks('grunt-contrib-requirejs');
   grunt.loadNpmTasks('grunt-contrib-less');
+	grunt.loadNpmTasks('grunt-shipit');
 };

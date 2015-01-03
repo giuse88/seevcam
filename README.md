@@ -177,10 +177,41 @@ For data migration or custom migrations we can create an empty migration to edit
 python manage.py makemigrations --empty yourappname
 ```
 
-Deployment (with [shipit])
-===
-first of all we need Grunt and Shipit
+##Deployment (with [shipit])
+
+###key management
+Every team member who needs to deploy from his local machine must have an rsa key, this key needs to make it to the remote server and be added to its own line of the deploy user's `~/.ssh/authorized_keys` file so that the local user can ssh as deployment user and launch commands.
+
 ```sh
+# create a key if you don't have one already
+me@localhost $ ssh-keygen -t rsa -C 'me@my_email_address.com'
+
+# check if your key is loaded in the ssh agent
+me@localhost $ ssh-add -l
+
+# if no key loaded, load it (passphrase might be asked when you add a key)
+me@localhost $ ssh-add
+
+# to echo the content of the key
+me@localhost $ ssh-add -L
+```
+Now we have to login as root into the remote server, create the deployment user
+```sh
+# create Deployment user on the server:
+adduser seevcam
+# add your local key to the deployment user authorized_keys
+root@remote $ mkdir /home/seevcam/.ssh
+root@remote $ cat my_local_key.pub >> /home/seevcam/.ssh/authorized_keys
+root@remote $ chown -R seevcam:seevcam /home/seevcam/.ssh
+root@remote $ chmod 700 /home/seevcam/.ssh
+root@remote $ chmod 600 /home/seevcam/.ssh/authorized_keys
+```
+Now you can ssh as deployment user into the remote server and create che destination folder for the deployment. The remote server is now configured.
+
+###Shipit
+
+```sh
+# First of all we need Grunt and Shipit
 npm install --save-dev grunt grunt-shipit
 ```
 
