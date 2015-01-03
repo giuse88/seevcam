@@ -27,6 +27,9 @@ class InterviewList(generics.ListCreateAPIView):
             notes.save()
             self.create_overall_ratings(obj)
 
+    def pre_save(self, obj):
+        obj.session_id = self.create_interview_session()
+
     def get_queryset(self):
         return Interview.objects.filter(
             owner=self.request.user.id,
