@@ -42,12 +42,13 @@ module.exports = function(grunt) {
 			options: {
 
 				workspace: '/tmp/seevcam_tmp',
-				deployTo: 'app/seevcam',
+				deployTo: '/home/seevcam/app/seevcam',
 
 				repositoryUrl: pkg.repository.url,
 				ignores: ['.git', 'node_modules'],
 
-				keepReleases: 5
+				keepReleases: 5,
+				requirements:'staging.txt'
 			},
 
 			// Staging environment.
@@ -57,7 +58,63 @@ module.exports = function(grunt) {
 		}
   });
 
-  grunt.loadNpmTasks('grunt-contrib-requirejs');
-  grunt.loadNpmTasks('grunt-contrib-less');
+	grunt.loadNpmTasks('grunt-contrib-requirejs');
+	grunt.loadNpmTasks('grunt-contrib-less');
 	grunt.loadNpmTasks('grunt-shipit');
+
+//	Shipit task list
+	grunt.registerTask('setup', 'Install environments', function () {
+		var done = this.async();
+		var project_folder = grunt.config('shipit.options.deployTo');
+		grunt.shipit.remote('mkvirtualenv seevcam && workon seevcam', done);
+
+	});
+
+	grunt.registerTask('env_update', 'Install environments', function () {
+		var done = this.async();
+		var current = grunt.config('shipit.options.deployTo') + '/current';
+		var requirements = grunt.config('shipit.options.requirements');
+		grunt.shipit.remote(
+				'workon seevcam '
+				+ '&& cd ' + current
+				+ '&& pip install -r requirements/' + requirements
+			, done);
+
+	});
+
+	grunt.registerTask('npm_install', 'install npm', function () {
+		var done = this.async();
+		var current = grunt.config('shipit.options.deployTo') + '/current';
+		grunt.shipit.remote(
+				'cd ' + current
+				+ '&& npm install'
+			, done);
+
+	});
+
+	grunt.registerTask('bower_install', 'install npm', function () {
+		var done = this.async();
+		var current = grunt.config('shipit.options.deployTo') + '/current';
+		grunt.shipit.remote(
+				'cd ' + current+'/seeVcam/static '
+				+ '&& bower update'
+			, done);
+
+	});
+
+	grunt.registerTask('minify', 'Run grunt for less and requirejs', function () {
+		var done = this.async();
+		var current = grunt.config('shipit.options.deployTo') + '/current ';
+		grunt.shipit.remote(
+				'cd ' + current
+				+ '&& grunt less '
+				+ '&& grunt requirejs'
+			, done);
+
+	});
+
+//	Task registration
+	grunt.shipit.on('published', function () {
+		grunt.task.run(['npm_install','bower_install', 'minify']);
+	});
 };

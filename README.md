@@ -207,6 +207,10 @@ root@remote $ chmod 700 /home/seevcam/.ssh
 root@remote $ chmod 600 /home/seevcam/.ssh/authorized_keys
 ```
 Now you can ssh as deployment user into the remote server and create che destination folder for the deployment. The remote server is now configured.
+```sh
+root@remote $ mkdir -p /usr/src/hello-world
+root@remote $ chown deploy:deploy /usr/src/hello-world
+```
 
 ###Shipit
 
