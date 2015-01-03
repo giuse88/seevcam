@@ -3,7 +3,7 @@ require.config({
   baseUrl: '/static/bower_components/',
   paths: {
     // App.js
-    app : "../client/interview-apps/apps",
+    app : "../client/interview_room/app",
     // lib
     jquery : "jquery/dist/jquery",
     underscore : "",
