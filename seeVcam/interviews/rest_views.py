@@ -1,5 +1,5 @@
 from rest_framework import generics
-from opentok import OpenTok
+from opentok.opentok import OpenTok
 
 from common.helpers.views_helper import set_company_info
 from interviews.models import Interview, JobPosition
@@ -14,6 +14,7 @@ class InterviewList(generics.ListCreateAPIView):
 
     def pre_save(self, obj):
         obj.owner = self.request.user
+        obj.session_id = self.create_interview_session()
         set_company_info(obj.job_position, self.request.user.company, self.request.user)
         set_company_info(obj.candidate, self.request.user.company, self.request.user)
 
@@ -21,9 +22,6 @@ class InterviewList(generics.ListCreateAPIView):
         if created:
             notes = Notes(interview=obj)
             notes.save()
-
-    def pre_save(self, obj):
-        obj.session_id = self.create_interview_session()
 
     def get_queryset(self):
         return Interview.objects.filter(
