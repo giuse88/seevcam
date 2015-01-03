@@ -158,18 +158,30 @@ psql seeVcamDb
 *NOTE: This configuration shouldn't require username and password for the database becayse in [the mentioned link][1] we assign rights to the db as for the user in the system.*
 
 
-South
+Migrations
 ===
 
 ```sh
 # create a new app
-./manage.py startapp 'myapp'
+python manage.py startapp 'yourappname'
 
-# initial migration of the app
-./manage.py schemamigration 'myapp' --initial
+# to create the intial or after a change to a model
+python manage.py makemigrations [yourappname]
 
 # migration for the app
-./manage.py migrate interviews
+python manage.py migrate [yourappname]
+```
+For data migration or custom migrations we can create an empty migration to edit
+
+```sh
+python manage.py makemigrations --empty yourappname
+```
+
+Deployment (with [shipit])
+===
+first of all we need Grunt and Shipit
+```sh
+npm install --save-dev grunt grunt-shipit
 ```
 
 Utilities
@@ -186,3 +198,4 @@ find . -name "*.bak" -type f -delete
 [Migration issues]:http://stackoverflow.com/questions/14645675/cant-perform-data-migrations-using-django-1-5-custom-user-class
 [mysql_driver]:https://docs.djangoproject.com/en/1.7/ref/databases/#mysql-db-api-drivers
 [mysqlclient]:https://pypi.python.org/pypi/mysqlclient
+[shipit]:http://www.therightcode.net/deploy-nodejs-application-using-shipit/
