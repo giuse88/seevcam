@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, url
 from django.views.generic import TemplateView
-from views import file_upload, file_handler
+from .views import file_upload, file_handler
 
 urlpatterns = patterns('',
                        url(r'^test/', TemplateView.as_view(template_name="index.html")),
