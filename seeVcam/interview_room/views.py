@@ -27,3 +27,8 @@ class InterviewRoomView(TemplateView):
         print(self.test)
         print(context['token'])
         return context
+
+    # this should be valid only for the interviewer
+    # @method_decorator(login_required)
+    # def dispatch(self, *args, **kwargs):
+    #     return super(InterviewRoomView, self).dispatch(*args, **kwargs)
