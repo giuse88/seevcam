@@ -26,6 +26,7 @@
       var apiKey    = "{{ api_key }}";
       var sessionId = "{{ session_id }}";
       var token     = "{{ token }}";
+      var test      = "{{ test }}";
       var session = OT.initSession(apiKey, sessionId);
 
 
@@ -43,11 +44,13 @@
       });
 
       session.on("connectionCreated", function(event) {
-          console.log("Other user connected", event)
+          console.log("Other user connected", event);
+          console.log(event.target.token);
       });
 
       session.on("connectionDestroyed", function(event) {
-          console.log("Other user disconnected", event)
+          console.log("Other user disconnected", event);
+          console.log(event.target.token);
       });
 
        session.on("streamDestroyed", function(event) {
