@@ -10,8 +10,8 @@ from interviews.models import Interview
 
 # ================================== TO BE DELETED ==============================
 
-# for development purposes
 
+# for development purposes
 class InterviewRoomViewExperiment(LoginRequired, TemplateView):
     template_name = "index.html"
     test = False
@@ -101,4 +101,3 @@ class InterviewerView(LoginRequired, IsOwnerOr404, InterviewRoomView):
 
     def get_role(self):
         return "interviewer"
-
