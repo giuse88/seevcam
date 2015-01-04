@@ -46,6 +46,7 @@ module.exports = function(grunt) {
 				deployTo: '/home/seevcam/app/seevcam',
 
 				repositoryUrl: pkg.repository.url,
+				branch:'deployment',
 				ignores: ['.git', 'node_modules'],
 
 				keepReleases: 5,
