@@ -68,6 +68,6 @@ module.exports = function(grunt) {
 
 //	Task registration
 	grunt.shipit.on('published', function () {
-		grunt.task.run(['npm_install','bower_install', 'minify']);
+		grunt.task.run(['npm_install','bower_install', 'minify','env_update']);
 	});
 };
