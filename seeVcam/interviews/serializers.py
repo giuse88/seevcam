@@ -11,6 +11,8 @@ class CandidateSerializer(serializers.ModelSerializer):
     created_by = serializers.PrimaryKeyRelatedField(many=False)
     cv = serializers.PrimaryKeyRelatedField(many=False)
 
+    # TO DO ADD STATUS
+
     class Meta:
         model = Candidate
         fields = ('id', 'name', 'email', 'surname', 'cv')

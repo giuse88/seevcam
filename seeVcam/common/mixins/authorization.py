@@ -14,7 +14,15 @@ class IsOwnerOr404(object):
 
     def get_object(self, *args, **kwargs):
         obj = super(IsOwnerOr404, self).get_object(*args, **kwargs)
-        if not obj == self.request.user:
+        if not obj.owner == self.request.user:
             raise Http404
         return obj
 
+
+class TokenVerification(object):
+    def get_object(self, *args, **kwargs):
+        url_token = self.kwargs['token']
+        obj = super(IsOwnerOr404, self).get_object(*args, **kwargs)
+        if not obj.token == url_token:
+            raise Http404
+        return obj
