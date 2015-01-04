@@ -27,13 +27,39 @@
       var sessionId = "{{ session_id }}";
       var token     = "{{ token }}";
       var session = OT.initSession(apiKey, sessionId);
-      session.on("streamCreated", function(event) {
-        session.subscribe(event.stream);
-      });
+
+
       session.connect(token, function(error) {
+
+        if(error) {
+          console.log("Failed connection to session :" + error );
+          console.error(error);
+        }
+
         var publisher = OT.initPublisher();
         session.publish(publisher);
+        console.log("connected");
+
       });
+
+      session.on("connectionCreated", function(event) {
+          console.log("Other user connected", event)
+      });
+
+      session.on("connectionDestroyed", function(event) {
+          console.log("Other user disconnected", event)
+      });
+
+       session.on("streamDestroyed", function(event) {
+           console.log(event);
+           event.preventDefault();
+           console.log("Publisher stopped streaming.");
+       });
+       session.on("streamCreated", function(event) {
+           console.log("stream created");
+           console.log(event);
+           session.subscribe(event.stream);
+       });
     </script>
 
     <script type="application/javascript">
