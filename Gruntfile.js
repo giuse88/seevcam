@@ -48,7 +48,8 @@ module.exports = function(grunt) {
 				ignores: ['.git', 'node_modules'],
 
 				keepReleases: 5,
-				requirements:'staging.txt'
+				requirements:'staging.txt',
+				current:'/home/seevcam/app/seevcam/current'
 			},
 
 			// Staging environment.
@@ -65,18 +66,16 @@ module.exports = function(grunt) {
 //	Shipit task list
 	grunt.registerTask('setup', 'Install environments', function () {
 		var done = this.async();
-		var project_folder = grunt.config('shipit.options.deployTo');
 		grunt.shipit.remote('mkvirtualenv seevcam && workon seevcam', done);
 
 	});
 
 	grunt.registerTask('env_update', 'Install environments', function () {
 		var done = this.async();
-		var current = grunt.config('shipit.options.deployTo') + '/current';
 		var requirements = grunt.config('shipit.options.requirements');
 		grunt.shipit.remote(
 				'workon seevcam '
-				+ '&& cd ' + current
+				+ '&& cd ' + grunt.config('shipit.options.current')
 				+ '&& pip install -r requirements/' + requirements
 			, done);
 
@@ -84,9 +83,8 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('npm_install', 'install npm', function () {
 		var done = this.async();
-		var current = grunt.config('shipit.options.deployTo') + '/current';
 		grunt.shipit.remote(
-				'cd ' + current
+				'cd ' + grunt.config('shipit.options.current')
 				+ '&& npm install'
 			, done);
 
@@ -94,9 +92,8 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('bower_install', 'install npm', function () {
 		var done = this.async();
-		var current = grunt.config('shipit.options.deployTo') + '/current';
 		grunt.shipit.remote(
-				'cd ' + current+'/seeVcam/static '
+				'cd ' + grunt.config('shipit.options.current') +'/seeVcam/static '
 				+ '&& bower update'
 			, done);
 
@@ -104,9 +101,8 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('minify', 'Run grunt for less and requirejs', function () {
 		var done = this.async();
-		var current = grunt.config('shipit.options.deployTo') + '/current ';
 		grunt.shipit.remote(
-				'cd ' + current
+				'cd ' + grunt.config('shipit.options.current')
 				+ '&& grunt less '
 				+ '&& grunt requirejs'
 			, done);
