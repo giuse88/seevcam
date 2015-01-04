@@ -20,3 +20,8 @@ public/js/*.js
 public/js/*.map
 public/css/*.css
 public/css/*.map
+atlassian-ide-plugin.xml
+.idea
+bower_components
+node_modules
+src/css/*
