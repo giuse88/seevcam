@@ -1,4 +1,5 @@
 var pkg = require('./package.json');
+var path = require('path');
 
 module.exports = function(grunt) {
   grunt.initConfig({
@@ -62,52 +63,8 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-requirejs');
 	grunt.loadNpmTasks('grunt-contrib-less');
 	grunt.loadNpmTasks('grunt-shipit');
-
-//	Shipit task list
-	grunt.registerTask('setup', 'Install environments', function () {
-		var done = this.async();
-		grunt.shipit.remote('mkvirtualenv seevcam && workon seevcam', done);
-
-	});
-
-	grunt.registerTask('env_update', 'Install environments', function () {
-		var done = this.async();
-		var requirements = grunt.config('shipit.options.requirements');
-		grunt.shipit.remote(
-				'workon seevcam '
-				+ '&& cd ' + grunt.config('shipit.options.current')
-				+ '&& pip install -r requirements/' + requirements
-			, done);
-
-	});
-
-	grunt.registerTask('npm_install', 'install npm', function () {
-		var done = this.async();
-		grunt.shipit.remote(
-				'cd ' + grunt.config('shipit.options.current')
-				+ '&& npm install'
-			, done);
-
-	});
-
-	grunt.registerTask('bower_install', 'install npm', function () {
-		var done = this.async();
-		grunt.shipit.remote(
-				'cd ' + grunt.config('shipit.options.current') +'/seeVcam/static '
-				+ '&& bower update'
-			, done);
-
-	});
-
-	grunt.registerTask('minify', 'Run grunt for less and requirejs', function () {
-		var done = this.async();
-		grunt.shipit.remote(
-				'cd ' + grunt.config('shipit.options.current')
-				+ '&& grunt less '
-				+ '&& grunt requirejs'
-			, done);
-
-	});
+	grunt.loadTasks(path.join(__dirname, 'deploy/tasks'));
+	grunt.loadTasks(path.join(__dirname, 'deploy/global'));
 
 //	Task registration
 	grunt.shipit.on('published', function () {
