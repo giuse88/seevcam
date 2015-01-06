@@ -1,5 +1,4 @@
-from StringIO import StringIO
-
+from io import StringIO
 from django.core.files.uploadedfile import SimpleUploadedFile
 from answers.models import Answer
 
@@ -38,9 +37,8 @@ def create_question(catalogue, text="test question"):
 
 
 def create_file(name="test.pdf", file_type='application/pdf'):
-    raw_content = StringIO('GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,' +
-                           '\x00\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
-    return SimpleUploadedFile(name, raw_content.read(), file_type)
+    binary_content = b"some initial binary data: \x00\x01"
+    return SimpleUploadedFile(name, binary_content, file_type)
 
 
 def create_uploaded_file(user):
