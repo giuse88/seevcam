@@ -137,4 +137,28 @@ class InterviewViewTest(TestCase):
         self.assertEqual(response.data['start'][0], "Invalid start date. Start date expired.")
 
     def test_user_cannot_create_a_interview_in_the_past_end(self):
-        pass
+        self.client.force_authenticate(user=self.user)
+        interview_json = {"id": 1,
+                          "start": "2015-06-04T12:20:34.0+0000",
+                          "end": "2013-06-04T13:20:34.0+0000",
+                          "status": "OPEN",
+                          "job_position": 1,
+                          "candidate": {"name": "giuseppe", "email": "test_1@test.com", "surname": "pes", "cv": 2},
+                          "catalogue": 1}
+        response = self.client.put("/dashboard/interviews/interviews/1/", interview_json, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(response.data['end'][0], "Invalid end date. End date expired.")
+
+    def test_user_cannot_create_a_interview_with_an_invalid_timezone(self):
+        self.client.force_authenticate(user=self.user)
+        interview_json = {"id": 1,
+                          "start": "2015-06-04T12:20:34.0+0100",
+                          "end": "2015-06-04T13:20:34.0+0100",
+                          "status": "OPEN",
+                          "job_position": 1,
+                          "candidate": {"name": "giuseppe", "email": "test_1@test.com", "surname": "pes", "cv": 2},
+                          "catalogue": 1}
+        response = self.client.put("/dashboard/interviews/interviews/1/", interview_json, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(response.data['start'][0], "Invalid timezone.")
+        self.assertEqual(response.data['end'][0], "Invalid timezone.")
