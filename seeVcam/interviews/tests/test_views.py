@@ -48,22 +48,22 @@ class InterviewViewTest(TestCase):
         self.assertTrue(isinstance(response.data, list))
         self.assertEqual(len(response.data), 1)
         self.assertEqual(response.data[0]['id'], self.interview.id)
-        self.assertEqual(response.data[0]['start'], "2015-05-04T12:20:34.000343+00:00")
-        self.assertEqual(response.data[0]['end'], "2015-05-04T13:20:34.000343+00:00")
+        self.assertEqual(response.data[0]['start'], "2015-05-04T12:20:34.000343+0000")
+        self.assertEqual(response.data[0]['end'], "2015-05-04T13:20:34.000343+0000")
 
     def test_get_interview_details(self):
         self.client.force_authenticate(user=self.user)
         response = self.client.get("/dashboard/interviews/interviews/1/")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['id'], self.interview.id)
-        self.assertEqual(response.data['start'], "2015-05-04T12:20:34.000343+00:00")
-        self.assertEqual(response.data['end'], "2015-05-04T13:20:34.000343+00:00")
+        self.assertEqual(response.data['start'], "2015-05-04T12:20:34.000343+0000")
+        self.assertEqual(response.data['end'], "2015-05-04T13:20:34.000343+0000")
 
     def test_user_can_create_an_interview(self):
         cv = create_uploaded_file(self.user)
         self.client.force_authenticate(user=self.user)
-        interview_json = {"start": "2015-05-04T12:20:34.0+00:00",
-                          "end": "2015-05-04T13:20:34.0+00:00",
+        interview_json = {"start": "2015-05-04T12:20:34.0+0000",
+                          "end": "2015-05-04T13:20:34.0+0000",
                           "status": "OPEN",
                           "job_position": 1,
                           "candidate": {"name": "giuseppe", "email": "test_1@test.com", "surname": "pes", "cv": cv.id},
@@ -84,30 +84,30 @@ class InterviewViewTest(TestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertIsNotNone(response.data['start'][0])
         self.assertEqual(response.data['start'][0],
-                         'Datetime has wrong format. Use one of these formats instead: YYYY-MM-DDThh:mm:ss.uuuuuu+00:00')
+                         'Datetime has wrong format. Use one of these formats instead: YYYY-MM-DDThh:mm:ss.uuuuuu[+HHMM|-HHMM]')
         self.assertIsNotNone(response.data['end'][0])
         self.assertEqual(response.data['end'][0],
-                         'Datetime has wrong format. Use one of these formats instead: YYYY-MM-DDThh:mm:ss.uuuuuu+00:00')
+                         'Datetime has wrong format. Use one of these formats instead: YYYY-MM-DDThh:mm:ss.uuuuuu[+HHMM|-HHMM]')
 
     def test_user_can_update_a_interview_date(self):
         self.client.force_authenticate(user=self.user)
         interview_json = {"id": 1,
-                          "start": "2015-06-04T12:20:34.0+00:00",
-                          "end": "2015-06-04T13:20:34.0+00:00",
+                          "start": "2015-06-04T12:20:34.0+0000",
+                          "end": "2015-06-04T13:20:34.0+0000",
                           "status": "OPEN",
                           "job_position": 1,
                           "candidate": {"name": "giuseppe", "email": "test_1@test.com", "surname": "pes", "cv": 2},
                           "catalogue": 1}
         response = self.client.put("/dashboard/interviews/interviews/1/", interview_json, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['start'], "2015-06-04T12:20:34.000000+00:00")
-        self.assertEqual(response.data['end'], "2015-06-04T13:20:34.000000+00:00")
+        self.assertEqual(response.data['start'], "2015-06-04T12:20:34.000000+0000")
+        self.assertEqual(response.data['end'], "2015-06-04T13:20:34.000000+0000")
 
     def test_user_can_update_candidate_info(self):
         self.client.force_authenticate(user=self.user)
         interview = {"id": 1,
-                     "start": "2015-06-04T12:20:34.0+00:00",
-                     "end": "2015-06-04T13:20:34.0+00:00",
+                     "start": "2015-06-04T12:20:34.0+0000",
+                     "end": "2015-06-04T13:20:34.0+0000",
                      "status": "OPEN",
                      "job_position": 1,
                      "candidate": {"name": "update", "email": "test_1@test.com", "surname": "pes", "cv": 2},
@@ -123,4 +123,18 @@ class InterviewViewTest(TestCase):
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Interview.objects.count(), 0)
 
+    def test_user_cannot_create_a_interview_in_the_past_start(self):
+        self.client.force_authenticate(user=self.user)
+        interview_json = {"id": 1,
+                          "start": "2013-06-04T12:20:34.0+0000",
+                          "end": "2015-06-04T13:20:34.0+0000",
+                          "status": "OPEN",
+                          "job_position": 1,
+                          "candidate": {"name": "giuseppe", "email": "test_1@test.com", "surname": "pes", "cv": 2},
+                          "catalogue": 1}
+        response = self.client.put("/dashboard/interviews/interviews/1/", interview_json, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(response.data['start'][0], "Invalid start date. Start date expired.")
 
+    def test_user_cannot_create_a_interview_in_the_past_end(self):
+        pass

@@ -28,7 +28,6 @@ class JobPosition(UpdateCreateTimeStamp, CompanyInfo):
         verbose_name_plural = 'job_positions'
         db_table = "job_positions"
 
-
 class Interview(UpdateCreateTimeStamp):
 
     ONGOING = 'ONGOING'
