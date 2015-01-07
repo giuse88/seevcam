@@ -6,24 +6,12 @@ from rest_framework.renderers import JSONRenderer
 from authentication.models import SeevcamUser
 from common.helpers.test_helper import create_user, create_uploaded_file
 from company_profile.models import Company
-from file_upload_service.models import UploadedFile
 from interviews.models import Candidate, JobPosition, Interview
 from interviews.serializers import CandidateSerializer, JobPositionSerializer, InterviewSerializer
 from questions.models import QuestionCatalogue
 
 
 class CandidateSerializerTest(TestCase):
-    # #############################################################################
-    # PROPERTIES                                  #
-    ##############################################################################
-
-    # The json must be in strict mode
-    question_catalogue = None
-
-    ##############################################################################
-    #                                SETTING UP                                  #
-    ##############################################################################
-
     def setUp(self):
         self.company = Company(name="test")
         self.company.save()
@@ -65,8 +53,8 @@ class CandidateSerializerTest(TestCase):
         del self.job_position
         del self.interview
 
-    ##############################################################################
-    #                                PUBLIC TESTS                                #
+    # #############################################################################
+    # PUBLIC TESTS                                #
     ##############################################################################
 
     def test_candidate_serializer(self):
@@ -108,13 +96,13 @@ class CandidateSerializerTest(TestCase):
 
     def test_interview_serializer(self):
         json = '{"id": 1, ' \
-            ' "start": "2014-12-23T11:30:00Z",' \
-            ' "end": "2014-12-23T12:00:00Z",' \
-            ' "status": "OPEN", ' \
-            ' "job_position": 1,' \
-            ' "job_position_name": "text",'\
-            ' "candidate": {"id": 1, "name": "giuseppe", "email": "test@test.com", "surname": "pes", "cv": 1},' \
-            ' "catalogue": 4}'
+               ' "start": "2014-12-23T11:30:00Z",' \
+               ' "end": "2014-12-23T12:00:00Z",' \
+               ' "status": "OPEN", ' \
+               ' "job_position": 1,' \
+               ' "job_position_name": "text",' \
+               ' "candidate": {"id": 1, "name": "giuseppe", "email": "test@test.com", "surname": "pes", "cv": 1},' \
+               ' "catalogue": 4}'
         interview = Interview.objects.get(pk=1)
         serializer = InterviewSerializer(interview)
         data = serializer.data
@@ -124,8 +112,8 @@ class CandidateSerializerTest(TestCase):
     def test_interview_deserialization(self):
         create_uploaded_file(self.user)
         json = b'{"id": 1, ' \
-               b' "start": "2014-12-23T11:30:00Z", ' \
-               b' "end": "2014-12-23T12:00:00Z", ' \
+               b' "start": "2015-05-04T12:20:34.000343+00:00", ' \
+               b' "end": "2015-05-04T12:21:34.000343+00:00", ' \
                b' "status": "OPEN", ' \
                b' "job_position": 1,' \
                b' "candidate": {"id": 1, "name": "giuseppe", "email": "test_1@test.com", "surname": "pes", "cv": 2},' \
@@ -133,5 +121,24 @@ class CandidateSerializerTest(TestCase):
         stream = BytesIO(json)
         data = JSONParser().parse(stream)
         serializer = InterviewSerializer(data=data)
-        print(serializer.errors)
         self.assertTrue(serializer.is_valid())
+
+    def test_interview_deserialization_when_datetieme_is_not_iso8610(self):
+        create_uploaded_file(self.user)
+        json = b'{"id": 1, ' \
+               b' "start": "2014-12-23T11:30", ' \
+               b' "end": "2014-12-23T12:00", ' \
+               b' "status": "OPEN", ' \
+               b' "job_position": 1,' \
+               b' "candidate": {"id": 1, "name": "giuseppe", "email": "test_1@test.com", "surname": "pes", "cv": 2},' \
+               b' "catalogue": 1}'
+        stream = BytesIO(json)
+        data = JSONParser().parse(stream)
+        serializer = InterviewSerializer(data=data)
+        self.assertFalse(serializer.is_valid())
+        self.assertIsNotNone(serializer.errors['start'])
+        self.assertEqual(serializer.errors['start'][0],
+                         'Datetime has wrong format. Use one of these formats instead: YYYY-MM-DDThh:mm:ss.uuuuuu+00:00')
+        self.assertIsNotNone(serializer.errors['end'])
+        self.assertEqual(serializer.errors['end'][0],
+                         'Datetime has wrong format. Use one of these formats instead: YYYY-MM-DDThh:mm:ss.uuuuuu+00:00')
