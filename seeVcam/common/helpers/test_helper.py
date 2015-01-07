@@ -1,5 +1,7 @@
-from io import StringIO
+import datetime
+from django.conf import settings
 from django.core.files.uploadedfile import SimpleUploadedFile
+import pytz
 from answers.models import Answer
 
 from authentication.models import SeevcamUser
@@ -84,9 +86,18 @@ def create_overall_rating(interview, question):
 
 
 def create_interview(user, catalogue, candidate, job_position):
-    interview = Interview(status=Interview.OPEN, start='2014-12-23 11:30', end='2014-12-23 12:00', duration=30,
-                          catalogue=catalogue, owner=user, candidate=candidate, job_position=job_position)
+    interview = Interview(status=Interview.OPEN,
+                          start='2015-05-04T12:20:34.000343+00:00',
+                          end='2015-05-04T13:20:34.000343+00:00',
+                          catalogue=catalogue,
+                          owner=user,
+                          candidate=candidate,
+                          job_position=job_position)
     interview.save()
     return interview
 
+
+def string_to_datetime(datetime_str):
+    d = datetime.datetime.strptime(datetime_str, settings.DATE_INPUT_FORMATS[0])
+    return pytz.utc.localize(d)
 

@@ -96,8 +96,8 @@ class CandidateSerializerTest(TestCase):
 
     def test_interview_serializer(self):
         json = '{"id": 1, ' \
-               ' "start": "2014-12-23T11:30:00Z",' \
-               ' "end": "2014-12-23T12:00:00Z",' \
+               ' "start": "2014-12-23T11:30:00.000000+00:00",' \
+               ' "end": "2014-12-23T12:00:00.000000+00:00",' \
                ' "status": "OPEN", ' \
                ' "job_position": 1,' \
                ' "job_position_name": "text",' \
@@ -123,7 +123,7 @@ class CandidateSerializerTest(TestCase):
         serializer = InterviewSerializer(data=data)
         self.assertTrue(serializer.is_valid())
 
-    def test_interview_deserialization_when_datetieme_is_not_iso8610(self):
+    def test_interview_deserialization_when_datetime_is_not_iso8610(self):
         create_uploaded_file(self.user)
         json = b'{"id": 1, ' \
                b' "start": "2014-12-23T11:30", ' \
