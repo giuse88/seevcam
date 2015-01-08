@@ -163,7 +163,7 @@ class InterviewViewTest(TestCase):
         self.assertEqual(response.data['start'][0], "Invalid timezone.")
         self.assertEqual(response.data['end'][0], "Invalid timezone.")
 
-    def test_user_cannot_create_a_interview_without_datetimes(self):
+    def test_user_cannot_create_a_interview_without_datetime(self):
         self.client.force_authenticate(user=self.user)
         interview_json = {"status": "OPEN",
                           "job_position": 1,
@@ -187,3 +187,107 @@ class InterviewViewTest(TestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertIsNotNone(response.data['non_field_errors'])
         self.assertEqual(response.data['non_field_errors'][0], 'End must be before than start.')
+
+    # def _test_a_users_cannot_schedule_two_interview_at_the_same_time(self):
+    #     #
+    #     self.client.login(username='user_1', password='test')
+    #     response = self._create_interview(self.file_cv, self.file_job, self.catalogue.id, "2030-1-1 11:00")
+    #     self.assertEqual(response.status_code, status.HTTP_302_FOUND)
+    #     self.assertEqual(Interview.objects.filter(interview_owner=self.user_1).count(), 1)
+    #     self.assertEqual(Interview.objects.count(), 1)
+    #     interview_1 = Interview.objects.get(pk=1)
+    #     self.assertEqual(interview_1.candidate_name, "name")
+    #     self._remove_uploaded_files(interview_1)
+    #     #
+    #     response = self._create_interview(self.file_cv, self.file_job, self.catalogue.id, "2030-1-1 11:00")
+    #     print response
+    #     self.assertTrue('Another interview has already been scheduled for the date selected' in response.content)
+    #     self.assertEqual(response.status_code, status.HTTP_200_OK)
+    #
+    # def _test_overlapping_interviews_1(self):
+    #     #
+    #     self.client.login(username='user_1', password='test')
+    #     response = self._create_interview(self.file_cv, self.file_job, self.catalogue.id, "2030-1-1 11:00", 30)
+    #     self.assertEqual(response.status_code, status.HTTP_302_FOUND)
+    #     self.assertEqual(Interview.objects.filter(interview_owner=self.user_1).count(), 1)
+    #     self.assertEqual(Interview.objects.count(), 1)
+    #     interview_1 = Interview.objects.get(pk=1)
+    #     self.assertEqual(interview_1.candidate_name, "name")
+    #     self._remove_uploaded_files(interview_1)
+    #     #
+    #     response = self._create_interview(self._create_upload_file(), self._create_upload_file(),
+    #                                       self.catalogue.id, "2030-1-1 11:05", 15)
+    #     print response
+    #     # self.assertTrue('Another interview has already been scheduled for the date selected' in response.content)
+    #     self.assertEqual(response.status_code, status.HTTP_200_OK)
+    #
+    # def _test_overlapping_interviews_2(self):
+    #     #
+    #     self.client.login(username='user_1', password='test')
+    #     response = self._create_interview(self.file_cv, self.file_job, self.catalogue.id, "2030-1-1 11:05", 15)
+    #     self.assertEqual(response.status_code, status.HTTP_302_FOUND)
+    #     self.assertEqual(Interview.objects.filter(interview_owner=self.user_1).count(), 1)
+    #     self.assertEqual(Interview.objects.count(), 1)
+    #     interview_1 = Interview.objects.get(pk=1)
+    #     self.assertEqual(interview_1.candidate_name, "name")
+    #     self._remove_uploaded_files(interview_1)
+    #     #
+    #     response = self._create_interview(self._create_upload_file(), self._create_upload_file(),
+    #                                       self.catalogue.id, "2030-1-1 11:00", 30)
+    #     print response
+    #     # self.assertTrue('Another interview has already been scheduled for the date selected' in response.content)
+    #     self.assertEqual(response.status_code, status.HTTP_200_OK)
+    #
+    # def _test_overlapping_interviews_3(self):
+    #     #
+    #     self.client.login(username='user_1', password='test')
+    #     response = self._create_interview(self.file_cv, self.file_job, self.catalogue.id, "2030-1-1 11:00", 30)
+    #     self.assertEqual(response.status_code, status.HTTP_302_FOUND)
+    #     self.assertEqual(Interview.objects.filter(interview_owner=self.user_1).count(), 1)
+    #     self.assertEqual(Interview.objects.count(), 1)
+    #     interview_1 = Interview.objects.get(pk=1)
+    #     self.assertEqual(interview_1.candidate_name, "name")
+    #     self._remove_uploaded_files(interview_1)
+    #     #
+    #     response = self._create_interview(self._create_upload_file(), self._create_upload_file(),
+    #                                       self.catalogue.id, "2030-1-1 10:45", 30)
+    #     print response
+    #     self.assertTrue('Another interview has already been scheduled for the date selected' in response.content)
+    #     self.assertEqual(response.status_code, status.HTTP_200_OK)
+    #
+    # def _test_overlapping_interviews_4(self):
+    #     #
+    #     self.client.login(username='user_1', password='test')
+    #     response = self._create_interview(self.file_cv, self.file_job, self.catalogue.id, "2030-1-1 11:00", 30)
+    #     self.assertEqual(response.status_code, status.HTTP_302_FOUND)
+    #     self.assertEqual(Interview.objects.filter(interview_owner=self.user_1).count(), 1)
+    #     self.assertEqual(Interview.objects.count(), 1)
+    #     interview_1 = Interview.objects.get(pk=1)
+    #     self.assertEqual(interview_1.candidate_name, "name")
+    #     self._remove_uploaded_files(interview_1)
+    #     #
+    #     response = self._create_interview(self._create_upload_file(), self._create_upload_file(),
+    #                                       self.catalogue.id, "2030-1-1 11:15", 30)
+    #     print response
+    #     self.assertTrue('Another interview has already been scheduled for the date selected' in response.content)
+    #     self.assertEqual(response.status_code, status.HTTP_200_OK)
+    #
+    # def _test_overlapping_interviews_correct(self):
+    #     #
+    #     self.client.login(username='user_1', password='test')
+    #     response = self._create_interview(self.file_cv, self.file_job, self.catalogue.id, "2030-1-1 11:00", 30)
+    #     self.assertEqual(response.status_code, status.HTTP_302_FOUND)
+    #     self.assertEqual(Interview.objects.filter(interview_owner=self.user_1).count(), 1)
+    #     self.assertEqual(Interview.objects.count(), 1)
+    #     interview_1 = Interview.objects.get(pk=1)
+    #     self.assertEqual(interview_1.candidate_name, "name")
+    #     self._remove_uploaded_files(interview_1)
+    #     #
+    #     response = self._create_interview(self._create_upload_file(), self._create_upload_file(),
+    #                                       self.catalogue.id, "2030-1-1 11:30", 30)
+    #     self.assertEqual(response.status_code, status.HTTP_302_FOUND)
+    #     self.assertEqual(Interview.objects.filter(interview_owner=self.user_1).count(), 2)
+    #     self.assertEqual(Interview.objects.count(), 2)
+    #     interview_1 = Interview.objects.get(pk=2)
+    #     self.assertEqual(interview_1.candidate_name, "name")
+    #     self._remove_uploaded_files(interview_1)

@@ -1,9 +1,7 @@
 import datetime
-import pytz
 from rest_framework import serializers
 from django.conf import settings
 from common.helpers.timezone import now_timezone
-from common.middleware import timezone
 
 from interviews.models import Candidate, JobPosition, Interview
 
@@ -53,6 +51,20 @@ class InterviewSerializer(serializers.ModelSerializer):
         self.is_valid_interview_datetime(value, "Invalid end date. End date expired.")
         self.is_valid_timezone(value, "Invalid timezone.")
         return attrs
+
+    # TODO turn on the book validation
+    # def _is_already_booked(self, interview_datetime, interview_datetime_end):
+    #     interview_end_datetime = interview_datetime_end
+    #     interview = Interview.objects.filter(
+    #         Q(interview_datetime__range=(interview_datetime,interview_end_datetime)) |
+    #         Q(interview_datetime_end__range=(interview_datetime,interview_end_datetime)) |
+    #         (Q(interview_datetime__lte=interview_datetime) & Q(interview_datetime_end__gte=interview_end_datetime)),
+    #         interview_owner=self.user.id).first()
+    #     #TODO this should be handle in the above query
+    #     if interview is not None and self.instance.id is not interview.id:
+    #         self._add_error_to_form('interview_datetime',
+    #                                 'Another interview has already been scheduled for the date selected.')
+    #     return
 
     @staticmethod
     def is_time_missing(interview_datetime, error_msg):
