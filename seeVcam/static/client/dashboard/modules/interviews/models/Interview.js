@@ -3,6 +3,7 @@ define(function(require) {
   require("deep-model");
   var Backbone = require("backbone");
   var FileUploaded = require("modules/interviews/models/FileUploaded");
+  var moment = require("moment");
 
   var FIVE_MINUTES = 60000 *5;
   var BLUE = '#0071bb';
@@ -18,8 +19,8 @@ define(function(require) {
       return {
         id : this.get("id"),
         title : this.getCandidateFullName(),
-        start : this.get("start"),
-        end : this.get("end"),
+        start : moment(this.get("start")),
+        end : moment(this.get("end")),
         allDay : false,
         overlap :false,
         color : BLUE

@@ -4,6 +4,7 @@ define(function (require) {
 
   var _ = require("underscore");
   var Backbone = require("backbone");
+  var moment = require("moment");
 
   return  Backbone.View.extend({
 
@@ -168,8 +169,9 @@ define(function (require) {
           event.editable= true;
           event.currentEvent = true;
           event.color = 'red';
-          event.start = currentInterview.get('start');
-          event.end = currentInterview.get('end');
+          // converts to the user timezone
+          event.start = moment(currentInterview.get('start'));
+          event.end = moment(currentInterview.get('end'));
         }
         events.push(event);
       },this);
