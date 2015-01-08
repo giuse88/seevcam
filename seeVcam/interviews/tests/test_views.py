@@ -162,3 +162,28 @@ class InterviewViewTest(TestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(response.data['start'][0], "Invalid timezone.")
         self.assertEqual(response.data['end'][0], "Invalid timezone.")
+
+    def test_user_cannot_create_a_interview_without_datetimes(self):
+        self.client.force_authenticate(user=self.user)
+        interview_json = {"status": "OPEN",
+                          "job_position": 1,
+                          "candidate": {"name": "giuseppe", "email": "test_1@test.com", "surname": "pes", "cv": 2},
+                          "catalogue": 1}
+        response = self.client.post("/dashboard/interviews/interviews/", interview_json, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(response.data['start'][0], "This field is required.")
+        self.assertEqual(response.data['end'][0], "This field is required.")
+
+    def test_user_cannot_create_an_interview_with_end_before_start(self):
+        cv = create_uploaded_file(self.user)
+        self.client.force_authenticate(user=self.user)
+        interview_json = {"start": "2015-06-04T16:20:34.0+0000",
+                          "end": "2015-06-04T13:20:34.0+0000",
+                          "status": "OPEN",
+                          "job_position": 1,
+                          "candidate": {"name": "giuseppe", "email": "test_1@test.com", "surname": "pes", "cv": cv.id},
+                          "catalogue": 1}
+        response = self.client.post("/dashboard/interviews/interviews/", interview_json, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIsNotNone(response.data['non_field_errors'])
+        self.assertEqual(response.data['non_field_errors'][0], 'End must be before than start.')

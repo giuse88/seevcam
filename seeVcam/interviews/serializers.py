@@ -36,17 +36,29 @@ class InterviewSerializer(serializers.ModelSerializer):
     start = serializers.DateTimeField(format=settings.DATE_INPUT_FORMATS[0], input_formats=settings.DATE_INPUT_FORMATS)
     end = serializers.DateTimeField(format=settings.DATE_INPUT_FORMATS[0], input_formats=settings.DATE_INPUT_FORMATS)
 
+    def validate(self, attrs):
+        self.is_end_before_start(attrs['start'], attrs['end'], "End must be before than start.")
+        return attrs
+
     def validate_start(self, attrs, source):
         value = attrs[source]
+        self.is_time_missing(value, "Start date is missing.")
         self.is_valid_interview_datetime(value, "Invalid start date. Start date expired.")
         self.is_valid_timezone(value, "Invalid timezone.")
         return attrs
 
     def validate_end(self, attrs, source):
         value = attrs[source]
+        self.is_time_missing(value, "End date is missing.")
         self.is_valid_interview_datetime(value, "Invalid end date. End date expired.")
         self.is_valid_timezone(value, "Invalid timezone.")
         return attrs
+
+    @staticmethod
+    def is_time_missing(interview_datetime, error_msg):
+        if interview_datetime is None:
+            raise serializers.ValidationError(error_msg)
+        return interview_datetime
 
     @staticmethod
     def is_valid_timezone(interview_datetime, error_msg):
@@ -59,6 +71,12 @@ class InterviewSerializer(serializers.ModelSerializer):
         if interview_datetime is None or interview_datetime < now_timezone():
             raise serializers.ValidationError(error_msg)
         return interview_datetime
+
+    @staticmethod
+    def is_end_before_start(start, end, error_msg):
+        if end <= start:
+            raise serializers.ValidationError(error_msg)
+        return start, end
 
     class Meta:
         model = Interview
