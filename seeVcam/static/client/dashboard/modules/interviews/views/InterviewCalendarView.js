@@ -21,8 +21,8 @@ define(function (require) {
       var events = self.getBackgroundEvents().concat(self.getEvents());
 
       if ( currentInterview &&  !_.isEmpty(currentInterview)){
-        this.startDateTime = moment(currentInterview.get('start')).local();
-        this.endDateTime = moment(currentInterview.get('end')).local();
+        this.startDateTime = moment(currentInterview.get('start'));
+        this.endDateTime = moment(currentInterview.get('end'));
       }
 
       this.$el.fullCalendar({
@@ -80,8 +80,8 @@ define(function (require) {
 
              if (self.options.interview) {
             var currentInterview = self.options.interview;
-            currentInterview.set('start', self.startDateTime);
-            currentInterview.set('end', self.endDateTime);
+            currentInterview.set('start', self.startDateTime.utc());
+            currentInterview.set('end', self.endDateTime.utc());
           }
 
             if (!!currentEventID) {
@@ -105,8 +105,8 @@ define(function (require) {
           self.endDateTime = event.end;
           if (self.options.interview) {
             var currentInterview = self.options.interview;
-            currentInterview.set('start', self.startDateTime);
-            currentInterview.set('end', self.endDateTime);
+            currentInterview.set('start', self.startDateTime.utc());
+            currentInterview.set('end', self.endDateTime.utc());
           }
         },
 
@@ -115,8 +115,8 @@ define(function (require) {
           self.endDateTime = event.end;
           if (self.options.interview) {
             var currentInterview = self.options.interview;
-            currentInterview.set('start', self.startDateTime);
-            currentInterview.set('end', self.endDateTime);
+            currentInterview.set('start', self.startDateTime.utc());
+            currentInterview.set('end', self.endDateTime.utc());
           }
          }
 

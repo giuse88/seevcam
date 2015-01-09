@@ -169,6 +169,7 @@ define(function (require) {
     updateDateTimeForm : function (start, end) {
       console.log(start);
       var original = start.clone();
+      debugger;
       this.$el.find(".datetime .start").val(start.utc().format("YYYY-MM-DD[T]HH:mm:00.000000ZZ"));
       this.$el.find(".datetime .end").val(end.utc().format("YYYY-MM-DD[T]HH:mm:00.000000ZZ"));
       this.$el.find('.datetime-display p').html(this.displayTime(original));
