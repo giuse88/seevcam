@@ -176,7 +176,8 @@ define(function (require) {
     },
 
     displayTime : function(time){
-      return moment(time).format("dddd, MMMM Do YYYY, h:mm a");
+      debugger;
+      return moment(time).local().format("dddd, MMMM Do YYYY, h:mm a");
     },
 
     installParsely : function(){
