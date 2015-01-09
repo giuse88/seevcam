@@ -19,8 +19,8 @@ define(function(require) {
       return {
         id : this.get("id"),
         title : this.getCandidateFullName(),
-        start : moment(this.get("start")),
-        end : moment(this.get("end")),
+        start : moment(this.get("start")).local(),
+        end : moment(this.get("end")).local(),
         allDay : false,
         overlap :false,
         color : BLUE
@@ -28,6 +28,7 @@ define(function(require) {
     },
 
     isOpen : function () {
+      // To be rewritten using Moment
       var now = new Date();
       var startTime = new Date(this.get("start"));
       var endTime = new Date(this.get("end"));

@@ -64,7 +64,7 @@ define(function (require) {
         surname : this.model.get("candidate.surname"),
         job_position  : this.model.get("job_position_name"),
         year : interviewStart.format("YYYY"),
-        time : interviewStart.format("hh:mm"),
+        time : interviewStart.format("HH:mm"),
         day  : interviewStart.format("DD"),
         month : interviewStart.format("MM"),
         date_string : "",

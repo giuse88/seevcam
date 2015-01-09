@@ -21,8 +21,8 @@ define(function (require) {
       var events = self.getBackgroundEvents().concat(self.getEvents());
 
       if ( currentInterview &&  !_.isEmpty(currentInterview)){
-        this.startDateTime = moment(currentInterview.get('start'));
-        this.endDateTime = moment(currentInterview.get('end'));
+        this.startDateTime = moment(currentInterview.get('start')).local();
+        this.endDateTime = moment(currentInterview.get('end')).local();
       }
 
       this.$el.fullCalendar({
@@ -78,6 +78,12 @@ define(function (require) {
             self.startDateTime = moment(date);
             self.endDateTime = moment(date).add(1, 'hours');
 
+             if (self.options.interview) {
+            var currentInterview = self.options.interview;
+            currentInterview.set('start', self.startDateTime);
+            currentInterview.set('end', self.endDateTime);
+          }
+
             if (!!currentEventID) {
               self.$el.fullCalendar('removeEvents', currentEventID);
             }
@@ -99,8 +105,8 @@ define(function (require) {
           self.endDateTime = event.end;
           if (self.options.interview) {
             var currentInterview = self.options.interview;
-            currentInterview.set('start', self.startDateTime.format());
-            currentInterview.set('end', self.endDateTime.format());
+            currentInterview.set('start', self.startDateTime);
+            currentInterview.set('end', self.endDateTime);
           }
         },
 
@@ -109,8 +115,8 @@ define(function (require) {
           self.endDateTime = event.end;
           if (self.options.interview) {
             var currentInterview = self.options.interview;
-            currentInterview.set('start', self.startDateTime.format());
-            currentInterview.set('end', self.endDateTime.format());
+            currentInterview.set('start', self.startDateTime);
+            currentInterview.set('end', self.endDateTime);
           }
          }
 
@@ -165,7 +171,6 @@ define(function (require) {
         var event = interview.toCalendarEvent();
         if ( currentInterview &&  !_.isEmpty(currentInterview) &&
              event.id === currentInterview.get('id')){
-
           event.editable= true;
           event.currentEvent = true;
           event.color = 'red';

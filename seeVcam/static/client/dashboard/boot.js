@@ -28,14 +28,12 @@ require.config({
     "fullcalendar"  : "bower_components/fullcalendar/dist/fullcalendar",
     "deep-model"    : "bower_components/backbone-deep-model/distribution/deep-model",
     "moment"        : "bower_components/moment/moment",
-    "moment-timezone" : "bower_components/moment-timezone/moment-timezone",
     // to be removed
 //    "backbone-forms": "bower_components/backbone-forms/distribution/backbone-forms",
     //
     "notification"  : "client/dashboard/modules/notification/notification",
     "utils"         : "client/misc/utils",
     "nanobar"       : "client/misc/nanobar",
-    "jstz"          : "client/misc/jstz",
     "backbone.boostrap-modal" : "client/misc/backbone.bootstrap-modal"
   },
 
