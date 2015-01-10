@@ -10,8 +10,8 @@ from interviews.models import Interview
 
 # ================================== TO BE DELETED ==============================
 
-
 # for development purposes
+
 class InterviewRoomViewExperiment(LoginRequired, TemplateView):
     template_name = "index.html"
     test = False
