@@ -6,9 +6,11 @@ from common.helpers.test_helper import create_user, create_uploaded_file, create
     create_job_position, create_question, create_catalogue, create_company
 from company_profile.models import Company
 from interviews.models import Candidate, JobPosition, Interview
+from interviews.rest_views import InterviewList
 
 
 class InterviewViewTest(TestCase):
+
 
     def setUp(self):
         self.client = APIClient()
@@ -19,6 +21,7 @@ class InterviewViewTest(TestCase):
         self.job_position = create_job_position(self.user, self.company, create_uploaded_file(self.user))
         self.candidate = create_candidate(self.user, self.company, create_uploaded_file(self.user))
         self.interview = create_interview(self.user, self.catalogue, self.candidate, self.job_position)
+        InterviewList.create_interview_session = self.fake_session
 
     def tearDown(self):
         JobPosition.objects.all().delete()
@@ -36,6 +39,9 @@ class InterviewViewTest(TestCase):
         del self.candidate
         del self.job_position
         del self.interview
+
+    def fake_session(self):
+        return "UNKNOWN"
 
     # ###############################################################################
     #                                   PUBLIC TESTS                                #

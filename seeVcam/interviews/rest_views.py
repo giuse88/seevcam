@@ -23,9 +23,6 @@ class InterviewList(generics.ListCreateAPIView):
             notes = Notes(interview=obj)
             notes.save()
 
-    def pre_save(self, obj):
-        obj.session_id = self.create_interview_session()
-
     def get_queryset(self):
         return Interview.objects.filter(
             owner=self.request.user.id,
