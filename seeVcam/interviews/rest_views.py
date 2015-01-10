@@ -29,7 +29,7 @@ class InterviewList(generics.ListCreateAPIView):
             owner=self.request.user.id,
             end__gt=now_timezone()).order_by('start')
 
- # this should be in the model
+    #TODO this should be in the model done with signals
     #private
     @staticmethod
     def create_interview_session():

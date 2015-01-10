@@ -1,16 +1,15 @@
-from datetime import datetime
+import datetime
 from django.conf import settings
 from django.http import Http404
 from common.helpers.timezone import now_timezone
 from django.views.generic import DetailView, TemplateView
 from opentok import OpenTok, Roles
-import opentok
 from common.mixins.authorization import LoginRequired, IsOwnerOr404, TokenVerification
 from interviews.models import Interview
 
 
 # for development purposes
-class InterviewRoomViewExperiment(TemplateView):
+class InterviewRoomViewExperiment(LoginRequired, TemplateView):
 
     template_name = "index.html"
     test = False
@@ -47,6 +46,7 @@ class InterviewRoomView(DetailView):
         context['api_key'] = settings.OPENTOK_API_KEY
         context['session_id'] = interview.session_id
         context['is_interview_open'] = self.is_interview_open()
+        opentok = OpenTok(settings.OPENTOK_API_KEY, settings.OPENTOK_SECRET)
         context['token'] = opentok.generate_token(session_id=context['session_id'],
                                                   data="role="+self.get_role(),
                                                   role=Roles.publisher)
@@ -61,20 +61,14 @@ class InterviewRoomView(DetailView):
         return opened and closed
 
 
-class IntervieweeView(InterviewRoomView, TokenVerification):
-
-    def get(self, request, *args, **kwargs):
-        interview = self.get_object()
-        interview_token = self.kwargs['interview_token']
-        if interview_token is not interview.authentication_token:
-            raise Http404
-        return super(IntervieweeView, self).get(request, *args, **kwargs)
+class IntervieweeView(TokenVerification, InterviewRoomView):
 
     def get_role(self):
         return "interviewer"
 
 
 class InterviewerView(LoginRequired, IsOwnerOr404, InterviewRoomView):
+
     def get_role(self):
         return "interviewee"
 
