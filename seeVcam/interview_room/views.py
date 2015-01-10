@@ -1,16 +1,17 @@
 import datetime
+
 from django.conf import settings
-from django.http import Http404
-from common.helpers.timezone import now_timezone
 from django.views.generic import DetailView, TemplateView
 from opentok import OpenTok, Roles
+
+from common.helpers.timezone import now_timezone
 from common.mixins.authorization import LoginRequired, IsOwnerOr404, TokenVerification
 from interviews.models import Interview
 
 
+
 # for development purposes
 class InterviewRoomViewExperiment(LoginRequired, TemplateView):
-
     template_name = "index.html"
     test = False
 
@@ -45,31 +46,32 @@ class InterviewRoomView(DetailView):
         interview = self.get_object()
         context['api_key'] = settings.OPENTOK_API_KEY
         context['session_id'] = interview.session_id
-        context['role'] = self.get_role();
+        context['role'] = self.get_role()
         context['is_interview_open'] = self.is_interview_open()
-        opentok = OpenTok(settings.OPENTOK_API_KEY, settings.OPENTOK_SECRET)
-        context['token'] = opentok.generate_token(session_id=context['session_id'],
-                                                  data="role="+self.get_role(),
-                                                  role=Roles.publisher)
+        context['token'] = self.generate_opentok_token(interview.session_id)
         return context
 
     def is_interview_open(self):
         interview = self.get_object()
-        real_open_time = interview.start + datetime.timedelta(minutes=settings.INTERVIEW_OPEN)
+        real_open_time = interview.start - datetime.timedelta(minutes=settings.INTERVIEW_OPEN)
         real_close_time = interview.end + datetime.timedelta(minutes=settings.INTERVIEW_CLOSE)
         opened = now_timezone() >= real_open_time
         closed = now_timezone() <= real_close_time and interview.status is not Interview.CLOSED
         return opened and closed
 
+    def generate_opentok_token(self, session_id):
+        opentok = OpenTok(settings.OPENTOK_API_KEY, settings.OPENTOK_SECRET)
+        return opentok.generate_token(session_id=session_id,
+                                      data="role=" + self.get_role(),
+                                      role=Roles.publisher)
+
 
 class IntervieweeView(TokenVerification, InterviewRoomView):
-
     def get_role(self):
         return "interviewee"
 
 
 class InterviewerView(LoginRequired, IsOwnerOr404, InterviewRoomView):
-
     def get_role(self):
         return "interviewer"
 
