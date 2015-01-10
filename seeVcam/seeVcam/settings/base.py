@@ -217,6 +217,6 @@ SEEVCAM_UPLOAD_FILE_FOLDER_URL = os.path.join(MEDIA_URL, 'uploaded_files')
 APPEND_SLASH = True
 
 #Interview configuration :
-INTERVIEW_OPEN = 900  # 15 minutes
-INTERVIEW_CLOSE = 900 # 15 minutes
+INTERVIEW_OPEN = 15  # 15 minutes
+INTERVIEW_CLOSE = 15 # 15 minutes
 
