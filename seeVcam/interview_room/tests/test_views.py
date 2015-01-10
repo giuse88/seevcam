@@ -4,7 +4,7 @@ from rest_framework import status
 from rest_framework.test import APIClient
 from authentication.models import SeevcamUser
 from common.helpers.test_helper import create_user, create_uploaded_file, create_interview, create_candidate, \
-    create_job_position, create_question, create_catalogue, create_company
+    create_job_position, create_question, create_catalogue, create_company, login_user
 from common.helpers.timezone import now_timezone
 from company_profile.models import Company
 from interview_room.views import InterviewRoomView
@@ -68,24 +68,26 @@ class InterviewViewTest(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertTrue(response.context_data['is_interview_open'])
 
-    def _test_interviewer_can_access_the_interview_room(self):
-        self.client.force_authenticate(user=self.user)
+    def test_interviewer_can_access_the_interview_room(self):
+        login_user(self.client)
         response = self.client.get("/interview/0/" + str(self.interview.id) + "/")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-    def _test_interviewer_cannot_access_closed_room(self):
+    def test_interviewer_cannot_access_closed_room(self):
+        login_user(self.client)
         self.client.force_authenticate(user=self.user)
         response = self.client.get("/interview/0/" + str(self.interview.id) + "/")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertFalse(response.context_data['is_interview_open'])
 
-    def _test_interviewee_can_access_open_room(self):
+    def test_interviewer_can_access_open_room(self):
+        login_user(self.client)
         self.interview.start = now_timezone()
         self.interview.end = now_timezone() + datetime.timedelta(hours=1)
         self.interview.save()
         response = self.client.get("/interview/0/" + str(self.interview.id) + "/")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertFalse(response.context_data['is_interview_open'])
+        self.assertTrue(response.context_data['is_interview_open'])
 
     def test_interviewer_cannot_access_the_interview_room_if_not_logged_in(self):
         response = self.client.get("/interview/0/" + str(self.interview.id) + "/")
