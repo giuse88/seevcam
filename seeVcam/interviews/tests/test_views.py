@@ -11,7 +11,6 @@ from interviews.rest_views import InterviewList
 
 class InterviewViewTest(TestCase):
 
-
     def setUp(self):
         self.client = APIClient()
         self.company = create_company()

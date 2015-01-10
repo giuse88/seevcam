@@ -1,3 +1,4 @@
+import string, random
 from rest_framework import generics
 from opentok import OpenTok
 
@@ -35,6 +36,11 @@ class InterviewList(generics.ListCreateAPIView):
         opentok = OpenTok(settings.OPENTOK_API_KEY, settings.OPENTOK_SECRET)
         session = opentok.create_session()
         return session.session_id
+
+    #private
+    @staticmethod
+    def create_authentication_token():
+        return ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(80))
 
 
 class InterviewDetail(generics.RetrieveUpdateDestroyAPIView):
