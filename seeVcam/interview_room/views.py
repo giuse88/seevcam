@@ -45,6 +45,7 @@ class InterviewRoomView(DetailView):
         interview = self.get_object()
         context['api_key'] = settings.OPENTOK_API_KEY
         context['session_id'] = interview.session_id
+        context['role'] = self.get_role();
         context['is_interview_open'] = self.is_interview_open()
         opentok = OpenTok(settings.OPENTOK_API_KEY, settings.OPENTOK_SECRET)
         context['token'] = opentok.generate_token(session_id=context['session_id'],
@@ -64,12 +65,12 @@ class InterviewRoomView(DetailView):
 class IntervieweeView(TokenVerification, InterviewRoomView):
 
     def get_role(self):
-        return "interviewer"
+        return "interviewee"
 
 
 class InterviewerView(LoginRequired, IsOwnerOr404, InterviewRoomView):
 
     def get_role(self):
-        return "interviewee"
+        return "interviewer"
 
 

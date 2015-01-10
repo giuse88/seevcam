@@ -33,8 +33,9 @@
 
 </head>
     <body>
-        {{ is_interview_open }}
         <h1> Interview room </h1>
+        <p> Is interview open : {{ is_interview_open }} </p>
+        <p> Role : {{ role  }}</p>
         {%  if is_interview_open %}
             {%  include "./sub_templates/room.html" %}
         {% else %}
