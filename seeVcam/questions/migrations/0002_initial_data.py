@@ -14,7 +14,7 @@ def populate_catalogs(apps, schema_editor):
     User = apps.get_model("authentication", "SeevcamUser")
     db_alias = schema_editor.connection.alias
     seevcam = User.objects.get(email="admin@admin.com")
-    document = open(os.path.join(BASE, '../fixtures/catalogs.yaml'), 'r')
+    document = open(os.path.join(BASE, '../fixtures/catalogs.yml'), 'r')
     catalogs_to_load = yaml.load(document)
 
     for k, v in catalogs_to_load.items():
