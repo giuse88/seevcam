@@ -6,7 +6,7 @@ ALLOWED_HOSTS = [
     'ec2-54-154-138-99.eu-west-1.compute.amazonaws.com'
 ]
 
-with open("secrets.yaml", "r") as f:
+with open("../../../shared/secrets.yaml", "r") as f:
     secrets = yaml.load(f.read())
 
 

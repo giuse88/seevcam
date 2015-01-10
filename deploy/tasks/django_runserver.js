@@ -10,7 +10,6 @@ module.exports = function (grunt) {
 		var done = this.async();
 		grunt.shipit.remote(
 				'cd ' + grunt.config('shipit.options.current')+'/seeVcam '
-				+ '&& pwd '
 				+ '&& workon seevcam '
 				+ '&& python manage.py runserver 8080 --settings=seeVcam.settings.staging'
 			, done);
