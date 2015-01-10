@@ -1,3 +1,5 @@
+# settings.local.py
+from .base import *
 import json
 
 from django.core.exceptions import ImproperlyConfigured

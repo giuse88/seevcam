@@ -11,7 +11,7 @@ module.exports = function (grunt) {
 		grunt.shipit.remote(
 				'cd ' + grunt.config('shipit.options.current')+'/seeVcam '
 				+ '&& workon seevcam '
-				+ '&& python manage.py runserver 8080 --settings=seeVcam.settings.staging'
+				+ '&& python manage.py runserver 80'
 			, done);
 	});
 };

@@ -1,3 +1,5 @@
+# settings.local.py
+from .base import *
 import yaml
 
 from django.core.exceptions import ImproperlyConfigured
