@@ -101,3 +101,7 @@ def string_to_datetime(datetime_str):
     d = datetime.datetime.strptime(datetime_str, settings.DATE_INPUT_FORMATS[0])
     return pytz.utc.localize(d)
 
+
+def login_user(client, email="test@test.com", password='test'):
+        client.post(settings.LOGIN_URL, {'username': email, 'password': password})
+
