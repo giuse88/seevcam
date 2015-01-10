@@ -29,6 +29,7 @@ class InterviewList(generics.ListCreateAPIView):
             owner=self.request.user.id,
             end__gt=now_timezone()).order_by('start')
 
+ # this should be in the model
     #private
     @staticmethod
     def create_interview_session():
