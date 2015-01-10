@@ -3,7 +3,6 @@ define(function(require){
   var $ = require("jquery");
   var Utils = require("utils");
   var Backbone = require("backbone");
-  var CreateInterview = require("modules/interviews/pjax_views/CreateInterview");
   var LoadingBar = require("nanobar");
   var Interviews = require("modules/interviews/models/InterviewList");
   var InterviewApp = require("modules/interviews/views/InterviewAppView");

@@ -114,7 +114,7 @@
                         <a class="interview-datetime open-calendar"  href="javascript:void(0)"> Pick a time : </a>
                     </span>
                     <span class="col-md-6 datetime-display">
-                        <p><% if (interview) { %> <%= interview.start %>  <% } else { %> Not time selected. <% } %></p>
+                        <p><% if (interview) { %> <%= displayTime(interview.start) %>  <% } else { %> Not time selected. <% } %></p>
                     </span>
                 </div>
                 <input class="hidden start"  name="start"

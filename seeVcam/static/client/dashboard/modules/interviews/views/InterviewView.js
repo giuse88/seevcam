@@ -2,6 +2,7 @@ define(function (require) {
 
   var _ = require("underscore");
   var Backbone = require("backbone");
+  var moment = require("moment");
 
   return  Backbone.View.extend({
 
@@ -54,16 +55,18 @@ define(function (require) {
     },
 
     getDataForTemplate : function(){
-      var interviewStart = new Date(this.model.get('start'));
+      // this transform the date received from the server to
+      // the client timezone
+      var interviewStart = moment(this.model.get('start'));
       return {
         id : this.model.get('id'),
         name : this.model.get("candidate.name"),
         surname : this.model.get("candidate.surname"),
         job_position  : this.model.get("job_position_name"),
-        year : interviewStart.getUTCFullYear(),
-        time : this.toTimeString(interviewStart.getUTCHours()) + ":" + this.toTimeString(interviewStart.getUTCMinutes()),
-        day  : interviewStart.getUTCDate(),
-        month : interviewStart.getUTCMonth() + 1,
+        year : interviewStart.format("YYYY"),
+        time : interviewStart.format("HH:mm"),
+        day  : interviewStart.format("DD"),
+        month : interviewStart.format("MM"),
         date_string : "",
         date_separator : "-"
       }

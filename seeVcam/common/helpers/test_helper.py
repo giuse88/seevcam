@@ -1,6 +1,7 @@
-from StringIO import StringIO
-
+import datetime
+from django.conf import settings
 from django.core.files.uploadedfile import SimpleUploadedFile
+import pytz
 from answers.models import Answer
 
 from authentication.models import SeevcamUser
@@ -38,9 +39,8 @@ def create_question(catalogue, text="test question"):
 
 
 def create_file(name="test.pdf", file_type='application/pdf'):
-    raw_content = StringIO('GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,' +
-                           '\x00\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
-    return SimpleUploadedFile(name, raw_content.read(), file_type)
+    binary_content = b"some initial binary data: \x00\x01"
+    return SimpleUploadedFile(name, binary_content, file_type)
 
 
 def create_uploaded_file(user):
@@ -86,9 +86,18 @@ def create_overall_rating(interview, question):
 
 
 def create_interview(user, catalogue, candidate, job_position):
-    interview = Interview(status=Interview.OPEN, start='2014-12-23 11:30', end='2014-12-23 12:00', duration=30,
-                          catalogue=catalogue, owner=user, candidate=candidate, job_position=job_position)
+    interview = Interview(status=Interview.OPEN,
+                          start='2015-05-04T12:20:34.000343+00:00',
+                          end='2015-05-04T13:20:34.000343+00:00',
+                          catalogue=catalogue,
+                          owner=user,
+                          candidate=candidate,
+                          job_position=job_position)
     interview.save()
     return interview
 
+
+def string_to_datetime(datetime_str):
+    d = datetime.datetime.strptime(datetime_str, settings.DATE_INPUT_FORMATS[0])
+    return pytz.utc.localize(d)
 

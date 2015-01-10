@@ -3,8 +3,7 @@ from common.helpers.views_helper import set_company_info
 from interviews.models import Interview, JobPosition
 from interviews.serializers import InterviewSerializer, JobPositionSerializer
 from notes.models import Notes
-import datetime
-
+from common.helpers.timezone import now_timezone
 
 class InterviewList(generics.ListCreateAPIView):
     serializer_class = InterviewSerializer
@@ -22,7 +21,7 @@ class InterviewList(generics.ListCreateAPIView):
     def get_queryset(self):
         return Interview.objects.filter(
             owner=self.request.user.id,
-            end__gt=datetime.datetime.now()).order_by('start')
+            end__gt=now_timezone()).order_by('start')
 
 
 class InterviewDetail(generics.RetrieveUpdateDestroyAPIView):

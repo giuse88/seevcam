@@ -1,10 +1,13 @@
 define(function (require) {
 
+  require("parsley");
+//  require("bloodhound");
   require("jquery.fileupload-validate");
 
   var Utils = require("utils");
   var $ = require("jquery");
   var _ = require("underscore");
+  var moment = require("moment");
   var Backbone = require("backbone");
   var Notification = require("notification");
 
@@ -38,7 +41,7 @@ define(function (require) {
     getTemplateData : function() {
 
       /*
-        This is piece of shi
+        This is piece of shit
        */
       if(!this.model) {
         return {
@@ -47,7 +50,8 @@ define(function (require) {
           interview : null,
           cv : null,
           catalogues : this.options.catalogues.toJSON(),
-          jobPositions : this.options.jobPositions.toJSON()
+          jobPositions : this.options.jobPositions.toJSON(),
+          displayTime : this.displayTime
         };
       }
 
@@ -57,7 +61,8 @@ define(function (require) {
         interview : this.model.toJSON(),
         cv : this.model.getCV().toJSON(),
         catalogues : this.options.catalogues.toJSON(),
-        jobPositions : this.options.jobPositions.toJSON()
+        jobPositions : this.options.jobPositions.toJSON(),
+        displayTime : this.displayTime
       }
 
     },
@@ -67,7 +72,6 @@ define(function (require) {
       this.$form = this.$el.find("form");
       this.installParsely();
       this.installCVUploader();
-      this.installTypeAhead();
       return this;
     },
     openCreateCatalogue : function (event) {
@@ -76,7 +80,6 @@ define(function (require) {
       function onOK () {
         this.renderCatalogueSelector();
       }
-
 
       var catalogueView = new CataloguesView({
         collection:window.cache.catalogues,
@@ -164,15 +167,18 @@ define(function (require) {
     },
 
     updateDateTimeForm : function (start, end) {
-      this.$el.find(".datetime .start").val(start.format("YYYY-MM-DD HH:mm"));
-      this.$el.find(".datetime .end").val(end.format("YYYY-MM-DD HH:mm"));
-      this.displayTime(start, end);
+      console.log(start);
+      var original = start.clone();
+      debugger;
+      this.$el.find(".datetime .start").val(start.utc().format("YYYY-MM-DD[T]HH:mm:00.000000ZZ"));
+      this.$el.find(".datetime .end").val(end.utc().format("YYYY-MM-DD[T]HH:mm:00.000000ZZ"));
+      this.$el.find('.datetime-display p').html(this.displayTime(original));
     },
 
-    displayTime : function(start, end){
-      this.$el.find('.datetime-display p').html(start.toString());
+    displayTime : function(time){
+      debugger;
+      return moment(time).local().format("dddd, MMMM Do YYYY, h:mm a");
     },
-
 
     installParsely : function(){
       this.$form.parsley({
@@ -321,60 +327,60 @@ define(function (require) {
       });
 
       selectedId && $selector.val(selectedId);
-    },
-
-    installTypeAhead: function() {
-        /*
-          remove this cache
-          the router should download this info
-         */
-        var catalogs = new Bloodhound({
-            datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
-            queryTokenizer: Bloodhound.tokenizers.whitespace,
-            limit: 5,
-            prefetch: {
-                url: '/dashboard/questions/catalogue/',
-                ttl: 0,
-                filter: function (data) {
-                    return $.map(data, function (catalog) {
-                        return {
-                            name: catalog.catalogue_name,
-                            scope : catalog.catalogue_scope.toLocaleLowerCase(),
-                            value: catalog.id
-                        };
-                    });
-                }
-            }
-        });
-
-        catalogs.clearPrefetchCache();
-        catalogs.initialize();
-
-       this.$el.find('.typeahead').typeahead(
-        {
-            hint: true,
-            highlight: true
-        },{
-        name: 'catalogs',
-        displayKey: 'name',
-        source: catalogs.ttAdapter(),
-        templates: {
-        empty: [
-             '<div class="empty-message">',
-              '<p>Unable to find any catalogue that match your query</p>',
-              '</div>'
-              ].join('\n'),
-        suggestion: _.compile([
-                        '<div class="suggestion">',
-                            '<span class="<%=scope%>"></span>',
-                            '<p><%=name%></p>',
-                        '</div>'
-                    ].join(''))
-        }
-      }).on("typeahead:selected typeahead:autocompleted", function(e, datum) {
-          var fieldName = $(this).data("field-name");
-          $("[name=" + fieldName + "]").val(datum.value);
-      });
     }
+
+//    installTypeAhead: function() {
+//        /*
+//          remove this cache
+//          the router should download this info
+//         */
+//        var catalogs = new Bloodhound({
+//            datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+//            queryTokenizer: Bloodhound.tokenizers.whitespace,
+//            limit: 5,
+//            prefetch: {
+//                url: '/dashboard/questions/catalogue/',
+//                ttl: 0,
+//                filter: function (data) {
+//                    return $.map(data, function (catalog) {
+//                        return {
+//                            name: catalog.catalogue_name,
+//                            scope : catalog.catalogue_scope.toLocaleLowerCase(),
+//                            value: catalog.id
+//                        };
+//                    });
+//                }
+//            }
+//        });
+//
+//        catalogs.clearPrefetchCache();
+//        catalogs.initialize();
+//
+//       this.$el.find('.typeahead').typeahead(
+//        {
+//            hint: true,
+//            highlight: true
+//        },{
+//        name: 'catalogs',
+//        displayKey: 'name',
+//        source: catalogs.ttAdapter(),
+//        templates: {
+//        empty: [
+//             '<div class="empty-message">',
+//              '<p>Unable to find any catalogue that match your query</p>',
+//              '</div>'
+//              ].join('\n'),
+//        suggestion: _.compile([
+//                        '<div class="suggestion">',
+//                            '<span class="<%=scope%>"></span>',
+//                            '<p><%=name%></p>',
+//                        '</div>'
+//                    ].join(''))
+//        }
+//      }).on("typeahead:selected typeahead:autocompleted", function(e, datum) {
+//          var fieldName = $(this).data("field-name");
+//          $("[name=" + fieldName + "]").val(datum.value);
+//      });
+//    }
   });
 });

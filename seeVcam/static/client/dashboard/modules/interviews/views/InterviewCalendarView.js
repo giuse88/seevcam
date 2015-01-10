@@ -4,6 +4,7 @@ define(function (require) {
 
   var _ = require("underscore");
   var Backbone = require("backbone");
+  var moment = require("moment");
 
   return  Backbone.View.extend({
 
@@ -20,8 +21,8 @@ define(function (require) {
       var events = self.getBackgroundEvents().concat(self.getEvents());
 
       if ( currentInterview &&  !_.isEmpty(currentInterview)){
-        this.startDateTime = moment(currentInterview.get('start'));
-        this.endDateTime = moment(currentInterview.get('end'));
+        this.startDateTime = moment(currentInterview.get('start')).local();
+        this.endDateTime = moment(currentInterview.get('end')).local();
       }
 
       this.$el.fullCalendar({
@@ -45,6 +46,7 @@ define(function (require) {
         slotEventOverlap : false,
         allDaySlot: true,
         events: events,
+        timezone : 'local',
         eventBackgroundColor: '#ddd',
 
         viewRender: function(view) {
@@ -74,8 +76,10 @@ define(function (require) {
             self.$el.fullCalendar('gotoDate',date);
           } else if (!self.options.readOnly) {
 
-            self.startDateTime = moment(date);
-            self.endDateTime = moment(date).add(1, 'hours');
+            console.log(date);
+
+            self.updateInternalDates(moment(date),
+                                     moment(date).add(1, 'hours'));
 
             if (!!currentEventID) {
               self.$el.fullCalendar('removeEvents', currentEventID);
@@ -94,34 +98,34 @@ define(function (require) {
         },
 
         eventResize: function(event, delta, revertFunc) {
-          self.startDateTime= event.start;
-          self.endDateTime = event.end;
-          if (self.options.interview) {
-            var currentInterview = self.options.interview;
-            currentInterview.set('start', self.startDateTime.format());
-            currentInterview.set('end', self.endDateTime.format());
-          }
+          self.updateInternalDates(event.start, event.end);
         },
 
         eventDrop: function (event, delta, revertFunc, jsEvent, ui, view ) {
-          self.startDateTime= event.start;
-          self.endDateTime = event.end;
-          if (self.options.interview) {
-            var currentInterview = self.options.interview;
-            currentInterview.set('start', self.startDateTime.format());
-            currentInterview.set('end', self.endDateTime.format());
-          }
+          self.updateInternalDates(event.start, event.end);
          }
 
       });
     },
 
     start : function () {
-     return this.startDateTime;
+     return this.startDateTime.clone().utc();
     },
 
     end : function(){
-      return this.endDateTime;
+      return this.endDateTime.clone().utc();
+    },
+
+    updateInternalDates : function(start, end) {
+      console.log(start.format());
+      this.startDateTime= start;
+      this.endDateTime = end;
+      console.log(this.startDateTime.format());
+      if (this.options.interview) {
+        var currentInterview = this.options.interview;
+        currentInterview.set('start', this.startDateTime);
+        currentInterview.set('end', this.endDateTime);
+      }
     },
 
     getBackgroundEvents: function () {
@@ -164,12 +168,12 @@ define(function (require) {
         var event = interview.toCalendarEvent();
         if ( currentInterview &&  !_.isEmpty(currentInterview) &&
              event.id === currentInterview.get('id')){
-
           event.editable= true;
           event.currentEvent = true;
           event.color = 'red';
-          event.start = currentInterview.get('start');
-          event.end = currentInterview.get('end');
+          // converts to the user timezone
+          event.start = moment(currentInterview.get('start'));
+          event.end = moment(currentInterview.get('end'));
         }
         events.push(event);
       },this);

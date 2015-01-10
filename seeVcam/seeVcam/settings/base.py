@@ -89,7 +89,8 @@ USE_L10N = True
 
 USE_TZ = True
 
-DATE_INPUT_FORMATS = ('%d-%m-%Y')
+#only iso 8601, accept only utc timezone
+DATE_INPUT_FORMATS = ['%Y-%m-%dT%H:%M:%S.%f%z', ]
 
 DASHBOARD_URL = '/dashboard/'
 LOGIN_URL = '/'
