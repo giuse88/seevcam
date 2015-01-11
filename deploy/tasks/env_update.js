@@ -14,8 +14,8 @@ module.exports = function (grunt) {
 		var done = this.async();
 		var requirements = grunt.config('shipit.options.requirements');
 		grunt.shipit.remote(
-				'workon seevcam '
-				+ '&& cd ' + grunt.config('shipit.options.current')
+				'whoami && cd ' + grunt.config('shipit.options.current')+' '
+				+ '&& workon seevcam '
 				+ '&& pip install -r requirements/' + requirements
 			, done);
 

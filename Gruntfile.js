@@ -56,7 +56,7 @@ module.exports = function(grunt) {
 
 			// Staging environment.
 			staging: {
-				servers: ['seevcam@ec2-54-154-138-99.eu-west-1.compute.amazonaws.com']
+				servers: ['seevcam@ec2-54-154-119-255.eu-west-1.compute.amazonaws.com']
 			}
 		}
   });
