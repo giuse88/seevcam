@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    {% if enviroment ==  "PRODUCTION" %}
+    {% if enviroment ==  "PRODUCTION" or environment == "STAGING" %}
         <link rel="stylesheet" href="/css/seevcam.css">
         <script type="text/javascript" src="/js/seevcam.min.js"></script>
     {% else %}

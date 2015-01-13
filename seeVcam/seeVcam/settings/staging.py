@@ -4,6 +4,8 @@ import yaml
 
 from django.core.exceptions import ImproperlyConfigured
 
+ENVIRONMENT = "STAGING"
+
 ALLOWED_HOSTS = [
     'ec2-54-154-119-255.eu-west-1.compute.amazonaws.com',
 ]

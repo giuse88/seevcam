@@ -5,6 +5,8 @@ import json
 from django.core.exceptions import ImproperlyConfigured
 
 
+ENVIRONMENT = "PRODUCTION"
+
 with open("secrets.json") as f:
     secrets = json.loads(f.read())
 
