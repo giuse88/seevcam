@@ -37,7 +37,7 @@ define(function (require) {
       console.log("Router");
       ensureQuestionsHaveCorrespondingAnswer();
       window.router = new Router();
-      Backbone.history.start();
+      Backbone.history.start({pushState: true, root : "/" });
     })
     .fail(function (resp) {
       $('.main-content').html('<h1>Cannot initiate session because server responded with ' + resp.status + '</h1>')

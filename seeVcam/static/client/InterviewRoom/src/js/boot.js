@@ -29,6 +29,7 @@ require.config({
 
     'backbone.bootstrap-modal': "client/misc/backbone.bootstrap-modal"
   },
+
   shim: {
     "bootstrap" : {
       deps: ["jquery"]

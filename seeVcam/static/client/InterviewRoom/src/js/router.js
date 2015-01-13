@@ -8,11 +8,11 @@ define(function (require) {
 
   return Backbone.Router.extend({
     routes: {
-      'interview/questions(/:questionId)': 'questions',
+      'interview/questions(/)(:questionId)': 'questions',
       'interview/jobSpec': 'jobSpec',
       'interview/cv': 'cv',
-      'interview': 'interview',
-      'review': 'review'
+      'interview(/)': 'interview',
+      'review(/)': 'review'
     },
 
     initialize: function () {
@@ -22,7 +22,6 @@ define(function (require) {
 
     interview: function () {
      console.log("interview");
-
     },
 
     questions: function (questionId) {
