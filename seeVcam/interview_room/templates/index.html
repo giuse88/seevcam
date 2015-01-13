@@ -9,24 +9,25 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     {% if enviroment ==  "PRODUCTION" %}
         {# include compiled css #}
     {% else %}
-        <link rel="stylesheet/less" type="text/css" href="{% static "client/interview_room/main.less" %}" />
+        <link rel="stylesheet/less" type="text/css" href="{% static "client/interviewRoom/src/less/style.less" %}" />
         <script type="text/javascript" src="{% static "bower_components/less/dist/less-1.7.5.min.js" %}"></script>
+        <script type="text/javascript" data-main="{% static "" %}"  src="{% static "bower_components/requirejs/require.js" %}"></script>
+        <script type="text/javascript" src="{% static "client/interviewRoom/src/js/boot.js" %}"></script>
     {% endif %}
-
-    <script src="//static.opentok.com/webrtc/v2.2/js/opentok.min.js" ></script>
-    <script type="text/javascript" data-main="{% static "" %}"  src="{% static "bower_components/requirejs/require.js" %}"></script>
-    <script type="text/javascript" src="{% static "client/interview_room/boot.js" %}"></script>
 
 
     <script type="application/javascript">
         var CONSTANTS = (function () {
             return {
-                csrft_token: "{{ csrf_token }}"
+               csrft_token: "{{ csrf_token }}",
+               apiKey     : "{{ api_key }}",
+               sessionId  : "{{ session_id }}",
+               token      : "{{ token }}"
             }
         }());
     </script>

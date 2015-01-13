@@ -1,14 +1,15 @@
 require.config({
 
-  baseUrl: '/static/bower_components/',
+  baseUrl: '/static/',
   paths: {
     // App.js
-    app : "../client/interview_room/app",
+    app             : "client/interview_room/app",
+    "modules"       : "client/interview_room/modules",
     // lib
-    jquery : "jquery/dist/jquery",
-    underscore : "",
-    backbone : ""
-    // dashboard
+    "jquery"        : "bower_components/jquery/dist/jquery",
+    "backbone"      : "bower_components/backbone/backbone",
+    "underscore"    : "bower_components/underscore/underscore",
+    "opentok"       : "client/vendor/opentok.min"
   },
   shim: {
     "backbone": {

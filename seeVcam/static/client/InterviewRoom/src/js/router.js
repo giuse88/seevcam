@@ -1,6 +1,6 @@
 define(function (require) {
+
   var Backbone = require('backbone');
-  var _ = require('underscore');
   var QuestionsPage = require('views/interview/questionsPage');
   var DocumentPage = require('views/interview/documentPage');
   var ReviewPage = require('views/review/reviewPage');

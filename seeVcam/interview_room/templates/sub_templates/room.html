@@ -1,43 +1,16 @@
-<script type="text/javascript">
-    var apiKey    = "{{ api_key }}";
-    var sessionId = "{{ session_id }}";
-    var token     = "{{ token }}";
-    var test      = "{{ test }}";
-    var session = OT.initSession(apiKey, sessionId);
 
-
-    session.connect(token, function(error) {
-
-        if(error) {
-            console.log("Failed connection to session :" + error );
-            console.error(error);
-        }
-
-        var publisher = OT.initPublisher();
-        session.publish(publisher);
-        console.log("connected");
-
-    });
-
-    session.on("connectionCreated", function(event) {
-        console.log("Other user connected", event);
-        console.log(event.target.token);
-    });
-
-    session.on("connectionDestroyed", function(event) {
-        console.log("Other user disconnected", event);
-        console.log(event.target.token);
-    });
-
-    session.on("streamDestroyed", function(event) {
-        console.log(event);
-        event.preventDefault();
-        console.log("Publisher stopped streaming.");
-    });
-    session.on("streamCreated", function(event) {
-        console.log("stream created");
-        console.log(event);
-        session.subscribe(event.stream);
-    });
+<script type="application/javascript">
+    // TO BE REMOVED
+    var startDate = new Date();
+    startDate.setSeconds(startDate.getSeconds() - 30);
+    var endDate = new Date();
+    endDate.setSeconds(endDate.getSeconds() + 30);
+    window.cache = {
+        interview : { "id": 4, "start": startDate.toISOString(), "end": endDate.toISOString(), "status": "OPEN", "job_position": 2, "candidate": { "id": 4, "name": "f", "email": "ff@gg.com", "surname": "f", "cv": 75 }, "catalogue": 1, "job_position_name": "job_position" },
+        questions : [ { "id": 1, "question_text": "question_1", "question_catalogue": 1 }, { "id": 3, "question_text": "question 2", "question_catalogue": 1 }, { "id": 5, "question_text": "testfgfdg", "question_catalogue": 1 }, { "id": 6, "question_text": "test", "question_catalogue": 1 }, { "id": 7, "question_text": "testdfdsf", "question_catalogue": 1 } ],
+        jobPosition: { id:1, position : "job_position", job_specification : 2},
+        overallRatings: [ {id: 1, question: "Are you sure?", rating: 0}, {id: 2, question: "Really", rating: 1}, {id: 3, question: "test?", rating: 2}, {id: 4, question: "asdf?", rating: 3}, {id: 5, question: "qwer?", rating: 4} ]
+    }
 </script>
 
+<body class="main-content container-fluid"></body>

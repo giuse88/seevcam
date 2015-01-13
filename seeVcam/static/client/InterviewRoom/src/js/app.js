@@ -1,6 +1,7 @@
 define(function (require) {
+
   var moment = require('moment');
-  var Router = require('./router');
+  var Router = require('client/InterviewRoom/src/js/router');
   var Backbone = require('backbone');
   var Interview = require('models/interview');
   var JobPosition = require('models/jobPosition');
