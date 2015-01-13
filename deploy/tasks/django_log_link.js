@@ -1,16 +1,24 @@
 var async = require('async');
 
 /**
- * Django symlink to the shared log folder.
- * - Django symlink to the shared log folder
+ * Django log and tmp symlinks to shared folder.
+ * - Django log and tmp symlinks to shared folder
  */
 
 module.exports = function (grunt) {
-	grunt.registerTask('django_log_link', 'Django symlink to the shared log folder', function () {
+	grunt.registerTask('django_log_link', 'log and tmp symlinks to shared folder', function () {
 		var done = this.async();
 		grunt.shipit.remote(
 				'cd ' + grunt.config('shipit.options.current')+'/seeVcam '
 				+ '&& ln -s '+grunt.config('shipit.options.deployTo')+'/shared/log log '
+			, done);
+		grunt.shipit.remote(
+				'cd ' + grunt.config('shipit.options.current')+' '
+				+ '&& ln -s '+grunt.config('shipit.options.deployTo')+'/shared/log log '
+			, done);
+		grunt.shipit.remote(
+				'cd ' + grunt.config('shipit.options.current')+' '
+				+ '&& ln -s '+grunt.config('shipit.options.deployTo')+'/shared/tmp tmp '
 			, done);
 	});
 };
