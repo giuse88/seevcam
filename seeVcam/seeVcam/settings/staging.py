@@ -5,7 +5,7 @@ import yaml
 from django.core.exceptions import ImproperlyConfigured
 
 ALLOWED_HOSTS = [
-    'ec2-54-154-138-99.eu-west-1.compute.amazonaws.com',
+    'ec2-54-154-119-255.eu-west-1.compute.amazonaws.com',
 ]
 
 with open("../../../shared/secrets.yml", "r") as f:
