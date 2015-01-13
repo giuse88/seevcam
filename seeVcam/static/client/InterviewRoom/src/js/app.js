@@ -34,8 +34,9 @@ define(function (require) {
     session.get('notes').fetch()
     )
     .done(function () {
+      console.log("Router");
       ensureQuestionsHaveCorrespondingAnswer();
-      new Router();
+      window.router = new Router();
       Backbone.history.start();
     })
     .fail(function (resp) {

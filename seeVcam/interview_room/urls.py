@@ -6,6 +6,9 @@ urlpatterns = patterns('',
                        url(r'^$', InterviewRoomViewExperiment.as_view(),
                            name='interview_room'),
 
+                       url(r'questions/?$', InterviewRoomViewExperiment.as_view(),
+                           name='interview_room'),
+
                        url(r'1/(?P<interview_id>[0-9]+)/(?P<token>\w+)/?$',
                            IntervieweeView.as_view(),
                            name='interviewee_view'),

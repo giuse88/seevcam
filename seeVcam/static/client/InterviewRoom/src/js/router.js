@@ -17,13 +17,16 @@ define(function (require) {
 
     initialize: function () {
       this.$container = $('.main-content');
+      console.log("Router initialized");
     },
 
     interview: function () {
-      this.navigate('interview/questions', {trigger: true});
+     console.log("interview");
+
     },
 
     questions: function (questionId) {
+      console.log("questions");
       var session = require('services/session');
       questionId = parseInt(questionId) || session.get('questions').first().get('id');
 
