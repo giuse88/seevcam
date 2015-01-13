@@ -5,6 +5,7 @@ from rest_framework.test import APITestCase, APIClient
 from django.conf import settings
 
 from authentication.models import SeevcamUser
+from common.helpers.test_helper import create_user
 from questions.models import QuestionCatalogue, Question
 
 
@@ -106,8 +107,8 @@ class QuestionCatalogueViewTests(APITestCase):
     #                          PRIVATE                          #
     #############################################################
 
-    def _create_dummy_user(self, username, password):
-        user = SeevcamUser.objects.create_user(username, password=password)
+    def _create_dummy_user(self, username):
+        user = create_user(self.company, username, 'test')
         user.save()
         return user
 
