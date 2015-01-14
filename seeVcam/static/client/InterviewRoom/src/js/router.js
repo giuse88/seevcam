@@ -4,6 +4,7 @@ define(function (require) {
   var QuestionsPage = require('views/interview/questionsPage');
   var DocumentPage = require('views/interview/documentPage');
   var ReviewPage = require('views/review/reviewPage');
+  var PresencePage = require('views/presence/presencePage');
   var File = require('models/file');
 
   return Backbone.Router.extend({
@@ -21,7 +22,9 @@ define(function (require) {
     },
 
     interview: function () {
-     console.log("interview");
+      console.log("interview");
+      var session = require('services/session');
+      this.renderPage(new PresencePage({model: session}));
     },
 
     questions: function (questionId) {
