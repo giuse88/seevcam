@@ -1,5 +1,6 @@
 define(function (require) {
   var BaseView = require('baseView');
+  var InterviewInfoBar = require('views/presence/interviewInfoBar');
 
   return BaseView.extend({
     template: require('text!templates/presence/presence-page.html'),
@@ -9,7 +10,7 @@ define(function (require) {
     },
 
     setUp: function () {
-
+      this.attachSubView('.interview-info-bar', new InterviewInfoBar({model : this.model}));
     }
   });
 });
