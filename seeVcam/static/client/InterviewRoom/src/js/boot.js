@@ -26,6 +26,7 @@ require.config({
     services:     "client/InterviewRoom/src/js/services",
     behaviors:    "client/InterviewRoom/src/js/behaviors",
     templates:    "client/InterviewRoom/src/js/templates",
+    opentok:      "client/vendor/opentok.min",
 
     'backbone.bootstrap-modal': "client/misc/backbone.bootstrap-modal"
   },

@@ -11,6 +11,7 @@ define(function (require) {
   var Answers = require('collections/answers');
   var Notes = require('models/notes');
   var OverallRatings = require('collections/overallRatings');
+  var VideoSession = require('models/seevcamSession');
 
   var session = require('services/session');
 
@@ -23,6 +24,11 @@ define(function (require) {
   session.set('events', new Events([], {interviewId: interviewId}));
   session.set('notes', new Notes({}, {interviewId: interviewId}));
   session.set('overallRatings', new OverallRatings(window.cache.overallRatings, {interviewId: interviewId}));
+  session.set('videoSession', new VideoSession({
+    token : window.CONSTANTS.token,
+    apiKey : window.CONSTANTS.apiKey,
+    sessionId : window.CONSTANTS.sessionId
+  }));
 
   require('services/mocks'); // TODO: Remove mocks
 

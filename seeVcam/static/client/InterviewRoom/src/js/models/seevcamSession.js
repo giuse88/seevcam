@@ -18,10 +18,12 @@ define(function (require) {
 
       this.set('apiKey', options.apiKey);
       this.set('sessionId', options.sessionId);
+      this.set('token', options.token);
+
+      console.log("Created session with the following options", options);
 
       var session = OT.initSession(options.apiKey, options.sessionId);
       this.session = session;
-      this.set('session', session);
 
       session.on('sessionConnected', this.sessionConnected, this)
              .on('sessionDisconnected', this.sessionDisconnected, this)
@@ -33,6 +35,11 @@ define(function (require) {
 
     sessionConnected: function() {
       console.log('Seevcam: sessionConnected');
+    },
+
+    connect : function () {
+      console.log("connecting");
+      this.session.connect(this.get("token"));
     },
 
     sessionDisconnected: function() {
