@@ -35,6 +35,10 @@ define(function (require) {
 
     sessionConnected: function() {
       console.log('Seevcam: sessionConnected');
+       // This example assumes that a DOM element with the ID 'publisherElement' exists
+      this.publisherProperties = {width: 640, height:480};
+      this.publisher = OT.initPublisher('video-container', this.publisherProperties);
+      this.session.publish(this.publisher);
     },
 
     connect : function () {
