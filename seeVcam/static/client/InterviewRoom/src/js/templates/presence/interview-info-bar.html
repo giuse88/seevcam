@@ -5,7 +5,7 @@
     </span>
     <span class="left-border">
         Arrived
-        <% if (model.get('remoteState') === "CONNECTED")  { %>
+        <% if (model.get('remoteState') === "CONNECTED" || model.get('remoteState') === "READY")  { %>
             <span class="glyphicon glyphicon-ok-circle"></span>
         <% } else  { %>
             <span class="glyphicon glyphicon-remove-circle"></span>

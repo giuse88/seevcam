@@ -5,6 +5,7 @@ define(function (require) {
 
   var states = {
     CONNECTED  : "CONNECTED",
+    BLOCKED    : "BLOCKED",
     READY      : "READY",
     OFFLINE    : "OFFLINE",
     UNKNOWN    : "UNKNOWN"
@@ -37,13 +38,16 @@ define(function (require) {
              .on('sessionDisconnected', this.sessionDisconnected, this)
              .on('connectionCreated', this.connectionCreated, this)
              .on('connectionDestroyed', this.connectionDestroyed, this)
-             .on("signal:statusUpdate", this.statusUpdate, this);
+             .on("signal:statusUpdate", this.remoteStateUpdate, this);
 
       this.connect()
+
     },
 
-    statusUpdate : function (event){
-
+    remoteStateUpdate : function (event){
+      console.log("Updated status");
+      var data = event.data;
+      this.set('remoteState', data.state);
     },
 
     sessionConnected: function() {
@@ -52,6 +56,11 @@ define(function (require) {
       this.set('localState', states.CONNECTED);
       this.publisherProperties = {width: 640, height:480};
       this.publisher = OT.initPublisher('video-container', this.publisherProperties);
+
+      this.publisher
+        .on("accessAllowed", this.accessToMediaGranted, this)
+        .on("accessDenied", this.accessToMediaDenied, this);
+
       this.session.publish(this.publisher);
     },
 
@@ -63,6 +72,7 @@ define(function (require) {
     sessionDisconnected: function() {
       console.log('Seevcam: sessionDisconnected');
       this.session.off();
+      this.publisher.off();
       this.session = null;
       this.remoteConnection = null;
       this.localConnection = null;
@@ -70,12 +80,11 @@ define(function (require) {
 
     connectionCreated: function(event) {
       console.log('Seevcam: connectionCreated');
-      console.log(event);
       if (event.connection.connectionId !== this.session.connection.connectionId) {
         console.log('seevcam: remote user has connected to chat');
         this.remoteConnection = event.connection;
         this.set('remoteState', states.CONNECTED);
-        // TODO send ready signal
+        this.propagateLocalState();
       } else {
         console.log('seevcam: local user has connected to chat');
         this.localConnection = event.connection;
@@ -97,13 +106,31 @@ define(function (require) {
       }
     },
 
-    // function called when the local peeer is ready
-    localReady : function () {
-
+    propagateLocalState : function () {
+      this.sendSignal({state: this.get('localState') }, "statusUpdate")
     },
 
-    sendReadySignal : function () {
+    accessToMediaGranted : function (event) {
+      console.log("Access to media granted");
+      this.set('localState', states.READY);
+      this.propagateLocalState();
+    },
 
+    accessToMediaDenied: function (event) {
+      console.log("Access to media denied");
+      this.set('localState', states.BLOCKED);
+      this.propagateLocalState();
+    },
+
+    sendSignal: function(data, type) {
+      this.session.signal({ to: this.remoteConnection, data:data, type:type },
+        function (error) {
+          if (error) {
+            console.log("signal error (" + error.code + "): " + error.reason); }
+          else {
+            console.log("signal sent.");
+          }
+      });
     }
 
   });
