@@ -10,7 +10,7 @@ define(function (require) {
     },
 
     setUp: function () {
-      this.attachSubView('.interview-info-bar', new InterviewInfoBar({model : this.model}));
+      this.attachSubView('.interview-info-bar', new InterviewInfoBar({model : this.model.get("videoSession")}));
     }
   });
 });

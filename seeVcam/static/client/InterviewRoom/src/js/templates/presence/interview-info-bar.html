@@ -5,10 +5,18 @@
     </span>
     <span class="left-border">
         Arrived
-        <span class="glyphicon glyphicon-ok-circle status-icon"></span>
+        <% if (model.get('remoteState') === "CONNECTED")  { %>
+            <span class="glyphicon glyphicon-ok-circle"></span>
+        <% } else  { %>
+            <span class="glyphicon glyphicon-remove-circle"></span>
+        <% } %>
     </span>
     <span class="left-border right-border">
         Ready
-        <span class="glyphicon glyphicon-ok-circle status-icon"></span>
+        <% if (model.get('remoteState') === "READY")  { %>
+            <span class="glyphicon glyphicon-ok-circle"></span>
+        <% } else  { %>
+            <span class="glyphicon glyphicon-remove-circle"></span>
+        <% } %>
     </span>
 </div>

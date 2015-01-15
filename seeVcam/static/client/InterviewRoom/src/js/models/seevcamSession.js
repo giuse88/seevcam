@@ -3,6 +3,13 @@ define(function (require) {
   var Backbone = require("backbone");
   var OT = require("opentok");
 
+  var states = {
+    CONNECTED  : "CONNECTED",
+    READY      : "READY",
+    OFFLINE    : "OFFLINE",
+    UNKNOWN    : "UNKNOWN"
+  }
+
   return Backbone.Model.extend({
 
     defaults : {
@@ -10,8 +17,8 @@ define(function (require) {
       sessionId : null,
       remoteConnection : null,
       localConnection : null,
-      localStatus : null,
-      remoteStatus : null
+      localState : states.OFFLINE,
+      remoteState : states.UNKNOWN
     },
 
     initialize : function (options) {
@@ -23,19 +30,26 @@ define(function (require) {
       console.log("Created session with the following options", options);
 
       var session = OT.initSession(options.apiKey, options.sessionId);
+
       this.session = session;
 
       session.on('sessionConnected', this.sessionConnected, this)
              .on('sessionDisconnected', this.sessionDisconnected, this)
              .on('connectionCreated', this.connectionCreated, this)
-             .on('connectionDestroyed', this.connectionDestroyed, this);
+             .on('connectionDestroyed', this.connectionDestroyed, this)
+             .on("signal:statusUpdate", this.statusUpdate, this);
 
       this.connect()
     },
 
+    statusUpdate : function (event){
+
+    },
+
     sessionConnected: function() {
       console.log('Seevcam: sessionConnected');
-       // This example assumes that a DOM element with the ID 'publisherElement' exists
+      // add local video to the page
+      this.set('localState', states.CONNECTED);
       this.publisherProperties = {width: 640, height:480};
       this.publisher = OT.initPublisher('video-container', this.publisherProperties);
       this.session.publish(this.publisher);
@@ -56,11 +70,14 @@ define(function (require) {
 
     connectionCreated: function(event) {
       console.log('Seevcam: connectionCreated');
+      console.log(event);
       if (event.connection.connectionId !== this.session.connection.connectionId) {
         console.log('seevcam: remote user has connected to chat');
         this.remoteConnection = event.connection;
+        this.set('remoteState', states.CONNECTED);
+        // TODO send ready signal
       } else {
-        console.log('seevcam: remote user has connected to chat');
+        console.log('seevcam: local user has connected to chat');
         this.localConnection = event.connection;
       }
     },
@@ -74,10 +91,19 @@ define(function (require) {
       console.log('Chat: connectionDestroyed');
       if (event.connection.connectionId === this.remoteConnection.connectionId) {
         console.log('Chat: remote user has left the chat, ending');
-        this.end();
+        this.set('remoteState', states.OFFLINE)
       } else {
         console.log('Chat: connectionDestroyed but was not equal to remote user connection');
       }
+    },
+
+    // function called when the local peeer is ready
+    localReady : function () {
+
+    },
+
+    sendReadySignal : function () {
+
     }
 
   });
