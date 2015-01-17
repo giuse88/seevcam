@@ -4,9 +4,12 @@
         <div class="local-video-area">
             <div id="video-container" class="video-container"></div>
         </div>
+        <% if ( model.get("role") === "interviewee" ) { %>
+        <div class="accept-info">
+            <button type="radio"> Accept </button> <a> link to the agreement</a>
+        </div>
+        <% } %>
     </div>
     <div class="clearfix"></div>
-    <a href="#" class="conclude-control col-xs-12 disable">
-        <span>Start interview</span>
-    </a>
+    <div class="interview-start-container"></div>
 </div>

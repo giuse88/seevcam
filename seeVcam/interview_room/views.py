@@ -23,6 +23,7 @@ class InterviewRoomViewExperiment(LoginRequired, TemplateView):
         context['is_interview_open'] = True
         context['api_key'] = settings.OPENTOK_API_KEY
         context['session_id'] = "1_MX40NTExOTk3Mn5-MTQyMDI3NzYxMzI1NH5zek80L1owVkRadGVRMS9peUZQR2dKa0l-UH4"
+        context['role'] = "interviewer"
         context['token'] = opentok.generate_token(session_id=context['session_id'],
                                                   data="test=" + str(InterviewRoomViewExperiment.test),
                                                   role=Roles.publisher)
@@ -34,7 +35,7 @@ class InterviewRoomView(DetailView):
     interview = None
 
     def get_role(self):
-        return "unknown"
+        return "interviewer"
 
     def get_object(self, queryset=None):
         if self.interview is None:
@@ -72,6 +73,7 @@ class IntervieweeView(TokenVerification, InterviewRoomView):
 
 
 class InterviewerView(LoginRequired, IsOwnerOr404, InterviewRoomView):
+
     def get_role(self):
         return "interviewer"
 

@@ -8,6 +8,7 @@ define(function (require) {
     BLOCKED    : "BLOCKED",
     READY      : "READY",
     OFFLINE    : "OFFLINE",
+    NOT_READY  : "NOT_READY",
     UNKNOWN    : "UNKNOWN"
   }
 
@@ -19,7 +20,9 @@ define(function (require) {
       remoteConnection : null,
       localConnection : null,
       localState : states.OFFLINE,
-      remoteState : states.UNKNOWN
+      remoteState : states.UNKNOWN,
+      interviewState : states.NOT_READY,
+      role : "unknown"
     },
 
     initialize : function (options) {
@@ -27,6 +30,7 @@ define(function (require) {
       this.set('apiKey', options.apiKey);
       this.set('sessionId', options.sessionId);
       this.set('token', options.token);
+      this.set('role', options.role);
 
       console.log("Created session with the following options", options);
 
@@ -39,6 +43,9 @@ define(function (require) {
              .on('connectionCreated', this.connectionCreated, this)
              .on('connectionDestroyed', this.connectionDestroyed, this)
              .on("signal:statusUpdate", this.remoteStateUpdate, this);
+
+      this.listenTo(this, 'change:localState', this.updateInterviewState, this);
+      this.listenTo(this, 'change:remoteState', this.updateInterviewState, this);
 
       this.connect()
 
@@ -83,7 +90,6 @@ define(function (require) {
       if (event.connection.connectionId !== this.session.connection.connectionId) {
         console.log('seevcam: remote user has connected to chat');
         this.remoteConnection = event.connection;
-        this.set('remoteState', states.CONNECTED);
         this.propagateLocalState();
       } else {
         console.log('seevcam: local user has connected to chat');
@@ -104,6 +110,15 @@ define(function (require) {
       } else {
         console.log('Chat: connectionDestroyed but was not equal to remote user connection');
       }
+    },
+
+    updateInterviewState : function () {
+     console.log("Updating interview state");
+     if ( this.get("localState") === states.READY && this.get("remoteState") === states.READY)  {
+       this.set("interviewState", states.READY);
+     } else {
+       this.set("interviewState", states.NOT_READY);
+     }
     },
 
     propagateLocalState : function () {

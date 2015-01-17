@@ -24,14 +24,15 @@ define(function (require) {
   session.set('events', new Events([], {interviewId: interviewId}));
   session.set('notes', new Notes({}, {interviewId: interviewId}));
   session.set('overallRatings', new OverallRatings(window.cache.overallRatings, {interviewId: interviewId}));
-  session.set('videoSession', new VideoSession({
-    token : window.CONSTANTS.token,
-    apiKey : window.CONSTANTS.apiKey,
-    sessionId : window.CONSTANTS.sessionId
-  }));
+  session.set('role', window.CONSTANTS.role);
+  session.set('videoSession', new VideoSession({ token : window.CONSTANTS.token,
+                                                 apiKey : window.CONSTANTS.apiKey,
+                                                 sessionId : window.CONSTANTS.sessionId
+                                              }));
 
   require('services/mocks'); // TODO: Remove mocks
 
+  console.log("Role : " + session.get("role"));
   var $ = require('jquery');
 
   $.when(

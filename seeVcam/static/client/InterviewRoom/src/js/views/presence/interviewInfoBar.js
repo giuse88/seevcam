@@ -8,7 +8,6 @@ define(function (require) {
     template  : require('text!templates/presence/interview-info-bar.html'),
 
     setUp: function () {
-      console.log(this.model);
       this.listenTo(this.model, 'change', this.render, this);
     }
 
