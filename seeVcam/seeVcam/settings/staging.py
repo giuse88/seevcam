@@ -21,7 +21,9 @@ def get_secret(setting, secrets=secrets):
         error_msg = "Set the {0} environment variable".format(setting)
         raise ImproperlyConfigured(error_msg)
 
+
 STATIC_ROOT = get_secret("STATIC_ROOT")
+STATIC_URL = get_secret("STATIC_URL")
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = get_secret("SECRET_KEY")
