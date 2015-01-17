@@ -24,6 +24,7 @@ def get_secret(setting, secrets=secrets):
 
 STATIC_ROOT = get_secret("STATIC_ROOT")
 STATIC_URL = get_secret("STATIC_URL")
+STATICFILES_DIRS = get_secret("STATICFILES_DIRS")
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = get_secret("SECRET_KEY")
