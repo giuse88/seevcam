@@ -8,5 +8,5 @@ def login_or_redirect(request, **kwargs):
     if request.user.is_authenticated():
         return redirect(settings.LOGIN_REDIRECT_URL)
     else:
-        return login(request, **kwargs)
+        return login(request, extra_context={"environment": settings.ENVIRONMENT}, **kwargs)
 
