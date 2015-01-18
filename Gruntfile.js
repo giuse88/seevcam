@@ -69,6 +69,9 @@ module.exports = function(grunt) {
 
 //	Task registration
 	grunt.shipit.on('published', function () {
-		grunt.task.run(['npm_install', 'bower_install', 'minify', 'env_update', 'django_log_link', 'django_migrate', 'django_collectstatic']);
+		grunt.task.run([
+			'npm_install', 'bower_install', 'minify', 'env_update',
+			'django_log_link', 'django_migrate','django_collectstatic',
+			'gunicorn_reload']);
 	});
 };
