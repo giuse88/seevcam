@@ -72,6 +72,6 @@ module.exports = function(grunt) {
 		grunt.task.run([
 			'npm_install', 'bower_install', 'minify', 'env_update',
 			'django_log_link', 'django_migrate','django_collectstatic',
-			'gunicorn_reload']);
+			'gunicorn_reload','nginx_reload']);
 	});
 };
