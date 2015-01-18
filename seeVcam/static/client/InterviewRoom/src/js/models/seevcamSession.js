@@ -93,7 +93,7 @@ define(function (require) {
      *   subscribe to a remote stream video in the session
      */
 
-    subsribe : function (domElementId, conf) {
+    subscribe : function (domElementId, conf) {
       var publisherProperty = conf || this.get("subscriberProperties");
       console.log("Subscribing to a remote stream : ", conf);
       this.subsriber = this.session.subscribe(this.remoteStream, domElementId, publisherProperty);
