@@ -7,7 +7,8 @@ from django.core.exceptions import ImproperlyConfigured
 ENVIRONMENT = "STAGING"
 
 ALLOWED_HOSTS = [
-    'ec2-54-154-119-255.eu-west-1.compute.amazonaws.com',
+    'ec2-54-154-88-46.eu-west-1.compute.amazonaws.com',
+    'staging.seevcam.com'
 ]
 
 with open("../../../shared/secrets.yml", "r") as f:
