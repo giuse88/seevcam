@@ -22,7 +22,9 @@ define(function (require) {
       localState : states.OFFLINE,
       remoteState : states.UNKNOWN,
       interviewState : states.NOT_READY,
-      role : "unknown"
+      remoteStream : null,
+      role : "unknown",
+      publisherProperties : {width: 1280, height:720}
     },
 
     initialize : function (options) {
@@ -42,6 +44,7 @@ define(function (require) {
              .on('sessionDisconnected', this.sessionDisconnected, this)
              .on('connectionCreated', this.connectionCreated, this)
              .on('connectionDestroyed', this.connectionDestroyed, this)
+             .on("streamCreated",this.streamCreated, this)
              .on("signal:statusUpdate", this.remoteStateUpdate, this);
 
       this.listenTo(this, 'change:localState', this.updateInterviewState, this);
@@ -51,24 +54,90 @@ define(function (require) {
 
     },
 
+    /* Public interface */
+
+    /**
+      initPublisher :
+         domElementId : video container
+         conf : publisher conf
+     */
+
+    initPublisher : function (domElementId, conf) {
+      var publisherProperty = conf || this.get("publisherProperties");
+      console.log("Init publisher with properties :  ", publisherProperty) ;
+      this.publisher =  OT.initPublisher(domElementId, publisherProperty);
+      this.set('publisher', this.publisher);
+      this.publisher
+        .on("accessAllowed", this.accessToMediaGranted, this)
+        .on("accessDenied", this.accessToMediaDenied, this)
+        .on("streamCreated", this.localStreamCreated, this);
+      console.log("Publisher created successfully.") ;
+      return this.publisher;
+    },
+
+    /**
+     * publish :
+     *   publish video in the session
+     */
+
+    publish : function () {
+      if (this.publisher) {
+        this.session.publish(this.publisher);
+      } else {
+        throw "Publisher not initialized."
+      }
+    },
+
+    /**
+     * subscribe  :
+     *   subscribe to a remote stream video in the session
+     */
+
+    subsribe : function (domElementId, conf) {
+      var publisherProperty = conf || this.get("subscriberProperties");
+      console.log("Subscribing to a remote stream : ", conf);
+      this.subsriber = this.session.subscribe(this.remoteStream, domElementId, publisherProperty);
+      return this.subsriber;
+    },
+
+    /**
+     * getPublisher :  return the publisher
+     */
+
+    getPublisher : function () {
+      return this.publisher;
+    },
+
+    /**
+     * getSubscriber :  return the subscriber object
+     */
+
+    getSubscriber :function () {
+      return this.subsriber;
+    },
+
+    /* Private methods */
     remoteStateUpdate : function (event){
       console.log("Updated status");
       var data = event.data;
       this.set('remoteState', data.state);
     },
 
+    streamCreated : function (event) {
+      this.set("remoteStream", event.stream);
+      this.remoteStream = event.stream;
+    },
+
+
     sessionConnected: function() {
       console.log('Seevcam: sessionConnected');
       // add local video to the page
       this.set('localState', states.CONNECTED);
-      this.publisherProperties = {width: 640, height:480};
-      this.publisher = OT.initPublisher('video-container', this.publisherProperties);
+    },
 
-      this.publisher
-        .on("accessAllowed", this.accessToMediaGranted, this)
-        .on("accessDenied", this.accessToMediaDenied, this);
-
-      this.session.publish(this.publisher);
+    localStreamCreated : function  (event) {
+      event.preventDefault();
+      console.log(event);
     },
 
     connect : function () {
@@ -137,12 +206,17 @@ define(function (require) {
       this.propagateLocalState();
     },
 
+    isInterviewReady : function ( ) {
+      return this.get("interviewState") === "READY";
+    },
+
     sendSignal: function(data, type) {
       this.session.signal({ to: this.remoteConnection, data:data, type:type },
         function (error) {
           if (error) {
-            console.log("signal error (" + error.code + "): " + error.reason); }
-          else {
+            console.log("signal error (" + error.code + "): " + error.reason);
+            console.log(data,type);
+          } else {
             console.log("signal sent.");
           }
       });

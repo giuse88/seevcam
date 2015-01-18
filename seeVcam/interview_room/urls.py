@@ -6,6 +6,9 @@ urlpatterns = patterns('',
                        url(r'^$', InterviewRoomViewExperiment.as_view(),
                            name='interview_room'),
 
+                       url(r'full-video/?$', InterviewRoomViewExperiment.as_view(),
+                           name='interview_room'),
+
                        url(r'questions/?$', InterviewRoomViewExperiment.as_view(),
                            name='interview_room'),
 

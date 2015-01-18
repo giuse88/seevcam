@@ -5,6 +5,7 @@ define(function (require) {
   var DocumentPage = require('views/interview/documentPage');
   var ReviewPage = require('views/review/reviewPage');
   var PresencePage = require('views/presence/presencePage');
+  var FullVideoPage = require("views/presence/fullVideoPage");
   var File = require('models/file');
 
   return Backbone.Router.extend({
@@ -13,6 +14,7 @@ define(function (require) {
       'interview/jobSpec': 'jobSpec',
       'interview/cv': 'cv',
       'interview(/)': 'interview',
+      'interview/full-video(/)': 'fullVideo',
       'review(/)': 'review'
     },
 
@@ -25,6 +27,12 @@ define(function (require) {
       console.log("interview");
       var session = require('services/session');
       this.renderPage(new PresencePage({model: session}));
+    },
+
+    fullVideo : function () {
+      console.log("full video");
+      var session = require('services/session');
+      this.renderPage(new FullVideoPage({model: session}));
     },
 
     questions: function (questionId) {
