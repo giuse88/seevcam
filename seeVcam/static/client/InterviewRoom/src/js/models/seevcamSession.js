@@ -93,10 +93,21 @@ define(function (require) {
      *   subscribe to a remote stream video in the session
      */
 
-    subscribe : function (domElementId, conf) {
+    subscribe : function (domElement, conf) {
       var publisherProperty = conf || this.get("subscriberProperties");
+      var stream = this.get("remoteStream");
+
+      if (!domElement) {
+        throw "Invalid dom element";
+      }
+
+      if (!stream) {
+        throw "Remote stream is not initialized";
+      }
+
       console.log("Subscribing to a remote stream : ", conf);
-      this.subsriber = this.session.subscribe(this.remoteStream, domElementId, publisherProperty);
+      this.subsriber = this.session.subscribe(stream, domElement, publisherProperty);
+
       return this.subsriber;
     },
 
@@ -106,6 +117,10 @@ define(function (require) {
 
     getPublisher : function () {
       return this.publisher;
+    },
+
+    hasRemoteStream : function (){
+     return !!this.remoteStream;
     },
 
     /**
@@ -124,9 +139,14 @@ define(function (require) {
     },
 
     streamCreated : function (event) {
-      this.set("remoteStream", event.stream);
+      console.log("Remote stream created");
       this.remoteStream = event.stream;
+      this.set("remoteStream", event.stream);
+      console.log(".........I'm receiving a stream.......");
+      console.log(this.remoteStream);
+      console.log("remote Stream");
     },
+
 
 
     sessionConnected: function() {
