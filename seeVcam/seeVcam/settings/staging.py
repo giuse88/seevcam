@@ -23,9 +23,12 @@ def get_secret(setting, secrets=secrets):
         raise ImproperlyConfigured(error_msg)
 
 
-STATIC_ROOT = get_secret("STATIC_ROOT")
-STATIC_URL = get_secret("STATIC_URL")
-STATICFILES_DIRS = get_secret("STATICFILES_DIRS")
+STATIC_ROOT = '/home/seevcam/app/seevcam/current/public/'
+STATIC_URL = '/'
+STATICFILES_DIRS = [
+    ('bootstrap/css', os.path.join(BASE_DIR, 'static/bower_components/bootstrap/dist/css/')),
+    ('client/login', os.path.join(BASE_DIR, 'static/client/login/css/'))
+]
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = get_secret("SECRET_KEY")
