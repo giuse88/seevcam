@@ -6,6 +6,10 @@ define(function (require) {
 
     template  : require('text!templates/presence/full-video-page.html'),
 
+     events : {
+      'click a'  : 'goToQuestion'
+    },
+
     initialize: function (options) {
 
       this.videoSession = this.model.get("videoSession");
@@ -19,13 +23,18 @@ define(function (require) {
     handleRemoteStream : function () {
       if ( this.videoSession.hasRemoteStream()) {
         this.videoSession.subscribe(this.$remoteContainer[0]);
-        this.$remoteContainer.find(".OT_video-container")
+        this.$remoteContainer
           .height(window.innerHeight)
           .width(window.innerWidth);
         console.log(".........I'm watching a remote stream.......");
       } else  {
         console.log("Not remote stream yet");
       }
+    },
+
+    goToQuestion : function (event) {
+      event.preventDefault();
+      window.router.navigate("interview/questions/", {trigger: true});
     },
 
     postRender : function () {

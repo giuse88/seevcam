@@ -10,7 +10,12 @@ define(function (require) {
     OFFLINE    : "OFFLINE",
     NOT_READY  : "NOT_READY",
     UNKNOWN    : "UNKNOWN"
-  }
+  };
+
+  var videoDimension = {
+      width: 1280,
+      height: 720
+  };
 
   return Backbone.Model.extend({
 
@@ -24,7 +29,8 @@ define(function (require) {
       interviewState : states.NOT_READY,
       remoteStream : null,
       role : "unknown",
-      publisherProperties : {width: 1280, height:720}
+      publisherProperties : videoDimension,
+      subscriberProperties : videoDimension
     },
 
     initialize : function (options) {
@@ -142,6 +148,7 @@ define(function (require) {
       console.log("Remote stream created");
       this.remoteStream = event.stream;
       this.set("remoteStream", event.stream);
+      console.log("remote dimension", this.remoteStream.videoDimensions);
       console.log(".........I'm receiving a stream.......");
       console.log(this.remoteStream);
       console.log("remote Stream");
