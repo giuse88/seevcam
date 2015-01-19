@@ -25,7 +25,7 @@ define(function (require) {
       this.refreshInterval = setInterval(_.bind(this.refreshRemainingTime, this), 1000);
       this.progressBarInterval = setInterval(_.bind(this.updateProgress, this), 1000);
       this.$localContainer = this.$el.find('.candidate-video');
-      this.$localContainer.html(this.publisher.element);
+      this.$localContainer.html(this.publisher && this.publisher.element);
       this.updateProgress();
     },
 

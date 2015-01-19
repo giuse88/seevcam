@@ -8,10 +8,14 @@ define(function (require) {
 
     attributes: function () {
       return {
-        href: QuestionPresenter.questionUrl(this.model),
+        href: 'javascript:void(0)',
         'data-question-id': this.model.id,
         'class': this.questionButtonClass(this.options.answer, this.options.isSelected)
       };
+    },
+
+    events: {
+      'click' : 'goToQuestion'
     },
 
     propagatedEvents: {
@@ -21,8 +25,11 @@ define(function (require) {
 
     initialize: function (options) {
       this.answer = options.answer;
-
       BaseView.prototype.initialize.apply(this, arguments);
+    },
+
+    goToQuestion : function () {
+      window.router.navigate(QuestionPresenter.questionUrl(this.model), {trigger:true});
     },
 
     setUp: function () {
