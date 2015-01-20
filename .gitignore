@@ -9,12 +9,10 @@ __pycache__/
 secrets.json
 atlassian-ide-plugin.xml
 seeVcam/log/
-seeVcam/media/
 migration/
 seeVcam/static/node_modules/*
 seeVcam/static/bower_components/*
 node_modules/*
-seeVcam/media
 node_modules/
 public/js/*.js
 public/js/*.map
