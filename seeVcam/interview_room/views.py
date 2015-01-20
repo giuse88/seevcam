@@ -8,9 +8,10 @@ from common.helpers.timezone import now_timezone
 from common.mixins.authorization import LoginRequired, IsOwnerOr404, TokenVerification
 from interviews.models import Interview
 
-
+# ================================== TO BE DELETED ==============================
 
 # for development purposes
+
 class InterviewRoomViewExperiment(LoginRequired, TemplateView):
     template_name = "index.html"
     test = False
@@ -29,6 +30,26 @@ class InterviewRoomViewExperiment(LoginRequired, TemplateView):
                                                   role=Roles.publisher)
         return context
 
+
+class InterviewRoomViewExperimentEE(LoginRequired, TemplateView):
+    template_name = "index.html"
+    test = False
+
+    def get_context_data(self, **kwargs):
+        InterviewRoomViewExperiment.test = not InterviewRoomViewExperiment.test
+        context = super(InterviewRoomViewExperimentEE, self).get_context_data(**kwargs)
+        opentok = OpenTok(settings.OPENTOK_API_KEY, settings.OPENTOK_SECRET)
+        context['test'] = self.test
+        context['is_interview_open'] = True
+        context['api_key'] = settings.OPENTOK_API_KEY
+        context['session_id'] = "1_MX40NTExOTk3Mn5-MTQyMDI3NzYxMzI1NH5zek80L1owVkRadGVRMS9peUZQR2dKa0l-UH4"
+        context['role'] = "interviewee"
+        context['token'] = opentok.generate_token(session_id=context['session_id'],
+                                                  data="test=" + str(InterviewRoomViewExperiment.test),
+                                                  role=Roles.publisher)
+        return context
+
+# ======================= END TO BE DELETED ========================
 
 class InterviewRoomView(DetailView):
     template_name = "index.html"

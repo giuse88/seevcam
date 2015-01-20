@@ -12,7 +12,7 @@ define(function (require) {
     },
 
     setUp: function () {
-      this.attachSubView('.interview-info-bar', new InterviewInfoBar({ model : this.videoSession }));
+      this.attachSubView('.interview-info-bar', new InterviewInfoBar({ model : this.model}));
       this.attachSubView('.interview-start-container', new StartInterview({ model : this.model }));
     },
 

@@ -13,7 +13,10 @@ define(function (require) {
       'interview/questions(/)(:questionId)': 'questions',
       'interview/jobSpec': 'jobSpec',
       'interview/cv': 'cv',
+
       'interview(/)': 'interview',
+      'interview/interviewee(/)': 'interview',
+
       'interview/full-video(/)': 'fullVideo',
       'review(/)': 'review'
     },

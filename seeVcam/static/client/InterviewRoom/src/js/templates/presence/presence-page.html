@@ -6,7 +6,11 @@
         </div>
         <% if ( model.get("role") === "interviewee" ) { %>
         <div class="accept-info">
-            <button type="radio"> Accept </button> <a> link to the agreement</a>
+             The interview cannot start until you accept the following agreement.
+             <a> Agreement</a>
+             <div>
+                <input type="checkbox"> Accept </input>
+             </div>
         </div>
         <% } %>
     </div>

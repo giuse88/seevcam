@@ -1,10 +1,14 @@
 from django.conf.urls import patterns, url
-from interview_room.views import InterviewerView, InterviewRoomViewExperiment, IntervieweeView
+from interview_room.views import InterviewerView, InterviewRoomViewExperiment, IntervieweeView, \
+    InterviewRoomViewExperimentEE
 
 urlpatterns = patterns('',
                        # TO be removed
                        url(r'^$', InterviewRoomViewExperiment.as_view(),
-                           name='interview_room'),
+                           name='interview_room_experiment_ER'),
+
+                       url(r'interviewee/?$', InterviewRoomViewExperimentEE.as_view(),
+                           name='interview_room_experiment_EE'),
 
                        url(r'full-video/?$', InterviewRoomViewExperiment.as_view(),
                            name='interview_room'),
