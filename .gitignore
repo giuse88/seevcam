@@ -8,18 +8,22 @@ __pycache__/
 # secrets.json
 secrets.json
 atlassian-ide-plugin.xml
+.idea
+
 seeVcam/log/
-migration/
+seeVcam/media
 seeVcam/static/node_modules/*
 seeVcam/static/bower_components/*
 node_modules/*
 node_modules/
+
+# public folder for collectstatic
 public/js/*.js
 public/js/*.map
 public/css/*.css
 public/css/*.map
-atlassian-ide-plugin.xml
-.idea
+
+migration/
+
 bower_components
-node_modules
 src/css/*
