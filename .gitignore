@@ -11,7 +11,6 @@ atlassian-ide-plugin.xml
 .idea
 
 seeVcam/log/
-seeVcam/media
 seeVcam/static/node_modules/*
 seeVcam/static/bower_components/*
 node_modules/*
