@@ -27,6 +27,7 @@ define(function (require) {
       e.preventDefault();
       if (this.videoSession.isInterviewReady()) {
         console.log("go to interview video ready");
+        this.videoSession.startInterview();
         window.router.navigate("interview/full-video/", {trigger: true});
       } else {
         console.log("Interview is not ready");

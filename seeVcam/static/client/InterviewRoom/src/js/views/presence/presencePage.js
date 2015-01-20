@@ -7,6 +7,10 @@ define(function (require) {
   return BaseView.extend({
     template: require('text!templates/presence/presence-page.html'),
 
+    events :  {
+       'click [type="checkbox"]': 'acceptAgreement'
+    },
+
     initialize: function (options) {
       this.videoSession = this.model.get("videoSession");
     },
@@ -16,9 +20,15 @@ define(function (require) {
       this.attachSubView('.interview-start-container', new StartInterview({ model : this.model }));
     },
 
+    acceptAgreement : function () {
+      this.videoSession.set("accepted", true);
+      this.$accept.remove();
+    },
+
     postRender : function () {
       // Getting access to local video
       this.$localVideoContainer = this.$el.find(".video-container");
+      this.$accept = this.$el.find(".accept-info");
       this.videoSession.initPublisher(this.$localVideoContainer[0]);
     }
 

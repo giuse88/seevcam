@@ -27,7 +27,8 @@ define(function (require) {
   session.set('role', window.CONSTANTS.role);
   session.set('videoSession', new VideoSession({ token : window.CONSTANTS.token,
                                                  apiKey : window.CONSTANTS.apiKey,
-                                                 sessionId : window.CONSTANTS.sessionId
+                                                 sessionId : window.CONSTANTS.sessionId,
+                                                 role : window.CONSTANTS.role
                                               }));
 
   require('services/mocks'); // TODO: Remove mocks

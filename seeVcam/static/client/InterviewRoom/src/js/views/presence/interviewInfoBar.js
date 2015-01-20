@@ -8,14 +8,14 @@ define(function (require) {
     template  : require('text!templates/presence/interview-info-bar.html'),
 
     setUp: function () {
-      session = this.model.get("videoSession");
-      this.listenTo(session, 'change', this.render, this);
+      this.session = this.model.get("videoSession");
+      this.listenTo(this.session, 'change', this.render, this);
     },
 
     getRenderContext: function() {
       return {
         model: this.model,
-        session : session
+        session : this.session
       };
     }
 

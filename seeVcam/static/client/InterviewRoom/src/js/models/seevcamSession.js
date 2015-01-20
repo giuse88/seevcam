@@ -22,6 +22,7 @@ define(function (require) {
     defaults : {
       apiKey : null,
       sessionId : null,
+      accepted : false,
       remoteConnection : null,
       localConnection : null,
       localState : states.OFFLINE,
@@ -51,7 +52,8 @@ define(function (require) {
              .on('connectionCreated', this.connectionCreated, this)
              .on('connectionDestroyed', this.connectionDestroyed, this)
              .on("streamCreated",this.streamCreated, this)
-             .on("signal:statusUpdate", this.remoteStateUpdate, this);
+             .on("signal:statusUpdate", this.remoteStateUpdate, this)
+             .on("signal:start-interview", this.goToFullVideo, this);
 
       this.listenTo(this, 'change:localState', this.updateInterviewState, this);
       this.listenTo(this, 'change:remoteState', this.updateInterviewState, this);
@@ -154,7 +156,15 @@ define(function (require) {
       console.log("remote Stream");
     },
 
-
+    goToFullVideo : function (e) {
+      e.preventDefault();
+      if (this.isInterviewReady()) {
+        console.log("go to interview video ready");
+        window.router.navigate("interview/full-video/", {trigger: true});
+      } else {
+        console.log("Interview is not ready");
+      }
+    },
 
     sessionConnected: function() {
       console.log('Seevcam: sessionConnected');
@@ -235,6 +245,10 @@ define(function (require) {
 
     isInterviewReady : function ( ) {
       return this.get("interviewState") === "READY";
+    },
+
+    startInterview : function () {
+      this.sendSignal({message:"start interview" }, "start-interview");
     },
 
     sendSignal: function(data, type) {
