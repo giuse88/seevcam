@@ -10,13 +10,10 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    {% if enviroment ==  "PRODUCTION" %}
+    {% if enviroment ==  "PRODUCTION" or environment == "STAGING" %}
         <link rel="stylesheet" href="/css/seevcam.css">
         <script type="text/javascript" src="/js/seevcam.min.js"></script>
     {% else %}
-        {# Boostrap #}
-        <link rel="stylesheet" href="{% static "bower_components/bootstrap/dist/css/bootstrap.css" %}">
-        <link rel="stylesheet" href="{% static "bower_components/bootstrap/dist/css/bootstrap-theme.css" %}">
         {# less #}
         <link rel="stylesheet/less" type="text/css" href="{% static "client/dashboard/main.less" %}" />
         <script type="text/javascript" src="{% static "bower_components/less/dist/less-1.7.5.min.js" %}"></script>

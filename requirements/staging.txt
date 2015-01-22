@@ -1,3 +1,4 @@
 # Staging development dependencies go here
 -r base.txt
 
+gunicorn==19.1.1

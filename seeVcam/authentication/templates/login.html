@@ -3,17 +3,22 @@
 {% load staticfiles %}
 <head>
 
-  <title>SeeVcam</title>
+  <title>seeVcam</title>
 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  {#    need a better solution #}
-  <link rel="stylesheet" href="{% static "bower_components/bootstrap/dist/css/bootstrap.css" %}">
-  <link rel="stylesheet" href="{% static "bower_components/bootstrap/dist/css/bootstrap-theme.css" %}">
-  <link rel="stylesheet" href="{% static "client/login/css/login.css" %}">
+  {% if enviroment ==  "PRODUCTION" or environment == "STAGING" %}
+    <link rel="stylesheet" href="{% static "bootstrap/css/bootstrap.css" %}">
+    <link rel="stylesheet" href="{% static "bootstrap/css/bootstrap-theme.css" %}">
+    <link rel="stylesheet" href="{% static "client/login/login.css" %}">
+  {% else %}
+    <link rel="stylesheet" href="{% static "bower_components/bootstrap/dist/css/bootstrap.css" %}">
+    <link rel="stylesheet" href="{% static "bower_components/bootstrap/dist/css/bootstrap-theme.css" %}">
+    <link rel="stylesheet" href="{% static "client/login/css/login.css" %}">
+  {% endif %}
 
 </head>
 

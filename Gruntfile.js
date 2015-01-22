@@ -1,3 +1,6 @@
+var pkg = require('./package.json');
+var path = require('path');
+
 module.exports = function(grunt) {
   grunt.initConfig({
 
@@ -34,10 +37,41 @@ module.exports = function(grunt) {
           include: ["requireLib"]
         }
       }
-    }
+    },
 
+		shipit: {
+			options: {
+
+				workspace: '/tmp/seevcam_tmp',
+				deployTo: '/home/seevcam/app/seevcam',
+
+				repositoryUrl: 'git@github.com:giuse88/seevcam.git',
+				branch:'deployment',
+				ignores: ['.git', 'node_modules'],
+
+				keepReleases: 5,
+				requirements:'staging.txt',
+				current:'/home/seevcam/app/seevcam/current'
+			},
+
+			// Staging environment.
+			staging: {
+				servers: ['seevcam@ec2-54-154-88-46.eu-west-1.compute.amazonaws.com']
+			}
+		}
   });
 
-  grunt.loadNpmTasks('grunt-contrib-requirejs');
-  grunt.loadNpmTasks('grunt-contrib-less');
+	grunt.loadNpmTasks('grunt-contrib-requirejs');
+	grunt.loadNpmTasks('grunt-contrib-less');
+	grunt.loadNpmTasks('grunt-shipit');
+	grunt.loadTasks(path.join(__dirname, 'deploy/tasks'));
+	grunt.loadTasks(path.join(__dirname, 'deploy/global'));
+
+//	Task registration
+	grunt.shipit.on('published', function () {
+		grunt.task.run([
+			'npm_install', 'bower_install', 'minify', 'env_update',
+			'django_log_link', 'django_migrate','django_collectstatic',
+			'gunicorn_reload','nginx_reload']);
+	});
 };

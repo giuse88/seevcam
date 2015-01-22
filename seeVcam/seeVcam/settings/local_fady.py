@@ -3,6 +3,7 @@ from .base import *
 
 # Debug options
 DEBUG = True
+ALLOWED_HOSTS = ['localhost']
 
 TEMPLATE_DEBUG = True
 
