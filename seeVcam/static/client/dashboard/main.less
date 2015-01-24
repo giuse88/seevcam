@@ -14,6 +14,7 @@
 @nav-bar-grey :#cccccc;
 @blue : #0071bb;
 @background-grey : #eeeeee;
+@silver: #bdc3c7;
 
 /*
   Seevcam properties
@@ -86,6 +87,9 @@ select.form-control {
     border-radius: 3px;
 }
 
+.mt-20{
+  margin-top: 20px;
+}
 
 /*****************************************************************************
  *                        Overriding Bootstrap properties                    *
@@ -104,6 +108,37 @@ select.form-control {
 
 }
 
+.btn-stretch {
+  display: block;
+  width: 100%;
+}
+
+.btn-grey {
+  background-color : @silver;
+  border-color : @silver;
+
+  &:hover, &:focus {
+    background-color : lighten(@grey, 5%);;
+    border-color : @silver;
+  }
+
+}
+.btn-blue {
+  background-color : @blue;
+  border-color : @blue;
+  color:#fff;
+  &:hover, &:focus {
+    background-color : lighten(@blue, 5%);
+    border-color : @blue;
+    color:#fff;
+  }
+
+}
+
+.left-border {
+  border-right: 1px solid #ccc;
+}
+
 .fc-view-container {
   background: white;
 }
@@ -117,6 +152,13 @@ select.form-control {
   background-image: -webkit-linear-gradient(top,@light-orange 0%, @orange 100%);
   background-image: linear-gradient(to bottom, @light-orange 0%, @orange 100%);
   border-color : @orange;
+}
+
+.progress-bar-grey {
+  background-color : @silver;
+  background-image: -webkit-linear-gradient(top,@silver 0%, @silver 100%);
+  background-image: linear-gradient(to bottom, @silver 0%, @silver 100%);
+  border-color : @silver;
 }
 
 @import "../misc/overlay/overlay";
