@@ -47,7 +47,7 @@ module.exports = function(grunt) {
 
 				repositoryUrl: 'git@github.com:giuse88/seevcam.git',
 				branch: 'deploy_improvements',
-				ignores: ['.git', 'node_modules'],
+				ignores: ['.git', 'node_modules', 'seeVcam/static/bower_components'],
 
 				keepReleases: 5,
 				requirements: 'staging.txt'
@@ -69,18 +69,13 @@ module.exports = function(grunt) {
 //	Task registration
 	grunt.shipit.on('fetched', function () {
 		grunt.task.run([
-//			'npm_install', 'bower_install',
-			'minify_local',
-//			'env_update',
-//			'django_log_link', 'django_migrate','django_collectstatic',
-//			'gunicorn_reload','nginx_reload'
+			'npm_install_local', 'bower_install_local', 'minify_local'
 		]);
 	});
 
 	grunt.shipit.on('published', function () {
 		grunt.task.run([
-			'npm_install', 'bower_install', 'minify', 'env_update',
-			'django_log_link', 'django_migrate','django_collectstatic',
+			'env_update', 'django_log_link', 'django_migrate','django_collectstatic',
 			'gunicorn_reload','nginx_reload']);
 	});
 };
