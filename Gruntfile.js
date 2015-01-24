@@ -41,17 +41,16 @@ module.exports = function(grunt) {
 
 		shipit: {
 			options: {
-
 				workspace: '/tmp/seevcam_tmp',
 				deployTo: '/home/seevcam/app/seevcam',
+				current: '/home/seevcam/app/seevcam/current',
 
 				repositoryUrl: 'git@github.com:giuse88/seevcam.git',
-				branch:'deployment',
+				branch: 'deploy_improvements',
 				ignores: ['.git', 'node_modules'],
 
 				keepReleases: 5,
-				requirements:'staging.txt',
-				current:'/home/seevcam/app/seevcam/current'
+				requirements: 'staging.txt'
 			},
 
 			// Staging environment.
@@ -68,6 +67,16 @@ module.exports = function(grunt) {
 	grunt.loadTasks(path.join(__dirname, 'deploy/global'));
 
 //	Task registration
+	grunt.shipit.on('fetched', function () {
+		grunt.task.run([
+//			'npm_install', 'bower_install',
+			'minify_local',
+//			'env_update',
+//			'django_log_link', 'django_migrate','django_collectstatic',
+//			'gunicorn_reload','nginx_reload'
+		]);
+	});
+
 	grunt.shipit.on('published', function () {
 		grunt.task.run([
 			'npm_install', 'bower_install', 'minify', 'env_update',
