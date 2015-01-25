@@ -7,9 +7,12 @@ define(function (require) {
   var PresencePage = require('views/presence/presencePage');
   var FullVideoPage = require("views/presence/fullVideoPage");
   var File = require('models/file');
+  var InterviewPage = require("views/interview/interviewPage");
 
   return Backbone.Router.extend({
+
     routes: {
+
       'interview/questions(/)(:questionId)': 'questions',
       'interview/jobSpec': 'jobSpec',
       'interview/cv': 'cv',
@@ -27,7 +30,6 @@ define(function (require) {
     },
 
     interview: function () {
-      console.log("interview");
       var session = require('services/session');
       this.renderPage(new PresencePage({model: session}));
     },
@@ -38,15 +40,22 @@ define(function (require) {
       this.renderPage(new FullVideoPage({model: session}));
     },
 
+
+    // =================== Inner view ====================//
+
     questions: function (questionId) {
+
       console.log("questions");
+
+      this.initializeInterviewPage();
+
       var session = require('services/session');
       questionId = parseInt(questionId) || session.get('questions').first().get('id');
 
       var eventLogger = require('services/eventLogger');
       eventLogger.log(eventLogger.eventType.QUESTION_SELECTED, {question_id: questionId});
 
-      this.renderPage(new QuestionsPage({model: session, questionId: questionId}));
+//      this.renderPage(new QuestionsPage({model: session, questionId: questionId}));
     },
 
     jobSpec: function () {
@@ -61,20 +70,27 @@ define(function (require) {
       this.renderDocumentPage(cvId);
     },
 
+    // ====================== end =========================//
+
     review: function () {
       var session = require('services/session');
       this.renderPage(new ReviewPage({model: session}));
     },
 
     renderPage: function (page) {
-      var fullRender = !this.currentPage;
       if (this.currentPage) {
         this.currentPage.teardown();
       }
-
       this.currentPage = page;
       this.$container.empty().append(this.currentPage.$el);
       this.currentPage.render();
+    },
+
+    initializeInterviewPage : function () {
+     if(!this.$interviewPage) {
+       this.$interviewPage = new InterviewPage();
+       this.renderPage(this.$interviewPage);
+     }
     },
 
     renderDocumentPage: function (documentId) {

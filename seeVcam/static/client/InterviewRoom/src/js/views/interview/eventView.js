@@ -3,6 +3,9 @@ define(function (require) {
   var Event = require('models/event');
 
   return BaseView.extend({
+
+    tagName : "li",
+
     template: function () {
       var result;
 
