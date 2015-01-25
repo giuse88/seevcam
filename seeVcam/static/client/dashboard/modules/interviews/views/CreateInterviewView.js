@@ -91,7 +91,6 @@ define(function (require) {
         title : "Create catalogue for interview",
         animate: true,
         okCloses:true,
-        allowCancel : false,
         footer: true
       });
 
