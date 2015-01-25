@@ -67,6 +67,7 @@ define(function (require) {
     },
 
     renderPage: function (page) {
+      var fullRender = !this.currentPage;
       if (this.currentPage) {
         this.currentPage.teardown();
       }
