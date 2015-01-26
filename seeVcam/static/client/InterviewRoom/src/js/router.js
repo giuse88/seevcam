@@ -14,7 +14,7 @@ define(function (require) {
     routes: {
 
       'interview/questions(/)(:questionId)': 'questions',
-      'interview/jobSpec': 'jobSpec',
+      'interview/job-spec': 'jobSpec',
       'interview/cv': 'cv',
 
       'interview(/)': 'interview',
@@ -66,18 +66,15 @@ define(function (require) {
         answers: answers,
         notes: notes
       }));
-//      this.renderPage(new QuestionsPage({model: session, questionId: questionId}));
     },
 
     jobSpec: function () {
-      var session = require('services/session');
-      var jobSpecId = session.get('jobPosition').get('job_specification');
+      var jobSpecId = this.session.get('jobPosition').get('job_specification');
       this.renderDocumentPage(jobSpecId);
     },
 
     cv: function () {
-      var session = require('services/session');
-      var cvId = session.get('candidate').get('cv');
+      var cvId = this.session.get('candidate').get('cv');
       this.renderDocumentPage(cvId);
     },
 

@@ -33,6 +33,9 @@ define(function (require) {
 
   require('services/mocks'); // TODO: Remove mocks
 
+  window.router = new Router();
+  Backbone.history.start({pushState: true, root : "/" });
+
   console.log("Role : " + session.get("role"));
   var $ = require('jquery');
 
@@ -44,8 +47,6 @@ define(function (require) {
     .done(function () {
       console.log("Router");
       ensureQuestionsHaveCorrespondingAnswer();
-      window.router = new Router();
-      Backbone.history.start({pushState: true, root : "/" });
     })
     .fail(function (resp) {
       $('.main-content').html('<h1>Cannot initiate session because server responded with ' + resp.status + '</h1>')

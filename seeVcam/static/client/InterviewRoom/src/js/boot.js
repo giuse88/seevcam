@@ -19,6 +19,7 @@ require.config({
 
     baseModel:    "client/InterviewRoom/src/js/models/baseModel",
     baseView:     "client/InterviewRoom/src/js/views/baseView",
+    navigator :   "client/InterviewRoom/src/js/views/navigator",
     models:       "client/InterviewRoom/src/js/models",
     collections:  "client/InterviewRoom/src/js/collections",
     presenters:   "client/InterviewRoom/src/js/presenters",
