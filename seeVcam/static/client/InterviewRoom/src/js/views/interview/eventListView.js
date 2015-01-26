@@ -29,8 +29,8 @@ define(function (require) {
     },
 
     scrollToBottom: function () {
-//      var $scrollable = this.$el.get(0);
-//      $scrollable.scrollTop = $scrollable.scrollHeight;
+      var $scrollable = this.$el.get(0);
+      $scrollable.scrollTop = $scrollable.scrollHeight;
     }
   });
 });

@@ -1,7 +1,7 @@
 define(function (require) {
 
   var Backbone = require('backbone');
-  var QuestionsPage = require('views/interview/questionsPage');
+  var QuestionView = require("views/interview/questionView");
   var DocumentPage = require('views/interview/documentPage');
   var ReviewPage = require('views/review/reviewPage');
   var PresencePage = require('views/presence/presencePage');
@@ -26,18 +26,17 @@ define(function (require) {
 
     initialize: function () {
       this.$container = $('.main-content');
+      this.session = require('services/session');
       console.log("Router initialized");
     },
 
     interview: function () {
-      var session = require('services/session');
-      this.renderPage(new PresencePage({model: session}));
+      this.renderPage(new PresencePage({model: this.session}));
     },
 
     fullVideo : function () {
       console.log("full video");
-      var session = require('services/session');
-      this.renderPage(new FullVideoPage({model: session}));
+      this.renderPage(new FullVideoPage({model: this.session}));
     },
 
 
@@ -49,12 +48,24 @@ define(function (require) {
 
       this.initializeInterviewPage();
 
-      var session = require('services/session');
-      questionId = parseInt(questionId) || session.get('questions').first().get('id');
+      questionId = parseInt(questionId) || this.session.get('questions').first().get('id');
 
       var eventLogger = require('services/eventLogger');
       eventLogger.log(eventLogger.eventType.QUESTION_SELECTED, {question_id: questionId});
 
+      var questions = this.session.get('questions');
+      var question = questions.findWhere({id: questionId});
+      var answers = this.session.get('answers');
+      var answer = answers.findWhere({question: question.id});
+      var notes = this.session.get('notes');
+
+      this.interviewPage.addContent(new QuestionView({
+        model: question,
+        answer: answer,
+        questions: questions,
+        answers: answers,
+        notes: notes
+      }));
 //      this.renderPage(new QuestionsPage({model: session, questionId: questionId}));
     },
 
@@ -87,9 +98,9 @@ define(function (require) {
     },
 
     initializeInterviewPage : function () {
-     if(!this.$interviewPage) {
-       this.$interviewPage = new InterviewPage();
-       this.renderPage(this.$interviewPage);
+     if(!this.interviewPage) {
+       this.interviewPage = new InterviewPage();
+       this.renderPage(this.interviewPage);
      }
     },
 
