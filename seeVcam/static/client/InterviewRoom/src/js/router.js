@@ -2,6 +2,7 @@ define(function (require) {
 
   var Backbone = require('backbone');
   var QuestionView = require("views/interview/questionView");
+  var DocumentView = require('views/controls/documentView');
   var DocumentPage = require('views/interview/documentPage');
   var ReviewPage = require('views/review/reviewPage');
   var PresencePage = require('views/presence/presencePage');
@@ -71,8 +72,20 @@ define(function (require) {
     },
 
     jobSpec: function () {
-      var jobSpecId = this.session.get('jobPosition').get('job_specification');
-      this.renderDocumentPage(jobSpecId);
+      console.log(" --------------- Job spec ------------------");
+      var self = this;
+
+      this.fetch().then(function () {
+
+        self.initializeInterviewPage();
+
+        var jobSpecId = self.session.get('jobPosition').get('job_specification');
+        var documentFile = new File({id: jobSpecId});
+        documentFile.fetch()
+        .done(function () {
+          self.interviewPage.addContent( new DocumentView({model: documentFile}));
+        });
+      });
     },
 
     cv: function () {
@@ -97,8 +110,6 @@ define(function (require) {
     },
 
     initializeInterviewPage: function () {
-
-
       if (!this.interviewPage) {
         this.interviewPage = new InterviewPage();
         this.renderPage(this.interviewPage);

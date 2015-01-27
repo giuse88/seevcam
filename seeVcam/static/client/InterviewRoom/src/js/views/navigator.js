@@ -8,7 +8,7 @@ define(function (require) {
       return this.goToQuestion(questionId);
     },
     goToQuestion: function (id) {
-      window.router.navigate("interview/questions/" + id);
+      window.router.navigate("interview/questions/" + id, {trigger:true});
     },
     goToJobSpec: function () {
       window.router.navigate("interview/jobSpec/");
@@ -20,7 +20,7 @@ define(function (require) {
       if ( route === "questions") {
         return this.goToQuestions();
       }
-      return window.router.navigate("interview/" + route);
+      return window.router.navigate("interview/" + route, {trigger:true});
     }
   }
 });

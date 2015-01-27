@@ -21,7 +21,7 @@ define(function (require) {
 
     addContent : function ( innerView ) {
       if (this.innerView) {
-        this.innerView.teardown();
+        this.detachSubView(this.innerView);
       }
 
       this.innerView = innerView;
