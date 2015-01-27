@@ -4,7 +4,7 @@ define(function (require) {
   var Backbone = require("backbone");
   var Utils = require("utils");
 	var QuestionReadOnly = require("text!modules/questions/templates/questionReadOnly.html")
-	var QuestionReadOnlyHelper = require("text!modules/questions/templates/QuestionReadOnlyHelper.html")
+	var QuestionReadOnlyHelper = require("text!modules/questions/templates/questionReadOnlyHelper.html")
 
   return Backbone.View.extend({
 
