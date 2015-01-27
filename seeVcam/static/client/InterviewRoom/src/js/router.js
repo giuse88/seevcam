@@ -72,7 +72,7 @@ define(function (require) {
     },
 
     jobSpec: function () {
-      var jobSpecId = self.session.get('jobPosition').get('job_specification');
+      var jobSpecId = this.session.get('jobPosition').get('job_specification');
       this.renderDocumentView(jobSpecId);
     },
 
