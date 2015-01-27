@@ -3,13 +3,15 @@ define(function (require) {
   var _ = require("underscore");
   var Backbone = require("backbone");
   var Utils = require("utils");
+	var QuestionReadOnly = require("text!modules/questions/templates/questionReadOnly.html")
+	var QuestionReadOnlyHelper = require("text!modules/questions/templates/QuestionReadOnlyHelper.html")
 
   return Backbone.View.extend({
 
       tagName: 'li',
       className: 'question',
-      template: _.template( '<div class="question-read-only view form-group"> <p class="drag-dots"> :: </p> <p><%- question_text %></p></div>' ),
-      helper_template: _.template( '<div class="question-drag-helper <%= color %>"> <p><%- question_text %></p></div>' ),
+      template: _.template(QuestionReadOnly),
+      helper_template: _.template(QuestionReadOnlyHelper),
 
       id: function () {
        return this.model.get('id')

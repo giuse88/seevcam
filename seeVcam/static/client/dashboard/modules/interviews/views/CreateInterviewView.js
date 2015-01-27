@@ -57,7 +57,7 @@ define(function (require) {
 
       return {
         create : false,
-        title : "Update interview",
+        title : "<span>Update</span> interview",
         interview : this.model.toJSON(),
         cv : this.model.getCV().toJSON(),
         catalogues : this.options.catalogues.toJSON(),

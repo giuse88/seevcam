@@ -5,25 +5,13 @@ define(function (require) {
   var Backbone = require("backbone");
   var Utils = require("utils");
   var QuestionsView = require("modules/questions/views/QuestionsView");
+	var CatalogueTemplate = require("text!modules/questions/templates/catalogue.html")
 
   return  Backbone.View.extend({
 
       className: 'catalogue-list-item',
       tagName  : 'li',
-      template: _.template(
-              '   <div class="container-fluid <%-catalogue_class %>">' +
-              '       <div class="row catalogue-name white-text-on-hover "> ' +
-              '           <a class="catalog-item-name" href="#">' +
-                  '           <p> <%- catalogue_name %> </p>' +
-                  '           <span class="catalog-count">(<%- catalogue_size %>)</span></a>' +
-                  '<% if (catalogue_class !== "catalog-red") { %>' +
-                  '           <span class="edit-icon glyphicon glyphicon-pencil"></span>' +
-                  '<% } %>' +
-              '       </div> '+
-              '       <div class="row"> ' +
-              '           <div class="question-list-container"></div> ' +
-              '       </div>' +
-              '   </div>'),
+      template: _.template(CatalogueTemplate),
 
       events : {
           'click .catalog-item-name ' : 'showQuestions'

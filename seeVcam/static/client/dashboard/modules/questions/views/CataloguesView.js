@@ -6,46 +6,13 @@ define(function (require) {
   var Utils = require("utils");
   var CatalogueView = require("modules/questions/views/CatalogueView");
   var EditCatalogueView = require("modules/questions/views/EditCatalogueView");
+	var CataloguesTemplate = require("text!modules/questions/templates/catalogues.html")
 
   return  Backbone.View.extend({
 
     tagName : "div",
     className : "question-container",
-    template: _.template(
-        '<div class="row question-dashboard" style="height:95%;" > ' +
-        '    <div class="col-lg-6" style="height:100%;" >' +
-        '       <div class="row" style="height:100%;" >' +
-        '            <div class="panel" style="height:100%;" >' +
-        '               <div class="catalogs-picker" >' +
-        '                  <div class="catalog-labels">' +
-        '                      <ul>' +
-        '                          <li style="margin-left:20px;"class="label-red">seeVcam</li>' +
-        '                         <li class="label-blue">Library</li>' +
-        '                    </ul>' +
-        '                 </div>' +
-        '                <div class="catalogs-list">' +
-        '                    <ul class="scroll-pane" style="height:100%;" >' +
-        '                   </ul>' +
-        '              </div>' +
-        '         <div id="create-catalogue-block">' +
-        '             <div id="create-catalogue" class="create-catalogue">' +
-        '                 <input type="text" class="form-control" placeholder="Type the name here to create a new catalog."/>' +
-        '                  <span class="glyphicon"></span>' +
-        '             </div>' +
-        '         </div>' +
-        '           </div>' +
-        '      </div>' +
-        ' </div>' +
-        '</div>' +
-        '       <div class="col-lg-6" style="height:100%;" >' +
-        '          <div id="edit-catalogue" style="height: 100%">' +
-        '              <div class="no-catalogue dashed-border">' +
-        '                <p>To edit a catalog select it and click on <span class="edit-icon glyphicon glyphicon-pencil"></span>.</p>' +
-        '          </div>' +
-        '         </div>' +
-        '     </div>' +
-        '</div>'
-    ),
+    template: _.template(CataloguesTemplate),
 
     events: {
       'keypress #create-catalogue input': 'createCatalogue',
