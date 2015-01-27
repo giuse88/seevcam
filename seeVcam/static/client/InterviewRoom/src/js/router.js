@@ -34,38 +34,40 @@ define(function (require) {
       this.renderPage(new PresencePage({model: this.session}));
     },
 
-    fullVideo : function () {
+    fullVideo: function () {
       console.log("full video");
       this.renderPage(new FullVideoPage({model: this.session}));
     },
 
-
     // =================== Inner view ====================//
 
     questions: function (questionId) {
+      var self = this;
 
-      console.log("questions");
+      this.fetch().then(function () {
 
-      this.initializeInterviewPage();
+        self.initializeInterviewPage();
 
-      questionId = parseInt(questionId) || this.session.get('questions').first().get('id');
+        questionId = parseInt(questionId) || self.session.get('questions').first().get('id');
 
-      var eventLogger = require('services/eventLogger');
-      eventLogger.log(eventLogger.eventType.QUESTION_SELECTED, {question_id: questionId});
+        var eventLogger = require('services/eventLogger');
+        eventLogger.log(eventLogger.eventType.QUESTION_SELECTED, {question_id: questionId});
 
-      var questions = this.session.get('questions');
-      var question = questions.findWhere({id: questionId});
-      var answers = this.session.get('answers');
-      var answer = answers.findWhere({question: question.id});
-      var notes = this.session.get('notes');
+        var questions = self.session.get('questions');
+        var question = questions.findWhere({id: questionId});
+        var answers = self.session.get('answers');
+        var answer = answers.findWhere({question: question.id});
+        var notes = self.session.get('notes');
 
-      this.interviewPage.addContent(new QuestionView({
-        model: question,
-        answer: answer,
-        questions: questions,
-        answers: answers,
-        notes: notes
-      }));
+        self.interviewPage.addContent(new QuestionView({
+          model: question,
+          answer: answer,
+          questions: questions,
+          answers: answers,
+          notes: notes
+        }));
+
+      });
     },
 
     jobSpec: function () {
@@ -94,11 +96,13 @@ define(function (require) {
       this.currentPage.render();
     },
 
-    initializeInterviewPage : function () {
-     if(!this.interviewPage) {
-       this.interviewPage = new InterviewPage();
-       this.renderPage(this.interviewPage);
-     }
+    initializeInterviewPage: function () {
+
+
+      if (!this.interviewPage) {
+        this.interviewPage = new InterviewPage();
+        this.renderPage(this.interviewPage);
+      }
     },
 
     renderDocumentPage: function (documentId) {
@@ -109,6 +113,38 @@ define(function (require) {
         .done(function () {
           self.renderPage(new DocumentPage({model: documentFile}));
         });
+    },
+
+    fetch: function () {
+      var self = this;
+      var d = $.Deferred();
+
+      if (this.fetched )  {
+        return d.resolve(true);
+      }
+
+      return $.when(
+        this.session.get('answers').fetch(),
+        this.session.get('events').fetch(),
+        this.session.get('notes').fetch())
+        .done(function () {
+          self.fetched = true;
+          self.ensureQuestionsHaveCorrespondingAnswer();
+        })
+        .fail(function (resp) {
+          $('.main-content').html('<h1>Cannot initiate session because server responded with ' + resp.status + '</h1>')
+        });
+    },
+
+    ensureQuestionsHaveCorrespondingAnswer: function () {
+      var answers = this.session.get('answers');
+      var questions = this.session.get('questions');
+
+      questions.each(function (question) {
+        if (!answers.any({question: question.id})) {
+          answers.add({question: question.id});
+        }
+      });
     }
   });
 });

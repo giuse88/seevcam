@@ -1,5 +1,6 @@
 define(function (require) {
 
+  var $ = require('jquery');
   var moment = require('moment');
   var Router = require('client/InterviewRoom/src/js/router');
   var Backbone = require('backbone');
@@ -14,8 +15,11 @@ define(function (require) {
   var VideoSession = require('models/seevcamSession');
 
   var session = require('services/session');
-
   var interviewId = window.cache.interview.id;
+
+  /*
+      Session initialization
+   */
   session.set('interview', new Interview(window.cache.interview));
   session.set('questions', new Questions(window.cache.questions, {catalogueId: session.get('interview').get('catalogue')}));
   session.set('answers', new Answers([], {interviewId: interviewId}));
@@ -30,36 +34,13 @@ define(function (require) {
                                                  sessionId : window.CONSTANTS.sessionId,
                                                  role : window.CONSTANTS.role
                                               }));
-
-  require('services/mocks'); // TODO: Remove mocks
-
+  console.log("Role : " + session.get("role"));
+  /*
+    Router
+   */
   window.router = new Router();
   Backbone.history.start({pushState: true, root : "/" });
 
-  console.log("Role : " + session.get("role"));
-  var $ = require('jquery');
+  require('services/mocks'); // TODO: Remove mocks
 
-  $.when(
-    session.get('answers').fetch(),
-    session.get('events').fetch(),
-    session.get('notes').fetch()
-    )
-    .done(function () {
-      console.log("Router");
-      ensureQuestionsHaveCorrespondingAnswer();
-    })
-    .fail(function (resp) {
-      $('.main-content').html('<h1>Cannot initiate session because server responded with ' + resp.status + '</h1>')
-    });
-
-  function ensureQuestionsHaveCorrespondingAnswer() {
-    var answers = session.get('answers');
-    var questions = session.get('questions');
-
-    questions.each(function (question) {
-      if (!answers.any({question: question.id})) {
-        answers.add({question: question.id});
-      }
-    });
-  }
 });
