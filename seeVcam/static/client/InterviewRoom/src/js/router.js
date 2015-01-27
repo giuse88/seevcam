@@ -72,25 +72,13 @@ define(function (require) {
     },
 
     jobSpec: function () {
-      console.log(" --------------- Job spec ------------------");
-      var self = this;
-
-      this.fetch().then(function () {
-
-        self.initializeInterviewPage();
-
-        var jobSpecId = self.session.get('jobPosition').get('job_specification');
-        var documentFile = new File({id: jobSpecId});
-        documentFile.fetch()
-        .done(function () {
-          self.interviewPage.addContent( new DocumentView({model: documentFile}));
-        });
-      });
+      var jobSpecId = self.session.get('jobPosition').get('job_specification');
+      this.renderDocumentView(jobSpecId);
     },
 
     cv: function () {
       var cvId = this.session.get('candidate').get('cv');
-      this.renderDocumentPage(cvId);
+      this.renderDocumentView(cvId);
     },
 
     // ====================== end =========================//
@@ -116,14 +104,16 @@ define(function (require) {
       }
     },
 
-    renderDocumentPage: function (documentId) {
-      var documentFile = new File({id: documentId});
-      var self = this;
-
-      documentFile.fetch()
-        .done(function () {
-          self.renderPage(new DocumentPage({model: documentFile}));
-        });
+    renderDocumentView: function (documentId) {
+      var self =this;
+      this.fetch().then(function () {
+        self.initializeInterviewPage();
+        var documentFile = new File({id: documentId});
+        documentFile.fetch()
+          .done(function () {
+            self.interviewPage.addContent( new DocumentView({model: documentFile}));
+          });
+      });
     },
 
     fetch: function () {
