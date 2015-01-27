@@ -29,7 +29,7 @@ define(function (require) {
         '              </div>' +
         '         <div id="create-catalogue-block">' +
         '             <div id="create-catalogue" class="create-catalogue">' +
-        '                 <input type="text" class="form-control" placeholder="Need a new category? Type its name here."/>' +
+        '                 <input type="text" class="form-control" placeholder="Type the name here to create a new catalog."/>' +
         '                  <span class="glyphicon"></span>' +
         '             </div>' +
         '         </div>' +
@@ -40,7 +40,7 @@ define(function (require) {
         '       <div class="col-lg-6" style="height:100%;" >' +
         '          <div id="edit-catalogue" style="height: 100%">' +
         '              <div class="no-catalogue dashed-border">' +
-        '                <p>Click on <span class="edit-icon glyphicon glyphicon-pencil"></span> to edit a catalogue.</p>' +
+        '                <p>To edit a catalog select it and click on <span class="edit-icon glyphicon glyphicon-pencil"></span>.</p>' +
         '          </div>' +
         '         </div>' +
         '     </div>' +
