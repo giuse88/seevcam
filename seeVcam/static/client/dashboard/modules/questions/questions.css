@@ -9,6 +9,8 @@
 .question-dashboard .panel {
   border-radius : 0;
   border: 0;
+  height: calc(100% - 46px);
+  margin-bottom: 10px;
 }
 
 .catalog-labels {
@@ -77,10 +79,8 @@
 }
 
 .catalogs-list {
-    height: calc(100% - 36px);
-    border-top: 1px solid #D1D1D1;
-    border-left: 1px solid #D1D1D1;
-    border-right: 1px solid #D1D1D1;
+    height: calc(100% - 0px);
+    border: 1px solid #D1D1D1;
 }
 
 .catalogs-list > ul  {
@@ -517,7 +517,7 @@
     box-shadow: none;
     border-radius: 0;
     padding: 0;
-border: none;
+    border: none;
 }
 
 .create-interview-catalog-section .panel-heading {
@@ -544,7 +544,7 @@ border: none;
 }
 
 .catalogs-picker {
-    height: calc(100% - 34px);
+    height: calc(100% - 36px);
 }
 
 .no-catalogue p {
