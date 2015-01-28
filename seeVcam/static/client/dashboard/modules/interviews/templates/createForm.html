@@ -99,7 +99,7 @@
                   <% if (interview) { %> <%= displayTime(interview.start) %> <% } else { %> Unset. <% } %>
                 </span>
               </label>
-              <a class="btn btn-blue btn-stretch interview-datetime open-calendar" href="javascript:void(0)"
+              <a class="btn btn-orange btn-stretch interview-datetime open-calendar" href="javascript:void(0)"
                  style=""> Open Calendar </a>
               <input class="hidden start" name="start" type="text" required="true"
                 <% if (interview) { %> value="<%= interview.start %>" <% } %> >
@@ -111,7 +111,7 @@
 
         <div  class="row">
           <div class="col-lg-4 col-lg-offset-4 mt-20">
-            <input class="btn btn-blue btn-stretch" type="submit"
+            <input class="btn btn-orange btn-stretch" type="submit"
                    value=" <% if (create){ %> Book this interview now <% } else { %> Update <% } %> ">
           </div>
         </div>

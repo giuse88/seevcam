@@ -108,9 +108,17 @@ select.form-control {
 
 }
 
-.btn-stretch {
-  display: block;
-  width: 100%;
+.btn-orange {
+  background-color : @light-orange;
+  border-color: @light-orange;
+  color: #fff;
+
+  &:hover, &:focus {
+    background-color : darken(@light-orange, 5%);
+    border-color : darken(@light-orange, 5%);
+    color: #fff;
+  }
+
 }
 
 .btn-grey {
@@ -133,6 +141,11 @@ select.form-control {
     color:#fff;
   }
 
+}
+
+.btn-stretch {
+  display: block;
+  width: 100%;
 }
 
 .left-border {
