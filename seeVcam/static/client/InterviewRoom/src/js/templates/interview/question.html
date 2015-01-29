@@ -3,14 +3,14 @@
 
     <% var previousQuestionUrl = view.previousQuestionUrl(); %>
     <% if (previousQuestionUrl) { %>
-        <a href="<%= previousQuestionUrl %>" class="arrow left">
+        <a href="javascript:void(0)" class="arrow left">
             <span class="left-arrow-icon"></span>
         </a>
     <% } %>
 
     <% var nextQuestionUrl = view.nextQuestionUrl(); %>
     <% if (nextQuestionUrl) { %>
-        <a href="<%= nextQuestionUrl %>" class="arrow right">
+        <a href="javascript:void(0)" class="arrow right">
             <span class="right-arrow-icon"></span>
         </a>
     <% } %>

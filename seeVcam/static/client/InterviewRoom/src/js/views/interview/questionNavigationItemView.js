@@ -32,6 +32,7 @@ define(function (require) {
       window.router.navigate(QuestionPresenter.questionUrl(this.model), {trigger:true});
     },
 
+
     setUp: function () {
       this.listenTo(this.answer, 'change', this.onAnswerChanged, this);
     },
