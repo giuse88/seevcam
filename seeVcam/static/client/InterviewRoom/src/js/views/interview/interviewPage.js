@@ -3,10 +3,15 @@ define(function (require) {
   var CandidateInfoView = require('views/interview/candidateInfoView');
   var EventListView = require('views/interview/eventListView');
   var NavigationBarView = require('views/interview/navigationBarView');
+  var Navigator = require("navigator");
 
   return BaseView.extend({
     className: 'interview-page',
     template: require('text!templates/interview/interview-page.html'),
+
+    events : {
+      'click .conclude-control' : 'goToReview'
+    },
 
     setUp: function () {
       var session = require('services/session');
@@ -17,6 +22,11 @@ define(function (require) {
 
     postRender : function () {
       this.$content = this.$el.find('.content');
+    },
+
+    goToReview : function () {
+      console.log("Go to review");
+      Navigator.goToReview();
     },
 
     addContent : function ( innerView ) {
