@@ -45,6 +45,7 @@ define(function (require) {
     questions: function (questionId) {
       var self = this;
 
+      console.log("questions");
       this.fetch().then(function () {
 
         self.initializeInterviewPage();

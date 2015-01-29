@@ -29,7 +29,7 @@ define(function (require) {
     },
 
     goToQuestion : function () {
-      window.router.navigate(QuestionPresenter.questionUrl(this.model), {trigger:false});
+      window.router.navigate(QuestionPresenter.questionUrl(this.model), {trigger:true});
     },
 
     setUp: function () {
