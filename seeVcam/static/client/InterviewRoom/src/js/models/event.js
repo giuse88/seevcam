@@ -6,7 +6,7 @@ define(function (require) {
     defaults: function () {
       return {
         type: null,
-        timestamp: moment().utc().format('HH:mm:ss.SSS'),
+        timestamp: moment().utc(),
         content: {}
       }
     }

@@ -8,7 +8,7 @@ define(function (require) {
     },
 
     url: function () {
-      return '/dashboard/interviews/' + this.interviewId + '/notes';
+      return '/dashboard/interviews/' + this.interviewId + '/notes/';
     },
 
     initialize: function (models, options) {

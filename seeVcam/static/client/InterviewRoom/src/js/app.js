@@ -17,6 +17,10 @@ define(function (require) {
   var session = require('services/session');
   var interviewId = window.cache.interview.id;
 
+  $.ajaxSetup({
+    headers: { "X-CSRFToken": window.CONSTANTS.csrft_token}
+  });
+
   /*
       Session initialization
    */
