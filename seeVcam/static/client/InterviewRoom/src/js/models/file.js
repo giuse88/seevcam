@@ -13,7 +13,7 @@ define(function (require) {
     },
 
     url: function () {
-      return '/files/' + this.id;
+      return '/dashboard/files/' + this.id;
     },
 
     absoluteUrl: function () {
@@ -21,7 +21,7 @@ define(function (require) {
       var url = this.get('url') || '';
 
       if (url.indexOf('http') != 0) {
-        var documentRelativeUrl = this.model.get('url');
+        var documentRelativeUrl = this.get('url');
         var baseUrl = document.location.origin;
 
         result = baseUrl + documentRelativeUrl;

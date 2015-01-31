@@ -51,6 +51,7 @@ class InterviewRoomViewExperimentEE(LoginRequired, TemplateView):
 
 # ======================= END TO BE DELETED ========================
 
+
 class InterviewRoomView(DetailView):
     template_name = "index.html"
     interview = None
@@ -71,6 +72,9 @@ class InterviewRoomView(DetailView):
         context['role'] = self.get_role()
         context['is_interview_open'] = self.is_interview_open()
         context['token'] = self.generate_opentok_token(interview.session_id)
+        context['interview'] = interview
+        context['catalogue'] = interview.catalogue
+        context['job_position'] = interview.job_position
         return context
 
     def is_interview_open(self):
