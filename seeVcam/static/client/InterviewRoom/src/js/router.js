@@ -14,14 +14,12 @@ define(function (require) {
 
     routes: {
 
-      'interview/questions(/)(:questionId)': 'questions',
-      'interview/job-spec': 'jobSpec',
-      'interview/cv': 'cv',
-
-      'interview(/)': 'interview',
-      'interview/interviewee(/)': 'interview',
-
-      'interview/full-video(/)': 'fullVideo',
+      '/': 'interview',
+      'questions(/)(:questionId)': 'questions',
+      'job-spec': 'jobSpec',
+      'cv': 'cv',
+      'interviewee(/)': 'interview',
+      'full-video(/)': 'fullVideo',
       'review(/)': 'review'
     },
 
@@ -32,6 +30,7 @@ define(function (require) {
     },
 
     interview: function () {
+      console.log("interview");
       this.renderPage(new PresencePage({model: this.session}));
     },
 

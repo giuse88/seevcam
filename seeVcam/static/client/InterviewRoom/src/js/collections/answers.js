@@ -6,7 +6,7 @@ define(function(require){
     model: Answer,
 
     url: function () {
-      return '/interviews/' + this.interviewId + '/answers';
+      return '/dashboard/interviews/' + this.interviewId + '/answers';
     },
 
     initialize: function (models, options) {

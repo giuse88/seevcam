@@ -6,7 +6,7 @@ define(function (require) {
     model: OverallRating,
 
     url: function () {
-      return '/interviews/' + this.interviewId + '/overallratings';
+      return '/dashboard/interviews/' + this.interviewId + '/overallratings';
     },
 
     initialize: function (models, options) {

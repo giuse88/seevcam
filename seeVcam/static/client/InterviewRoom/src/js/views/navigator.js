@@ -10,26 +10,26 @@ define(function (require) {
     },
 
     goToQuestion: function (id) {
-      window.router.navigate("interview/questions/" + id, {trigger:true});
+      window.router.navigate("/questions/" + id, {trigger:true});
     },
 
     goToJobSpec: function () {
-      window.router.navigate("interview/jobSpec/");
+      window.router.navigate("/jobSpec/");
     },
 
     goToCv: function () {
-      window.router.navigate("interview/cv/");
+      window.router.navigate("/cv/");
     },
 
     goToReview : function () {
-      window.router.navigate("review/", {trigger:true});
+      window.router.navigate("/review/", {trigger:true});
     },
 
     interviewGoTo : function (route) {
       if ( route === "questions") {
         return this.goToQuestions();
       }
-      return window.router.navigate("interview/" + route, {trigger:true});
+      return window.router.navigate("/" + route, {trigger:true});
     }
   }
 });

@@ -35,11 +35,16 @@ define(function (require) {
                                                  role : window.CONSTANTS.role
                                               }));
   console.log("Role : " + session.get("role"));
+
+  var roleCode = session.get("role") === "interviewer" ? 0 :1;
+  var baseRootUrl = "/interview/" + roleCode +"/" + interviewId;
+  console.log(baseRootUrl);
+
   /*
     Router
    */
   window.router = new Router();
-  Backbone.history.start({pushState: true, root : "/" });
+  Backbone.history.start({pushState: true, root : baseRootUrl });
 
   require('services/mocks'); // TODO: Remove mocks
 
