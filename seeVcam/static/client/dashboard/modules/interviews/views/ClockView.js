@@ -2,32 +2,15 @@ define(function (require) {
 
   var _ = require("underscore");
   var Backbone = require("backbone");
+	var clockTemplate = require("text!modules/interviews/templates/clock.html");
 
-  return  Backbone.View.extend({
+
+	return  Backbone.View.extend({
 
     tagName : 'div',
     className : 'clock',
 
-    template: _.template('' +
-      '<div class="col-md-3" id="current-datetime-container"> ' +
-      ' <div id="current-datetime"> ' +
-      ' <div class="interview-date"> ' +
-      ' <span class="date-day"><%= day %></span> ' +
-      ' <span class="date-separator">/</span> ' +
-      ' <span class="date-month"><%= month %> </span> ' +
-      ' <span class="date-separator">/</span>  ' +
-      ' <span class="date-year"><%= year %></span> ' +
-      ' </div> ' +
-      ' <div class="interview-time"> ' +
-      '<span class="date-day"><%= hour %></span> ' +
-      '<span class="date-separator">:</span> ' +
-      '<span class="date-minute"><%= minute %> </span> ' +
-      '<div id="am-pm"> ' +
-      '  <span class="<%= am_active %>">AM</span> ' +
-      '  <span class="<%= pm_active %>">PM</span> ' +
-      '</div> ' +
-      '</div> ' +
-      '</div> '),
+    template: _.template(clockTemplate),
 
     getTemplateData : function () {
       var now = new Date();
