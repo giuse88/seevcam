@@ -1,6 +1,7 @@
 define(function (require) {
 
   var BaseView = require('baseView');
+  var Navigator = require("navigator");
 
   return BaseView.extend({
 
@@ -28,7 +29,7 @@ define(function (require) {
       if (this.videoSession.isInterviewReady()) {
         console.log("go to interview video ready");
         this.videoSession.startInterview();
-        window.router.navigate("interview/full-video/", {trigger: true});
+        Navigator.goToFullVideoView();
       } else {
         console.log("Interview is not ready");
       }

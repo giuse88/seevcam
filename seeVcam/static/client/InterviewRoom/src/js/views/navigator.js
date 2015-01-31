@@ -21,6 +21,10 @@ define(function (require) {
       window.router.navigate("/cv/");
     },
 
+    goToFullVideoView : function () {
+      window.router.navigate("/full-video/", {trigger: true});
+    },
+
     goToReview : function () {
       window.router.navigate("/review/", {trigger:true});
     },

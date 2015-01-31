@@ -2,6 +2,7 @@ define(function (require) {
 
   var Backbone = require("backbone");
   var OT = require("opentok");
+  var Navigator = require("navigator");
 
   var states = {
     CONNECTED  : "CONNECTED",
@@ -160,7 +161,7 @@ define(function (require) {
       e.preventDefault();
       if (this.isInterviewReady()) {
         console.log("go to interview video ready");
-        window.router.navigate("interview/full-video/", {trigger: true});
+        Navigator.goToFullVideoView();
       } else {
         console.log("Interview is not ready");
       }

@@ -14,12 +14,14 @@ define(function (require) {
 
     routes: {
 
-      '/': 'interview',
-      'questions(/)(:questionId)': 'questions',
-      'job-spec': 'jobSpec',
-      'cv': 'cv',
-      'interviewee(/)': 'interview',
+      'job-spec(/)': 'jobSpec',
+      'cv(/)': 'cv',
       'full-video(/)': 'fullVideo',
+      'questions(/)(:questionId)': 'questions',
+
+      '(:token)' : 'presence',
+      '': 'presence',
+      'interviewee(/)': 'interview',
       'review(/)': 'review'
     },
 
@@ -29,7 +31,7 @@ define(function (require) {
       console.log("Router initialized");
     },
 
-    interview: function () {
+    presence: function () {
       console.log("interview");
       this.renderPage(new PresencePage({model: this.session}));
     },

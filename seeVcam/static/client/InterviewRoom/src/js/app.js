@@ -37,7 +37,7 @@ define(function (require) {
   console.log("Role : " + session.get("role"));
 
   var roleCode = session.get("role") === "interviewer" ? 0 :1;
-  var baseRootUrl = "/interview/" + roleCode +"/" + interviewId;
+  var baseRootUrl = "/interview/" + roleCode +"/" + interviewId + "/";
   console.log(baseRootUrl);
 
   /*

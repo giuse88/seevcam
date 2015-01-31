@@ -1,6 +1,7 @@
 define(function (require) {
 
   var BaseView = require('baseView');
+  var Navigator = require("navigator");
 
   return BaseView.extend({
 
@@ -34,7 +35,7 @@ define(function (require) {
 
     goToQuestion : function (event) {
       event.preventDefault();
-      window.router.navigate("interview/questions/", {trigger: true});
+      Navigator.goToQuestions();
     },
 
     postRender : function () {
