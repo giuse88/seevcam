@@ -509,6 +509,7 @@
 .catalogue-list-item a p{
     display: inline-block;
     margin: 0;
+    font-size: 19px;
 }
 
 .create-interview-catalog-section .panel {
