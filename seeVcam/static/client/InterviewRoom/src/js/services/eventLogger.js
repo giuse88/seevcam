@@ -6,7 +6,7 @@ define(function (require) {
 
     log: function (eventType, data) {
       var session = require('services/session');
-      session.get('events').add({type: eventType, content: data}).save();
+      session.get('events').add({type: eventType, content: JSON.stringify(data)}).save();
     }
   };
 });
