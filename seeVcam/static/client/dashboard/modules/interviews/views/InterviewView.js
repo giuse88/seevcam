@@ -78,8 +78,14 @@ define(function (require) {
 
     handleItemClick : function(event) {
       event.preventDefault();
-      window.app && window.app.router && window.app.router.InterviewsRouter &&
-      window.app.router.InterviewsRouter.goToInterview(this.model.get("id"), true);
+      if ( this.model.isOpen()) {
+        console.log("Interview open");
+        window.app && window.app.router && window.app.router.InterviewsRouter &&
+        window.app.router.InterviewsRouter.goToInterviewRoom(this.model.getInterviewRoomURL());
+      } else {
+        window.app && window.app.router && window.app.router.InterviewsRouter &&
+        window.app.router.InterviewsRouter.goToInterview(this.model.get("id"), true);
+      }
     },
 
     removeInterview : function (event) {

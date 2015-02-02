@@ -29,9 +29,9 @@ define(function (require) {
     },
 
     template : _.template("" +
-      '<div class="open-interview" id="pending-interview" class="col-md-3"></div>'+
       '<div class="row upper-bar" id="interviews-upper-bar">'+
-       '     <div id="searchbox-container" class="col-md-6 col-md-offset-3">'+
+       '<div class="open-interview col-md-3" id="pending-interview"></div>'+
+       '     <div id="searchbox-container" class="col-md-6">'+
        '        <div class="search-interview-form">'+
         '            <input name="search" type="text" class="form-control search-input" placeholder="Search">'+
         '            <span class="search-icon"> <i class="glyphicon glyphicon-search"></i> </span>'+

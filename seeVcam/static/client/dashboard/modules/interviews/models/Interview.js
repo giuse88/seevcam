@@ -48,6 +48,10 @@ define(function(require) {
       this.candidateCv= new FileUploaded(cv);
     },
 
+    getInterviewRoomURL: function() {
+      return "/interview/0/" + this.get("id") + "/";
+    },
+
     fetchCV :function (successCb, errocb ) {
       var self = this;
 
