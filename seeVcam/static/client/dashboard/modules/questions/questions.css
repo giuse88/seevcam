@@ -53,23 +53,23 @@
 }
 
 .label-red {
-    background-color: #eb372d;
+    background-color: #D14232;
     color: white;
-    border-color: #ee5e58;
+    border-color: #D14232;
 }
 
 .label-red:before {
-    background-color: #eb372d;
+    background-color: #D14232;
 }
 
 .label-blue {
-    background-color: #0f73c2;
+    background-color: #0071bb;
     color: white;
     border-color: #5c94ce;
 }
 
 .label-blue:before {
-    background-color: #0f73c2;
+    background-color: #0071bb;
 }
 
 .deactive.label-blue:before,.deactive.label-blue,
@@ -132,21 +132,21 @@
 }
 
 .catalog-red .catalog-item-name:before {
-    background-color: red;
+    background-color: #D14232;
 }
 
 .catalog-blue .catalog-item-name:before {
-    background-color: #0f73c2;
+    background-color: #0071bb;
 }
 
 .catalog-red.selected .catalog-item-name {
-    background-color: red;
+    background-color: #D14232;
     font-weight: bold;
     color: white;
 }
 
 .catalog-blue.selected .catalog-item-name {
-    background-color: #0f73c2;
+    background-color: #0071bb;
     font-weight: bold;
     color: white;
 }
@@ -358,7 +358,7 @@
 }
 
 .question-callout-red {
-    border-left-color: #d9534f;
+    border-left-color: #D14232;
 }
 .question-callout-yellow {
     border-left-color: #f0ad4e;
@@ -390,7 +390,7 @@
 }
 
 #create-catalogue .glyphicon.glyphicon-remove-circle {
-    color : red;
+    color : #D14232;
 }
 
 .question-list-container ul {
@@ -410,12 +410,12 @@
 
 
 .catalogue-list-item .catalog-blue .catalogue-name:hover, .highlight-catalogue-blue {
-    background-color: #0f73c2;
+    background-color: #0071bb;
     color : white !important;
 }
 
 .catalogue-list-item .catalog-red .catalogue-name:hover, .highlight-catalogue-red {
-    background-color: red;
+    background-color: #D14232;
     color : white !important;
 }
 
@@ -466,18 +466,18 @@
 
 .question-drag-helper {
     color : white;
-    background-color: #0f73c2;
+    background-color: #0071bb;
     padding : 5px;
     margin: 0;
     z-index: 10;
 }
 
 .question-drag-helper.red {
-    background-color:red;
+    background-color:#D14232;
 }
 
 .question-drag-helper.blue {
-    background-color: #0f73c2;
+    background-color: #0071bb;
 }
 
 .question-drag-helper p {
@@ -522,7 +522,7 @@
 }
 
 .create-interview-catalog-section .panel-heading {
-    background-color: #0f73c2;
+    background-color: #0071bb;
     color: white;
     border-radius: 0;
     margin: 0;
@@ -535,7 +535,7 @@
 .create-interview-catalog-section .panel-heading  .input-panel-heading {
     width: 100%;
     border: 0;
-    background-color: #0f73c2;
+    background-color: #0071bb;
     color: white;
     outline: none;
     border: none !important;
