@@ -9,7 +9,7 @@
         interview : {{ interview| interview_to_json }},
         questions : {{ catalogue| catalogue_to_json }},
         jobPosition: {{ job_position| job_position_to_json }},
-        overallRatings: [ {id: 1, question: "adaptbility", rating: 0}, {id: 2, question: "apitutde", rating: 1}, {id: 3, question: "test?", rating: 2}, {id: 4, question: "asdf?", rating: 3}, {id: 5, question: "qwer?", rating: 4} ]
+        overallRatings: {{ interiview| overall_ratings_to_json }}
     }
 </script>
 

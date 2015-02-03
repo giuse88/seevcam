@@ -2,6 +2,8 @@ from django import template
 from django.utils.safestring import mark_safe
 from rest_framework.renderers import JSONRenderer
 from interviews.serializers import InterviewSerializer, JobPositionSerializer
+from overall_ratings.models import OverallRating
+from overall_ratings.serializer import OverallRatingSerializer
 from questions.models import Question
 from questions.serializers import QuestionCatalogueSerializer, QuestionSerializer
 
@@ -23,5 +25,12 @@ def catalogue_to_json(catalogue):
 @register.filter(name='job_position_to_json')
 def interview_to_json(job_position):
     serializer = JobPositionSerializer(job_position)
+    data = serializer.data
+    return mark_safe(JSONRenderer().render(data).decode("utf-8"))
+
+@register.filter(name='overall_ratings_to_json')
+def catalogue_to_json(interview):
+    overall_rating = OverallRating.objects.filter(interview=interview)
+    serializer = OverallRatingSerializer(overall_rating)
     data = serializer.data
     return mark_safe(JSONRenderer().render(data).decode("utf-8"))

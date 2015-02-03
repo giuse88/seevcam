@@ -8,6 +8,7 @@ from interviews.serializers import InterviewSerializer, JobPositionSerializer
 from notes.models import Notes
 from common.helpers.timezone import now_timezone
 from django.conf import settings
+from overall_ratings.models import OverallRatingQuestion, OverallRating
 
 
 class InterviewList(generics.ListCreateAPIView):
@@ -24,6 +25,7 @@ class InterviewList(generics.ListCreateAPIView):
         if created:
             notes = Notes(interview=obj)
             notes.save()
+            self.create_overall_ratings(obj)
 
     def get_queryset(self):
         return Interview.objects.filter(
@@ -43,6 +45,12 @@ class InterviewList(generics.ListCreateAPIView):
     @staticmethod
     def create_authentication_token():
         return ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(80))
+
+    @staticmethod
+    def create_overall_ratings(interview):
+        for rating_question in OverallRatingQuestion.objects.all():
+            rating = OverallRating(interview=interview, question=rating_question)
+            rating.save()
 
 
 class InterviewDetail(generics.RetrieveUpdateDestroyAPIView):
