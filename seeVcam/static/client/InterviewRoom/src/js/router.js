@@ -17,6 +17,7 @@ define(function (require) {
       'job-spec(/)': 'jobSpec',
       'cv(/)': 'cv',
       'full-video(/)': 'fullVideo',
+      'goodbye' : 'fullVideo',
       'questions(/)(:questionId)': 'questions',
 
       '(:token)' : 'presence',

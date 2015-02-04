@@ -39,7 +39,8 @@ define(function (require) {
     },
 
     onClickConclude: function () {
-      alert('Closing ...');
+//      this.model.get("interview").set("status", "CLOSED");
+      this.model.get("interview").save({status : "CLOSED"}, {patch:true});
     }
   });
 });

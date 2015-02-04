@@ -29,6 +29,7 @@ class JobPositionSerializer(serializers.ModelSerializer):
 
 
 class InterviewSerializer(serializers.ModelSerializer):
+    partial = True
     candidate = CandidateSerializer(many=False)
     job_position = serializers.PrimaryKeyRelatedField(many=False)
     catalogue = serializers.PrimaryKeyRelatedField(many=False)
@@ -37,7 +38,7 @@ class InterviewSerializer(serializers.ModelSerializer):
     end = serializers.DateTimeField(format=settings.DATE_INPUT_FORMATS[0], input_formats=settings.DATE_INPUT_FORMATS)
 
     def validate(self, attrs):
-        self.is_end_before_start(attrs['start'], attrs['end'], "End must be before than start.")
+        self.is_end_before_start(attrs['start'], attrs['end'], "End must be after than start.")
         return attrs
 
     def validate_start(self, attrs, source):
