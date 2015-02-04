@@ -29,6 +29,10 @@ define(function (require) {
       window.router.navigate("/review/", {trigger:true});
     },
 
+    goToDashboard : function() {
+      window.location = "/dashboard";
+    },
+
     interviewGoTo : function (route) {
       if ( route === "questions") {
         return this.goToQuestions();

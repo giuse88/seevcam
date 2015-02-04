@@ -3,6 +3,11 @@ define(function (require) {
   var moment = require('moment');
 
   return BaseModel.extend({
+
+    url : function () {
+      return "/dashboard/interviews/interviews/" + this.get("id") + "/"
+    },
+
     defaults: {
       start: null,
       end: null,
@@ -31,7 +36,6 @@ define(function (require) {
       unit = unit || 'minutes';
       var startMoment = moment.utc(this.get('start'));
       var currentMoment = moment.utc();
-
       return currentMoment.diff(startMoment, unit);
     }
   });

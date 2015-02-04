@@ -1,5 +1,6 @@
 define(function (require) {
   var BaseView = require('baseView');
+  var Navigator = require("navigator");
   var OverallRatingListView = require('views/review/overallRatingListView');
   var ReviewItemListView = require('views/review/reviewItemListView');
   var $ = require('jquery');
@@ -40,7 +41,15 @@ define(function (require) {
 
     onClickConclude: function () {
 //      this.model.get("interview").set("status", "CLOSED");
-      this.model.get("interview").save({status : "CLOSED"}, {patch:true});
+      this.model.get("interview").save({status : "CLOSED"}, {
+        patch:true,
+        success : function () {
+          Navigator.goToDashboard();
+        },
+        error : function () {
+          console.error("failing closing interview");
+        }
+      });
     }
   });
 });
