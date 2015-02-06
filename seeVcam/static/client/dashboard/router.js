@@ -3,9 +3,11 @@ define(function(require) {
   var Backbone = require("backbone");
   var QuestionsRouter = require("modules/questions/QuestionsRouter");
   var InterviewsRouter = require("modules/interviews/InterviewsRouter");
+  var ReportsRouter = require("modules/reports/reportRouter");
 
-  var QuestionsRouter = new QuestionsRouter();
-  var InterviewsRouter = new InterviewsRouter();
+  var questionsRouter = new QuestionsRouter();
+  var interviewsRouter = new InterviewsRouter();
+  var reportsRouter = new ReportsRouter();
 
   Backbone.history.start({
     pushState: true,
@@ -15,8 +17,9 @@ define(function(require) {
   console.log("Routing installed.");
 
   return {
-    QuestionsRouter : QuestionsRouter,
-    InterviewsRouter : InterviewsRouter
+    QuestionsRouter : questionsRouter,
+    InterviewsRouter : interviewsRouter,
+    ReportRouter : reportsRouter
   }
 
 });
