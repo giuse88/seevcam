@@ -37,6 +37,7 @@ define(function (require) {
       var interview = new InterviewBlock({
         model: interview,
         today: this.options.today,
+        isReport : this.options.isReport,
         list : !!this.options.list
       });
       this.views.push(interview);

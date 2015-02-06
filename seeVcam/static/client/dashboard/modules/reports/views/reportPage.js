@@ -37,7 +37,7 @@ define(function (require) {
       var $target = $(e.currentTarget);
       var currentValue = $target.val();
       this.nestedView.setCollection(this.interviews.filterByName(currentValue));
-      this.$interviewViewContainer.html(this.nestedView.render().$el);
+      this.$itemsContainer.html(this.nestedView.render().$el);
     },
 
     renderInterviewBlock : function (event) {
@@ -46,7 +46,7 @@ define(function (require) {
       var interviewView = new InterviewBlocks({ collection: this.interviews});
       this.updateNestedView(interviewView);
       this.$el.find(".interview-view-type .block").addClass("active");
-      this.$interviewViewContainer.html(this.nestedView.render().$el);
+      this.$itemsContainer.html(this.nestedView.render().$el);
       return this;
     },
 
@@ -59,7 +59,7 @@ define(function (require) {
       });
       this.updateNestedView(interviewView);
       this.$el.find(".interview-view-type .list").addClass("active");
-      this.$interviewViewContainer.html(this.nestedView.render().$el);
+      this.$itemsContainer.html(this.nestedView.render().$el);
       return this;
     },
 

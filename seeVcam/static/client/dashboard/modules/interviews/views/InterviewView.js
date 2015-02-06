@@ -15,13 +15,17 @@ define(function (require) {
     block_item_template : _.template(require("text!modules/interviews/templates/block_item.html")),
     list_item_template : _.template(require("text!modules/interviews/templates/list_item.html")),
 
+    defaults : {
+      isReport : false
+    },
+
     events : {
       'click .delete-interview' : 'removeInterview',
       'click '   : 'handleItemClick'
     },
 
     initialize : function(options) {
-      this.options = options || {};
+      this.options = _.extend( this.defaults, options);
     },
 
     getDataForTemplate : function(){
@@ -38,6 +42,9 @@ define(function (require) {
         day  : interviewStart.format("DD"),
         month : interviewStart.format("MM"),
         date_string : "",
+        isReport : this.options.isReport,
+        isInterview : !this.options.isReport,
+        classType : this.options.isReport ? "report-item" : "interview-item",
         date_separator : "-"
       }
     },

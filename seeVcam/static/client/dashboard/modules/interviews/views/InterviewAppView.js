@@ -43,14 +43,16 @@ define(function (require) {
 
       this.$el.html(this.template(this.getTemplateData()));
       this.$searchBox = this.$el.find('#searchbox-container input');
-      this.$interviewViewContainer = this.$el.find('.interview-view-container');
       this.$searchBox.bind('input propertychange', this.filterInterviews.bind(this));
 
       if (this.options.interview) {
         this.$todayInterview = this.$el.find(".upcoming-interviews");
         this.$openInterview = this.$el.find(".open-interview");
+        this.$itemsContainer = this.$el.find('.interview-view-container');
         this.renderOpenInterview();
         this.renderTodayInterviews();
+      } else {
+        this.$itemsContainer = this.$el.find(".reports-container");
       }
 
       if(this.options.activeClock)  {
@@ -74,16 +76,19 @@ define(function (require) {
       var $target = $(e.currentTarget);
       var currentValue = $target.val();
       this.nestedView.setCollection(this.interviews.filterByName(currentValue));
-      this.$interviewViewContainer.html(this.nestedView.render().$el);
+      this.$itemsContainer.html(this.nestedView.render().$el);
     },
 
     renderInterviewBlock : function (event) {
       event && event.preventDefault();
       this.removeActiveClass();
-      var interviewView = new InterviewBlocks({ collection: this.interviews});
+      var interviewView = new InterviewBlocks({
+        collection: this.interviews,
+        isReport : !this.options.interview
+      });
       this.updateNestedView(interviewView);
       this.$el.find(".interview-view-type .block").addClass("active");
-      this.$interviewViewContainer.html(this.nestedView.render().$el);
+      this.$itemsContainer.html(this.nestedView.render().$el);
       return this;
     },
 
@@ -92,11 +97,12 @@ define(function (require) {
       this.removeActiveClass();
       var interviewView = new InterviewBlocks({
         collection: this.interviews,
+        isReport : !this.options.interview,
         list : true
       });
       this.updateNestedView(interviewView);
       this.$el.find(".interview-view-type .list").addClass("active");
-      this.$interviewViewContainer.html(this.nestedView.render().$el);
+      this.$itemsContainer.html(this.nestedView.render().$el);
       return this;
     },
 
@@ -109,7 +115,7 @@ define(function (require) {
         readOnly : true
       });
       this.updateNestedView(calendarView);
-      this.$interviewViewContainer.html(this.nestedView.render().$el);
+      this.$itemsContainer.html(this.nestedView.render().$el);
       return this;
     },
 
