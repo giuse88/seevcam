@@ -4,6 +4,12 @@ define(function(require){
   var Interview = require("modules/interviews/models/Interview");
   var notification = require("notification");
 
+  function filter ( interviews, predicate ) {
+    var filtered = interviews.filter(predicate);
+    return new InterviewList(filtered);
+  }
+
+
   var InterviewList =  Backbone.Collection.extend({
 
       model: Interview,
@@ -28,17 +34,32 @@ define(function(require){
         return new InterviewList(filtered);
       },
 
-     getTodayInterviews : function () {
-      var todayInterviews = this.filter(function(interview) {
-         var interviewStart = new Date(interview.get('start'));
-         var today = new Date();
-         return today.getUTCDate() === interviewStart.getUTCDate();
-      });
-      return todayInterviews;
-     }
+      getInterviews : function () {
+        function openInterview ( interview ) {
+          return interview.get("status") === "OPEN";
+        }
+        return filter(this, openInterview);
+      },
+
+      getReports : function () {
+        function isAReport ( interview ) {
+          return interview.get("status") === "CLOSED";
+        }
+        return filter(this, isAReport);
+      },
+
+      getTodayInterviews : function () {
+        var todayInterviews = this.filter(function(interview) {
+           var interviewStart = new Date(interview.get('start'));
+           var today = new Date();
+           return today.getUTCDate() === interviewStart.getUTCDate();
+        });
+        return todayInterviews;
+      }
 
     });
 
     return InterviewList;
+
 
 });

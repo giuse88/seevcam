@@ -31,9 +31,7 @@ class InterviewList(generics.ListCreateAPIView):
         obj.session_id = self.create_interview_session()
 
     def get_queryset(self):
-        return Interview.objects.filter(
-            owner=self.request.user.id,
-            end__gt=now_timezone()).order_by('start')
+        return Interview.objects.filter(owner=self.request.user.id).order_by('start')
 
     #TODO this should be in the model done with signals
     #private

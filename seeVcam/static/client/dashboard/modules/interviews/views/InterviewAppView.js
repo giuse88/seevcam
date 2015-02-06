@@ -8,7 +8,7 @@ define(function (require) {
   var Interviews = require("modules/interviews/models/InterviewList");
   var InterviewView = require("modules/interviews/views/InterviewView");
   var ClockView = require("modules/interviews/views/ClockView");
-	var InterviewsTemplate = require("text!modules/interviews/templates/interviews.html")
+  var pageTemplate = require("text!modules/interviews/templates/interviewPage.html");
 
   return  Backbone.View.extend({
 
@@ -26,33 +26,41 @@ define(function (require) {
     },
 
     defaults : {
-     activeClock : false
+      activeClock : false,
+      interview : true
     },
 
-    template :_.template(InterviewsTemplate),
+    template : _.template(pageTemplate),
 
     initialize : function (options){
       this.options = _.extend( this.defaults, options);
       this.nestedView = null;
       this.interviews = new Interviews(this.options.interviews.sortBy('start'));
+      console.log("reports", this.interviews);
     },
 
     render : function(){
 
-      this.$el.html(this.template);
-      this.$interviewViewContainer = this.$el.find('.interview-view-container');
+      this.$el.html(this.template(this.getTemplateData()));
       this.$searchBox = this.$el.find('#searchbox-container input');
-      this.$todayInterview = this.$el.find(".upcoming-interviews");
-      this.$openInterview = this.$el.find(".open-interview");
-      // today
-      this.renderOpenInterview();
-      this.renderTodayInterviews();
-      // clock
+      this.$interviewViewContainer = this.$el.find('.interview-view-container');
+      this.$searchBox.bind('input propertychange', this.filterInterviews.bind(this));
+
+      if (this.options.interview) {
+        this.$todayInterview = this.$el.find(".upcoming-interviews");
+        this.$openInterview = this.$el.find(".open-interview");
+        this.renderOpenInterview();
+        this.renderTodayInterviews();
+      }
+
       if(this.options.activeClock)  {
         this.renderClock();
       }
-      this.$searchBox.bind('input propertychange', this.filterInterviews.bind(this));
       return this;
+    },
+
+    getTemplateData : function () {
+      return this.options;
     },
 
     renderClock : function () {

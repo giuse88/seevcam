@@ -94,7 +94,7 @@
   }
 
   .interview-item,
-  .interview-item header {
+  .interview-item .header {
       -webkit-transition: all 0.3s;
       -moz-transition: all 0.3s;
       -ms-transition: all 0.3s;
@@ -106,17 +106,17 @@
     box-shadow: 0 0 7px rgba(0, 0, 0, .4);
 }
 
-.interview-item:hover header {
+.interview-item:hover .header {
     background-color: #0F73C2;
 }
 
-.interview-item header {
+.interview-item .header {
     background-color: #4a4a4a;
     color: white;
     padding: 5px;
 }
 
-.interview-item header h4 {
+.interview-item .header h4 {
     margin: 0;
     padding: 2px 0;
     font-weight: bold;
@@ -124,7 +124,7 @@
     text-shadow: 1px 1px 0 rgba(0, 0, 0, .2);
 }
 
-.interview-item header p {
+.interview-item .header p {
     margin: 0;
     font-size: 10px;
     color: #eaeaea;
@@ -163,61 +163,6 @@
 }
 
 
-
-/*CURRENT DATETIME*/
-#current-datetime-container{
-  position: absolute;
-  top: 0px;
-  padding: 0px 30px 30px;
-  z-index: 3;;
-}
-#current-datetime{
-	background-color: black;
-	padding: 20px;
-	color: white;
-	text-align: center;
-	padding-top: 10px;
-	padding-bottom: 5px;
-	box-shadow: 0px 1px 3px #e4e4e4;
-}
-#current-datetime .interview-date{
-	padding-bottom: 5px;
-	border-bottom: 1px solid #404040;;
-
-}
-#current-datetime .interview-date > span{
-	font-size: 30px;
-}
-#current-datetime .interview-date > span.date-separator{
-	color: #404040;
-}
-#current-datetime .interview-time{
-	padding-top: 0px;
-	text-align: right;
-	padding-bottom: 0px;
-}
-#current-datetime .interview-time >span {
-	font-size: 30px;
-}
-#current-datetime .interview-time >div#am-pm {
-	display: inline-block;
-}
-#current-datetime .interview-time >div#am-pm > span {
-	display: block;
-	font-size: 11px;
-	line-height: 12px;
-	color: #262626;
-}
-#current-datetime .interview-time >div#am-pm > span.active {
-	color: white;
-}
-#current-datetime .interview-time > span.date-separator{
-	color: white;
-
-}
-
-
-
 /*INTERVIEW PAGE*/
 #interview{
 	position: relative;
@@ -245,11 +190,6 @@
 }
 
 
-
-/*INTERVIEW ITEM*/
-.interview-item footer{
-	display: none;
-}
 .interview-item {
     position: relative;
     width: ~"calc(33.33333% - 30px)";
@@ -282,12 +222,12 @@
 .interview-item:hover .glyphicon-remove{
 	display: block;
 }
-.interview-item header{
+.interview-item .header{
 	background-color: transparent;
 	color: black;
 	text-align: center;
 }
-.interview-item section.interview-time{
+.interview-item .interview-time{
 	background-color: transparent;
 	width: 80%;
 	margin-left: auto;
@@ -298,7 +238,7 @@
 	position: relative;
 	padding-top: 5px;
 }
-.interview-item header h4{
+.interview-item .header h4{
 	font-size: 20px;
    padding-top: 5%;
   font-weight: 400;
@@ -307,18 +247,18 @@
 	display: inline-block;
 	vertical-align: bottom;
 }
-.interview-item header p{
+.interview-item .header p{
 	color: #9b9b9b;
 	font-size: 15px;
 }
-.interview-item section.interview-time > p{
+.interview-item .interview-time > p{
 	display: inline-block;
 	font-size: 15px;
 	color: #9b9b9b;
 	margin-bottom: 0px;
 	text-align: left;
 }
-.interview-item section.interview-time > p.interview-hours{
+.interview-item .interview-time > p.interview-hours{
 	background-color: transparent;
 	text-shadow: none;
 	font-weight: 300;
@@ -329,7 +269,7 @@
 	text-align: right;
 	top: 5px;
 }
-.interview-item section.interview-time > p.interview-date{
+.interview-item .interview-time > p.interview-date{
 	width: 100%;
 	text-align: left;
 }
@@ -357,14 +297,14 @@
 	box-shadow: 0 0 3px rgba(0, 0, 0, .1);
 	background-color: @blue;
 }
-.interview-item:hover header, #upcoming-interviews .interview-item header{
+.interview-item:hover .header, #upcoming-interviews .interview-item .header{
 	background-color: transparent;
 	color: white;
 }
-.interview-item:hover header p, #upcoming-interviews .interview-item header p{
+.interview-item:hover .header p, #upcoming-interviews .interview-item .header p{
 	color: white;
 }
-.interview-item:hover section.interview-time > p, #upcoming-interviews .interview-item section.interview-time > p{
+.interview-item:hover .interview-time > p, #upcoming-interviews .interview-item .interview-time > p{
 	color: #ddd;
 }
 
@@ -380,24 +320,24 @@
       top:5px;
     }
 }
-#upcoming-interviews .interview-item.today header h4{
+#upcoming-interviews .interview-item.today .header h4{
 	color: white;
 }
-#upcoming-interviews .interview-item.today header p{
+#upcoming-interviews .interview-item.today .header p{
 	color: white;
 }
-#upcoming-interviews .interview-item.today section.interview-time > p{
+#upcoming-interviews .interview-item.today .interview-time > p{
 	color: #a8d9c0;
 }
-#upcoming-interviews .interview-item.today section.interview-time{
+#upcoming-interviews .interview-item.today .interview-time{
 	border-top: 1px solid #a8d9c0;}
 .interview-item.today:hover{
 	background-color: #009145;
 }
-.interview-item.today:hover header p{
+.interview-item.today:hover .header p{
 	color: white;
 }
-.interview-item.today:hover section.interview-time > p{
+.interview-item.today:hover .interview-time > p{
 	color: #ddd;
 }
 
@@ -412,21 +352,21 @@
 	background-color: #ff4a00;
 	box-shadow: 0px 1px 3px #e4e4e4;
 }
-#pending-interview .interview-item section.interview-time{
+#pending-interview .interview-item .interview-time{
 	margin-top: 0px;
 	padding-top: 0px;
 	border-top: 1px solid #ffad80;
 }
-#pending-interview .interview-item section.interview-time > p.interview-hours{
+#pending-interview .interview-item .interview-time > p.interview-hours{
 	top: 1px;
 }
-#pending-interview .interview-item header h4{
+#pending-interview .interview-item .header h4{
 	color: white;
 }
-#pending-interview .interview-item header p{
+#pending-interview .interview-item .header p{
 	color: white;
 }
-#pending-interview .interview-item section.interview-time > p{
+#pending-interview .interview-item .interview-time > p{
 	color: white;
 }
 #pending-interview .interview-item .name-container{

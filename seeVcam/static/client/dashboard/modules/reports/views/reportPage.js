@@ -4,7 +4,7 @@ define(function (require) {
   var _ = require("underscore");
   var Backbone = require("backbone");
 
-  var reportPageTemplate  = require("modules/reports/templates/report_page.html");
+  var reportPageTemplate  = require("modules/reports/templates/interviewPage.html");
 
   return  Backbone.View.extend({
 

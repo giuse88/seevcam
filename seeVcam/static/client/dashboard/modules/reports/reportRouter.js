@@ -34,8 +34,9 @@ define(function (require) {
           LoadingBar.go(100);
 
           var interviewsApp = new InterviewApp({
-            interviews: window.cache.interviews,
-            activeClock: false
+            interviews: window.cache.interviews.getReports(),
+            activeClock: false,
+            interview: false
           });
 
           Utils.safelyUpdateCurrentView(interviewsApp);

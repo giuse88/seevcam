@@ -12,9 +12,8 @@ define(function (require) {
     tagName : 'div',
     className : 'interview-item',
 
-    block_item_template : _.template(BlockItemTemplate),
-
-    list_item_template : _.template(ListItemTemplate),
+    block_item_template : _.template(require("text!modules/interviews/templates/block_item.html")),
+    list_item_template : _.template(require("text!modules/interviews/templates/list_item.html")),
 
     events : {
       'click .delete-interview' : 'removeInterview',
