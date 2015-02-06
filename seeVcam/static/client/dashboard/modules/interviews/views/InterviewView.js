@@ -10,7 +10,7 @@ define(function (require) {
 	return  Backbone.View.extend({
 
     tagName : 'div',
-    className : 'interview-item',
+    className : 'interview-item col-md-3',
 
     block_item_template : _.template(require("text!modules/interviews/templates/block_item.html")),
     list_item_template : _.template(require("text!modules/interviews/templates/list_item.html")),
