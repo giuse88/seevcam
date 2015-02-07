@@ -52,7 +52,7 @@ define(function (require) {
     goToQuestion : function (event) {
       event.preventDefault();
       if (this.options.isGoodByePage) {
-        // console.log("End");
+        this.videoSession.closeConnection();
         Navigator.goToReview();
       } else {
         Navigator.goToQuestions();

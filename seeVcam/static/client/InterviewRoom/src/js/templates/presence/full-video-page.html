@@ -4,7 +4,11 @@
 
     <% if ( model.get("role") === "interviewer" )  { %>
     <a href="javascript:void(0)" class="conclude-control col-xs-12 ">
+        <% if ( view.options.isGoodByePage ) { %>
+            <span> End Call </span>
+        <% } else { %>
             <span>Questions</span>
+        <% } %>
     </a>
     <% } %>
 </div>

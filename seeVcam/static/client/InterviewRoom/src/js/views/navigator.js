@@ -21,6 +21,10 @@ define(function (require) {
       window.router.navigate("/cv/");
     },
 
+    goToEndInterviewPage : function () {
+      window.href = "/interviewCompleted"
+    },
+
     goToFullVideoView : function () {
       window.router.navigate("/full-video/", {trigger: true});
     },

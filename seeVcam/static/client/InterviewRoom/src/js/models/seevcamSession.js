@@ -54,7 +54,8 @@ define(function (require) {
              .on('connectionDestroyed', this.connectionDestroyed, this)
              .on("streamCreated",this.streamCreated, this)
              .on("signal:statusUpdate", this.remoteStateUpdate, this)
-             .on("signal:start-interview", this.goToFullVideo, this);
+             .on("signal:start-interview", this.goToFullVideo, this)
+             .on("signal:end-interview", this.endInterview);
 
       this.listenTo(this, 'change:localState', this.updateInterviewState, this);
       this.listenTo(this, 'change:remoteState', this.updateInterviewState, this);
@@ -115,9 +116,9 @@ define(function (require) {
       }
 
       console.log("Subscribing to a remote stream : ", conf);
-      this.subsriber = this.session.subscribe(stream, domElement, publisherProperty);
+      this.subscriber = this.session.subscribe(stream, domElement, publisherProperty);
 
-      return this.subsriber;
+      return this.subscriber;
     },
 
     /**
@@ -137,7 +138,7 @@ define(function (require) {
      */
 
     getSubscriber :function () {
-      return this.subsriber;
+      return this.subscriber;
     },
 
     /* Private methods */
@@ -183,7 +184,21 @@ define(function (require) {
       this.session.connect(this.get("token"));
     },
 
-    sessionDisconnected: function() {
+    closeConnection: function () {
+      console.log("closing connection");
+      this.session.unpublish(this.publisher);
+      this.session.unsubscribe(this.subscriber);
+      this.session.disconnect();
+      this.sendSignal({message:"end interview" }, "end-interview");
+    },
+
+    endInterview : function () {
+      console.log("send end interview");
+      this.closeConnection();
+      Navigator.goToEndInterviewPage();
+    },
+
+    sessionDisconnected: function(e) {
       console.log('Seevcam: sessionDisconnected');
       this.session.off();
       this.publisher.off();
@@ -202,11 +217,6 @@ define(function (require) {
         console.log('seevcam: local user has connected to chat');
         this.localConnection = event.connection;
       }
-    },
-
-    end: function() {
-      console.log('Seevcam: end');
-      this.session.disconnect();
     },
 
     connectionDestroyed: function(event) {
