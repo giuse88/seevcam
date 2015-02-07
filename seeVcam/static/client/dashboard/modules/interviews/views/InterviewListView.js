@@ -43,10 +43,14 @@ define(function (require) {
       this.views.push(interview);
 
       var interviewRendered = interview.render().$el;
-      if ((index%3) === 0 ) {
-        interviewRendered.addClass('first');
+      var rowNumber = Math.floor(index/4);
+      var $row = null;
+      if ((index%4) === 0 ) {
+        $row = this.$el.append('<div class="row row-index-' + rowNumber + '"></div>');
+      } else {
+        $row = this.$el.find(".row-index-" + rowNumber);
       }
-      this.$el.append(interviewRendered);
+      $row.append(interviewRendered);
     },
 
     setCollection : function ( collection ) {
