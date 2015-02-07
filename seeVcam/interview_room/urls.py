@@ -1,4 +1,5 @@
 from django.conf.urls import patterns, url
+from django.views.generic import TemplateView
 from interview_room.views import InterviewerView, InterviewRoomViewExperiment, IntervieweeView, \
     InterviewRoomViewExperimentEE
 
@@ -26,5 +27,10 @@ urlpatterns = patterns('',
 
                        url(r'0/(?P<interview_id>[0-9]+)/questions/?$',
                            InterviewerView.as_view(),
-                           name='interviewer_question_view')
+                           name='interviewer_question_view'),
+
+                       url(r'^completed/',
+                           TemplateView.as_view(template_name="interview_completed.html"),
+                           name='interview_completed'
+                       )
 )

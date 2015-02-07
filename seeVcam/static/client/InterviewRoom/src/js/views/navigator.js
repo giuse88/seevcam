@@ -22,7 +22,7 @@ define(function (require) {
     },
 
     goToEndInterviewPage : function () {
-      window.location = "/interviewCompleted"
+      window.location = "/interview/completed/"
     },
 
     goToFullVideoView : function () {
