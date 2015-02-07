@@ -40,7 +40,7 @@ class UploadedFileManager(models.Manager):
 
 
 class UploadedFile(models.Model):
-    file = models.FileField(blank=False, null=False,max_length=2000, upload_to=upload_to_user_folder)
+    file = models.FileField(blank=False, null=False, max_length=2000, upload_to=upload_to_user_folder)
     type = models.CharField(max_length=250, blank=False, null=False)
     created_at = models.DateTimeField(auto_now_add=True, blank=False, null=False)
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, null=False, blank=False, db_column='created_by')

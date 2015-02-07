@@ -1,0 +1,16 @@
+{%  load serializers %}
+<script type="application/javascript">
+    // TO BE REMOVED
+    var startDate = new Date();
+    startDate.setSeconds(startDate.getSeconds() - 30);
+    var endDate = new Date();
+    endDate.setSeconds(endDate.getSeconds() + 30);
+    window.cache = {
+        interview : {{ interview| interview_to_json }},
+        questions : {{ catalogue| catalogue_to_json }},
+        jobPosition: {{ job_position| job_position_to_json }},
+        overallRatings: {{ interview| overall_ratings_to_json }}
+    }
+</script>
+
+<body class="main-content container-fluid"> </body>

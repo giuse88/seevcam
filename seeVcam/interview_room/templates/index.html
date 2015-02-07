@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    {% load staticfiles %}
+    <head>
+        <title>SeeVcam Interview </title>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        {% if enviroment ==  "PRODUCTION" %}
+            {# include compiled css #}
+        {% else %}
+            <link rel="stylesheet" href="{% static "bower_components/bootstrap/dist/css/bootstrap.css" %}">
+            <link rel="stylesheet" href="{% static "bower_components/bootstrap/dist/css/bootstrap-theme.css" %}">
+            <link rel="stylesheet/less" type="text/css" href="{% static "client/InterviewRoom/src/less/style.less" %}" />
+            <script type="text/javascript" src="{% static "bower_components/less/dist/less-1.7.5.min.js" %}"></script>
+            <script type="text/javascript" data-main="{% static "" %}"  src="{% static "bower_components/requirejs/require.js" %}"></script>
+            <script type="text/javascript" src="{% static "client/InterviewRoom/src/js/boot.js" %}"></script>
+        {% endif %}
+
+        <script type="application/javascript">
+            var CONSTANTS = (function () {
+                return {
+                    csrft_token: "{{ csrf_token }}",
+                    apiKey     : "{{ api_key }}",
+                    sessionId  : "{{ session_id }}",
+                    token      : "{{ token }}",
+                    role       : "{{ role }}"
+                }
+            }());
+            console.log(CONSTANTS);
+        </script>
+
+    </head>
+        <body>
+            <h1> Interview room </h1>
+            <p> Is interview open : {{ is_interview_open }} </p>
+            <p> Role : {{ role  }}</p>
+            {%  if is_interview_open %}
+                {%  include "sub_templates/room.html" %}
+            {% else %}
+                {%  include "sub_templates/error.html" %}
+            {% endif %}
+        </body>
+</html>

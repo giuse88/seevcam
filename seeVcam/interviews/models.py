@@ -28,6 +28,7 @@ class JobPosition(UpdateCreateTimeStamp, CompanyInfo):
         verbose_name_plural = 'job_positions'
         db_table = "job_positions"
 
+
 class Interview(UpdateCreateTimeStamp):
 
     ONGOING = 'ONGOING'
@@ -41,13 +42,14 @@ class Interview(UpdateCreateTimeStamp):
 
     start = models.DateTimeField(null=False, blank=False)
     end = models.DateTimeField(null=False, blank=False)
-    duration = models.PositiveIntegerField(null=False, blank=False, choices=INTERVIEW_DURATION, default=30)
 
     # May or May not use a catalogue
     catalogue = models.ForeignKey(QuestionCatalogue, null=True, blank=True)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, null=False, blank=False)
     job_position = models.ForeignKey(JobPosition, null=False, blank=False)
     candidate = models.ForeignKey(Candidate, null=False, blank=False)
+    session_id = models.CharField(max_length=255, null=False, blank=False, default='UNKNOWN')
+    token = models.CharField(max_length=255, null=False, blank=False, default='UNKNOWN')
 
     @property
     def job_position_name(self):

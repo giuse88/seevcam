@@ -1,0 +1,26 @@
+<div class="info-container">
+    <span class="left-border">
+        <% if ( model.get("role") === "interviewer" ) { %>
+            Candidate :
+            <span class="candidate-name white-text"> Giuseppe </span>
+        <% } else { %>
+            <span class="candidate-name white-text"> Interviewer </span>
+        <% } %>
+    </span>
+    <span class="left-border">
+        Arrived
+        <% if (session.get('remoteState') === "CONNECTED" || session.get('remoteState') === "READY")  { %>
+            <span class="glyphicon glyphicon-ok-circle"></span>
+        <% } else  { %>
+            <span class="glyphicon glyphicon-remove-circle"></span>
+        <% } %>
+    </span>
+    <span class="left-border right-border">
+        Ready
+        <% if (session.get('remoteState') === "READY")  { %>
+            <span class="glyphicon glyphicon-ok-circle"></span>
+        <% } else  { %>
+            <span class="glyphicon glyphicon-remove-circle"></span>
+        <% } %>
+    </span>
+</div>

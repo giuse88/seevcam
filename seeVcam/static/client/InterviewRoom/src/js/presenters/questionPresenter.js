@@ -9,7 +9,7 @@ define(function () {
     },
 
     questionUrl: function (question) {
-      return '/#/interview/questions/' + question.id;
+      return '/questions/' + question.id;
     },
 
     previousQuestionUrl: function (question) {

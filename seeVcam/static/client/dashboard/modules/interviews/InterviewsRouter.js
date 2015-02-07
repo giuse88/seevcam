@@ -136,8 +136,12 @@ define(function(require){
     },
 
     goToInterviews: function(trigger){
-      console.log("fff");
       this.navigate("/interviews/", {trigger:!!trigger});
+    },
+
+    goToInterviewRoom: function(url){
+      console.log("Going to " + url);
+      location.href = url;
     },
 
     loadInterviews: function (success, error) {

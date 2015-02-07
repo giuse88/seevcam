@@ -1,13 +1,21 @@
 define(function (require) {
 
   var $ = require("jquery");
+  var SeevcamSession = require("modules/video/models/seevcam_session");
 
-  console.log("App.js");
 
-  $("body").append("Hope");
+  // Video Session
+  var seevcamSession = new SeevcamSession({
+    apyKey : apiKey,
+    sessionId : sessionId,
+    token : token
+  });
+
+
 
   window.app = {
-    name : "SeeVcam"
+    name : "SeeVcam",
+    session : seevcamSession
   };
 
 });

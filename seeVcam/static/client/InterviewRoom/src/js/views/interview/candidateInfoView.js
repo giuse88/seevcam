@@ -3,7 +3,13 @@ define(function (require) {
   var BaseView = require('baseView');
 
   return BaseView.extend({
+
     template: require('text!templates/interview/candidate-info.html'),
+
+    initialize : function (){
+      this.videoSession = this.model.get("videoSession");
+      this.subscriber = this.videoSession.getSubscriber();
+    },
 
     getRenderContext: function () {
       return {
@@ -18,6 +24,12 @@ define(function (require) {
     postRender: function () {
       this.refreshInterval = setInterval(_.bind(this.refreshRemainingTime, this), 1000);
       this.progressBarInterval = setInterval(_.bind(this.updateProgress, this), 1000);
+      this.$localContainer = this.$el.find('.candidate-video');
+      this.$localContainer
+        .html(this.subscriber && this.subscriber.element)
+        .find('.OT_root')
+        .height(240)
+        .width(320);
       this.updateProgress();
     },
 

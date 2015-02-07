@@ -6,6 +6,8 @@ define(function (require) {
     template: require('text!templates/interview/event-list.html'),
     listSelector: '.event-list',
 
+    className : 'events-wrapper',
+
     setUp: function () {
       this.collection.each(function (event) {
         this.addEvent(event);
@@ -15,7 +17,7 @@ define(function (require) {
     },
 
     addEvent: function (event) {
-      this.attachSubView(this.listSelector, new EventView({model: event, el: $('<li></li>')}));
+      this.attachSubView(this.listSelector, new EventView({model: event}));
 
       if (this.rendered) {
         this.scrollToBottom();
@@ -27,7 +29,7 @@ define(function (require) {
     },
 
     scrollToBottom: function () {
-      var $scrollable = this.$('.events-wrapper').get(0);
+      var $scrollable = this.$el.get(0);
       $scrollable.scrollTop = $scrollable.scrollHeight;
     }
   });

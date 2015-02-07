@@ -6,6 +6,7 @@ from common.helpers.test_helper import create_user, create_uploaded_file, create
     create_job_position, create_question, create_catalogue, create_company
 from company_profile.models import Company
 from interviews.models import Candidate, JobPosition, Interview
+from interviews.rest_views import InterviewList
 
 
 class InterviewViewTest(TestCase):
@@ -19,6 +20,7 @@ class InterviewViewTest(TestCase):
         self.job_position = create_job_position(self.user, self.company, create_uploaded_file(self.user))
         self.candidate = create_candidate(self.user, self.company, create_uploaded_file(self.user))
         self.interview = create_interview(self.user, self.catalogue, self.candidate, self.job_position)
+        InterviewList.create_interview_session = self.fake_session
 
     def tearDown(self):
         JobPosition.objects.all().delete()
@@ -36,6 +38,9 @@ class InterviewViewTest(TestCase):
         del self.candidate
         del self.job_position
         del self.interview
+
+    def fake_session(self):
+        return "UNKNOWN"
 
     # ###############################################################################
     #                                   PUBLIC TESTS                                #
@@ -186,7 +191,7 @@ class InterviewViewTest(TestCase):
         response = self.client.post("/dashboard/interviews/interviews/", interview_json, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertIsNotNone(response.data['non_field_errors'])
-        self.assertEqual(response.data['non_field_errors'][0], 'End must be before than start.')
+        self.assertEqual(response.data['non_field_errors'][0], 'End must be after than start.')
 
     # def _test_a_users_cannot_schedule_two_interview_at_the_same_time(self):
     #     #

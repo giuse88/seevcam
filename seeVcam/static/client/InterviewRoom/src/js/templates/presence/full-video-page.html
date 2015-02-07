@@ -1,0 +1,14 @@
+<div class="full-video-page">
+    <div id="local-video-container" class="local-video-container"></div>
+    <div id="remote-video-container" class="remote-video-container"></div>
+
+    <% if ( model.get("role") === "interviewer" )  { %>
+    <a href="javascript:void(0)" class="conclude-control col-xs-12 ">
+        <% if ( view.options.isGoodByePage ) { %>
+            <span> End Call </span>
+        <% } else { %>
+            <span>Questions</span>
+        <% } %>
+    </a>
+    <% } %>
+</div>

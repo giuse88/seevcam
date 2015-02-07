@@ -34,10 +34,11 @@ class TestAnswer(TestCase):
         data = serializer.data
         expected_data = {'id': 1, 'rating': 1, 'question': 'this is a question for overall rating'}
         self.assertDictEqual(expected_data, data)
-        self.assertJSONEqual(JSONRenderer().render(data), JSONRenderer().render(expected_data))
+        self.assertJSONEqual(str(JSONRenderer().render(data)),
+                             str(JSONRenderer().render(expected_data)))
 
     def test_deserialization_overall_rating(self):
-        stream = BytesIO('{"id": 1, "rating": 1, "question": "this is a question for overall rating"}')
+        stream = BytesIO(b'{"id": 1, "rating": 1, "question": "this is a question for overall rating"}')
         data = JSONParser().parse(stream)
         serializer = OverallRatingSerializer(data=data)
         self.assertTrue(serializer.is_valid())

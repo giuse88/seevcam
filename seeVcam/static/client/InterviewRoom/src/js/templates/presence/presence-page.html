@@ -1,0 +1,19 @@
+<div class="presence-page">
+    <div class="content">
+        <div class="interview-info-bar col-xs-12"></div>
+        <div class="local-video-area">
+            <div id="video-container" class="video-container"></div>
+        </div>
+        <% if ( model.get("role") === "interviewee" ) { %>
+        <div class="accept-info">
+             The interview cannot start until you accept the following agreement.
+             <a> Agreement</a>
+             <div>
+                <input type="checkbox"> Accept </input>
+             </div>
+        </div>
+        <% } %>
+    </div>
+    <div class="clearfix"></div>
+    <div class="interview-start-container"></div>
+</div>

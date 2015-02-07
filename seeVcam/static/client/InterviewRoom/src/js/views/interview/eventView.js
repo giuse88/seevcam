@@ -3,6 +3,9 @@ define(function (require) {
   var Event = require('models/event');
 
   return BaseView.extend({
+
+    tagName : "li",
+
     template: function () {
       var result;
 
@@ -32,16 +35,16 @@ define(function (require) {
     getQuestionNumber: function () {
       var session = require('services/session');
       var questions = session.get('questions');
-      var question = questions.findWhere({id: this.model.get('content').question_id});
-
+      var eventContent =  JSON.parse(this.model.get('content'));
+      var question = questions.findWhere({id: eventContent.question_id});
       return questions.indexOf(question) + 1;
     },
 
     getQuestionAnswer: function () {
       var session = require('services/session');
       var answers = session.get('answers');
-
-      var answer = answers.findWhere({question: this.model.get('content').question_id});
+      var eventContent =  JSON.parse(this.model.get('content'));
+      var answer = answers.findWhere({question: eventContent.question_id});
       return answer.get('content');
     },
 
@@ -54,7 +57,6 @@ define(function (require) {
       } else {
         result = 'positive-active-icon';
       }
-
       return result;
     }
   });

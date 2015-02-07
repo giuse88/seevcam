@@ -17,6 +17,11 @@ define(function (require) {
       BaseView.prototype.initialize.apply(this, arguments);
     },
 
+    events : {
+      'click .arrow.right' : 'goToNextQuestion',
+      'click .arrow.left' : 'goToPreviousQuestion'
+    },
+
     setUp: function () {
       this.attachSubView('.answer-container', new AnswerView({model: this.answer}));
       this.attachSubView('.notes-container', new NotesView({model: this.notes}));
@@ -33,6 +38,15 @@ define(function (require) {
 
     nextQuestionUrl: function () {
       return QuestionPresenter.nextQuestionUrl(this.model);
+    },
+
+    goToNextQuestion : function () {
+      window.router.navigate(QuestionPresenter.nextQuestionUrl(this.model), {trigger:true});
+    },
+
+    goToPreviousQuestion : function () {
+      window.router.navigate(QuestionPresenter.previousQuestionUrl(this.model), {trigger:true});
     }
+
   });
 });

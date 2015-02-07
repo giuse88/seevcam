@@ -1,22 +1,24 @@
-<div class="question-text">
-    <span>Q<%= view.questionNumber(model) %>/<%= view.questions.length %></span>  <%= model.get('question_text') %>
+<div class="questions-container">
+    <div class="question-text">
+        <span>Q<%= view.questionNumber(model) %>/<%= view.questions.length %></span>  <%= model.get('question_text') %>
 
-    <% var previousQuestionUrl = view.previousQuestionUrl(); %>
-    <% if (previousQuestionUrl) { %>
-        <a href="<%= previousQuestionUrl %>" class="arrow left">
-            <span class="left-arrow-icon"></span>
-        </a>
-    <% } %>
+        <% var previousQuestionUrl = view.previousQuestionUrl(); %>
+        <% if (previousQuestionUrl) { %>
+            <a href="javascript:void(0)" class="arrow left">
+                <span class="left-arrow-icon"></span>
+            </a>
+        <% } %>
 
-    <% var nextQuestionUrl = view.nextQuestionUrl(); %>
-    <% if (nextQuestionUrl) { %>
-        <a href="<%= nextQuestionUrl %>" class="arrow right">
-            <span class="right-arrow-icon"></span>
-        </a>
-    <% } %>
+        <% var nextQuestionUrl = view.nextQuestionUrl(); %>
+        <% if (nextQuestionUrl) { %>
+            <a href="javascript:void(0)" class="arrow right">
+                <span class="right-arrow-icon"></span>
+            </a>
+        <% } %>
+    </div>
+    <div class="question-navigation-container"></div>
+    <div class="clearfix"></div>
 </div>
-<div class="question-navigation-container"></div>
-<div class="clearfix"></div>
 <hr>
 <div class="answer-container"></div>
 <div class="notes-container"></div>

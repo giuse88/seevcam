@@ -11,6 +11,8 @@ class CandidateSerializer(serializers.ModelSerializer):
     created_by = serializers.PrimaryKeyRelatedField(many=False)
     cv = serializers.PrimaryKeyRelatedField(many=False)
 
+    # TO DO ADD STATUS
+
     class Meta:
         model = Candidate
         fields = ('id', 'name', 'email', 'surname', 'cv')
@@ -35,7 +37,8 @@ class InterviewSerializer(serializers.ModelSerializer):
     end = serializers.DateTimeField(format=settings.DATE_INPUT_FORMATS[0], input_formats=settings.DATE_INPUT_FORMATS)
 
     def validate(self, attrs):
-        self.is_end_before_start(attrs['start'], attrs['end'], "End must be before than start.")
+        if not self.partial:
+            self.is_end_before_start(attrs['start'], attrs['end'], "End must be after than start.")
         return attrs
 
     def validate_start(self, attrs, source):

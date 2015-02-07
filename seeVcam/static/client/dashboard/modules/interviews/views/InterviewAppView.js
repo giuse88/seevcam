@@ -6,6 +6,7 @@ define(function (require) {
   var Calendar = require("modules/interviews/views/InterviewCalendarView");
   var InterviewBlocks = require("modules/interviews/views/InterviewListView");
   var Interviews = require("modules/interviews/models/InterviewList");
+  var InterviewView = require("modules/interviews/views/InterviewView");
   var ClockView = require("modules/interviews/views/ClockView");
 
   return  Backbone.View.extend({
@@ -28,9 +29,9 @@ define(function (require) {
     },
 
     template : _.template("" +
-      '<div id="pending-interview" class="col-md-3"></div>'+
       '<div class="row upper-bar" id="interviews-upper-bar">'+
-       '     <div id="searchbox-container" class="col-md-6 col-md-offset-3">'+
+       '<div class="open-interview col-md-3" id="pending-interview"></div>'+
+       '     <div id="searchbox-container" class="col-md-6">'+
        '        <div class="search-interview-form">'+
         '            <input name="search" type="text" class="form-control search-input" placeholder="Search">'+
         '            <span class="search-icon"> <i class="glyphicon glyphicon-search"></i> </span>'+
@@ -65,6 +66,7 @@ define(function (require) {
       this.$interviewViewContainer = this.$el.find('.interview-view-container');
       this.$searchBox = this.$el.find('#searchbox-container input');
       this.$todayInterview = this.$el.find(".upcoming-interviews");
+      this.$openInterview = this.$el.find(".open-interview");
       // today
       this.renderOpenInterview();
       this.renderTodayInterviews();
@@ -167,9 +169,10 @@ define(function (require) {
     },
 
     renderOpenInterview : function () {
-
       if ( this.interviews.first() && this.interviews.first().isOpen() )  {
-        this.interviews.shift();
+        this.openInterviewModel = this.interviews.shift();
+        this.openInterviewView = new InterviewView({ model : this.openInterviewModel });
+        this.$openInterview.html(this.openInterviewView.render().$el);
       }
     },
 
