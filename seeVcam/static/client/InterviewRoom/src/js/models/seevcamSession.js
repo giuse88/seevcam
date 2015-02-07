@@ -55,7 +55,7 @@ define(function (require) {
              .on("streamCreated",this.streamCreated, this)
              .on("signal:statusUpdate", this.remoteStateUpdate, this)
              .on("signal:start-interview", this.goToFullVideo, this)
-             .on("signal:end-interview", this.endInterview);
+             .on("signal:end-interview", this.endInterview, this);
 
       this.listenTo(this, 'change:localState', this.updateInterviewState, this);
       this.listenTo(this, 'change:remoteState', this.updateInterviewState, this);
@@ -186,15 +186,19 @@ define(function (require) {
 
     closeConnection: function () {
       console.log("closing connection");
+      this.sendSignal({message:"end interview" }, "end-interview");
       this.session.unpublish(this.publisher);
       this.session.unsubscribe(this.subscriber);
+      this.sessionDisconnected();
       this.session.disconnect();
-      this.sendSignal({message:"end interview" }, "end-interview");
     },
 
     endInterview : function () {
-      console.log("send end interview");
-      this.closeConnection();
+      console.log("Recieved end interview signal");
+      this.session.unpublish(this.publisher);
+      this.session.unsubscribe(this.subscriber);
+//      this.sessionDisconnected();
+//      this.session.disconnect();
       Navigator.goToEndInterviewPage();
     },
 
@@ -202,9 +206,6 @@ define(function (require) {
       console.log('Seevcam: sessionDisconnected');
       this.session.off();
       this.publisher.off();
-      this.session = null;
-      this.remoteConnection = null;
-      this.localConnection = null;
     },
 
     connectionCreated: function(event) {
