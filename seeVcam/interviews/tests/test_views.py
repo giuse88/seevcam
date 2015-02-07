@@ -191,7 +191,7 @@ class InterviewViewTest(TestCase):
         response = self.client.post("/dashboard/interviews/interviews/", interview_json, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertIsNotNone(response.data['non_field_errors'])
-        self.assertEqual(response.data['non_field_errors'][0], 'End must be before than start.')
+        self.assertEqual(response.data['non_field_errors'][0], 'End must be after than start.')
 
     # def _test_a_users_cannot_schedule_two_interview_at_the_same_time(self):
     #     #
