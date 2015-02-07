@@ -26,7 +26,7 @@ define(function (require) {
 
     goToReview : function () {
       console.log("Go to review");
-      Navigator.goToReview();
+      Navigator.goToGoodBye();
     },
 
     addContent : function ( innerView ) {

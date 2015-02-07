@@ -17,6 +17,7 @@ define(function (require) {
       'job-spec(/)': 'jobSpec',
       'cv(/)': 'cv',
       'full-video(/)': 'fullVideo',
+      'end-video(/)' : 'endVideo',
       'goodbye' : 'fullVideo',
       'questions(/)(:questionId)': 'questions',
 
@@ -39,7 +40,12 @@ define(function (require) {
 
     fullVideo: function () {
       console.log("full video");
-      this.renderPage(new FullVideoPage({model: this.session}));
+      this.renderPage(new FullVideoPage({model: this.session, isGoodByePage:false}));
+    },
+
+    endVideo: function () {
+      console.log("end video");
+      this.renderPage(new FullVideoPage({model: this.session, isGoodByePage:true}));
     },
 
     // =================== Inner view ====================//

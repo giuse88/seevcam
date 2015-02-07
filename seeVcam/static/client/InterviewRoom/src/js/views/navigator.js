@@ -25,6 +25,10 @@ define(function (require) {
       window.router.navigate("/full-video/", {trigger: true});
     },
 
+    goToGoodBye : function () {
+      window.router.navigate("/end-video/", {trigger: true});
+    },
+
     goToReview : function () {
       window.router.navigate("/review/", {trigger:true});
     },

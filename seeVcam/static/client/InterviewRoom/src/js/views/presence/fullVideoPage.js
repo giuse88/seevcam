@@ -11,14 +11,23 @@ define(function (require) {
       'click a'  : 'goToQuestion'
     },
 
+    defaults : {
+      isGoodByePage : false
+    },
+
     initialize: function (options) {
 
+      this.options = _.extend(this.defaults, options);
       this.videoSession = this.model.get("videoSession");
-      this.videoSession.publish();
-      console.log(".........I'm publishing.......");
+
+      if ( !this.options.isGoodByePage ) {
+        this.videoSession.publish();
+        this.listenTo(this.videoSession, 'change:remoteStream', this.handleRemoteStream, this);
+      } else  {
+        this.subscriber = this.videoSession.getSubscriber();
+      }
       this.publisher = this.videoSession.getPublisher();
 
-      this.listenTo(this.videoSession, 'change:remoteStream', this.handleRemoteStream, this);
     },
 
     handleRemoteStream : function () {
@@ -33,9 +42,21 @@ define(function (require) {
       }
     },
 
+    installRemoteVideo : function () {
+      this.$localContainer
+        .html(this.subscriber && this.subscriber.element)
+        .height(window.innerHeight)
+        .width(window.innerWidth);
+    },
+
     goToQuestion : function (event) {
       event.preventDefault();
-      Navigator.goToQuestions();
+      if (this.options.isGoodByePage) {
+        // console.log("End");
+        Navigator.goToReview();
+      } else {
+        Navigator.goToQuestions();
+      }
     },
 
     postRender : function () {
@@ -47,8 +68,12 @@ define(function (require) {
       this.$localContainer
         .find('.OT_root')
         .height(240)
-        .width(320)
-      this.handleRemoteStream();
+        .width(320);
+      if (this.isGoodByePage) {
+        this.installRemoteVideo();
+      } else {
+        this.handleRemoteStream();
+      }
     }
   });
 });
