@@ -28,7 +28,11 @@ html, body {
     padding: 0;
     height: 100%;
     font-size: 13px;
-    background-color: #eeeeee;
+    background-color: @background-grey;
+}
+
+a {
+    color: @orange;
 }
 
 hr {
@@ -180,3 +184,4 @@ select.form-control {
 @import "modules/notification/notification";
 @import "modules/interviews/style/create_interview";
 @import "modules/interviews/style/interviews";
+@import "../login/css/login";
