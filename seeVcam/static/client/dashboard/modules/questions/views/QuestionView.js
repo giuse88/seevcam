@@ -2,6 +2,7 @@ define(function(require){
 
   var Backbone = require("backbone");
   var _ = require("underscore");
+	var QuestionTemplate = require("text!modules/questions/templates/question.html")
 
   return  Backbone.View.extend({
 
@@ -12,12 +13,7 @@ define(function(require){
     },
 
     className: 'question',
-    template: _.template(
-            '<div class="view form-group"> <p><%- question_text %></p> ' +
-            '<a class="delete"> <span class="hidden glyphicon glyphicon-trash"></span> </a>' +
-            '</div> ' +
-            '<input class="edit form-control" type="text" value="<%- question_text %>" /> '
-    ),
+    template: _.template(QuestionTemplate),
 
     events: {
         "click .delete": 'deleteQuestion',

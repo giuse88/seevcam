@@ -6,33 +6,11 @@ define(function (require) {
   var Backbone = require("backbone");
   var Utils = require("utils");
   var QuestionView = require("modules/questions/views/QuestionView");
+	var EditCatalogueTemplate = require("text!modules/questions/templates/editCatalogue.html")
 
   return Backbone.View.extend({
 
-      template: _.template(
-              '    <div class="create-interview-catalog-section" style="height:100%;">' +
-              '        <div class="row" style="height:100%;margin-right:0;">' +
-              '           <div class="panel" style="height:100%;position: relative;">' +
-              '                <div class="panel-heading clearfix">' +
-              '                    <span class="inline-block" style="width:80%">' +
-              '                        <input class="input-panel-heading" style="width:100%" type="text" value="<%- catalogue_name %>">' +
-              '                    </span>' +
-              '                   <span class="margin-b2-t2 inline-block pull-right">' +
-              '                       <span class="glyphicon input-status-icon"></span>' +
-              '                       <span class="delete-panel-heading icon glyphicon glyphicon-trash"></span>' +
-              '                       <span class="close-panel-heading icon glyphicon glyphicon-remove"></span>' +
-              '                    </span>' +
-              '                </div>' +
-              '                <div id="question-container" class="">' +
-              '                    <ul class="scroll-pane"></ul>' +
-              '                </div>' +
-              '                <div id="enter-new-question" class="">' +
-              '                    <input id="question-text" class="form-control" type="text" placeholder="Enter a new question"/>' +
-              '                </div>' +
-              '            </div>' +
-              '        </div>' +
-              '    </div>'
-      ),
+      template: _.template(EditCatalogueTemplate),
       el: "#edit-catalogue",
 
       events: {

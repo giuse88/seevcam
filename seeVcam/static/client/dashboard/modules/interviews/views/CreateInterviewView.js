@@ -46,7 +46,7 @@ define(function (require) {
       if(!this.model) {
         return {
           create : true,
-          title : "New interview",
+          title : "<span>Create</span> a new interview",
           interview : null,
           cv : null,
           catalogues : this.options.catalogues.toJSON(),
@@ -57,7 +57,7 @@ define(function (require) {
 
       return {
         create : false,
-        title : "Update interview",
+        title : "<span>Update</span> interview",
         interview : this.model.toJSON(),
         cv : this.model.getCV().toJSON(),
         catalogues : this.options.catalogues.toJSON(),
@@ -91,7 +91,6 @@ define(function (require) {
         title : "Create catalogue for interview",
         animate: true,
         okCloses:true,
-        allowCancel : false,
         footer: true
       });
 
@@ -172,7 +171,7 @@ define(function (require) {
       debugger;
       this.$el.find(".datetime .start").val(start.utc().format("YYYY-MM-DD[T]HH:mm:00.000000ZZ"));
       this.$el.find(".datetime .end").val(end.utc().format("YYYY-MM-DD[T]HH:mm:00.000000ZZ"));
-      this.$el.find('.datetime-display p').html(this.displayTime(original));
+      this.$el.find('.datetime-display').html(this.displayTime(original));
     },
 
     displayTime : function(time){

@@ -5,8 +5,10 @@ define(function (require) {
   var Backbone = require("backbone");
   var Utils = require("utils");
   var InterviewBlock = require("modules/interviews/views/InterviewView");
+	var NoInterviewTemplate = require("text!modules/interviews/templates/noInterview.html")
 
-  return  Backbone.View.extend({
+
+	return  Backbone.View.extend({
 
     tagName :'div',
 
@@ -15,9 +17,7 @@ define(function (require) {
       console.log("fff");
     },
 
-    template_no_interview : function() {
-      return '<div class="no-interview text-shadow ">No interview ' +(this.options.today ? "today" : "") + "</div>";
-    },
+    template_no_interview : _.template(NoInterviewTemplate),
 
     initialize : function(options){
       console.log("initializing block view");

@@ -3,47 +3,18 @@ define(function (require) {
   var _ = require("underscore");
   var Backbone = require("backbone");
   var moment = require("moment");
+	var BlockItemTemplate = require("text!modules/interviews/templates/blockItem.html")
+	var ListItemTemplate = require("text!modules/interviews/templates/listItem.html")
 
-  return  Backbone.View.extend({
+
+	return  Backbone.View.extend({
 
     tagName : 'div',
     className : 'interview-item',
 
-    block_item_template : _.template('' +
-      '<span class="glyphicon glyphicon-remove delete-interview"></span> ' +
-      '<header>' +
-      '<div class="row">' +
-      '         <div class="col-sm-12">' +
-      '            <div class="name-container">' +
-      '                <h4><%= name %>  <%= surname %></h4>' +
-      '            </div>' +
-      '            <p> <%= job_position %></p>' +
-      '        </div>' +
-      '    </div>' +
-      '</header>' +
-      '<section class="interview-time">' +
-      '   <p class="interview-date">' +
-      '       <span class="date-string"><%= date_string %></span>' +
-      '       <span class="date-day"><%= day %></span>' +
-      '       <span class="date-separator"><%= date_separator %></span>' +
-      '       <span class="date-month"><%= month %></span>' +
-      '       <span class="date-separator"><%=  date_separator %></span>' +
-      '       <span class="date-year"><%= year %></span>' +
-      '    </p> ' +
-      '   <p class="interview-hours"><%= time %></p>' +
-      '</section>'),
+    block_item_template : _.template(BlockItemTemplate),
 
-    list_item_template : _.template('' +
-        '<div class="interview-date"><span class="date-string"> <%= date_string %></span>' +
-        '<span class="date-month"><%= month %></span> <span class="date-separator"><%= date_separator %></span>' +
-        '<span class="date-day"><%= day %></span> <span class="date-separator"><%= date_separator %></span>' +
-        '<span class="date-year"><%= year %></span></div>' +
-        '<div class="interview-time"><%= time %></div>' +
-        '<h4><%= name %>  <%= surname %></h4>' +
-        '<p><%= job_position%> </p>' +
-        '<div class="action-icons">' +
-            '<span class="glyphicon glyphicon-remove delete-interview"></span> ' +
-        '</div>'),
+    list_item_template : _.template(ListItemTemplate),
 
     events : {
       'click .delete-interview' : 'removeInterview',

@@ -11,13 +11,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   {% if enviroment ==  "PRODUCTION" or environment == "STAGING" %}
-    <link rel="stylesheet" href="{% static "bootstrap/css/bootstrap.css" %}">
-    <link rel="stylesheet" href="{% static "bootstrap/css/bootstrap-theme.css" %}">
-    <link rel="stylesheet" href="{% static "client/login/login.css" %}">
+    <link rel="stylesheet" href="/css/seevcam.css">
   {% else %}
-    <link rel="stylesheet" href="{% static "bower_components/bootstrap/dist/css/bootstrap.css" %}">
-    <link rel="stylesheet" href="{% static "bower_components/bootstrap/dist/css/bootstrap-theme.css" %}">
-    <link rel="stylesheet" href="{% static "client/login/css/login.css" %}">
+    {# less #}
+    <link rel="stylesheet/less" type="text/css" href="{% static "client/dashboard/main.less" %}" />
+    <script type="text/javascript" src="{% static "bower_components/less/dist/less-1.7.5.min.js" %}"></script>
   {% endif %}
 
 </head>
@@ -31,7 +29,8 @@
 
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h2 class="brand">SeeVcam</h2>
+{#        <h2 class="brand">SeeVcam</h2>#}
+        <img alt="seeVcam" style="max-width:130px; margin-top: -0px;" src="/static/images/UI/logo-black.png">
       </div>
 
       <div class="panel-body">
@@ -68,14 +67,11 @@
           </div>
 
           <div class="form-group">
-            <button type="submit" class="btn btn-action">Login</button>
-            {#      <input class="btn btn-default" type="submit" value="login"/>#}
+            <button type="submit" class="btn btn-primary btn-action">Login</button>
             <input type="hidden" name="next" value="{{ next }}"/>
           </div>
           <hr>
-          <div class="form-group">
-          Not registered? <a href="#">click here</a>
-            </div>
+          <div class="form-group">Not registered? <a href="#">click here</a></div>
         </form>
       </div>
     </div>
