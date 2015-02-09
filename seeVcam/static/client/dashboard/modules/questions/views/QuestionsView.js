@@ -5,12 +5,13 @@ define(function (require) {
   var Utils = require("utils");
   var QuestionView = require("modules/questions/views/QuestionView");
   var QuestionViewReadOnly = require("modules/questions/views/QuestionViewReadOnly");
+	var NoQuestionTemplate = require("text!modules/questions/templates/noQuestions.html")
 
   return  Backbone.View.extend({
 
         tagName : 'ul',
         className : 'question-list',
-        template_no_questions : '<li class="question"><div class="no-question view form-group"> <p>No questions</p></div></li>',
+        template_no_questions : _.template(NoQuestionTemplate),
 
         initialize : function(options){
             this.catalogue = options && options.catalogue;

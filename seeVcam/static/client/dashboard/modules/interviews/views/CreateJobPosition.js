@@ -9,15 +9,14 @@ define(function (require) {
   var _ = require("underscore");
   var Backbone = require("backbone");
   var createFormTemplate = require("text!modules/interviews/templates/createJobPosition.html");
+  var errorFormTemplate = require("text!modules/interviews/templates/error.html");
   var JobPosition = require("modules/interviews/models/JobPosition");
   var Overlay = require("misc/overlay/overlay");
 
  return Backbone.View.extend({
     className : "job-position-create-container",
     template: _.template(createFormTemplate),
-    error_template: _.template('<div class="alert alert-danger" role="alert"> ' +
-                                '<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>' +
-                                '<span class="sr-only">Error:</span> <%= error_message %></div>'),
+    error_template: _.template(errorFormTemplate),
 
     events :  {
       'submit #createJobSpec'  : 'handleFormSubmit'
