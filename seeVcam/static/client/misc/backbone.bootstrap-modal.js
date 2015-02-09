@@ -117,6 +117,7 @@ define(function (require) {
       var $el = this.$el,
           options = this.options,
           content = options.content;
+      var self = this;
 
       //Create the modal container
       $el.html(options.template(options));
@@ -129,11 +130,25 @@ define(function (require) {
         $el.find('.modal-body').html(content.$el);
       }
 
-      if (options.animate) $el.addClass('fade');
+      if (options.animate)  {
+        $el.addClass('fade');
+      }
 
       this.isRendered = true;
 
+      this.$el.on('hidden.bs.modal', function (e) {
+        self.cleanDOM();
+      });
+
       return this;
+    },
+
+    cleanDOM : function () {
+      this.$el.remove();
+      this.$backdrop.remove();
+      this.remove();
+      this.unbind();
+      this.undelegateEvents();
     },
 
     /**
@@ -168,15 +183,20 @@ define(function (require) {
 
       //Adjust the modal and backdrop z-index; for dealing with multiple modals
       var numModals = Modal.count,
-          $backdrop = $('.modal-backdrop:eq('+numModals+')'),
+          $backdrop = $('.modal-backdrop'),
           backdropIndex = parseInt($backdrop.css('z-index'),10),
           elIndex = parseInt($backdrop.css('z-index'), 10);
+
+      self.$backdrop = $backdrop;
 
       $backdrop.css('z-index', backdropIndex + numModals);
       this.$el.css('z-index', elIndex + numModals);
 
+      console.log($backdrop);
+
       if (this.options.allowCancel) {
-        $backdrop.one('click', function() {
+        self.$backdrop.on('click', function() {
+          console.log("Clicked backdrop");
           if (self.options.content && self.options.content.trigger) {
             self.options.content.trigger('cancel', self);
           }
@@ -194,6 +214,7 @@ define(function (require) {
       }
 
       this.on('cancel', function() {
+        console.log("Closing modal ");
         self.close();
       });
 
@@ -239,11 +260,7 @@ define(function (require) {
 
       $el.modal('hide');
 
-      _.delay(function(){
-        self.remove();
-        self.unbind();
-        self.undelegateEvents();
-      },200);
+
 
       Modal.count--;
     },
