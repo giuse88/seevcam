@@ -2,11 +2,14 @@
 import os
 from django.db import migrations
 import yaml
+from django.conf import settings
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 
 
 def populate_overall_ratings(apps, schema_editor):
+    if settings.ENVIRONMENT == "TEST":
+        return
     OverallRatingQuestion = apps.get_model("overall_ratings", "OverallRatingQuestion")
     db_alias = schema_editor.connection.alias
     document = open(os.path.join(BASE, '../fixtures/overall_ratings.yml'), 'r')
