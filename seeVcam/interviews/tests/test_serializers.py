@@ -102,7 +102,7 @@ class CandidateSerializerTest(TestCase):
                ' "job_position": 1,' \
                ' "job_position_name": "text",' \
                ' "candidate": {"id": 1, "name": "giuseppe", "email": "test@test.com", "surname": "pes", "cv": 1},' \
-               ' "catalogue": 4}'
+               ' "catalogue": 1}'
         interview = Interview.objects.get(pk=1)
         serializer = InterviewSerializer(interview)
         data = serializer.data
