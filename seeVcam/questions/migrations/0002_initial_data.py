@@ -4,11 +4,14 @@ from __future__ import unicode_literals
 from django.db import models, migrations
 import yaml
 import os.path
+from django.conf import settings
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 
 
 def populate_catalogs(apps, schema_editor):
+    if settings.ENVIRONMENT == "TEST":
+        return
     Catalog = apps.get_model("questions", "QuestionCatalogue")
     Question = apps.get_model("questions", "Question")
     User = apps.get_model("authentication", "SeevcamUser")

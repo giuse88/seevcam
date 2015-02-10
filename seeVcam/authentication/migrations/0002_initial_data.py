@@ -3,9 +3,11 @@ from __future__ import unicode_literals
 
 from django.db import models, migrations
 import django.contrib.auth.hashers as hasher
-
+from django.conf import settings
 
 def populate_superuser(apps, schema_editor):
+    if settings.ENVIRONMENT == "TEST":
+        return
     SeevcamUser = apps.get_model("authentication", "SeevcamUser")
     Company = apps.get_model("company_profile", "Company")
     Notifications = apps.get_model("userprofile", "UserNotifications")
