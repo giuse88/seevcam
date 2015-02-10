@@ -45,3 +45,6 @@ DATABASES = {
         'PORT': get_config("DB_PORT"),
     }
 }
+
+OPENTOK_API_KEY = get_config("OPENTOK_API_KEY")
+OPENTOK_SECRET = get_config("OPENTOK_SECRET")
