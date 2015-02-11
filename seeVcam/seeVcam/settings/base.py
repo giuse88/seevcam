@@ -221,3 +221,5 @@ INTERVIEW_OPEN = 900  # 15 minutes
 INTERVIEW_CLOSE = 900 # 15 minutes
 # do we still use it?
 INTERVIEW_TEMPORAL_WINDOW = 900  # 15 minutes
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

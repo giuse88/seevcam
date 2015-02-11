@@ -35,3 +35,10 @@ DATABASES = {
 
 OPENTOK_API_KEY = get_config("OPENTOK_API_KEY")
 OPENTOK_SECRET = get_config("OPENTOK_SECRET")
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = "email-smtp.eu-west-1.amazonaws.com"
+EMAIL_PORT = "25"
+EMAIL_HOST_USER = get_config("SMTP_USER")
+EMAIL_HOST_PASSWORD = get_config("SMTP_PWD")
+EMAIL_USE_TLS = True
