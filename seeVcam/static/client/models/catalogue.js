@@ -1,7 +1,7 @@
 define(function(require){
 
   var Backbone = require("backbone");
-  var Questions = require("modules/questions/models/Questions");
+  var Questions = require("collections/questions");
   var Notification = require("notification");
 
   return  Backbone.Model.extend({

@@ -4,7 +4,7 @@ define(function (require) {
 
   var Interviews = require("collections/interviews");
   var JobPositions = require("collections/job_positions");
-  var Catalogues = require("modules/questions/models/Catalogues");
+  var Catalogues = require("collections/catalogues");
 
   return {
 

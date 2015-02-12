@@ -3,15 +3,11 @@ define(function(require){
   var $ = require("jquery");
   var Utils = require("utils");
   var Backbone = require("backbone");
-  var Catalogues = require("modules/questions/models/Catalogues");
-  var CataloguesView = require("modules/questions/views/CataloguesView");
   var LoadingBar = require("nanobar");
+  var Catalogues = require("collections/catalogues");
+  var CataloguesView = require("modules/questions/views/CataloguesView");
   var Notification = require("notification");
   var Loader = require("modules/http/Loader");
-
-  /*
-    To be rewritten with promises
-   */
 
   return  Backbone.Router.extend({
 

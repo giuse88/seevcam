@@ -6,7 +6,6 @@ from common.helpers.views_helper import set_company_info
 from interviews.models import Interview, JobPosition
 from interviews.serializers import InterviewSerializer, JobPositionSerializer
 from notes.models import Notes
-from common.helpers.timezone import now_timezone
 from django.conf import settings
 from overall_ratings.models import OverallRatingQuestion, OverallRating
 

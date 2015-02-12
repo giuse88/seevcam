@@ -1,6 +1,6 @@
 define(function(require){
 
-  var Question = require("modules/questions/models/Question");
+  var Question = require("models/question");
   var Backbone = require("backbone");
 
   return Backbone.Collection.extend({

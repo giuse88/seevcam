@@ -10,7 +10,6 @@ define(function(require){
   var InterviewApp = require("modules/interviews/views/InterviewAppView");
   var CreateInterviewView = require("modules/interviews/views/CreateInterviewView");
   var Loader = require("modules/http/Loader");
-  var Catalogues = require("modules/questions/models/Catalogues");
 
   return  Backbone.Router.extend({
 
