@@ -75,6 +75,7 @@
 
   .interviews-container {
     margin-bottom: 20px;
+    margin-top : 40px;
 
     .interview-grid {
       .no-interview {
@@ -82,13 +83,45 @@
         margin-top : 20%;
       }
     }
+  }
 
+  .interview-grid {
+    margin-left: 15px;
+    margin-right: 15px;
+    
+    .interview-item {
+      height: 150px;
+    }
+
+    /*
+      bullshit
+    */
+    .col-md-3,.col-md-4 {
+      margin-bottom: 30px;
+    }
+
+    .report-item {
+      border-color: @report-color;
+      cursor: pointer;
+
+      &:hover {
+        background-color: @report-color;
+      }
+
+      .score {
+        text-align: center;
+        color : inherit;
+        .number {
+          font-size: 50px;
+        }
+      }
+    }
   }
 
     /** Interviews List Section */
   .interview-item {
-      box-shadow: 0 0 3px rgba(0, 0, 0, .1);
-      border-radius: 0 0 5px 5px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, .1);
+    border-radius: 0 0 5px 5px;
   }
 
   .interview-item,
@@ -102,6 +135,7 @@
 
 .interview-item:hover {
     box-shadow: 0 0 7px rgba(0, 0, 0, .4);
+  color : white;
 }
 
 .interview-item:hover .header {
@@ -123,9 +157,9 @@
 }
 
 .interview-item .header p {
-    margin: 0;
-    font-size: 10px;
-    color: #eaeaea;
+  font-size: 10px;
+  color: #eaeaea;
+  margin: 10px 0 0;
 }
 
 .interview-time {
@@ -183,6 +217,7 @@
 
 
 .interview-item {
+  position:relative;
   background-color: white;
   border-top: 7px solid @blue;
   border-radius: 0px;
@@ -207,6 +242,11 @@
 	z-index: 10;
     cursor: pointer;
 }
+
+  .name-container {
+    padding : 10px;
+  }
+
 .interview-item:hover .glyphicon-remove{
 	display: block;
 }
@@ -294,37 +334,46 @@
 }
 
 
-#upcoming-interviews .interview-item.today{
-	background-color: #009145;
-    border-top: 0px;
-	padding-top: 12px;
-    width : 85%;
-    margin: 0 0 30px 9%;
+  .today {
 
-  .delete-interview {
-      top:5px;
+    .interview-item {
+      background-color: #009145;
+      border-top: 0px;
+
+      .header h4{
+        color: white;
+      }
+
+      .header p{
+        color: white;
+      }
+
+      .interview-time > p{
+        color: #a8d9c0;
+      }
+
+      .interview-time{
+        border-top: 1px solid #a8d9c0;
+      }
+
+      &:hover{
+        background-color: #009145;
+      }
+
+      &:hover .header p{
+        color: white;
+      }
+
+      &:hover .interview-time > p{
+        color: #ddd;
+      }
+
+      .delete-interview {
+        top:5px;
+      }
+
     }
-}
-#upcoming-interviews .interview-item.today .header h4{
-	color: white;
-}
-#upcoming-interviews .interview-item.today .header p{
-	color: white;
-}
-#upcoming-interviews .interview-item.today .interview-time > p{
-	color: #a8d9c0;
-}
-#upcoming-interviews .interview-item.today .interview-time{
-	border-top: 1px solid #a8d9c0;}
-.interview-item.today:hover{
-	background-color: #009145;
-}
-.interview-item.today:hover .header p{
-	color: white;
-}
-.interview-item.today:hover .interview-time > p{
-	color: #ddd;
-}
+  }
 
 
 
@@ -355,8 +404,8 @@
 	color: white;
 }
 #pending-interview .interview-item .name-container{
-	height: auto;
-
+  padding:10px;
+  height: auto;
 }
 
 
@@ -384,7 +433,7 @@
       padding-right: 15px;
       background-color: black;
       color: #999;
-      width: 130px;
+      width: 140px;
       text-align: center;
       border: 1px solid #999;
     }

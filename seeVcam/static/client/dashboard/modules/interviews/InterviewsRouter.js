@@ -136,6 +136,10 @@ define(function(require){
        this.navigate("/interviews/" + id + "/", {trigger:!!trigger});
     },
 
+    goToReports: function(id, trigger) {
+      this.navigate("/reports/" + id + "/", {trigger:!!trigger});
+    },
+
     goToInterviews: function(trigger){
       this.navigate("/interviews/", {trigger:!!trigger});
     },

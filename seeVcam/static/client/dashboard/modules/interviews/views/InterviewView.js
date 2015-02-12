@@ -10,7 +10,7 @@ define(function (require) {
 	return  Backbone.View.extend({
 
     tagName : 'div',
-    className : 'col-md-3',
+    className : 'item',
 
     block_item_template : _.template(require("text!modules/interviews/templates/block_item.html")),
     list_item_template : _.template(require("text!modules/interviews/templates/list_item.html")),
@@ -44,7 +44,7 @@ define(function (require) {
         date_string : "",
         isReport : this.options.isReport,
         isInterview : !this.options.isReport,
-        classType : this.options.isReport ? "report-item" : "interview-item",
+        classType : this.options.isReport ? "report-item" : "",
         date_separator : "-"
       }
     },
@@ -55,13 +55,13 @@ define(function (require) {
 
     handleItemClick : function(event) {
       event.preventDefault();
+      var router = window.app.router.InterviewsRouter;
       if ( this.model.isOpen()) {
-        console.log("Interview open");
-        window.app && window.app.router && window.app.router.InterviewsRouter &&
-        window.app.router.InterviewsRouter.goToInterviewRoom(this.model.getInterviewRoomURL());
+        router.goToInterviewRoom(this.model.getInterviewRoomURL());
+      } else if ( this.options.isReport) {
+        router.goToReports(this.model.get("id"), true);
       } else {
-        window.app && window.app.router && window.app.router.InterviewsRouter &&
-        window.app.router.InterviewsRouter.goToInterview(this.model.get("id"), true);
+        router.goToInterview(this.model.get("id"), true);
       }
     },
 
@@ -80,8 +80,13 @@ define(function (require) {
       var template = this.options.list ? this.list_item_template : this.block_item_template;
       this.$el.html(template(this.getDataForTemplate()));
       // This should be in the template
+      // this is shit
       if (this.options.today) {
         this.$el.addClass('today');
+      } else  if (this.options.isReport) {
+        this.$el.addClass("col-md-3");
+      } else if (!this.options.list) {
+        this.$el.addClass("col-md-4");
       }
       return this;
     },

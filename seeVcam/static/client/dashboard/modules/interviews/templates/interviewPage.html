@@ -22,16 +22,17 @@
 <div class="row interviews-container">
 
     <% if ( interview )  { %>
-    <div class="col-md-3 upcoming-interviews" id="upcoming-interviews">
+    <div class="col-md-3 upcoming-interviews">
         <div class="interview-items">
             <p class="no-interview shadow-text">No interview scheduled for today.</p>
         </div>
     </div>
-    <div id="interviews-view-container" class="col-md-8 interview-view-container">
+    <div id="interviews-view-container" class="col-md-9 interview-view-container">
         Inner interview container
     </div>
     <% } else {  %>
     <div class="reports-container row" >
+
         Inner report container
     </div>
     <% } %>

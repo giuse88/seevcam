@@ -43,14 +43,14 @@ define(function (require) {
       this.views.push(interview);
 
       var interviewRendered = interview.render().$el;
-      var rowNumber = Math.floor(index/4);
-      var $row = null;
-      if ((index%4) === 0 ) {
-        $row = this.$el.append('<div class="row row-index-' + rowNumber + '"></div>');
-      } else {
-        $row = this.$el.find(".row-index-" + rowNumber);
-      }
-      $row.append(interviewRendered);
+//      var rowNumber = Math.floor(index/4);
+
+//      if ((index%4) === 0 ) {
+//        this.$el.append('<div class="row row-index-' + rowNumber + '"></div>');
+//      }
+//
+//      var $row = this.$el.find(".row-index-" + rowNumber);
+      this.$el.append(interviewRendered);
     },
 
     setCollection : function ( collection ) {
@@ -64,6 +64,7 @@ define(function (require) {
     render : function () {
       // here because this.options is undefined when computing className, attributes..
       var mainContainerClass = this.options.list ? 'interviews-list-view' : 'interview-grid';
+      mainContainerClass += " row";
       this.$el.empty();
       console.log("rendering");
       if (this.collection.length === 0)
