@@ -1,7 +1,5 @@
 define(function (require) {
 
-  var $ = require("jquery");
-  var _ = require("underscore");
   var Backbone = require("backbone");
 
   return Backbone.Model.extend({
@@ -13,6 +11,7 @@ define(function (require) {
     url : function() {
       return  "/dashboard/files/" + this.get('id') + "/";
     }
+
   });
 
 });

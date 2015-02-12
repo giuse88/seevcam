@@ -1,7 +1,6 @@
 define(function (require) {
 
   require("parsley");
-//  require("bloodhound");
   require("jquery.fileupload-validate");
 
   var Utils = require("utils");
@@ -11,7 +10,6 @@ define(function (require) {
   var Backbone = require("backbone");
   var Notification = require("notification");
 
-  var Interview = require("modules/interviews/models/Interview");
   var createFormTemplate = require("text!modules/interviews/templates/createForm.html");
   var Calendar = require("modules/interviews/views/InterviewCalendarView");
   var JobPositionCreator = require("modules/interviews/views/CreateJobPosition");

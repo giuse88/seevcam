@@ -8,7 +8,6 @@ define(function(require){
     },
 
     parse: function (response) {
-      response.id = response.id;
       return response;
     }
   });

@@ -1,7 +1,7 @@
 define(function(require){
 
   var Backbone = require("backbone");
-  var JobPosition = require("modules/interviews/models/JobPosition");
+  var JobPosition = require("models/job_position");
 
   return Backbone.Collection.extend({
 

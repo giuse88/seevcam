@@ -4,11 +4,11 @@ define(function(require){
   var Utils = require("utils");
   var Backbone = require("backbone");
   var LoadingBar = require("nanobar");
-  var Interviews = require("modules/interviews/models/InterviewList");
+
+  var Interviews = require("collections/interviews");
+
   var InterviewApp = require("modules/interviews/views/InterviewAppView");
   var CreateInterviewView = require("modules/interviews/views/CreateInterviewView");
-  var Interview = require("modules/interviews/models/Interview");
-  var FileUploaded = require("modules/interviews/models/FileUploaded");
   var Loader = require("modules/http/Loader");
   var Catalogues = require("modules/questions/models/Catalogues");
 

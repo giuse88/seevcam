@@ -1,6 +1,5 @@
 define(function (require) {
 
-  var $ = require("jquery");
   var _ = require("underscore");
   var Backbone = require("backbone");
   var Utils = require("utils");
@@ -43,13 +42,6 @@ define(function (require) {
       this.views.push(interview);
 
       var interviewRendered = interview.render().$el;
-//      var rowNumber = Math.floor(index/4);
-
-//      if ((index%4) === 0 ) {
-//        this.$el.append('<div class="row row-index-' + rowNumber + '"></div>');
-//      }
-//
-//      var $row = this.$el.find(".row-index-" + rowNumber);
       this.$el.append(interviewRendered);
     },
 

@@ -2,9 +2,9 @@ define(function (require) {
 
   var $ = require("jquery");
 
-  var Interviews = require("modules/interviews/models/InterviewList");
+  var Interviews = require("collections/interviews");
+  var JobPositions = require("collections/job_positions");
   var Catalogues = require("modules/questions/models/Catalogues");
-  var JobPositions = require("modules/interviews/models/JobPositionList");
 
   return {
 

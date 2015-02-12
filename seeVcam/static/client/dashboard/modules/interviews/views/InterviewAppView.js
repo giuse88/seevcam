@@ -3,9 +3,10 @@ define(function (require) {
   var $ = require("jquery");
   var _ = require("underscore");
   var Backbone = require("backbone");
+
   var Calendar = require("modules/interviews/views/InterviewCalendarView");
   var InterviewBlocks = require("modules/interviews/views/InterviewListView");
-  var Interviews = require("modules/interviews/models/InterviewList");
+  var Interviews = require("collections/interviews");
   var InterviewView = require("modules/interviews/views/InterviewView");
   var ClockView = require("modules/interviews/views/ClockView");
   var pageTemplate = require("text!modules/interviews/templates/interviewPage.html");

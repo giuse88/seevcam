@@ -1,8 +1,3 @@
-/**
- *
- * Created by giuseppe on 23/12/14.
- */
-
 define(function (require) {
 
   var $ = require("jquery");
@@ -10,7 +5,7 @@ define(function (require) {
   var Backbone = require("backbone");
   var createFormTemplate = require("text!modules/interviews/templates/createJobPosition.html");
   var errorFormTemplate = require("text!modules/interviews/templates/error.html");
-  var JobPosition = require("modules/interviews/models/JobPosition");
+  var JobPosition = require("models/job_position");
   var Overlay = require("misc/overlay/overlay");
 
  return Backbone.View.extend({

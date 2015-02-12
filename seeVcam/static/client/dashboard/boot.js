@@ -10,6 +10,8 @@ require.config({
     "modules"       : "client/dashboard/modules",
     "dashboard"     : "client/dashboard/",
     "misc"          : "client/misc",
+    "models"        : "client/models",
+    "collections"   : "client/collections",
     //libs
     "jquery"        : "bower_components/jquery/dist/jquery",
     "jquery-pjax"   : "bower_components/jquery-pjax/jquery.pjax",
@@ -28,9 +30,6 @@ require.config({
     "fullcalendar"  : "bower_components/fullcalendar/dist/fullcalendar",
     "deep-model"    : "bower_components/backbone-deep-model/distribution/deep-model",
     "moment"        : "bower_components/moment/moment",
-    // to be removed
-//    "backbone-forms": "bower_components/backbone-forms/distribution/backbone-forms",
-    //
     "notification"  : "client/dashboard/modules/notification/notification",
     "utils"         : "client/misc/utils",
     "nanobar"       : "client/misc/nanobar",
@@ -48,21 +47,10 @@ require.config({
       deps : ["backbone"]
     },
 
-//    "jquery.fileupload-process" : {
-//      deps : ["jquery"]
-//    },
     "jquery-ui":{
       deps : ["jquery"]
     },
-//    "jquery-ui-widget" : {
-//      deps : ["jquery-ui"]
-//    },
-//    "jquery-iframe-transport" : {
-//      deps : ["jquery"]
-//    },
-//    "jquery.fileupload" : {
-//      deps : ["jquery.ui.widget"]
-//    },
+
     "jquery-pjax":{
       deps : ["jquery"]
     },

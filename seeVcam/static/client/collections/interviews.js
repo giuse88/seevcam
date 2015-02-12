@@ -1,14 +1,12 @@
 define(function(require){
 
   var Backbone = require("backbone");
-  var Interview = require("modules/interviews/models/Interview");
-  var notification = require("notification");
+  var Interview = require("models/interview");
 
   function filter ( interviews, predicate ) {
     var filtered = interviews.filter(predicate);
     return new InterviewList(filtered);
   }
-
 
   var InterviewList =  Backbone.Collection.extend({
 
@@ -60,6 +58,5 @@ define(function(require){
     });
 
     return InterviewList;
-
 
 });
