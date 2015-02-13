@@ -33,7 +33,7 @@ require.config({
     "notification"  : "client/dashboard/modules/notification/notification",
     "utils"         : "client/misc/utils",
     "nanobar"       : "client/misc/nanobar",
-    "backbone.boostrap-modal" : "client/misc/backbone.bootstrap-modal"
+    "backbone-modal" : "client/misc/backbone-modal"
   },
 
   shim: {

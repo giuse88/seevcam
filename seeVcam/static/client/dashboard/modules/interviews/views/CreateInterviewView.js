@@ -14,7 +14,7 @@ define(function (require) {
   var Calendar = require("modules/interviews/views/InterviewCalendarView");
   var JobPositionCreator = require("modules/interviews/views/CreateJobPosition");
   var CataloguesView = require("modules/questions/views/CataloguesView");
-  var Modal = require("backbone.boostrap-modal");
+  var Modal = require("backbone-modal");
 
   return Backbone.View.extend({
 
