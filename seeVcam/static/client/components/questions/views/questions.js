@@ -3,9 +3,9 @@ define(function (require) {
   var _ = require("underscore");
   var Backbone = require("backbone");
   var Utils = require("utils");
-  var QuestionView = require("modules/questions/views/QuestionView");
-  var QuestionViewReadOnly = require("modules/questions/views/QuestionViewReadOnly");
-	var NoQuestionTemplate = require("text!modules/questions/templates/noQuestions.html")
+  var QuestionView = require("./question");
+  var QuestionViewReadOnly = require("./question_read_only");
+	var NoQuestionTemplate = require("text!../templates/noQuestions.html");
 
   return  Backbone.View.extend({
 

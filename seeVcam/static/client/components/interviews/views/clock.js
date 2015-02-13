@@ -2,7 +2,7 @@ define(function (require) {
 
   var _ = require("underscore");
   var Backbone = require("backbone");
-	var clockTemplate = require("text!modules/interviews/templates/clock.html");
+	var clockTemplate = require("text!../templates/clock.html");
 
 
 	return  Backbone.View.extend({

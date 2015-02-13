@@ -3,9 +3,9 @@ define(function (require) {
   var Backbone = require("backbone");
   var $ = require("jquery");
   var Utils = require("utils");
-  var InterviewApp = require("modules/interviews/views/InterviewAppView");
+  var InterviewApp = require("components/interviews/views/interview_page");
   var LoadingBar = require("nanobar");
-  var Loader = require("modules/http/Loader");
+  var Loader = require("services/http/Loader");
 
   return  Backbone.Router.extend({
 

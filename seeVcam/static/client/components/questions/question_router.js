@@ -4,10 +4,10 @@ define(function(require){
   var Utils = require("utils");
   var Backbone = require("backbone");
   var LoadingBar = require("nanobar");
-  var Catalogues = require("collections/catalogues");
-  var CataloguesView = require("modules/questions/views/CataloguesView");
   var Notification = require("notification");
-  var Loader = require("modules/http/Loader");
+  var Loader = require("services/http/Loader");
+  var Catalogues = require("collections/catalogues");
+  var CataloguesView = require("./views/catalogues");
 
   return  Backbone.Router.extend({
 

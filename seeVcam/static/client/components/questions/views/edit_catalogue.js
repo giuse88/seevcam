@@ -1,12 +1,12 @@
 define(function (require) {
 
-  var $ = require("jquery");
   require("jquery-ui");
   var _ = require("underscore");
-  var Backbone = require("backbone");
+  var $ = require("jquery");
   var Utils = require("utils");
-  var QuestionView = require("modules/questions/views/QuestionView");
-	var EditCatalogueTemplate = require("text!modules/questions/templates/editCatalogue.html")
+  var Backbone = require("backbone");
+  var QuestionView = require("./question");
+	var EditCatalogueTemplate = require("text!../templates/editCatalogue.html");
 
   return Backbone.View.extend({
 

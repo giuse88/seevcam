@@ -3,17 +3,14 @@ define(function (require) {
   var _ = require("underscore");
   var Backbone = require("backbone");
   var moment = require("moment");
-	var BlockItemTemplate = require("text!modules/interviews/templates/blockItem.html")
-	var ListItemTemplate = require("text!modules/interviews/templates/listItem.html")
-
 
 	return  Backbone.View.extend({
 
     tagName : 'div',
     className : 'item',
 
-    block_item_template : _.template(require("text!modules/interviews/templates/block_item.html")),
-    list_item_template : _.template(require("text!modules/interviews/templates/list_item.html")),
+    block_item_template : _.template(require("text!../templates/block_item.html")),
+    list_item_template : _.template(require("text!../templates/list_item.html")),
 
     defaults : {
       isReport : false

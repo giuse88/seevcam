@@ -3,8 +3,8 @@ define(function (require) {
   var _ = require("underscore");
   var Backbone = require("backbone");
   var Utils = require("utils");
-	var QuestionReadOnly = require("text!modules/questions/templates/questionReadOnly.html")
-	var QuestionReadOnlyHelper = require("text!modules/questions/templates/questionReadOnlyHelper.html")
+	var QuestionReadOnly = require("text!../templates/questionReadOnly.html")
+	var QuestionReadOnlyHelper = require("text!../templates/questionReadOnlyHelper.html")
 
   return Backbone.View.extend({
 

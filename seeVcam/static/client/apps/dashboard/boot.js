@@ -7,10 +7,11 @@ require.config({
     //apps
     "dashboard"     : "client/app/dashboard/dashboard",
     // maps
-    "modules"       : "client/modules",
+    "models"       : "client/models",
     "misc"          : "client/misc",
-    "models"        : "client/models",
+    "components"    : "client/components",
     "collections"   : "client/collections",
+    "services"      : "client/services",
     //libs
     "jquery"        : "bower_components/jquery/dist/jquery",
     "jquery-pjax"   : "bower_components/jquery-pjax/jquery.pjax",
@@ -29,7 +30,7 @@ require.config({
     "fullcalendar"  : "bower_components/fullcalendar/dist/fullcalendar",
     "deep-model"    : "bower_components/backbone-deep-model/distribution/deep-model",
     "moment"        : "bower_components/moment/moment",
-    "notification"  : "client/modules/notification/notification",
+    "notification"  : "client/components/notification/notification",
     "utils"         : "client/misc/utils",
     "nanobar"       : "client/misc/nanobar",
     "backbone-modal" : "client/misc/backbone-modal"

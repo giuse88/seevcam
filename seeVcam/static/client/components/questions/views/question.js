@@ -2,7 +2,7 @@ define(function(require){
 
   var Backbone = require("backbone");
   var _ = require("underscore");
-	var QuestionTemplate = require("text!modules/questions/templates/question.html")
+	var QuestionTemplate = require("text!../templates/question.html");
 
   return  Backbone.View.extend({
 

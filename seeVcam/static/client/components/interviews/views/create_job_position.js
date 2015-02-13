@@ -3,10 +3,11 @@ define(function (require) {
   var $ = require("jquery");
   var _ = require("underscore");
   var Backbone = require("backbone");
-  var createFormTemplate = require("text!modules/interviews/templates/createJobPosition.html");
-  var errorFormTemplate = require("text!modules/interviews/templates/error.html");
-  var JobPosition = require("models/job_position");
+
   var Overlay = require("misc/overlay/overlay");
+  var JobPosition = require("models/job_position");
+  var createFormTemplate = require("text!../templates/createJobPosition.html");
+  var errorFormTemplate = require("text!../templates/error.html");
 
  return Backbone.View.extend({
     className : "job-position-create-container",

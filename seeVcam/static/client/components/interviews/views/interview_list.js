@@ -3,9 +3,8 @@ define(function (require) {
   var _ = require("underscore");
   var Backbone = require("backbone");
   var Utils = require("utils");
-  var InterviewBlock = require("modules/interviews/views/InterviewView");
-	var NoInterviewTemplate = require("text!modules/interviews/templates/noInterview.html")
-
+  var InterviewBlock = require("./interview");
+  var NoInterviewTemplate = require("text!../templates/noInterview.html");
 
 	return  Backbone.View.extend({
 

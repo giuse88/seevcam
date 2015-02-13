@@ -9,12 +9,11 @@ define(function (require) {
   var moment = require("moment");
   var Backbone = require("backbone");
   var Notification = require("notification");
-
-  var createFormTemplate = require("text!modules/interviews/templates/createForm.html");
-  var Calendar = require("modules/interviews/views/InterviewCalendarView");
-  var JobPositionCreator = require("modules/interviews/views/CreateJobPosition");
-  var CataloguesView = require("modules/questions/views/CataloguesView");
   var Modal = require("backbone-modal");
+  var Calendar = require("./calendar");
+  var JobPositionCreator = require("./create_job_position");
+  var CataloguesView = require("components/questions/views/catalogues");
+  var createFormTemplate = require("text!../templates/createForm.html");
 
   return Backbone.View.extend({
 

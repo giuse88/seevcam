@@ -4,12 +4,12 @@ define(function (require) {
   var _ = require("underscore");
   var Backbone = require("backbone");
 
-  var Calendar = require("modules/interviews/views/InterviewCalendarView");
-  var InterviewBlocks = require("modules/interviews/views/InterviewListView");
+  var ClockView = require("./clock");
+  var Calendar = require("./calendar");
+  var InterviewView = require("./interview");
+  var InterviewBlocks = require("./interview_list");
   var Interviews = require("collections/interviews");
-  var InterviewView = require("modules/interviews/views/InterviewView");
-  var ClockView = require("modules/interviews/views/ClockView");
-  var pageTemplate = require("text!modules/interviews/templates/interviewPage.html");
+  var pageTemplate = require("text!../templates/interviewPage.html");
 
   return  Backbone.View.extend({
 

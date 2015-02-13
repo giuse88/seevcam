@@ -1,9 +1,10 @@
 define(function(require) {
 
   var Backbone = require("backbone");
-  var QuestionsRouter = require("modules/questions/QuestionsRouter");
-  var InterviewsRouter = require("modules/interviews/InterviewsRouter");
-  var ReportsRouter = require("modules/reports/reportRouter");
+
+  var QuestionsRouter = require("components/questions/question_router");
+  var InterviewsRouter = require("components/interviews/interview_router");
+  var ReportsRouter = require("components/reports/report_router");
 
   var questionsRouter = new QuestionsRouter();
   var interviewsRouter = new InterviewsRouter();
