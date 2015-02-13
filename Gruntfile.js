@@ -19,7 +19,7 @@ module.exports = function(grunt) {
           ]
         },
         files: {
-          "public/css/seevcam.css": "seeVcam/static/client/dashboard/main.less"
+          "public/css/seevcam.css": "seeVcam/static/client/dashboard/dashboard.less"
         }
       }
     },

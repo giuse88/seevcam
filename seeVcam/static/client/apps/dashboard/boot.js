@@ -4,11 +4,10 @@ require.config({
 
   paths: {
     "text" : "bower_components/requirejs-text/text",
-    // App.js
-    "app" : "client/dashboard/app",
+    //apps
+    "dashboard"     : "client/app/dashboard/dashboard",
     // maps
-    "modules"       : "client/dashboard/modules",
-    "dashboard"     : "client/dashboard/",
+    "modules"       : "client/modules",
     "misc"          : "client/misc",
     "models"        : "client/models",
     "collections"   : "client/collections",
@@ -30,7 +29,7 @@ require.config({
     "fullcalendar"  : "bower_components/fullcalendar/dist/fullcalendar",
     "deep-model"    : "bower_components/backbone-deep-model/distribution/deep-model",
     "moment"        : "bower_components/moment/moment",
-    "notification"  : "client/dashboard/modules/notification/notification",
+    "notification"  : "client/modules/notification/notification",
     "utils"         : "client/misc/utils",
     "nanobar"       : "client/misc/nanobar",
     "backbone-modal" : "client/misc/backbone-modal"
@@ -82,5 +81,5 @@ require.config({
     }
   }
 });
-// Kick off the app
-require(["app"]);
+
+require(["client/apps/dashboard/dashboard"]);

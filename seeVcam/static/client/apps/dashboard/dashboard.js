@@ -4,7 +4,7 @@ define(function (require) {
   require("bootstrap");
 
   var $ = require("jquery");
-  var router = require("dashboard/router");
+  var router = require("./dashboard_router");
   var profile = require("modules/profile/profilePJAX");
 
 
