@@ -2,9 +2,11 @@ require.config({
 
   baseUrl: '/static/',
   paths: {
+    // plugin
+    text : "bower_components/requirejs-text/text",
 
     // App.js
-    app : "client/InterviewRoom/src/js/app",
+    app : "client/apps/interview_room/interview_room",
 
     bootstrap   : "bower_components/bootstrap/dist/js/bootstrap",
     jquery      : "bower_components/jquery/dist/jquery",
@@ -15,7 +17,6 @@ require.config({
     moment: "bower_components/moment/moment",
     backbone : "bower_components/backbone/backbone",
     'backbone.stickit' : "bower_components/backbone.stickit/backbone.stickit",
-    text : "bower_components/requirejs-text/text",
 
     baseModel:    "client/InterviewRoom/src/js/models/baseModel",
     baseView:     "client/InterviewRoom/src/js/views/baseView",
@@ -66,4 +67,4 @@ require.config({
   }
 });
 
-require(["app"]);
+require(["client/apps/interview_room/interview_room"]);

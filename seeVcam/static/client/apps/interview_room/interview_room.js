@@ -2,19 +2,19 @@ define(function (require) {
 
   var $ = require('jquery');
   var moment = require('moment');
-  var Router = require('client/InterviewRoom/src/js/router');
+  var Router = require('./router');
   var Backbone = require('backbone');
-  var Interview = require('models/interview');
-  var JobPosition = require('models/jobPosition');
-  var Candidate = require('models/candidate');
-  var Questions = require('collections/questions');
-  var Events = require('collections/events');
-  var Answers = require('collections/answers');
   var Notes = require('models/notes');
-  var OverallRatings = require('collections/overallRatings');
-  var VideoSession = require('models/seevcamSession');
-
   var session = require('services/session');
+  var Events = require('collections/events');
+  var Candidate = require('models/candidate');
+  var Interview = require('models/interview');
+  var Answers = require('collections/answers');
+  var JobPosition = require('models/job_position');
+  var Questions = require('collections/questions');
+  var VideoSession = require('models/seevcamSession');
+  var OverallRatings = require('collections/overallRatings');
+
   var interviewId = window.cache.interview.id;
 
   $.ajaxSetup({
@@ -50,6 +50,5 @@ define(function (require) {
   window.router = new Router();
   Backbone.history.start({pushState: true, root : baseRootUrl });
 
-  require('services/mocks'); // TODO: Remove mocks
 
 });

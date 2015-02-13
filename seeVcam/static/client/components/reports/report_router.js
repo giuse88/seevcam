@@ -5,7 +5,7 @@ define(function (require) {
   var Utils = require("utils");
   var InterviewApp = require("components/interviews/views/interview_page");
   var LoadingBar = require("nanobar");
-  var Loader = require("services/http/Loader");
+  var Loader = require("services/loader");
 
   return  Backbone.Router.extend({
 

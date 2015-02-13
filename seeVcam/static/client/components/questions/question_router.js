@@ -5,7 +5,7 @@ define(function(require){
   var Backbone = require("backbone");
   var LoadingBar = require("nanobar");
   var Notification = require("notification");
-  var Loader = require("services/http/Loader");
+  var Loader = require("services/loader");
   var Catalogues = require("collections/catalogues");
   var CataloguesView = require("./views/catalogues");
 
