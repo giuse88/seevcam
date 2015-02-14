@@ -12,8 +12,8 @@ define(function (require) {
   var Answers = require('collections/answers');
   var JobPosition = require('models/job_position');
   var Questions = require('collections/questions');
-  var VideoSession = require('models/seevcamSession');
-  var OverallRatings = require('collections/overallRatings');
+  var VideoSession = require('models/seevcam_session');
+  var OverallRatings = require('collections/overall_ratings');
 
   var interviewId = window.cache.interview.id;
 

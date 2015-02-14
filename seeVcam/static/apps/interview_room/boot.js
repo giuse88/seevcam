@@ -13,23 +13,23 @@ require.config({
     components    : "lib/components",
     collections   : "lib/collections",
     services      : "lib/services",
-    presenters:   "lib/presenters",
-    behaviors:    "lib/behaviors",
-    templates:    "lib/templates",
+    presenters    : "lib/presenters",
+    behaviors     : "lib/behaviors",
+    templates     : "lib/templates",
 
     underscore : "bower_components/underscore/underscore",
     bootstrap   : "bower_components/bootstrap/dist/js/bootstrap",
-    moment: "bower_components/moment/moment",
+    moment      : "bower_components/moment/moment",
     jquery      : "bower_components/jquery/dist/jquery",
     'jquery.textarea.autoresize' : "bower_components/jquery.textarea.autoresize/js/jquery.textarea.autoresize",
     'jquery.mockjax' : "bower_components/jquery-mockjax/jquery.mockjax",
     'slimscroll': "bower_components/slimScroll/jquery.slimscroll",
     backbone : "bower_components/backbone/backbone",
     'backbone.stickit' : "bower_components/backbone.stickit/backbone.stickit",
-    'backbone.bootstrap-modal': "lib/misc/backbone.bootstrap-modal",
 
-    baseModel:    "lib/InterviewRoom/src/js/models/baseModel",
-    baseView:     "lib/InterviewRoom/src/js/views/baseView",
+    'backbone-modal': "lib/misc/backbone-modal",
+    baseModel:    "lib/misc/baseModel",
+    baseView:     "lib/misc/baseView",
 
     navigator :   "lib/InterviewRoom/src/js/views/navigator",
 
@@ -71,4 +71,4 @@ require.config({
   }
 });
 
-require(["lib/apps/interview_room/interview_room"]);
+require(["apps/interview_room/interview_room"]);

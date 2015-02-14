@@ -11,6 +11,9 @@ define(function(require) {
 
   return Backbone.DeepModel.extend({
 
+    url : function () {
+      return "/dashboard/interviews/interviews/" + this.get("id") + "/"
+    },
 
     getCandidateFullName : function () {
       return this.get("candidate.name") + " " + this.get("candidate.surname");
@@ -68,8 +71,23 @@ define(function(require) {
           },
           error : errocb
       });
-    }
+    },
 
+    duration: function (unit) {
+      unit = unit || "minutes";
+
+      var startMoment = moment.utc(this.get('start'));
+      var endMoment = moment.utc(this.get('end'));
+
+      return endMoment.diff(startMoment, unit);
+    },
+
+    elapsedTime: function (unit) {
+      unit = unit || 'minutes';
+      var startMoment = moment.utc(this.get('start'));
+      var currentMoment = moment.utc();
+      return currentMoment.diff(startMoment, unit);
+    }
 
   });
 
