@@ -74,14 +74,6 @@ define(function (require) {
       console.log(this.getDataForTemplate());
       var template = this.options.list ? this.list_item_template : this.block_item_template;
       this.$el.html(template(this.getDataForTemplate()));
-      // This should be in the template
-      // this is shit
-      if (this.options.today) {
-      } else  if (this.options.isReport) {
-        this.$el.addClass("col-md-3");
-      } else if (!this.options.list) {
-        this.$el.addClass("col-md-4");
-      }
       return this;
     },
 

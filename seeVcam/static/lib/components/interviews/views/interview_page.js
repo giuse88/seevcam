@@ -7,7 +7,7 @@ define(function (require) {
   var ClockView = require("./clock");
   var Calendar = require("./calendar");
   var InterviewView = require("./interview");
-  var InterviewBlocks = require("./interview_list");
+  var InterviewBlocks = require("./interviews");
   var Interviews = require("collections/interviews");
   var pageTemplate = require("text!../templates/interviewPage.html");
 

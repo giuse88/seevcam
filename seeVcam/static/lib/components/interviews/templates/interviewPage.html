@@ -1,6 +1,6 @@
-<div class="row upper-bar" id="interviews-upper-bar">
+<div class="row upper-bar"x>
     <% if ( isInterview ) { %>
-    <div class="open-interview col-md-3" id="pending-interview"></div>
+    <div class="open-interview col-md-3"></div>
     <% } %>
     <div id="searchbox-container" class="col-md-6 <% if(!isInterview) { %> col-md-offset-3 <% } %> ">
         <div class="search-interview-form">
@@ -29,6 +29,6 @@
       </div>
     <% } %>
 
-    <div class="inner-content"></div>
+    <div class="inner-content  <% if (isInterview) { %> col-md-9 <% } %>"></div>
 
 </div>
