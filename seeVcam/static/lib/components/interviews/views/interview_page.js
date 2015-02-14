@@ -28,13 +28,16 @@ define(function (require) {
 
     defaults : {
       activeClock : false,
-      interview : true
+			isInterview : true,
+			isList : false,
+			type : "interview",
+			mode : "block"
     },
 
     template : _.template(pageTemplate),
 
     initialize : function (options){
-      this.options = _.extend( this.defaults, options);
+      this.options = _.extend(this.defaults, options);
       this.nestedView = null;
       this.interviews = new Interviews(this.options.interviews.sortBy('start'));
       console.log("reports", this.interviews);
@@ -43,22 +46,22 @@ define(function (require) {
     render : function(){
 
       this.$el.html(this.template(this.getTemplateData()));
+
       this.$searchBox = this.$el.find('#searchbox-container input');
       this.$searchBox.bind('input propertychange', this.filterInterviews.bind(this));
+			this.$itemsContainer = this.$el.find(".inner-content");
 
-      if (this.options.interview) {
+      if (this.options.isInterview) {
         this.$todayInterview = this.$el.find(".upcoming-interviews");
         this.$openInterview = this.$el.find(".open-interview");
-        this.$itemsContainer = this.$el.find('.interview-view-container');
         this.renderOpenInterview();
         this.renderTodayInterviews();
-      } else {
-        this.$itemsContainer = this.$el.find(".reports-container");
       }
 
       if(this.options.activeClock)  {
         this.renderClock();
       }
+
       return this;
     },
 
@@ -83,26 +86,19 @@ define(function (require) {
     renderInterviewBlock : function (event) {
       event && event.preventDefault();
       this.removeActiveClass();
-      var interviewView = new InterviewBlocks({
-        collection: this.interviews,
-        isReport : !this.options.interview
-      });
+      var interviewView = new InterviewBlocks(this.getOptionForSubView());
       this.updateNestedView(interviewView);
-      this.$el.find(".interview-view-type .block").addClass("active");
+   		this.updateModeIcon("block");
       this.$itemsContainer.html(this.nestedView.render().$el);
       return this;
     },
 
-    renderInterviewList : function () {
+    renderInterviewList : function (event) {
       event && event.preventDefault();
       this.removeActiveClass();
-      var interviewView = new InterviewBlocks({
-        collection: this.interviews,
-        isReport : !this.options.interview,
-        list : true
-      });
+			var interviewView = new InterviewBlocks(this.getOptionForSubView("list"));
       this.updateNestedView(interviewView);
-      this.$el.find(".interview-view-type .list").addClass("active");
+			this.updateModeIcon("list");
       this.$itemsContainer.html(this.nestedView.render().$el);
       return this;
     },
@@ -110,7 +106,7 @@ define(function (require) {
     renderInterviewCalendar : function () {
       event && event.preventDefault();
       this.removeActiveClass();
-      this.$el.find(".interview-view-type .calendar").addClass("active");
+    	this.updateModeIcon("calendar");
       var calendarView = new Calendar({
         collection:window.cache.interviews,
         readOnly : true
@@ -151,6 +147,8 @@ define(function (require) {
 
       var interviewView = new InterviewBlocks({
         collection: new Interviews(todayInterviews),
+				type : "interview",
+				mode : "block",
         today: true
       });
 
@@ -176,8 +174,24 @@ define(function (require) {
       this.remove();
       this.unbind();
       this.undelegateEvents();
-    }
+    },
 
+		getType : function () {
+			return this.options && this.options.isInterview ? "interview" : "report";
+		},
+
+		getOptionForSubView: function (mode) {
+			var properties = {
+				mode: mode || "block",
+				collection: this.interviews,
+				type : this.getType()
+			};
+			return _.extend(this.options, properties);
+		},
+
+		updateModeIcon : function(mode) {
+			this.$el.find(".interview-view-type ." + mode).addClass("active");
+		}
   });
 
 });

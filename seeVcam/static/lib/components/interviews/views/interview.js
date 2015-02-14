@@ -79,7 +79,6 @@ define(function (require) {
       // This should be in the template
       // this is shit
       if (this.options.today) {
-        this.$el.addClass('today');
       } else  if (this.options.isReport) {
         this.$el.addClass("col-md-3");
       } else if (!this.options.list) {

@@ -1,8 +1,8 @@
 <div class="row upper-bar" id="interviews-upper-bar">
-    <% if ( interview ) { %>
+    <% if ( isInterview ) { %>
     <div class="open-interview col-md-3" id="pending-interview"></div>
     <% } %>
-    <div id="searchbox-container" class="col-md-6 <% if(!interview) { %> col-md-offset-3 <% } %> ">
+    <div id="searchbox-container" class="col-md-6 <% if(!isInterview) { %> col-md-offset-3 <% } %> ">
         <div class="search-interview-form">
             <input name="search" type="text" class="form-control search-input" placeholder="Search">
                 <span class="search-icon"> <i class="glyphicon glyphicon-search"></i> </span>
@@ -12,28 +12,23 @@
         <div class="tab-icons">
             <a class="glyphicon glyphicon-th block active" href="javascript:void(0)"></a>
             <a class="glyphicon glyphicon-align-justify list" href="javascript:void(0)"></a>
-            <% if ( interview )  { %>
+            <% if ( isInterview )  { %>
             <a class="glyphicon glyphicon-calendar calendar" href="javascript:void(0)" ></a>
             <% } %>
         </div>
     </div>
 </div>
 
-<div class="row interviews-container">
+<div class="row main-content">
 
-    <% if ( interview )  { %>
-    <div class="col-md-3 upcoming-interviews">
-        <div class="interview-items">
-            <p class="no-interview shadow-text">No interview scheduled for today.</p>
-        </div>
-    </div>
-    <div id="interviews-view-container" class="col-md-9 interview-view-container">
-        Inner interview container
-    </div>
-    <% } else {  %>
-    <div class="reports-container row" >
-
-        Inner report container
-    </div>
+    <% if ( isInterview )  { %>
+      <div class="col-md-3 upcoming-interviews">
+          <div class="interview-items">
+              <p class="no-interview shadow-text">No interview scheduled for today.</p>
+          </div>
+      </div>
     <% } %>
+
+    <div class="inner-content"></div>
+
 </div>
