@@ -13,7 +13,7 @@ define(function (require) {
     list_item_template : _.template(require("text!../templates/list_item.html")),
 
     defaults : {
-      isReport : false
+      isInterview : true
     },
 
     events : {
@@ -39,9 +39,7 @@ define(function (require) {
         day  : interviewStart.format("DD"),
         month : interviewStart.format("MM"),
         date_string : "",
-        isReport : this.options.isReport,
-        isInterview : !this.options.isReport,
-        classType : this.options.isReport ? "report-item" : "",
+        isInterview : this.options.isInterview,
         date_separator : "-"
       }
     },

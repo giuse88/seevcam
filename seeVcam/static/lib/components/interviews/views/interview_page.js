@@ -147,6 +147,7 @@ define(function (require) {
 
       var interviewView = new InterviewBlocks({
         collection: new Interviews(todayInterviews),
+				isInterview : true,
 				type : "interview",
 				mode : "block",
         today: true

@@ -1,4 +1,4 @@
-<div class="interview-item  ">
+<div class="interview-item">
 <% if ( isInterview ) { %>
     <span class="glyphicon glyphicon-remove delete-interview"> </span>
 <% } %>
@@ -10,7 +10,7 @@
             <p> <%= job_position %></p>
         </div>
     </div>
-<% if ( isInterview )  { %>
+<% if ( isInterview ) { %>
     <div class="interview-time">
         <p class="interview-date">
             <span class="date-string"><%= date_string %></span>
@@ -22,9 +22,7 @@
         </p>
         <p class="interview-hours"><%= time %></p>
     </div>
-<% } %>
-
-<% if ( isReport ) { %>
+<% } else  { %>
     <div class="score">
         <span class="number"> 0.00 </span>
     </div>

@@ -3,26 +3,8 @@
 
 @import (inline) "../../lib/components/questions/questions.css";
 @import (inline) "../../lib/components/interviews/style/fullcalendar.css";
-/*
-  Colors
-*/
 
-@orange : #D14232;
-@light-orange : #FF9861;
-@light-grey: #f1f1f1;
-@grey : #666;
-@nav-bar-grey :#cccccc;
-@blue : #0071bb;
-@background-grey : #eeeeee;
-@silver: #bdc3c7;
-
-/*
-  Seevcam properties
-*/
-
-@report-color : #400065;
-
-@nav-height : 40px;
+@import "constants";
 
 html, body {
     font: 13px/1.4 Helvetica, arial, freesans, clean, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
@@ -50,15 +32,12 @@ hr {
     display: inline-block;
 }
 
-#container {
-}
-
 #content-wrap {
     min-width: 100%;
     height: ~"calc(100% - 60px)";
     margin-top: 20px;
 }
-/** Adjusting Bootstrap classes */
+/* Adjusting Bootstrap classes */
 .container {
     /*max-width: 1000px;*/
     height: 100%;

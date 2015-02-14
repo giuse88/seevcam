@@ -30,9 +30,10 @@ define(function (require) {
       var interview = new InterviewBlock({
         model: interview,
         today: this.options.today,
-        isReport : this.options.isReport,
+        isInterview : this.options.isInterview,
         list : !!this.options.list
       });
+			console.log(this.options.isInterview);
       this.views.push(interview);
 
       var interviewRendered = interview.render().$el;
