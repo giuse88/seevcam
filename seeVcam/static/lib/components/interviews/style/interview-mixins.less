@@ -1,124 +1,70 @@
 .item-mixin(){
-//  .interview-item {
-    position: relative;
     background-color: white;
     border-top: 7px solid @blue;
     border-radius: 0px;
     box-shadow: 0px 0px 3px #e4e4e4;
 
-    &.first {
-      margin-left: 0;
-    }
-//  }
-
-//  .interview-item .glyphicon-remove {
   .glyphicon-remove {
     position: absolute;
-    right: 7px;
-    top: 0px;
-    color: white;
+    top:10px;
+    right:25px;
     display: none;
-    width: 20px;
-    height: 20px;
-    text-align: center;
-    line-height: 19px;
-    z-index: 10;
     cursor: pointer;
-
   }
 
   .name-container {
     padding: 10px;
   }
 
-  &:hover .glyphicon-remove {
-    display: block;
-  }
-//  .interview-item .header {
-  .header {
-    background-color: transparent;
-    color: black;
-    text-align: center;
-  }
-  .interview-time {
-//  .interview-item .interview-time {
-    background-color: transparent;
-    width: 80%;
-    margin-left: auto;
-    margin-right: auto;
-    border-top: 1px solid #dbdbdb;
-    padding: 0px;
-    margin-top: 15px;
-    position: relative;
-    padding-top: 5px;
-  }
-  .header h4 {
-//  .interview-item .header h4 {
-    font-size: 20px;
-    font-weight: 400;
-    text-shadow: none;
-    padding-bottom: 0px;
-    display: inline-block;
-    vertical-align: bottom;
-  }
-  .header p {
-//  .interview-item .header p {
-    color: #9b9b9b;
-    font-size: 15px;
-  }
-  .interview-item .interview-time > p {
-    display: inline-block;
-    font-size: 15px;
-    color: #9b9b9b;
-    margin-bottom: 0px;
-    text-align: left;
-  }
-  .interview-time > p.interview-hours {
-    background-color: transparent;
-    text-shadow: none;
-    font-weight: 300;
-    font-size: 15px;
-    padding: 0px;
-    position: absolute;
-    right: 0px;
-    text-align: right;
-    top: 5px;
-  }
-  .interview-time > p.interview-date {
-    width: 100%;
-    text-align: left;
-  }
-  .date-day {
-    font-size: 14px;
-
-  }
-  .date-day, .date-month, .date-year {
-    font-size: 14px;
-  }
-  .date-separator {
-    color: #ccc;
-  }
-
-  .interview-item .name-container .bottom-aligner {
-    display: inline-block;
-    vertical-align: bottom;
-    width: 0px;
-    height: 100%;
-  }
-
   &:hover{
     box-shadow: 0 0 3px rgba(0, 0, 0, .1);
     background-color: @blue;
     color: white;
+
+    .glyphicon-remove {
+      display: block;
+    }
+    .header{
+      color: white;
+    }
+    .header p {
+      color: white;
+    }
   }
-  &:hover .header{
+
+  .header {
+    color: black;
+    text-align: center;
+
+    h4 {
+      font-size: 20px;
+      font-weight: 400;
+      text-shadow: none;
+      padding-bottom: 0px;
+      display: inline-block;
+      vertical-align: bottom;
+    }
+    p {
+      color: #9b9b9b;
+      font-size: 15px;
+    }
+  }
+
+  .interview-time {
     background-color: transparent;
-    color: white;
+    width: 80%;
+    margin: 15px auto 0px auto;
+    border-top: 1px solid #9b9b9b;
+    padding: 5px 0px 0px 0px;
+    font-size: 14px;
+    color: #9b9b9b;
   }
-  &:hover .header p {
-    color: white;
+
+  .interview-time > p {
+    display: inline-block;
   }
-  &:hover .interview-time > p {
-    color: #ddd;
+
+  .interview-time > .interview-hours {
+    float:right;
   }
 }
