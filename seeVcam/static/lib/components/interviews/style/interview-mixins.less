@@ -1,22 +1,18 @@
-.item-mixin(){
-    background-color: white;
-    border-top: 7px solid @blue;
-    border-radius: 0px;
-    box-shadow: 0px 0px 3px #e4e4e4;
+.item-mixin() {
+  background-color: white;
+  border-top: 7px solid @blue;
+  border-radius: 0px;
+  box-shadow: 0px 0px 3px #e4e4e4;
 
   .glyphicon-remove {
     position: absolute;
-    top:10px;
-    right:25px;
+    top: 10px;
+    right: 25px;
     display: none;
     cursor: pointer;
   }
 
-  .name-container {
-    padding: 10px;
-  }
-
-  &:hover{
+  &:hover {
     box-shadow: 0 0 3px rgba(0, 0, 0, .1);
     background-color: @blue;
     color: white;
@@ -24,7 +20,7 @@
     .glyphicon-remove {
       display: block;
     }
-    .header{
+    .header {
       color: white;
     }
     .header p {
@@ -40,7 +36,7 @@
       font-size: 20px;
       font-weight: 400;
       text-shadow: none;
-      padding-bottom: 0px;
+      padding: 10px;
       display: inline-block;
       vertical-align: bottom;
     }
@@ -58,13 +54,13 @@
     padding: 5px 0px 0px 0px;
     font-size: 14px;
     color: #9b9b9b;
-  }
 
-  .interview-time > p {
-    display: inline-block;
-  }
+    .interview-hours {
+      float: right;
+    }
 
-  .interview-time > .interview-hours {
-    float:right;
+    p {
+      display: inline-block;
+    }
   }
 }
