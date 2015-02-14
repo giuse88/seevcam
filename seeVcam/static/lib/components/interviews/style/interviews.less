@@ -76,19 +76,37 @@
   }
 
   .interview-item {
-    .item-mixin;
+    .item-mixin();
   }
 
-  .inner-content{
+  .open-interview{
+    .interview-item {
+      .item-mixin(12, @orange);
+    }
+  }
+  .upcoming-interviews {
+    .interview-item {
+      .item-mixin(12, @green);
+    }
+  }
 
-    .block {
+  .inner-content {
 
-      &.interview .interview-item {
-        .make-md-column(4);
+    .interview {
+
+      &.block .interview-item {
+        .item-mixin(4);
       }
 
-      &.report .interview-item {
-        .make-md-column(3);
+    }
+
+    .report {
+      &.list .interview-item {
+        .item-mixin(12, @report-color);
+      }
+
+      &.block .interview-item {
+        .item-mixin(3, @report-color);
       }
 
     }
