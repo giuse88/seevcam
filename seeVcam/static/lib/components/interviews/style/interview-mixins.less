@@ -16,23 +16,6 @@
       display: none;
       cursor: pointer;
     }
-
-    &:hover {
-      box-shadow: 0 0 3px rgba(0, 0, 0, .1);
-      background-color:@color;
-      color: white;
-
-      .glyphicon-remove {
-        display: block;
-      }
-      .header {
-        color: white;
-      }
-      .header p {
-        color: white;
-      }
-    }
-
     .header {
       color: black;
       text-align: center;
@@ -65,6 +48,26 @@
 
       p {
         display: inline-block;
+      }
+    }
+  }
+}
+
+.hover(@color:@blue) {
+  .container {
+    &:hover {
+      box-shadow: 0 0 3px rgba(0, 0, 0, .1);
+      background-color: @color;
+      color: white;
+
+      .glyphicon-remove {
+        display: block;
+      }
+      .header {
+        color: white;
+      }
+      .header p {
+        color: white;
       }
     }
   }

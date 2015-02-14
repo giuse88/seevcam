@@ -75,13 +75,14 @@
     }
   }
 
-  .interview-item {
-    .item-mixin();
-  }
+//  .interview-item {
+//    .item-mixin();
+//  }
 
   .open-interview{
     .interview-item {
       .item-mixin(12, @orange,@orange);
+      color:white;
     }
   }
   .upcoming-interviews {
@@ -93,9 +94,14 @@
   .inner-content {
 
     .interview {
+      &.list .interview-item {
+        .item-mixin(12);
+        .hover()
+      }
 
       &.block .interview-item {
         .item-mixin(4);
+        .hover()
       }
 
     }
@@ -103,10 +109,12 @@
     .report {
       &.list .interview-item {
         .item-mixin(12, @report-color);
+        .hover(@report-color)
       }
 
       &.block .interview-item {
         .item-mixin(3, @report-color);
+        .hover(@report-color)
       }
 
     }
