@@ -47,7 +47,7 @@
     top: -1px;
     position: absolute;
     content: " ";
-    background-image: url(/static/images/UI/label-mask.png);
+    background-image: url(/static/images/label-mask.png);
     width: 7px;
     height: 17px;
 }

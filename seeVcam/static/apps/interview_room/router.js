@@ -1,14 +1,13 @@
 define(function (require) {
 
   var Backbone = require('backbone');
-  var QuestionView = require("views/interview/questionView");
-  var DocumentView = require('views/controls/documentView');
-  var DocumentPage = require('views/interview/documentPage');
-  var ReviewPage = require('views/review/reviewPage');
-  var PresencePage = require('views/presence/presencePage');
-  var FullVideoPage = require("views/presence/fullVideoPage");
+  var QuestionView = require("components/interview_room/interview/questionView");
+  var DocumentView = require('components/interview_room/controls/documentView');
+  var ReviewPage = require('components/interview_room/review/reviewPage');
+  var PresencePage = require('components/interview_room/presence/presencePage');
+  var FullVideoPage = require("components/interview_room/presence/fullVideoPage");
+  var InterviewPage = require("components/interview_room/interview/interviewPage");
   var File = require('models/file');
-  var InterviewPage = require("views/interview/interviewPage");
 
   return Backbone.Router.extend({
 

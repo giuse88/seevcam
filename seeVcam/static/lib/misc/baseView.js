@@ -2,7 +2,7 @@ define(function (require) {
   require('backbone.stickit');
   require('bootstrap');
 
-  var Modal = require("backbone.bootstrap-modal");
+  var Modal = require("backbone-modal");
   var _ = require('underscore');
   var Backbone = require('backbone');
 
