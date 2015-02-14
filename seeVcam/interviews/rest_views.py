@@ -6,7 +6,6 @@ from common.helpers.views_helper import set_company_info
 from interviews.models import Interview, JobPosition
 from interviews.serializers import InterviewSerializer, JobPositionSerializer
 from notes.models import Notes
-from common.helpers.timezone import now_timezone
 from django.conf import settings
 from overall_ratings.models import OverallRatingQuestion, OverallRating
 
@@ -28,9 +27,7 @@ class InterviewList(generics.ListCreateAPIView):
             self.create_overall_ratings(obj)
 
     def get_queryset(self):
-        return Interview.objects.filter(
-            owner=self.request.user.id,
-            end__gt=now_timezone()).order_by('start')
+        return Interview.objects.filter(owner=self.request.user.id).order_by('start')
 
     #TODO this should be in the model done with signals
     #private

@@ -195,7 +195,7 @@ class InterviewViewTest(TestCase):
 
     # def _test_a_users_cannot_schedule_two_interview_at_the_same_time(self):
     #     #
-    #     self.client.login(username='user_1', password='test')
+    #     self.lib.login(username='user_1', password='test')
     #     response = self._create_interview(self.file_cv, self.file_job, self.catalogue.id, "2030-1-1 11:00")
     #     self.assertEqual(response.status_code, status.HTTP_302_FOUND)
     #     self.assertEqual(Interview.objects.filter(interview_owner=self.user_1).count(), 1)
@@ -211,7 +211,7 @@ class InterviewViewTest(TestCase):
     #
     # def _test_overlapping_interviews_1(self):
     #     #
-    #     self.client.login(username='user_1', password='test')
+    #     self.lib.login(username='user_1', password='test')
     #     response = self._create_interview(self.file_cv, self.file_job, self.catalogue.id, "2030-1-1 11:00", 30)
     #     self.assertEqual(response.status_code, status.HTTP_302_FOUND)
     #     self.assertEqual(Interview.objects.filter(interview_owner=self.user_1).count(), 1)
@@ -228,7 +228,7 @@ class InterviewViewTest(TestCase):
     #
     # def _test_overlapping_interviews_2(self):
     #     #
-    #     self.client.login(username='user_1', password='test')
+    #     self.lib.login(username='user_1', password='test')
     #     response = self._create_interview(self.file_cv, self.file_job, self.catalogue.id, "2030-1-1 11:05", 15)
     #     self.assertEqual(response.status_code, status.HTTP_302_FOUND)
     #     self.assertEqual(Interview.objects.filter(interview_owner=self.user_1).count(), 1)
@@ -245,7 +245,7 @@ class InterviewViewTest(TestCase):
     #
     # def _test_overlapping_interviews_3(self):
     #     #
-    #     self.client.login(username='user_1', password='test')
+    #     self.lib.login(username='user_1', password='test')
     #     response = self._create_interview(self.file_cv, self.file_job, self.catalogue.id, "2030-1-1 11:00", 30)
     #     self.assertEqual(response.status_code, status.HTTP_302_FOUND)
     #     self.assertEqual(Interview.objects.filter(interview_owner=self.user_1).count(), 1)
@@ -262,7 +262,7 @@ class InterviewViewTest(TestCase):
     #
     # def _test_overlapping_interviews_4(self):
     #     #
-    #     self.client.login(username='user_1', password='test')
+    #     self.lib.login(username='user_1', password='test')
     #     response = self._create_interview(self.file_cv, self.file_job, self.catalogue.id, "2030-1-1 11:00", 30)
     #     self.assertEqual(response.status_code, status.HTTP_302_FOUND)
     #     self.assertEqual(Interview.objects.filter(interview_owner=self.user_1).count(), 1)
@@ -279,7 +279,7 @@ class InterviewViewTest(TestCase):
     #
     # def _test_overlapping_interviews_correct(self):
     #     #
-    #     self.client.login(username='user_1', password='test')
+    #     self.lib.login(username='user_1', password='test')
     #     response = self._create_interview(self.file_cv, self.file_job, self.catalogue.id, "2030-1-1 11:00", 30)
     #     self.assertEqual(response.status_code, status.HTTP_302_FOUND)
     #     self.assertEqual(Interview.objects.filter(interview_owner=self.user_1).count(), 1)

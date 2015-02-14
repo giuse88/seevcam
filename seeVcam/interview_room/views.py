@@ -101,5 +101,3 @@ class InterviewerView(LoginRequired, IsOwnerOr404, InterviewRoomView):
 
     def get_role(self):
         return "interviewer"
-
-

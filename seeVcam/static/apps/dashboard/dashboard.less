@@ -1,0 +1,189 @@
+@import "../../bower_components/bootstrap/dist/css/bootstrap.css";
+@import (inline) "../../bower_components/bootstrap/dist/css/bootstrap-theme.css";
+
+@import (inline) "../../lib/components/questions/questions.css";
+@import (inline) "../../lib/components/interviews/style/fullcalendar.css";
+/*
+  Colors
+*/
+
+@orange : #D14232;
+@light-orange : #FF9861;
+@light-grey: #f1f1f1;
+@grey : #666;
+@nav-bar-grey :#cccccc;
+@blue : #0071bb;
+@background-grey : #eeeeee;
+@silver: #bdc3c7;
+
+/*
+  Seevcam properties
+*/
+
+@report-color : #400065;
+
+@nav-height : 40px;
+
+html, body {
+    font: 13px/1.4 Helvetica, arial, freesans, clean, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-size: 13px;
+    background-color: @background-grey;
+}
+
+a {
+    color: @orange;
+}
+
+hr {
+    border-color : #D1D1D1;
+}
+
+.dashed-border {
+    border: 2px dashed #D1D1D1;
+}
+
+
+.inline-block {
+    display: inline-block;
+}
+
+#container {
+}
+
+#content-wrap {
+    min-width: 100%;
+    height: ~"calc(100% - 60px)";
+    margin-top: 20px;
+}
+/** Adjusting Bootstrap classes */
+.container {
+    /*max-width: 1000px;*/
+    height: 100%;
+    width: 100%;
+    margin:0;
+    padding:0;
+}
+.row{
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.panel-default > .panel-heading {
+    background-color: #F5F5F5;
+    background-image: none;
+    box-shadow: none;
+}
+
+.panel-heading h3 {
+    font-weight: bold;
+}
+
+label {
+    color: #666666;
+}
+
+[type=text],
+[type=password],
+[type=email],
+select.form-control {
+    background-color: #fafafa;
+    border-radius: 3px;
+}
+
+.mt-20{
+  margin-top: 20px;
+}
+
+/*****************************************************************************
+ *                        Overriding Bootstrap properties                    *
+ *****************************************************************************/
+
+.btn-primary {
+  background-color : @orange;
+  background-image: -webkit-linear-gradient(top,@orange 0%, @orange 100%);
+  background-image: linear-gradient(to bottom, @orange 0%, @orange 100%);
+  border-color : @orange;
+
+  &:hover, &:focus {
+    background-color : @orange;
+    border-color : @orange;
+  }
+
+}
+
+.btn-orange {
+  background-color : @light-orange;
+  border-color: @light-orange;
+  color: #fff;
+
+  &:hover, &:focus {
+    background-color : darken(@light-orange, 5%);
+    border-color : darken(@light-orange, 5%);
+    color: #fff;
+  }
+
+}
+
+.btn-grey {
+  background-color : @silver;
+  border-color : @silver;
+
+  &:hover, &:focus {
+    background-color : lighten(@grey, 5%);;
+    border-color : @silver;
+  }
+
+}
+.btn-blue {
+  background-color : @blue;
+  border-color : @blue;
+  color:#fff;
+  &:hover, &:focus {
+    background-color : lighten(@blue, 5%);
+    border-color : @blue;
+    color:#fff;
+  }
+
+}
+
+.btn-stretch {
+  display: block;
+  width: 100%;
+}
+
+.left-border {
+  border-right: 1px solid #ccc;
+}
+
+.fc-view-container {
+  background: white;
+}
+
+.fc-button {
+  outline: none;
+}
+
+.progress-bar-success {
+  background-color : @orange;
+  background-image: -webkit-linear-gradient(top,@light-orange 0%, @orange 100%);
+  background-image: linear-gradient(to bottom, @light-orange 0%, @orange 100%);
+  border-color : @orange;
+}
+
+.progress-bar-grey {
+  background-color : @silver;
+  background-image: -webkit-linear-gradient(top,@silver 0%, @silver 100%);
+  background-image: linear-gradient(to bottom, @silver 0%, @silver 100%);
+  border-color : @silver;
+}
+
+@import "../../lib/misc/overlay/overlay";
+@import "../../lib/components/profile/profile";
+@import "../../lib/components/navbar/navbar";
+@import "../../lib/components/notification/notification";
+@import "../../lib/components/interviews/style/create_interview";
+@import "../../lib/components/interviews/style/interviews";
+@import "../../lib/components/login/login";
