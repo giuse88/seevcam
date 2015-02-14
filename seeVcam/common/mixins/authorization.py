@@ -23,7 +23,7 @@ class TokenVerification(object):
 
     def get_object(self, *args, **kwargs):
         url_token = self.kwargs['token']
-        obj = super(IsOwnerOr404, self).get_object(*args, **kwargs)
+        obj = super(TokenVerification, self).get_object(*args, **kwargs)
         if not obj.token == url_token:
             raise Http404
         return obj
