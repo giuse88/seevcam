@@ -78,4 +78,20 @@
   .interview-item {
     .item-mixin;
   }
+
+  .inner-content{
+
+    .block {
+
+      &.interview .interview-item {
+        .make-md-column(4);
+      }
+
+      &.report .interview-item {
+        .make-md-column(3);
+      }
+
+    }
+
+  }
 }
