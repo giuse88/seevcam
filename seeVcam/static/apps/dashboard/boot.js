@@ -5,13 +5,13 @@ require.config({
   paths: {
     "text" : "bower_components/requirejs-text/text",
     //apps
-    "dashboard"     : "client/app/dashboard/dashboard",
+    "dashboard"     : "lib/app/dashboard/dashboard",
     // maps
-    "models"       : "client/models",
-    "misc"          : "client/misc",
-    "components"    : "client/components",
-    "collections"   : "client/collections",
-    "services"      : "client/services",
+    "models"        : "lib/models",
+    "misc"          : "lib/misc",
+    "components"    : "lib/components",
+    "collections"   : "lib/collections",
+    "services"      : "lib/services",
     //libs
     "jquery"        : "bower_components/jquery/dist/jquery",
     "jquery-pjax"   : "bower_components/jquery-pjax/jquery.pjax",
@@ -30,10 +30,10 @@ require.config({
     "fullcalendar"  : "bower_components/fullcalendar/dist/fullcalendar",
     "deep-model"    : "bower_components/backbone-deep-model/distribution/deep-model",
     "moment"        : "bower_components/moment/moment",
-    "notification"  : "client/components/notification/notification",
-    "utils"         : "client/misc/utils",
-    "nanobar"       : "client/misc/nanobar",
-    "backbone-modal" : "client/misc/backbone-modal"
+    "notification"  : "lib/components/notification/notification",
+    "utils"         : "lib/misc/utils",
+    "nanobar"       : "lib/misc/nanobar",
+    "backbone-modal" : "lib/misc/backbone-modal"
   },
 
   shim: {
@@ -83,4 +83,4 @@ require.config({
   }
 });
 
-require(["client/apps/dashboard/dashboard"]);
+require(["apps/dashboard/dashboard"]);

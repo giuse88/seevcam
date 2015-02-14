@@ -27,7 +27,7 @@ define(function (require) {
 
     getDataForTemplate : function(){
       // this transform the date received from the server to
-      // the client timezone
+      // the lib timezone
       var interviewStart = moment(this.model.get('start'));
       return {
         id : this.model.get('id'),

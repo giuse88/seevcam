@@ -1,7 +1,7 @@
 ({
     baseUrl : "../../",
     mainConfigFile: "./boot.js",
-    name: "./client/dashboard/boot",
+    name: "./lib/dashboard/boot",
     out: "build/seevcam.min.js",
     optimize: "none",
     findNestedDependencies: true,

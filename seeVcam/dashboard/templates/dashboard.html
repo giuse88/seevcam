@@ -15,11 +15,11 @@
         <script type="text/javascript" src="/js/seevcam.min.js"></script>
     {% else %}
         {# less #}
-        <link rel="stylesheet/less" type="text/css" href="{% static "client/apps/dashboard/dashboard.less" %}" />
+        <link rel="stylesheet/less" type="text/css" href="{% static "apps/dashboard/dashboard.less" %}" />
         <script type="text/javascript" src="{% static "bower_components/less/dist/less-1.7.5.min.js" %}"></script>
         {# app.js #}
         <script type="text/javascript" data-main="{% static "" %}"  src="{% static "bower_components/requirejs/require.js" %}"></script>
-        <script type="text/javascript" src="{% static "client/apps/dashboard/boot.js" %}"></script>
+        <script type="text/javascript" src="{% static "apps/dashboard/boot.js" %}"></script>
     {% endif %}
 
     <script type="application/javascript">
