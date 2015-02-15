@@ -65,9 +65,8 @@ define(function (require) {
 
     renderEntireCollection: function () {
       this.resetCatalogueContainer();
-      this.collection.each(function (catalogue) {
-        this.renderCatalogue(catalogue);
-      }, this);
+      this.renderCataloguesByScope("SEEVCAM");
+      this.renderCataloguesByScope("PRIVATE");
       return this;
     },
 

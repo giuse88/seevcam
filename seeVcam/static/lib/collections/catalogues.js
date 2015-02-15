@@ -5,7 +5,12 @@ define(function(require){
 
   return  Backbone.Collection.extend({
     model: Catalogue,
-    url: "/dashboard/questions/catalogue/"
+    url: "/dashboard/questions/catalogue/",
+
+    comparator: function(model){
+        return model.get("catalogue_name");
+    }
+
   });
 
 });
