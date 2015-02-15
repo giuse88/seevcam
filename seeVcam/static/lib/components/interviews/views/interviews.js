@@ -3,7 +3,7 @@ define(function (require) {
   var _ = require("underscore");
   var Backbone = require("backbone");
   var Utils = require("utils");
-  var InterviewBlock = require("./interview");
+  var Interview = require("./interview");
   var NoInterviewTemplate = require("text!../templates/noInterview.html");
   var elementsContainer = require("text!../templates/elementsContainer.html");
 
@@ -27,11 +27,11 @@ define(function (require) {
 
     renderInterview : function(interview, index) {
 
-      var interview = new InterviewBlock({
+      var interview = new Interview({
         model: interview,
         today: this.options.today,
         isInterview : this.options.isInterview,
-        list : !!this.options.list
+				mode: this.options.mode
       });
 			console.log(this.options.isInterview);
       this.views.push(interview);

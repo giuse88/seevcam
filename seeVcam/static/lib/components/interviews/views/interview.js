@@ -72,7 +72,7 @@ define(function (require) {
 
     render : function() {
       console.log(this.getDataForTemplate());
-      var template = this.options.list ? this.list_item_template : this.block_item_template;
+      var template = this.options.mode === "list" ? this.list_item_template : this.block_item_template;
       this.$el.html(template(this.getDataForTemplate()));
       return this;
     },

@@ -10,7 +10,13 @@
     <div class="interview-time"> <%= time %> </div>
     <h4> <%= name %>  <%= surname %> </h4>
     <p> <%= job_position%> </p>
+  <% if ( isInterview ) { %>
     <div class="action-icons">
         <span class="glyphicon glyphicon-remove delete-interview"></span>
     </div>
+  <% } else  { %>
+  <div class="score">
+    <span class="number"> 0.00 </span>
+  </div>
+  <% } %>
 </div>
