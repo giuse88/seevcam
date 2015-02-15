@@ -12,7 +12,11 @@ define(function(require) {
   return Backbone.DeepModel.extend({
 
     url : function () {
-      return "/dashboard/interviews/interviews/" + this.get("id") + "/"
+      // TODO think a beeter solution or validate this on stackoverflow
+      var url = "/dashboard/interviews/interviews/";
+      if (this.get("id"))
+        return "/dashboard/interviews/interviews/" + this.get("id") + "/"
+      return  url;
     },
 
     getCandidateFullName : function () {

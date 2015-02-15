@@ -1,4 +1,5 @@
 import string, random
+from django.core.mail import send_mail
 from rest_framework import generics
 from opentok import OpenTok
 
@@ -25,6 +26,7 @@ class InterviewList(generics.ListCreateAPIView):
             notes = Notes(interview=obj)
             notes.save()
             self.create_overall_ratings(obj)
+            self.send_email_to_user(obj)
 
     def get_queryset(self):
         return Interview.objects.filter(owner=self.request.user.id).order_by('start')
@@ -48,6 +50,13 @@ class InterviewList(generics.ListCreateAPIView):
         for rating_question in OverallRatingQuestion.objects.all():
             rating = OverallRating(interview=interview, question=rating_question)
             rating.save()
+
+    @staticmethod
+    def send_email_to_user(interview):
+        text = "To access the interview click the following link: "
+        link = "http://staging.seevcam.com/interview/1/{id}/{token}".format(id=interview.id, token=interview.token)
+        candidate_email = interview.candidate.email
+        send_mail('seeVcam interview', text + link, 'info@seevcam.com', [candidate_email], fail_silently=False)
 
 
 class InterviewDetail(generics.RetrieveUpdateDestroyAPIView):
