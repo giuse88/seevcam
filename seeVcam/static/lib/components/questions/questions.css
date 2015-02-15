@@ -279,11 +279,8 @@
 
 .question .view p {
     margin:0;
-    /*margin-bottom: 10px;*/
-    /*margin-top: 10px;*/
     padding: 6px 35px 6px 15px;
 }
-
 
 #question-container ul {
     list-style: none;
@@ -465,6 +462,7 @@
 }
 
 .question-drag-helper {
+    max-width: 45%;
     color : white;
     background-color: #0071bb;
     padding : 5px;

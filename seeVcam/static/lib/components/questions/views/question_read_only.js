@@ -3,8 +3,8 @@ define(function (require) {
   var _ = require("underscore");
   var Backbone = require("backbone");
   var Utils = require("utils");
-	var QuestionReadOnly = require("text!../templates/questionReadOnly.html")
-	var QuestionReadOnlyHelper = require("text!../templates/questionReadOnlyHelper.html")
+	var QuestionReadOnly = require("text!../templates/questionReadOnly.html");
+	var QuestionReadOnlyHelper = require("text!../templates/questionReadOnlyHelper.html");
 
   return Backbone.View.extend({
 
@@ -29,12 +29,17 @@ define(function (require) {
 
       render: function () {
           this.$el.html(this.template(this.model.toJSON()));
+          var self = this;
           // this doesn't work on Firefox
           this.$el.draggable(
             { cursor: '-webkit-grabbing',
               containment: 'document',
               helper: this.dragHelper ,
-              cursorAt : {left:10}
+              cursorAt : {left:10},
+              start : function (event, ui) {
+//                ui.helper.width(self.$el.find(".question-text").width());
+//                ui.helper.height(self.$el.find(".question-text").height());
+              }
             });
           return this;
       },
@@ -42,7 +47,9 @@ define(function (require) {
       dragHelper : function () {
           var scope = this.model.collection && this.model.collection.catalogue.get("catalogue_scope");
           var color = scope === "PRIVATE" ? "blue" : "red";
-          return this.helper_template(_.extend(this.model.toJSON(), {color : color}));
+          var $draggableHelper = $(this.helper_template(_.extend(this.model.toJSON(), {color : color})));
+          $("body").append($draggableHelper);
+          return $draggableHelper;
       },
 
       close: function () {
