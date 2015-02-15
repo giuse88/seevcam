@@ -75,6 +75,7 @@ class InterviewRoomView(DetailView):
         context['interview'] = interview
         context['catalogue'] = interview.catalogue
         context['job_position'] = interview.job_position
+        context['environment'] = settings.ENVIRONMENT
         return context
 
     def is_interview_open(self):
