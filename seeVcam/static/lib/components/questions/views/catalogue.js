@@ -4,7 +4,7 @@ define(function (require) {
   var _ = require("underscore");
   var Backbone = require("backbone");
   var Utils = require("utils");
-  var QuestionsView = require("./question");
+  var QuestionsView = require("./questions");
 	var CatalogueTemplate = require("text!../templates/catalogue.html")
 
   return  Backbone.View.extend({
