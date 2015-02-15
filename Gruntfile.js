@@ -19,7 +19,7 @@ module.exports = function(grunt) {
           ]
         },
         files: {
-          "public/css/seevcam.css": "seeVcam/static/client/dashboard/dashboard.less"
+          "public/css/seevcam.css": "seeVcam/static/apps/dashboard/dashboard.less"
         }
       }
     },
@@ -28,11 +28,11 @@ module.exports = function(grunt) {
       compile: {
         options: {
           baseUrl: "seeVcam/static/",
-          mainConfigFile: "./seeVcam/static/client/dashboard/boot.js",
+          mainConfigFile: "./seeVcam/static/apps/dashboard/boot.js",
           paths: {
             requireLib: 'bower_components/requirejs/require'
           },
-          name: "./client/dashboard/boot",
+          name: "./apps/dashboard/boot",
           out: "public/js/seevcam.min.js",
           include: ["requireLib"]
         }
