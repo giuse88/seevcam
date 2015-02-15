@@ -90,3 +90,36 @@
     }
   }
 }
+
+.list-mixin(@columns:12) {
+  .make-row();
+  p{
+    display: inline-block;
+  }
+  .container {
+    .make-md-column(@columns);
+    .glyphicon-remove {
+      float: right;
+    }
+    .header {
+      .make-md-column(3);
+      .make-md-column-offset(3);
+      display: inline-block;
+      h4 {
+        margin-top: 0px;
+        display: inline-block;
+      }
+    }
+    .interview-time {
+      .interview-date{
+        background: black;
+        color: #ffffff;
+      }
+
+      .make-md-column(3);
+      display: inline-block;
+      position: absolute;
+      left: 0px;
+    }
+  }
+}

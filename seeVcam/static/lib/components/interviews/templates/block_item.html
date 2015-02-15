@@ -4,11 +4,9 @@
 <% if ( isInterview ) { %>
     <span class="glyphicon glyphicon-remove delete-interview"> </span>
 <% } %>
-    <div class="row header">
-        <div class="col-sm-12">
-                <h4><%= name %>  <%= surname %></h4>
-            <p> <%= job_position %></p>
-        </div>
+    <div class="header">
+      <h4><%= name %>  <%= surname %></h4>
+      <p> <%= job_position %></p>
     </div>
 <% if ( isInterview ) { %>
     <div class="interview-time">
