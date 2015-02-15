@@ -10,8 +10,10 @@ module.exports = function (grunt) {
 		var done = this.async();
 		grunt.shipit.remote(
 				'cd ' + grunt.config('shipit.options.current')+' '
-				+ '&& grunt less '
-				+ '&& grunt requirejs'
+				+ '&& grunt less:dashboard'
+        + '&& grunt less:interviewRoom'
+        + '&& grunt requirejs:dashboard'
+				+ '&& grunt requirejs:interviewRoom'
 			, done);
 
 	});

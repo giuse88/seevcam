@@ -5,7 +5,7 @@ module.exports = function(grunt) {
   grunt.initConfig({
 
     less: {
-      default: {
+      dashboard: {
         options: {
           compress: true,
           cleancss: true,
@@ -13,19 +13,30 @@ module.exports = function(grunt) {
           optimization: 2,
           sourceMap : true,
           strictImports :true,
-          plugins: [
-//            new require('less-plugin-autoprefix')({browsers: ["last 2 versions"]}),
-//            new require('less-plugin-clean-css')({ advanced : true })
-          ]
+          plugins: [ ]
         },
         files: {
-          "public/css/seevcam.css": "seeVcam/static/apps/dashboard/dashboard.less"
+          "public/css/dashboard.css": "seeVcam/static/apps/dashboard/dashboard.less"
+        }
+      },
+      interviewRoom: {
+        options: {
+          compress: true,
+          cleancss: true,
+          yuicompress: true,
+          optimization: 2,
+          sourceMap: true,
+          strictImports: true,
+          plugins: [ ]
+        },
+        files: {
+          "public/css/room.css": "seeVcam/static/apps/interview_room/interview_room.less"
         }
       }
     },
 
     requirejs: {
-      compile: {
+      dashboard: {
         options: {
           baseUrl: "seeVcam/static/",
           mainConfigFile: "./seeVcam/static/apps/dashboard/boot.js",
@@ -33,7 +44,19 @@ module.exports = function(grunt) {
             requireLib: 'bower_components/requirejs/require'
           },
           name: "./apps/dashboard/boot",
-          out: "public/js/seevcam.min.js",
+          out: "public/js/dashboard.min.js",
+          include: ["requireLib"]
+        }
+      },
+      interviewRoom: {
+        options: {
+          baseUrl: "seeVcam/static/",
+          mainConfigFile: "./seeVcam/static/apps/interview_room/boot.js",
+          paths: {
+            requireLib: 'bower_components/requirejs/require'
+          },
+          name: "./apps/interview_room/boot",
+          out: "public/js/room.min.js",
           include: ["requireLib"]
         }
       }

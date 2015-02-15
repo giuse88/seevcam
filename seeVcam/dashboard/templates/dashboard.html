@@ -11,8 +11,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     {% if enviroment ==  "PRODUCTION" or environment == "STAGING" %}
-        <link rel="stylesheet" href="/css/seevcam.css">
-        <script type="text/javascript" src="/js/seevcam.min.js"></script>
+        <link rel="stylesheet" href="/css/dashboard.css">
+        <script type="text/javascript" src="/js/dashboard.min.js"></script>
     {% else %}
         {# less #}
         <link rel="stylesheet/less" type="text/css" href="{% static "apps/dashboard/dashboard.less" %}" />
