@@ -53,7 +53,7 @@
   }
 }
 
-.hover(@color:@blue) {
+.block-hover(@color:@blue) {
   .container {
     &:hover {
       box-shadow: 0 0 3px rgba(0, 0, 0, .1);
@@ -91,35 +91,40 @@
   }
 }
 
-//.list-mixin(@columns:12) {
-//  .make-row();
-//  p{
-//    display: inline-block;
-//  }
-//  .container {
-//    .make-md-column(@columns);
-//    .glyphicon-remove {
-//      float: right;
-//    }
-//    .header {
-//      .make-md-column(3);
-//      .make-md-column-offset(3);
-//      display: inline-block;
-//      h4 {
-//        margin-top: 0px;
-//        display: inline-block;
-//      }
-//    }
-//    .interview-time {
-//      .interview-date{
-//        background: black;
-//        color: #ffffff;
-//      }
-//
-//      .make-md-column(3);
-//      display: inline-block;
-//      position: absolute;
-//      left: 0px;
-//    }
-//  }
-//}
+.list-mixin(@columns:12) {
+  margin-bottom: 10px;
+
+  .container {
+    background: #ffffff;
+    line-height: 35px;
+    & > * {
+      display: inline-block;
+    }
+    .interview-name {
+      font-size: 20px;
+      border-right: 1px solid #999999;
+      padding: 0px 50px 0px 5px;
+    }
+    .interview-job {
+      color: #999999;
+      padding: 0px 5px;
+    }
+    .action-icons {
+      float: right;
+      cursor: pointer;
+    }
+    .interview-time {
+      padding: 0px 15px 0px 15px;
+      border-right: 1px solid #999;
+    }
+    .interview-date {
+      padding: 0px 15px 0px 15px;
+      background: #999999;
+      color: #ffffff;
+      position: relative;
+      float: left;
+      font-size: 16px;
+    }
+  }
+
+}
