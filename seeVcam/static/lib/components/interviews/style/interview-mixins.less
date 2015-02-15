@@ -50,13 +50,17 @@
         display: inline-block;
       }
     }
+    .score{
+      font-size: 50px;
+      text-align: center;
+    }
   }
 }
+
 
 .block-hover(@color:@blue) {
   .container {
     &:hover {
-      box-shadow: 0 0 3px rgba(0, 0, 0, .1);
       background-color: @color;
       color: white;
 
@@ -65,9 +69,13 @@
       }
       .header {
         color: white;
+        p {
+          color: white;
+        }
       }
-      .header p {
-        color: white;
+      .interview-time{
+        color: #ddd;
+        border-top: 1px solid #ddd;
       }
     }
   }
@@ -75,7 +83,6 @@
 
 .block-compact() {
   .container {
-    margin-bottom: 0px;
     .header {
       h4 {
         margin-bottom: 0px;
@@ -114,6 +121,7 @@
       float: right;
       cursor: pointer;
       padding: 0px 10px;
+      color: #ffffff;
     }
     .interview-time {
       padding: 0px 15px 0px 15px;
@@ -127,6 +135,12 @@
       float: left;
       font-size: 16px;
     }
+    .score{
+      font-size: 20px;
+      text-align: center;
+      padding: 0px 15px 0px 15px;
+      border-right: 1px solid #999;
+    }
   }
 }
 
@@ -139,7 +153,6 @@
       }
       .action-icons {
         display: block;
-        color: #ffffff;
       }
     }
   }
