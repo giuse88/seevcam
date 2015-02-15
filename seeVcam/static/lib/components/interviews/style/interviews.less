@@ -81,13 +81,13 @@
 
   .open-interview{
     .interview-item {
-      .item-mixin(12, @orange,@orange);
-      color:white;
+      .block-mixin(12, @orange,@orange);
+      .block-compact();
     }
   }
   .upcoming-interviews {
     .interview-item {
-      .item-mixin(12, @green,@green);
+      .block-mixin(12, @green,@green);
     }
   }
 
@@ -95,12 +95,12 @@
 
     .interview {
       &.list .interview-item {
-        .item-mixin(12);
+        .block-mixin(12);
         .hover()
       }
 
       &.block .interview-item {
-        .item-mixin(4);
+        .block-mixin(4);
         .hover()
       }
 
@@ -108,12 +108,12 @@
 
     .report {
       &.list .interview-item {
-        .item-mixin(12, @report-color);
+        .block-mixin(12, @report-color);
         .hover(@report-color)
       }
 
       &.block .interview-item {
-        .item-mixin(3, @report-color);
+        .block-mixin(3, @report-color);
         .hover(@report-color)
       }
 

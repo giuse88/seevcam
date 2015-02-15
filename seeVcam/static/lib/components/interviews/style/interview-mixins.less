@@ -1,4 +1,4 @@
-.item-mixin(@columns:12; @color:@blue; @back-color:white) {
+.block-mixin(@columns:12; @color:@blue; @back-color:white) {
 
   .make-md-column(@columns);
 
@@ -69,6 +69,24 @@
       .header p {
         color: white;
       }
+    }
+  }
+}
+
+.block-compact() {
+  .container {
+    margin-bottom: 0px;
+    .header {
+      h4 {
+        margin-bottom: 0px;
+        padding: 0px;
+      }
+      p {
+        margin: 0px;
+      }
+    }
+    .interview-time {
+      margin-top: 0px;
     }
   }
 }
