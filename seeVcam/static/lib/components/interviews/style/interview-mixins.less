@@ -110,8 +110,10 @@
       padding: 0px 5px;
     }
     .action-icons {
+      display: none;
       float: right;
       cursor: pointer;
+      padding: 0px 10px;
     }
     .interview-time {
       padding: 0px 15px 0px 15px;
@@ -126,5 +128,19 @@
       font-size: 16px;
     }
   }
+}
 
+.list-hover(@color:@blue) {
+  .container {
+    &:hover {
+      background: @color;
+      & > * {
+        color: #ffffff;
+      }
+      .action-icons {
+        display: block;
+        color: #ffffff;
+      }
+    }
+  }
 }
