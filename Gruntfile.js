@@ -46,7 +46,7 @@ module.exports = function(grunt) {
 				deployTo: '/home/seevcam/app/seevcam',
 
 				repositoryUrl: 'git@github.com:giuse88/seevcam.git',
-				branch:'ui-improvements',
+				branch:'master',
 				ignores: ['.git', 'node_modules'],
 
 				keepReleases: 5,
