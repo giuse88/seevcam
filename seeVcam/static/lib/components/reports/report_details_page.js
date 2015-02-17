@@ -17,7 +17,7 @@ define(function (require) {
     },
 
     renderScore : function () {
-      this.$el.find('#myStat').circliful();
+      this.$el.find(".result-circle").circliful();
     },
 
     renderOverallRating : function () {
