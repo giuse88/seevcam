@@ -12,9 +12,19 @@ define(function (require) {
     template : require("text!./templates/report_details_page.html"),
 
     postRender: function() {
+      this.renderScore();
+      this.renderOverallRating();
+    },
+
+    renderScore : function () {
       this.$el.find('#myStat').circliful();
+    },
+
+    renderOverallRating : function () {
+      this.$el.find('progress').each(function() {
+        var max = $(this).val();
+        $(this).val(0).animate({ value: max }, { duration: 2000, easing: 'easeOutCirc' });
+      });
     }
   });
-
-
 });

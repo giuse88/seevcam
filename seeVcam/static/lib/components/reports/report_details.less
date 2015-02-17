@@ -1,4 +1,5 @@
 @box-height : 200px;
+@progress-color : #ffffff;
 
 .report-page {
 
@@ -30,9 +31,46 @@
     margin-left: 20px;
     background-color: @light-blue;
     height: @box-height;
-    .circle-text {
-      color:white;
+    .circle-text, .circle-info {
+      color:@progress-color;
     }
+  }
+
+  .progress-container {
+    position: relative;
+    margin-bottom: 10.5px;
+    margin-top: 11.5px;
+    height: 20px;
+    
+    span {
+      position: absolute;
+      top : 0;
+      left: 2%;
+      line-height: 20px;
+      font-size: 15px;
+      font-family: monospace;
+      color : #000;
+    }
+
+    progress {
+      background-color: #f3f3f3;
+      border: 0;
+      height: 20px;
+      width: 100%;
+    }
+
+    progress::-webkit-progress-bar {
+      background-color: #61a9dc;
+    }
+
+    progress::-webkit-progress-value {
+      background-color: @progress-color;
+    }
+
+    progress::-moz-progress-bar {
+      background-color: @progress-color;
+    }
+    
   }
 
 }
