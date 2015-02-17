@@ -1,18 +1,25 @@
 <div class="candidate-info col-md-4 col-md-offset-1">
-    <div class="candidate-name">
-        <p>John Smith</p>
+    <div class="candidate-info-details">
+        <div class="candidate-name"> <p>John Smith</p> </div>
+        <div class="candidate-email"> <p>email@email.com</p> </div>
+        <div class="interview-date"> <p>Interviewed on <b>16/12/12</b></p> </div>
     </div>
-    <div class="candidate-email">
-        <p>email@email.com</p>
-    </div>
-    <div class="interview-date">
-        <p>Interviewed on <b>16/12/12</b></p>
+    <div class="candidate-info-tabs row">
+        <span class="job-position-link tab col-md-6">
+            <p class="tab-title margin-right-2" data-link="job-description"> Job description </p>
+        </span>
+        <span class="cv-link tab col-md-6 ">
+            <p class="tab-title margin-left-2" data-link="cv">Curriculum vitae</p>
+        </span>
     </div>
 </div>
+
+
 <div class="report-result col-md-6" >
     <div class="row">
        <div class="overall-rating col-md-8">
            <section id="skills">
+               <!-- this should dynamic -->
                <div class="progress-container">
                    <progress value="80" max="100"></progress>
                    <span class="progress-text">JavaScript/jQuery</span>
