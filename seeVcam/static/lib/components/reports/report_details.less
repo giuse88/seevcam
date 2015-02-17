@@ -1,29 +1,58 @@
 @box-height : 200px;
 @progress-color : #ffffff;
+@grey-tab: #7A7A7A;
 
 .report-page {
 
+  .tab {
+    height: 40px;
+    text-align: center;
+    cursor: pointer;
+    line-height: 40px;
+    padding : 0;
+    color : @light-grey;
+    &:hover{
+      color : white;
+    }
+  }
+
   .candidate-info {
-    background-color: #afafaf;
-    height: @box-height;
-    padding-left: 40px;
 
-    p {
-      margin : 0;
+    .candidate-info-details {
+      background-color: #afafaf;
+      height: @box-height;
+      padding-left: 40px;
+
+      p {
+        margin : 0;
+      }
+
+      .candidate-name{
+        padding-top: 30px;
+        font-size : 40px;
+        font-weight: 600;
+      }
+      .candidate-email {
+        margin-top: -10px;
+        font-size : 20px;
+      }
+      .interview-date{
+        margin-top: 20px;
+        font-size:17px;
+      }
     }
 
-    .candidate-name{
-      margin-top: 30px;
-      font-size : 40px;
-      font-weight: 600;
-    }
-    .candidate-email {
-      margin-top: -10px;
-      font-size : 20px;
-    }
-    .interview-date{
-      margin-top: 20px;
-      font-size:17px;
+    .candidate-info-tabs {
+      .margin-left-2 {
+        margin-left: 2.5px;
+      }
+      .margin-right-2 {
+        margin-right: 2.5px;
+      }
+      .tab-title {
+        padding:0;
+        background-color: @grey-tab;
+      }
     }
   }
 
