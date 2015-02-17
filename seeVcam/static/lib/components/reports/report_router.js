@@ -6,6 +6,7 @@ define(function (require) {
   var InterviewApp = require("components/interviews/views/interview_page");
   var LoadingBar = require("nanobar");
   var Loader = require("services/loader");
+  var ReportDetails = require("./report_details_page");
 
   return  Backbone.Router.extend({
 
@@ -45,6 +46,12 @@ define(function (require) {
           interviewsApp.renderInterviewBlock();
 
         });
+    },
+
+    reportDetails : function () {
+      var reportPageDetails = new ReportDetails();
+      Utils.safelyUpdateCurrentView(reportPageDetails);
+      $("#container").html(reportPageDetails.render().$el);
     }
 
   });
