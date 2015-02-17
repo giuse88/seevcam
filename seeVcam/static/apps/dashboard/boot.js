@@ -12,6 +12,9 @@ require.config({
     "components"    : "lib/components",
     "collections"   : "lib/collections",
     "services"      : "lib/services",
+        // misc
+    baseModel:    "lib/misc/baseModel",
+    baseView:     "lib/misc/baseView",
     //libs
     "jquery"        : "bower_components/jquery/dist/jquery",
     "jquery-pjax"   : "bower_components/jquery-pjax/jquery.pjax",
@@ -21,6 +24,7 @@ require.config({
     "jquery.fileupload" : "bower_components/jquery-file-upload/js/jquery.fileupload",
     "jquery.fileupload-validate" : "bower_components/jquery-file-upload/js/jquery.fileupload-validate",
     "jquery.fileupload-process" : "bower_components/jquery-file-upload/js/jquery.fileupload-process",
+    'backbone.stickit' : "bower_components/backbone.stickit/backbone.stickit",
     "backbone"      : "bower_components/backbone/backbone",
     "underscore"    : "bower_components/underscore/underscore",
     "bootstrap"     : "bower_components/bootstrap/dist/js/bootstrap",
@@ -49,6 +53,10 @@ require.config({
 
     "jquery-ui":{
       deps : ["jquery"]
+    },
+
+    "backbone.stickit": {
+      deps: ['backbone']
     },
 
     "jquery-pjax":{
