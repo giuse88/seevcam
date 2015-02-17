@@ -24,6 +24,7 @@ require.config({
     "jquery.fileupload" : "bower_components/jquery-file-upload/js/jquery.fileupload",
     "jquery.fileupload-validate" : "bower_components/jquery-file-upload/js/jquery.fileupload-validate",
     "jquery.fileupload-process" : "bower_components/jquery-file-upload/js/jquery.fileupload-process",
+    "circliful" : "bower_components/circliful/js/jquery.circliful",
     'backbone.stickit' : "bower_components/backbone.stickit/backbone.stickit",
     "backbone"      : "bower_components/backbone/backbone",
     "underscore"    : "bower_components/underscore/underscore",
@@ -57,6 +58,10 @@ require.config({
 
     "backbone.stickit": {
       deps: ['backbone']
+    },
+
+    "circliful" : {
+      deps: ["jquery"]
     },
 
     "jquery-pjax":{

@@ -3,13 +3,18 @@
  */
 define(function (require) {
 
-  var $ = require("jquery");
+  require("circliful");
   var _ = require("underscore");
   var BaseView = require('baseView');
 
   return BaseView.extend({
     className : "report-page",
-    template : require("text!./templates/report_details_page.html")
+    template : require("text!./templates/report_details_page.html"),
+
+    postRender: function() {
+      this.$el.find('#myStat').circliful();
+    }
   });
+
 
 });
