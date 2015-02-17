@@ -1,6 +1,7 @@
 @box-height : 200px;
 @progress-color : #ffffff;
 @grey-tab: #7A7A7A;
+@dark-blue : #00436B;
 
 .report-page {
 
@@ -16,6 +17,16 @@
     }
   }
 
+  .margin-left-2 {
+    margin-left: 2.5px;
+  }
+  .margin-right-2 {
+    margin-right: 2.5px;
+  }
+
+  .tab-title {
+    padding:0;
+  }
   .candidate-info {
 
     .candidate-info-details {
@@ -43,25 +54,31 @@
     }
 
     .candidate-info-tabs {
-      .margin-left-2 {
-        margin-left: 2.5px;
-      }
-      .margin-right-2 {
-        margin-right: 2.5px;
-      }
       .tab-title {
-        padding:0;
         background-color: @grey-tab;
       }
     }
   }
 
   .report-result {
-    margin-left: 20px;
-    background-color: @light-blue;
-    height: @box-height;
-    .circle-text, .circle-info {
-      color:@progress-color;
+    .report-result-details {
+      background-color: @light-blue;
+      height: @box-height;
+      .result-circle {
+        width: 200px;
+        height: 200px;
+      }
+      .circle-text, .circle-info {
+        color: @progress-color;
+      }
+      .overall-results {
+        height: @box-height;
+      }
+    }
+    .result-tabs {
+      .tab-title {
+        background-color: @dark-blue;
+      }
     }
   }
 
