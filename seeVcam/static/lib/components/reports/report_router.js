@@ -51,7 +51,14 @@ define(function (require) {
 
       $.when(Loader.loadJobPositions(), Loader.loadInterviews(), Loader.loadOverallRatings(interviewId))
         .then( function () {
-          var reportPageDetails = new ReportDetails();
+          var ratings = window.cache.overallRatings[interviewId];
+          var interview =  window.cache.interviews.findWhere({id:parseInt(interviewId)});
+          var jobSpecification = window.cache.jobPositions.findWhere({id: interview.get("job_position")});
+          var reportPageDetails = new ReportDetails({
+            ratings : ratings,
+            interview : interview,
+            jobSpecification : jobSpecification
+          });
           Utils.safelyUpdateCurrentView(reportPageDetails);
           $("#container").html(reportPageDetails.render().$el);
       });
