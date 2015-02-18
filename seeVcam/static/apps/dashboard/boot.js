@@ -9,6 +9,7 @@ require.config({
     // maps
     "models"        : "lib/models",
     "misc"          : "lib/misc",
+    "behaviors"     : "lib/behaviors",
     "components"    : "lib/components",
     "collections"   : "lib/collections",
     "services"      : "lib/services",

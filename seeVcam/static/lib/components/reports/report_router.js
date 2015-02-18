@@ -42,16 +42,19 @@ define(function (require) {
 
           Utils.safelyUpdateCurrentView(interviewsApp);
           $("#container").html(interviewsApp.render().$el);
-          // default inner view
           interviewsApp.renderInterviewBlock();
 
         });
     },
 
-    reportDetails : function () {
-      var reportPageDetails = new ReportDetails();
-      Utils.safelyUpdateCurrentView(reportPageDetails);
-      $("#container").html(reportPageDetails.render().$el);
+    reportDetails : function (interviewId) {
+
+      $.when(Loader.loadJobPositions(), Loader.loadInterviews(), Loader.loadOverallRatings(interviewId))
+        .then( function () {
+          var reportPageDetails = new ReportDetails();
+          Utils.safelyUpdateCurrentView(reportPageDetails);
+          $("#container").html(reportPageDetails.render().$el);
+      });
     }
 
   });
