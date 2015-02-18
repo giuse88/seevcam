@@ -5,6 +5,7 @@ define(function (require) {
   var Interviews = require("collections/interviews");
   var JobPositions = require("collections/job_positions");
   var Catalogues = require("collections/catalogues");
+  var OverallRatings = require("collections/overall_ratings");
 
   return {
 
@@ -42,6 +43,14 @@ define(function (require) {
 
     loadFile : function (fileId) {
       return this.load("/dashboard/files/"+fileId +"/");
+    },
+
+    loadOverallRatings : function (interviewId) {
+      function cacheOverallRating(overallRatings) {
+        window.cache.overallRatings[interviewId] = new OverallRatings(overallRatings, {interviewId : interviewId});
+      }
+      return window.cache.overallRatings[interviewId] ||
+        this.load("/dashboard/interviews/interviews/" + interviewId +"/overall_ratings", cacheOverallRating);
     },
 
     fetchQuestions: function(catalogues) {
