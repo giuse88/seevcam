@@ -45,12 +45,12 @@ define(function (require) {
       return this.load("/dashboard/files/"+fileId +"/");
     },
 
-    loadOverallRatings : function (interviewId) {
+    loadOverallRatings: function (interviewId) {
       function cacheOverallRating(overallRatings) {
         window.cache.overallRatings[interviewId] = new OverallRatings(overallRatings, {interviewId : interviewId});
       }
       return window.cache.overallRatings[interviewId] ||
-        this.load("/dashboard/interviews/interviews/" + interviewId +"/overall_ratings", cacheOverallRating);
+        this.load("/dashboard/interviews/interviews/" + interviewId + "/overall_ratings", cacheOverallRating);
     },
 
     fetchQuestions: function(catalogues) {

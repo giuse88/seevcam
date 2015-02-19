@@ -7,6 +7,9 @@ define(function (require) {
   var LoadingBar = require("nanobar");
   var Loader = require("services/loader");
   var ReportDetails = require("./report_details_page");
+  var Notes = require("models/notes");
+  var Answers = require("collections/answers");
+  var Events = require("collections/events");
 
   return  Backbone.Router.extend({
 
@@ -49,8 +52,21 @@ define(function (require) {
 
     reportDetails : function (interviewId) {
 
-      $.when(Loader.loadJobPositions(), Loader.loadInterviews(), Loader.loadOverallRatings(interviewId))
-        .then( function () {
+      var config = {interviewId : parseInt(interviewId)};
+
+      // this should be cached
+      var answers = new Answers([],config);
+      var events = new Events([], config);
+      var notes = new Notes(config);
+
+      // this is not correct
+      $.when(Loader.loadJobPositions(),
+        Loader.loadInterviews(),
+        Loader.loadOverallRatings(interviewId),
+        answers.fetch(),
+        events.fetch(),
+        notes.fetch()
+      ).then( function () {
           var ratings = window.cache.overallRatings[interviewId];
           var interview =  window.cache.interviews.findWhere({id:parseInt(interviewId)});
           var jobSpecification = window.cache.jobPositions.findWhere({id: interview.get("job_position")});
