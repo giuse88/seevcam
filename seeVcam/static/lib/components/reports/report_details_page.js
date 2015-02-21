@@ -7,12 +7,31 @@ define(function (require) {
   var Moment = require('moment');
   var BaseView = require('baseView');
   var ReviewItemListView = require("components/review_item_list/reviewItemListView");
+  var DocumentView = require("components/document_viewer/documentView");
+  var File = require("models/file");
 
   return BaseView.extend({
     className : "report-page",
     template : require("text!./templates/report_details_page.html"),
 
-    initialization : function (options) {
+    events : {
+      "click .tab" : "handleClick"
+    },
+
+    initialize : function (options) {
+      this.subViewsRenders = {
+        answers : this.renderAnswers,
+        cv : this.renderCV
+      };
+      BaseView.prototype.initialize.apply(this, arguments);
+    },
+
+    handleClick : function (event) {
+      this.$el.find(".tab-title.active").removeClass("active");
+      var link  = $(event.target).data("link");
+      $(event.target).addClass("active");
+      var render = this.subViewsRenders[link];
+      render && render.call(this);
     },
 
     postRender: function() {
@@ -45,9 +64,24 @@ define(function (require) {
     renderAnswers: function () {
       var answers = this.options.answers;
       var questions = this.options.questions;
-      var subView = new ReviewItemListView({collection:answers, questions: questions});
-      this.attachSubView('.report-inner-container', subView);
-      console.log("Rendered answers");
+      this.updateSubView(new ReviewItemListView({collection:answers, questions: questions}));
+    },
+
+    updateSubView : function (view) {
+      this.currentSubView && this.detachSubView(this.currentSubView);
+      this.currentSubView = view;
+      this.attachSubView('.report-inner-container', this.currentSubView);
+    },
+
+    renderCV : function () {
+      // this shouldn't be here
+      var self = this;
+      var documentFile = new File({id: this.options.jobSpecification.id});
+          documentFile
+            .fetch()
+            .done(function () {
+              self.updateSubView(new DocumentView({model: documentFile}));
+            });
     },
 
     formatDate : function (date) {
