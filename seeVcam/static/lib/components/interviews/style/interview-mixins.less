@@ -103,18 +103,22 @@
 
   .container {
     background: #ffffff;
-    line-height: 35px;
+    line-height: 30px;
     & > * {
       display: inline-block;
+    }
+    .date-group{
+      padding: 0px;
+      float: left;
     }
     .interview-name {
       font-size: 20px;
       border-right: 1px solid #999999;
-      padding: 0px 50px 0px 5px;
+      padding: 0px 5px 0px 15px;
     }
     .interview-job {
       color: #999999;
-      padding: 0px 5px;
+      padding: 0px 15px;
     }
     .action-icons {
       display: none;
@@ -124,8 +128,10 @@
       color: #ffffff;
     }
     .interview-time {
-      padding: 0px 15px 0px 15px;
       border-right: 1px solid #999;
+      text-align: center;
+      width:50px;
+      display: inline-block;
     }
     .interview-date {
       padding: 0px 15px 0px 15px;
@@ -134,12 +140,14 @@
       position: relative;
       float: left;
       font-size: 16px;
+      line-height: 31px;
     }
     .score{
-      font-size: 20px;
+      width:50px;
+      font-size: 15px;
       text-align: center;
-      padding: 0px 15px 0px 15px;
       border-right: 1px solid #999;
+      display: inline-block;
     }
   }
 }
