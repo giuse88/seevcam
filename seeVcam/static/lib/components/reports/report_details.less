@@ -9,6 +9,8 @@
   button, a{
     cursor: default;
   }
+
+
   
   .tab {
     height: 40px;
@@ -60,6 +62,10 @@
     .candidate-info-tabs {
       .tab-title {
         background-color: @grey-tab;
+       &.active {
+         color : white;
+         background-color: #afafaf;
+        }
       }
     }
   }
@@ -82,6 +88,10 @@
     .result-tabs {
       .tab-title {
         background-color: @dark-blue;
+        &.active {
+          color : white;
+          background-color: @light-blue;
+        }
       }
     }
   }
