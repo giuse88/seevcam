@@ -21,7 +21,8 @@ define(function (require) {
     initialize : function (options) {
       this.subViewsRenders = {
         answers : this.renderAnswers,
-        cv : this.renderCV
+        cv : this.renderCV,
+        "job-description" : this.renderJobSpec
       };
       BaseView.prototype.initialize.apply(this, arguments);
     },
@@ -74,9 +75,17 @@ define(function (require) {
     },
 
     renderCV : function () {
+      this.renderFile(this.options.interview.get("candidate.cv"));
+    },
+
+    renderJobSpec : function () {
+      this.renderFile(this.options.jobSpecification.id);
+    },
+
+    renderFile : function (id) {
       // this shouldn't be here
       var self = this;
-      var documentFile = new File({id: this.options.jobSpecification.id});
+      var documentFile = new File({id:id});
           documentFile
             .fetch()
             .done(function () {
