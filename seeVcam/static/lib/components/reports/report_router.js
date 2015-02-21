@@ -68,11 +68,14 @@ define(function (require) {
             interview : interview,
             jobSpecification : jobSpecification,
             answers : window.cache.answers[interviewId],
+            questions : window.cache.questions[interviewId],
             interview_events : window.cache.events[interviewId],
             notes: window.cache.notes[interviewId]
           });
           Utils.safelyUpdateCurrentView(reportPageDetails);
           $("#container").html(reportPageDetails.render().$el);
+          // default inner view
+          reportPageDetails.renderAnswers();
       });
     }
 

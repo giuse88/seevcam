@@ -6,6 +6,7 @@ define(function (require) {
   var JobPositions = require("collections/job_positions");
   var Catalogues = require("collections/catalogues");
   var OverallRatings = require("collections/overall_ratings");
+  var Questions = require("collections/questions");
   var Notes = require("models/notes");
   var Answers = require("collections/answers");
   var Events = require("collections/events");
@@ -43,6 +44,14 @@ define(function (require) {
       }
       return window.cache.answers[interviewId] ||
         this.load("/dashboard/interviews/interviews/" + interviewId + "/answers", cacheAnswers);
+    },
+
+    loadQuestions: function (interviewId) {
+      function cacheQuestions(questions) {
+        window.cache.questions[interviewId] = new Questions(questions,{interviewId : interviewId});
+      }
+      return window.cache.questions[interviewId] ||
+        this.load("/dashboard/interviews/interviews/" + interviewId + "/questions", cacheQuestions);
     },
 
     loadEvents : function (interviewId) {

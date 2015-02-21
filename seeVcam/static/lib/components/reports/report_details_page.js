@@ -6,6 +6,7 @@ define(function (require) {
   require("circliful");
   var Moment = require('moment');
   var BaseView = require('baseView');
+  var ReviewItemListView = require("components/review_item_list/reviewItemListView");
 
   return BaseView.extend({
     className : "report-page",
@@ -43,11 +44,12 @@ define(function (require) {
       }
     },
 
-    renderAnswer : function () {
+    renderAnswers: function () {
       var answers = this.options.answers;
       var questions = this.options.questions;
       var subView = new ReviewItemListView({collection:answers, questions: questions});
       this.attachSubView('.report-inner-container', subView);
+      console.log("Rendered answers");
     },
 
     formatDate : function (date) {

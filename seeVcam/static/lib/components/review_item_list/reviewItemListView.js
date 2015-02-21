@@ -4,6 +4,7 @@ define(function (require) {
 
   return BaseView.extend({
     template: require('text!./templates/review-item-list.html'),
+    className : "review-item-list",
 
     initialize: function (options) {
       this.questions = options.questions;
