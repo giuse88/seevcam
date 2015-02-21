@@ -20,7 +20,7 @@
 
       .search-input {
         padding-right: 30px;
-        background-color: white;
+        background-color: @white;
       }
 
       .search-icon {
@@ -28,7 +28,7 @@
         right: 0;
         top: 0;
         font-size: 18px;
-        color: @grey;
+        color: @gray;
         margin: 5px 10px 5px 5px;
         cursor: pointer;
       }
@@ -50,7 +50,7 @@
         width: 34px;
         font-size: 22px;
         text-align: center;
-        color: @grey;
+        color: @gray;
         margin-right: 10px;
         cursor: pointer;
         text-decoration: none;
@@ -59,7 +59,7 @@
           padding-left: 5px;
         }
         &:hover, &:active, &.active {
-          background-color: @grey;
+          background-color: @gray;
           color: @background-grey;
           text-decoration: none;
         }
@@ -77,7 +77,7 @@
       .block-mixin(12, @orange,@orange);
       .block-compact();
       .container{
-        .block-color(#fff;#fff;#fff);
+        .block-color(@white;@white;@white);
       }
     }
   }
@@ -85,7 +85,7 @@
     .interview-item {
       .block-mixin(12, @green,@green);
       .container{
-        .block-color(#fff;#fff;#fff);
+        .block-color(@white;@white;@white);
       }
     }
   }
