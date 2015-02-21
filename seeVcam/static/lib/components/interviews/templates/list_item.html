@@ -1,7 +1,7 @@
 <div class="interview-item row">
   <div class="container col-md-12">
     <div class="date-group col-md-3">
-      <div class="interview-date">
+      <div class="interview-date col-md-8">
         <span class="date-string"> <%= date_string %></span>
         <span class="date-month"><%= month %></span>
         <span class="date-separator"><%= date_separator %></span>
@@ -10,14 +10,14 @@
         <span class="date-year"><%= year %></span>
       </div>
       <% if ( isInterview ) { %>
-        <div class="interview-time"> <%= time %> </div>
+        <div class="interview-time col-md-4"> <%= time %> </div>
       <% } else  { %>
-        <div class="score"> 5.0 </div> <% } %>
+        <div class="score col-md-4"> 5.0 </div> <% } %>
     </div>
     <div class="interview-name col-md-5"> <%= name %>  <%= surname %> </div>
     <div class="interview-job col-md-4"> <%= job_position%> </div>
   <% if ( isInterview ) { %>
-    <div class="action-icons col-md-1">
+    <div class="action-icons">
         <span class="glyphicon glyphicon-remove delete-interview"></span>
     </div>
     <% } %>
