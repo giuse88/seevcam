@@ -19,7 +19,7 @@ define(function (require) {
       } else {
         this.buttonClass = 'icon-small';
       }
-
+      this.edit = options.edit;
       BaseView.prototype.initialize.apply(this, arguments);
     },
 
@@ -32,6 +32,9 @@ define(function (require) {
     },
 
     onClickRating: function (e) {
+      if (!this.edit) {
+        return;
+      }
       var newRating = parseInt($(e.currentTarget).data('rating'));
       var oldRating = this.model.get('rating');
 
@@ -48,6 +51,7 @@ define(function (require) {
     },
 
     onMouseEnterRating: function (e) {
+      if (!this.edit) { return; }
       var self = this;
       var $currentRating = $(e.currentTarget);
       this.$('.rating-button')
@@ -60,6 +64,7 @@ define(function (require) {
     },
 
     onMouseLeaveRating: function () {
+      if (!this.edit) { return; }
       this.highlightRating();
     },
 

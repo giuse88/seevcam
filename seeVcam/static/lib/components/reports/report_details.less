@@ -4,7 +4,12 @@
 @dark-blue : #00436B;
 
 .report-page {
-
+  height: 100%;
+  
+  button, a{
+    cursor: default;
+  }
+  
   .tab {
     height: 40px;
     text-align: center;
@@ -23,6 +28,7 @@
   .margin-right-2 {
     margin-right: 2.5px;
   }
+
 
   .tab-title {
     padding:0;
@@ -115,6 +121,16 @@
       background-color: @progress-color;
     }
     
+  }
+
+  .report-inner-container {
+    margin-top : 20px;
+    height: ~'calc(100% - 280px)';
+    margin-bottom: 20px;
+  }
+
+  .rating-info,.rating-control {
+    margin-top  : 8px;
   }
 
 }

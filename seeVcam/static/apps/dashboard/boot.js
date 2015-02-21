@@ -105,6 +105,9 @@ require.config({
     },
     "jquery.textarea.autoresize": {
       deps: ['jquery']
+    },
+    "slimscroll": {
+      deps: ['jquery']
     }
   }
 });

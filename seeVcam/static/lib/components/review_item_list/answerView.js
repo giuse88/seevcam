@@ -11,8 +11,8 @@ define(function (require) {
     },
 
     initialize: function (options) {
+      this.edit = this.options.edit;
       this.question = options.question;
-
       BaseView.prototype.initialize.apply(this, arguments);
     },
 
