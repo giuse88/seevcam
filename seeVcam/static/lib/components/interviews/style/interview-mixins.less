@@ -1,0 +1,166 @@
+.block-mixin(@columns:12; @color:@blue; @back-color:@white) {
+
+  .make-md-column(@columns);
+
+  .container {
+    background-color: @back-color;
+    border-top: 7px solid @color;
+    border-radius: 0px;
+    margin-bottom: 20px;
+
+    .action-icons {
+      position: absolute;
+      right: 25px;
+      display: none;
+      cursor: pointer;
+    }
+    .header {
+      text-align: center;
+
+      h4 {
+        font-size: 20px;
+        font-weight: 400;
+        text-shadow: none;
+        padding: 10px;
+        display: inline-block;
+        vertical-align: bottom;
+      }
+      p {
+        font-size: 15px;
+      }
+    }
+
+    .interview-time {
+      width: 80%;
+      margin: 15px auto 0px auto;
+      border-top: 1px solid @date-gray;
+      padding: 5px 0px 0px 0px;
+      font-size: 14px;
+
+      .interview-hours {
+        float: right;
+      }
+
+      p {
+        display: inline-block;
+      }
+    }
+    .score{
+      font-size: 50px;
+      text-align: center;
+    }
+    .block-color();
+  }
+}
+
+.block-hover(@color:@blue) {
+  .container {
+    .smooth-hover();
+    &:hover {
+      .block-color(@white;@white;#ddd);
+      background-color: @color;
+      color: @white;
+      .action-icons {
+        display: block;
+      }
+    }
+  }
+}
+
+.block-compact() {
+  .container {
+    .header {
+      h4 {
+        margin-bottom: 0px;
+        padding: 0px;
+      }
+      p {
+        margin: 0px;
+      }
+    }
+    .interview-time {
+      margin-top: 0px;
+    }
+  }
+}
+
+.block-color(@name:@black;@job:@black;@time:@date-gray) {
+    .header {
+      color: @name;
+      p {
+        color: @job;
+      }
+    }
+    .interview-time {
+      border-top: 1px solid @time;
+      color: @time;
+    }
+}
+
+.list-mixin(@columns:12) {
+  margin-bottom: 5px;
+
+  .container {
+    background: @white;
+    line-height: 30px;
+
+    .date-group{
+      padding: 0px;
+      float: left;
+      border-right: 1px solid @date-gray;
+    }
+    .interview-name {
+      font-size: 20px;
+      border-right: 1px solid @date-gray;
+      .text-overflow();
+    }
+    .interview-job {
+      color: @date-gray;
+      .text-overflow();
+    }
+    .action-icons {
+      display: none;
+      cursor: pointer;
+      color: @white;
+      position: absolute;
+      right: 10px;
+    }
+    .interview-time {
+      text-align: center;
+    }
+    .interview-date {
+      text-align: center;
+      background: @date-gray;
+      color: @white;
+      font-size: 16px;
+      line-height: 31px;
+    }
+    .score{
+      font-size: 15px;
+      text-align: center;
+    }
+  }
+}
+
+.list-hover(@color:@blue) {
+  .container {
+    .smooth-hover();
+    &:hover {
+      background: @color;
+      & > * {
+        color: @white;
+      }
+      .action-icons {
+        display: block;
+      }
+    }
+  }
+}
+
+.smooth-hover(@time:0.3s){
+  -webkit-transition: all @time;
+  -moz-transition: all @time;
+  -ms-transition: all @time;
+  -o-transition: all @time;
+  transition: all @time;
+}

@@ -13,7 +13,7 @@ define(function (require) {
     list_item_template : _.template(require("text!../templates/list_item.html")),
 
     defaults : {
-      isReport : false
+      isInterview : true
     },
 
     events : {
@@ -39,9 +39,7 @@ define(function (require) {
         day  : interviewStart.format("DD"),
         month : interviewStart.format("MM"),
         date_string : "",
-        isReport : this.options.isReport,
-        isInterview : !this.options.isReport,
-        classType : this.options.isReport ? "report-item" : "",
+        isInterview : this.options.isInterview,
         date_separator : "-"
       }
     },
@@ -74,17 +72,8 @@ define(function (require) {
 
     render : function() {
       console.log(this.getDataForTemplate());
-      var template = this.options.list ? this.list_item_template : this.block_item_template;
+      var template = this.options.mode === "list" ? this.list_item_template : this.block_item_template;
       this.$el.html(template(this.getDataForTemplate()));
-      // This should be in the template
-      // this is shit
-      if (this.options.today) {
-        this.$el.addClass('today');
-      } else  if (this.options.isReport) {
-        this.$el.addClass("col-md-3");
-      } else if (!this.options.list) {
-        this.$el.addClass("col-md-4");
-      }
       return this;
     },
 

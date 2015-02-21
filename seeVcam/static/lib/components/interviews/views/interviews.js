@@ -3,19 +3,14 @@ define(function (require) {
   var _ = require("underscore");
   var Backbone = require("backbone");
   var Utils = require("utils");
-  var InterviewBlock = require("./interview");
+  var Interview = require("./interview");
   var NoInterviewTemplate = require("text!../templates/noInterview.html");
+  var elementsContainer = require("text!../templates/elementsContainer.html");
 
 	return  Backbone.View.extend({
 
-    tagName :'div',
-
-    className :  function () {
-      console.log(this.options);
-      console.log("fff");
-    },
-
     template_no_interview : _.template(NoInterviewTemplate),
+		template : _.template(elementsContainer),
 
     initialize : function(options){
       console.log("initializing block view");
@@ -32,16 +27,17 @@ define(function (require) {
 
     renderInterview : function(interview, index) {
 
-      var interview = new InterviewBlock({
+      var interview = new Interview({
         model: interview,
         today: this.options.today,
-        isReport : this.options.isReport,
-        list : !!this.options.list
+        isInterview : this.options.isInterview,
+				mode: this.options.mode
       });
+			console.log(this.options.isInterview);
       this.views.push(interview);
 
       var interviewRendered = interview.render().$el;
-      this.$el.append(interviewRendered);
+      this.$elements.append(interviewRendered);
     },
 
     setCollection : function ( collection ) {
@@ -53,18 +49,23 @@ define(function (require) {
     },
 
     render : function () {
-      // here because this.options is undefined when computing className, attributes..
-      var mainContainerClass = this.options.list ? 'interviews-list-view' : 'interview-grid';
-      mainContainerClass += " row";
-      this.$el.empty();
-      console.log("rendering");
+
+			this.$el.html(this.template(this.getTemplateData()));
+			this.$elements = this.$el.find(".elements-container");
+
       if (this.collection.length === 0)
-        this.$el.append(this.template_no_interview());
+        this.$elements.append(this.template_no_interview({
+					today : this.options.today
+				}));
       else
         this.renderAllInterviews();
-      this.$el.addClass(mainContainerClass);
+
       return this;
     },
+
+		getTemplateData: function () {
+			return this.options;
+		},
 
     close: function (){
       _.each(this.views, function (view) {

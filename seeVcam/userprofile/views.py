@@ -56,3 +56,7 @@ class UserProfileSettings(LoginRequired, PJAXResponseMixin, FormView):
 class UserProfileIntegration(LoginRequired, PJAXResponseMixin, TemplateView):
     template_name = "profile.html"
     pjax_template_name = "profile-integration.html"
+
+class UserProfileBilling(LoginRequired, PJAXResponseMixin, TemplateView):
+    template_name = "profile.html"
+    pjax_template_name = "profile-billing.html"

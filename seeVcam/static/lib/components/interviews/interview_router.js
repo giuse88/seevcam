@@ -48,7 +48,7 @@ define(function(require){
           var interviewsApp = new InterviewApp({
             interviews: window.cache.interviews.getInterviews(),
             activeClock: false,
-            interview : true
+            isInterview : true
           });
 
           Utils.safelyUpdateCurrentView(interviewsApp);

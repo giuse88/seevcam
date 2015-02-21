@@ -1,16 +1,16 @@
-<div class="interview-item <%= classType %> ">
+<div class="interview-item">
+  <div class="container">
+
 <% if ( isInterview ) { %>
+  <div class="action-icons">
     <span class="glyphicon glyphicon-remove delete-interview"> </span>
+  </div>
 <% } %>
-    <div class="row header">
-        <div class="col-sm-12">
-            <div class="name-container">
-                <h4><%= name %>  <%= surname %></h4>
-            </div>
-            <p> <%= job_position %></p>
-        </div>
+    <div class="header">
+      <h4><%= name %>  <%= surname %></h4>
+      <p> <%= job_position %></p>
     </div>
-<% if ( isInterview )  { %>
+<% if ( isInterview ) { %>
     <div class="interview-time">
         <p class="interview-date">
             <span class="date-string"><%= date_string %></span>
@@ -22,11 +22,10 @@
         </p>
         <p class="interview-hours"><%= time %></p>
     </div>
-<% } %>
-
-<% if ( isReport ) { %>
+<% } else  { %>
     <div class="score">
-        <span class="number"> 0.00 </span>
+        <span class="number"> 5.0 </span>
     </div>
 <% } %>
+  </div>
 </div>
