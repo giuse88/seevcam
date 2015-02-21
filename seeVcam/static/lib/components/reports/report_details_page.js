@@ -12,7 +12,7 @@ define(function (require) {
     template : require("text!./templates/report_details_page.html"),
 
     initialization : function (options) {
-     this.collection  = options.collection;
+//     this.collection  = options.collection;
     },
 
     postRender: function() {

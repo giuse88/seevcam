@@ -6,6 +6,9 @@ define(function (require) {
   var JobPositions = require("collections/job_positions");
   var Catalogues = require("collections/catalogues");
   var OverallRatings = require("collections/overall_ratings");
+  var Notes = require("models/notes");
+  var Answers = require("collections/answers");
+  var Events = require("collections/events");
 
   return {
 
@@ -34,9 +37,33 @@ define(function (require) {
       return window.cache.interviews || this.load("/dashboard/interviews/interviews", cacheInterviews);
     },
 
+    loadAnswers : function (interviewId) {
+      function cacheAnswers (answers) {
+        window.cache.answers[interviewId] = new Answers(answers,{interviewId : interviewId});
+      }
+      return window.cache.answers[interviewId] ||
+        this.load("/dashboard/interviews/interviews/" + interviewId + "/answers", cacheAnswers);
+    },
+
+    loadEvents : function (interviewId) {
+      function cacheEvents (events) {
+        window.cache.events[interviewId] = new Events(events,{interviewId : interviewId});
+      }
+      return window.cache.events[interviewId] ||
+        this.load("/dashboard/interviews/" + interviewId + "/events", cacheEvents);
+    },
+
+    loadNotes : function (interviewId) {
+      function cacheEvents (notes) {
+        window.cache.events[interviewId] = new Notes(notes,{interviewId : interviewId});
+      }
+      return window.cache.notes[interviewId] ||
+        this.load("/dashboard/interviews/" + interviewId + "/notes", cacheEvents);
+    },
+
     loadJobPositions : function () {
       function cacheJobPositions(positions) {
-        window.cache.jobPositions = new JobPositions(positions);
+        return window.cache.jobPositions = new JobPositions(positions);
       }
       return window.cache.jobPositions || this.load("/dashboard/interviews/jobPositions", cacheJobPositions);
     },

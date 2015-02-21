@@ -11,7 +11,7 @@ define(function (require) {
       return '/dashboard/interviews/' + this.interviewId + '/notes/';
     },
 
-    initialize: function (options) {
+    initialize: function (model, options) {
       this.interviewId = options.interviewId;
 
       BaseModel.prototype.initialize.apply(this, arguments);
