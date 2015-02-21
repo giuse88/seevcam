@@ -54,7 +54,9 @@ define(function (require) {
 			this.$elements = this.$el.find(".elements-container");
 
       if (this.collection.length === 0)
-        this.$elements.append(this.template_no_interview());
+        this.$elements.append(this.template_no_interview({
+					today : this.options.today
+				}));
       else
         this.renderAllInterviews();
 
