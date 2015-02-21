@@ -49,10 +49,14 @@ define(function (require) {
 
     reportDetails : function (interviewId) {
 
+      /*
+        This is far from ideal
+       */
       $.when(Loader.loadJobPositions(),
         Loader.loadInterviews(),
         Loader.loadOverallRatings(interviewId),
         Loader.loadAnswers(interviewId),
+        Loader.loadQuestions(interviewId),
         Loader.loadNotes(interviewId),
         Loader.loadEvents(interviewId)
       ).then( function () {

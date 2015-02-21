@@ -12,8 +12,9 @@ define(function (require) {
     template : require("text!./templates/report_details_page.html"),
 
     initialization : function (options) {
-//     this.collection  = options.collection;
     },
+
+
 
     postRender: function() {
       this.renderScore();
@@ -30,6 +31,7 @@ define(function (require) {
         $(this).val(0).animate({ value: max }, { duration: 2000, easing: 'easeOutCirc' });
       });
     },
+
     getRenderContext: function () {
       var interview = this.options.interview;
       return {
@@ -40,6 +42,14 @@ define(function (require) {
         ratings : this.options.ratings
       }
     },
+
+    renderAnswer : function () {
+      var answers = this.options.answers;
+      var questions = this.options.questions;
+      var subView = new ReviewItemListView({collection:answers, questions: questions});
+      this.attachSubView('.report-inner-container', subView);
+    },
+
     formatDate : function (date) {
       return new Moment(date).format("LLL");
     }
