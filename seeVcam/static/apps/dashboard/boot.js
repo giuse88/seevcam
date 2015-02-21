@@ -12,8 +12,14 @@ require.config({
     "behaviors"     : "lib/behaviors",
     "components"    : "lib/components",
     "collections"   : "lib/collections",
+    presenters    : "lib/presenters",
+    behaviors     : "lib/behaviors",
     "services"      : "lib/services",
-        // misc
+
+    // helpers
+    navigator :   "lib/components/interview_room/navigator",
+
+    // misc
     baseModel:    "lib/misc/baseModel",
     baseView:     "lib/misc/baseView",
     //libs
@@ -25,6 +31,9 @@ require.config({
     "jquery.fileupload" : "bower_components/jquery-file-upload/js/jquery.fileupload",
     "jquery.fileupload-validate" : "bower_components/jquery-file-upload/js/jquery.fileupload-validate",
     "jquery.fileupload-process" : "bower_components/jquery-file-upload/js/jquery.fileupload-process",
+    'jquery.textarea.autoresize' : "bower_components/jquery.textarea.autoresize/js/jquery.textarea.autoresize",
+    'slimscroll': "bower_components/slimScroll/jquery.slimscroll",
+    backbone : "bower_components/backbone/backbone",
     "circliful" : "bower_components/circliful/js/jquery.circliful",
     'backbone.stickit' : "bower_components/backbone.stickit/backbone.stickit",
     "backbone"      : "bower_components/backbone/backbone",
@@ -93,6 +102,9 @@ require.config({
     },
     "deep-model":{
       deps:["backbone"]
+    },
+    "jquery.textarea.autoresize": {
+      deps: ['jquery']
     }
   }
 });

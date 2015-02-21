@@ -3,7 +3,7 @@ define(function(require) {
   require('jquery.textarea.autoresize');
 
   return BaseView.extend({
-    template: require('text!./templates/text-area.html'),
+    template: require('text!./text-area.html'),
 
     bindings: {},
 

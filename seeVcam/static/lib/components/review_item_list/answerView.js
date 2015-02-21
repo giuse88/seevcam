@@ -1,6 +1,6 @@
 define(function (require) {
   var BaseView = require('baseView');
-  var TextArea = require('../controls/textArea');
+  var TextArea = require('components/text_area/textArea');
   var QuestionPresenter = require('presenters/questionPresenter');
 
   return BaseView.extend({

@@ -1,7 +1,7 @@
 define(function (require) {
   var BaseView = require('baseView');
   var AnswerPresenter = require('presenters/answerPresenter');
-  var AnswerRating = require('../common/answerRating');
+  var AnswerRating = require('components/answer_rating/answerRating');
 
   return BaseView.extend({
     className: 'rating',
