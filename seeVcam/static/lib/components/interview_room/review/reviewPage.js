@@ -25,15 +25,6 @@ define(function (require) {
         allowCancel: false,
         footer: true
       });
-
-      var windowWidth = $(window).width();
-      this.$el.slimScroll({
-        height: 'auto',
-        position: 'right',
-        alwaysVisible: true,
-        railVisible: true,
-        distance: (windowWidth / 2 + windowWidth / 200) + 'px'
-      });
     },
 
     teardown: function () {

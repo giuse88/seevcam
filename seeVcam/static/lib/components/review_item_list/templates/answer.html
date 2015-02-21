@@ -2,6 +2,6 @@
     <p>You asked <span class="tag">question <%= view.questionNumber() %></span></p>
     <div class="answer">
         <pre><%= model.get('content') %></pre>
-        <a href="#" class="edit pencil-icon icon-small"></a>
+        <% if (view.edit) { %>  <a href="#" class="edit pencil-icon icon-small"></a> <% } %>
     </div>
 </div>

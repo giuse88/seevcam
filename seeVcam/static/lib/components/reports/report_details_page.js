@@ -15,8 +15,6 @@ define(function (require) {
     initialization : function (options) {
     },
 
-
-
     postRender: function() {
       this.renderScore();
       this.renderOverallRating();

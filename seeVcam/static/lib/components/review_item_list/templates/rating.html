@@ -11,5 +11,7 @@
             <li><a href="#" data-rating-value="<%= ratingValue %>"><%= ratingValue %></a></li>
         <% }); %>
     </ul>
-    <p>click a number to change or tune your feedback</p>
+    <% if (view.edit) { %>
+        <p>click a number to change or tune your feedback</p>
+    <% } %>
 </div>
