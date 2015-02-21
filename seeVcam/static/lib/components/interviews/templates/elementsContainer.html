@@ -1,2 +1,5 @@
-<div class="elements-container <%= type %> <%= mode %>">
+<div class="elements-container <%= type %> <%= mode %>
+            <% if (!isInterview && mode==='list') { %>
+              col-md-8 col-md-offset-2 <% }
+            %>" >
 </div>
