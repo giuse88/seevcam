@@ -9,6 +9,8 @@ from interviews.serializers import InterviewSerializer, JobPositionSerializer
 from notes.models import Notes
 from django.conf import settings
 from overall_ratings.models import OverallRatingQuestion, OverallRating
+from questions.models import Question
+from questions.serializers import QuestionSerializer
 
 
 class InterviewList(generics.ListCreateAPIView):
@@ -80,3 +82,12 @@ class JobPositionList(generics.ListCreateAPIView):
 
     def get_queryset(self):
         return JobPosition.objects.filter(company=self.request.user.company)
+
+
+class InterviewQuestions(generics.ListAPIView):
+    serializer_class = QuestionSerializer
+    model = Question
+
+    def get_queryset(self):
+        interview = Interview.objects.get(pk=self.kwargs['pk'])
+        return Question.objects.filter(question_catalogue=interview.catalogue_id)

@@ -1,10 +1,11 @@
 from django.conf.urls import patterns, url, include
 
 from dashboard.views import DashboardView as EmptyView
-from .rest_views import InterviewDetail, InterviewList, JobPositionList
+from .rest_views import InterviewDetail, InterviewList, JobPositionList, InterviewQuestions
 
 rest_patterns = patterns('',
                          url(r'interviews/(?P<pk>[0-9]+)/?$', InterviewDetail.as_view()),
+                         url(r'interviews/(?P<pk>[0-9]+)/questions/?$', InterviewQuestions.as_view()),
                          url(r'jobPositions/?$', JobPositionList.as_view()),
                          url(r'interviews/?$', InterviewList.as_view()))
 
