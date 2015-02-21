@@ -7,9 +7,6 @@ define(function (require) {
   var LoadingBar = require("nanobar");
   var Loader = require("services/loader");
   var ReportDetails = require("./report_details_page");
-  var Notes = require("models/notes");
-  var Answers = require("collections/answers");
-  var Events = require("collections/events");
 
   return  Backbone.Router.extend({
 
@@ -52,20 +49,12 @@ define(function (require) {
 
     reportDetails : function (interviewId) {
 
-      var config = {interviewId : parseInt(interviewId)};
-
-      // this should be cached
-      var answers = new Answers([],config);
-      var events = new Events([], config);
-      var notes = new Notes(config);
-
-      // this is not correct
       $.when(Loader.loadJobPositions(),
         Loader.loadInterviews(),
         Loader.loadOverallRatings(interviewId),
-        answers.fetch(),
-        events.fetch(),
-        notes.fetch()
+        Loader.loadAnswers(interviewId),
+        Loader.loadNotes(interviewId),
+        Loader.loadEvents(interviewId)
       ).then( function () {
           var ratings = window.cache.overallRatings[interviewId];
           var interview =  window.cache.interviews.findWhere({id:parseInt(interviewId)});
@@ -73,7 +62,10 @@ define(function (require) {
           var reportPageDetails = new ReportDetails({
             ratings : ratings,
             interview : interview,
-            jobSpecification : jobSpecification
+            jobSpecification : jobSpecification,
+            answers : window.cache.answers[interviewId],
+            interview_events : window.cache.events[interviewId],
+            notes: window.cache.notes[interviewId]
           });
           Utils.safelyUpdateCurrentView(reportPageDetails);
           $("#container").html(reportPageDetails.render().$el);
