@@ -85,7 +85,7 @@ define(function (require) {
     },
 
     renderTimeline : function () {
-      this.updateSubView(new Timeline({collection: this.options.events}));
+      this.updateSubView(new Timeline(this.options));
     },
 
     renderFile : function (id) {

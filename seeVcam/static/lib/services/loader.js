@@ -63,11 +63,11 @@ define(function (require) {
     },
 
     loadNotes : function (interviewId) {
-      function cacheEvents (notes) {
-        window.cache.events[interviewId] = new Notes(notes,{interviewId : interviewId});
+      function cacheNotes (notes) {
+        window.cache.notes[interviewId] = new Notes(notes,{interviewId : interviewId});
       }
       return window.cache.notes[interviewId] ||
-        this.load("/dashboard/interviews/" + interviewId + "/notes", cacheEvents);
+        this.load("/dashboard/interviews/" + interviewId + "/notes", cacheNotes);
     },
 
     loadJobPositions : function () {
