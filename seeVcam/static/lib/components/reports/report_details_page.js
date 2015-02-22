@@ -9,6 +9,7 @@ define(function (require) {
   var ReviewItemListView = require("components/review_item_list/reviewItemListView");
   var DocumentView = require("components/document_viewer/documentView");
   var File = require("models/file");
+  var Timeline = require("components/timeline/timeline");
 
   return BaseView.extend({
     className : "report-page",
@@ -22,7 +23,8 @@ define(function (require) {
       this.subViewsRenders = {
         answers : this.renderAnswers,
         cv : this.renderCV,
-        "job-description" : this.renderJobSpec
+        "job-description" : this.renderJobSpec,
+        history : this.renderTimeline
       };
       BaseView.prototype.initialize.apply(this, arguments);
     },
@@ -80,6 +82,10 @@ define(function (require) {
 
     renderJobSpec : function () {
       this.renderFile(this.options.jobSpecification.id);
+    },
+
+    renderTimeline : function () {
+      this.updateSubView(new Timeline({collection: this.options.events}));
     },
 
     renderFile : function (id) {
