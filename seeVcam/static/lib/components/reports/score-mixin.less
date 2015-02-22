@@ -1,0 +1,66 @@
+.circle(@size) {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  left: ~'calc(50% - @{size-2})';
+  top: ~'calc(50% - @{size-2})';
+  width: @size;
+  height: @size;
+}
+
+//@size: 200px;
+//@background: #61a9dc;
+//@progress-color: #fff;
+
+.score-mixin(@size: 200px;@background: #61a9dc;@progress-color: #fff;) {
+  @size-2: @size/2;
+
+  width: @size;
+  height: @size;
+  border-radius: 50%;
+  background-color: @background;
+  position: relative;
+  &.gt-50 {
+    background-color: @progress-color;
+    .score-progress {
+      clip: rect(0, @size/2, @size, 0);
+      .score-progress-fill {
+        clip: rect(0, @size, @size, @size/2);
+        background: @background;
+      }
+    }
+  }
+
+  .score-progress {
+    .circle(@size);
+    clip: rect(0, @size, @size, @size/2);
+    .score-progress-fill {
+      .circle(@size);
+      clip: rect(0, @size/2, @size, 0);
+      background: @progress-color;
+      transform: rotate(60deg);
+    }
+    //    .gt-50 & {
+    //
+    //    }
+
+  }
+
+  .score-percents {
+    .circle(@size / 1.15);
+    background: #007FC8;
+    text-align: center;
+    display: table;
+    span {
+      display: block;
+      font-size: 2.6em;
+      font-weight: bold;
+      color: @progress-color;
+    }
+  }
+
+  .score-percents-wrapper {
+    display: table-cell;
+    vertical-align: middle;
+  }
+}

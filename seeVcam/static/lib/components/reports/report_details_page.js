@@ -43,7 +43,15 @@ define(function (require) {
     },
 
     renderScore : function () {
-      this.$el.find(".result-circle").circliful();
+//      this.$el.find(".result-circle").circliful();
+			var $score = this.$el.find('.score'),
+				percent = parseInt($score.data('score')),
+				deg = 360 * percent / 100;
+			if (percent > 50) {
+				$score.addClass('gt-50');
+			}
+			this.$el.find('.score-progress-fill').css('transform', 'rotate(' + deg + 'deg)');
+			this.$el.find('.score-percents span').html(percent);
     },
 
     renderOverallRating : function () {
