@@ -20,21 +20,35 @@
 <div class="report-result col-md-6">
     <div class="report-result-details" >
         <div class="row">
-           <div class="overall-rating col-md-8">
-               <section id="skills">
-                   <% ratings.each(function (rating) { %>
+           <div class="overall-rating col-md-4">
+               <section class="skills">
+                   <% _.each(ratings.slice(0,3), function (rating) { %>
                    <!-- this should dynamic -->
                    <div class="progress-container">
                        <progress value='<%- rating.get("rating")*20 %>'  max="100"></progress>
-                       <span class="progress-text"><%=rating.get("question")%></span>
+                       <span class="progress-text"><%=rating.get("question") %></span>
                    </div>
 
                    <% }); %>
                 </section>
+
            </div>
+          <div class="overall-rating col-md-4">
+            <section class="skills">
+              <% _.each(ratings.slice(3,6), function (rating) { %>
+              <!-- this should dynamic -->
+              <div class="progress-container">
+                <progress value='<%- rating.get("rating")*20 %>'  max="100"></progress>
+                <span class="progress-text"><%=rating.get("question") %></span>
+              </div>
+
+              <% }); %>
+            </section>
+
+          </div>
            <div class="overall-result col-md-4">
-               <div class="result-circle" data-startdegree="0" data-dimension="200" data-text="8.1"
-                    data-info="Overall" data-width="10" data-fontsize="50" data-percent="81"
+               <div class="result-circle" data-startdegree="0" data-dimension="130" data-text="8.1"
+                    data-info="Overall" data-width="10" data-fontsize="30" data-percent="81"
                     data-fgcolor="#ffffff" data-bgcolor="#61a9dc"></div>
            </div>
         </div>
