@@ -12,27 +12,29 @@
     margin: 0 auto 0 auto;
     height: 100%;
     width:100%;
+  }
+}
 
-    .event-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      height: 100%;
+// find a better solution
 
-      li {
-        padding: 8px;
-        .feedback-event {
-          font-weight: bold;
-          font-style: italic;
-          vertical-align: middle;
-          display: flex;
-        }
+.event-list, .interview-event {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  height: 100%;
 
-        .ask-event {
-          p {
-            margin: 0;
-          }
-        }
+  li {
+    padding: 8px;
+    .feedback-event {
+      font-weight: bold;
+      font-style: italic;
+      vertical-align: middle;
+      display: flex;
+    }
+
+    .ask-event {
+      p {
+        margin: 0;
       }
     }
   }
