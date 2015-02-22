@@ -12,6 +12,7 @@ define(function (require) {
       this.interviewEvents = options.interview_events;
       this.questions = options.questions;
       this.answers = options.answers;
+      this.interview = options.interview;
     },
 
     postRender : function() {
@@ -25,7 +26,7 @@ define(function (require) {
       var answers = this.answers;
       var questions = this.questions;
       this.interviewEvents.each(function(event) {
-        var event = new Event({model : event, answers : answers, questions: questions});
+        var event = new Event({model : event, interview: self.interview, answers : answers, questions: questions});
         self.$timelineContainer.append(event.render().$el);
       });
     },
