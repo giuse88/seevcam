@@ -12,7 +12,7 @@ define(function (require) {
       var self = this;
 
       $timeline_block.each(function(){
-        if($(this).offset().top > self.$el.scrollTop()+self.$el.height()*0.75) {
+        if($(this).position().top > self.$el.height()) {
           $(this).find('.cd-timeline-img, .cd-timeline-content').addClass('is-hidden');
         }
       });
@@ -20,8 +20,9 @@ define(function (require) {
       this.$el.on('scroll', function(){
         console.log("events");
         $timeline_block.each(function(){
-          if( $(this).offset().top <= self.$el.scrollTop()+self.$el.height()*0.75 &&
+          if( $(this).position().top <= self.$el.scrollTop() + self.$el.height()/2 &&
               $(this).find('.cd-timeline-img').hasClass('is-hidden') ) {
+            console.log("Yesss");
             $(this).find('.cd-timeline-img, .cd-timeline-content').removeClass('is-hidden').addClass('bounce-in');
           }
         });
