@@ -2,6 +2,7 @@ define(function (require) {
 
   var BaseView = require('baseView');
   var Moment = require("moment");
+  var InterviewEvent = require("components/event/eventView");
 
   return BaseView.extend({
     template: require('text!./templates/timeline_event.html'),
@@ -15,6 +16,12 @@ define(function (require) {
       return {
         time : this.getRelativeTime()
       };
+    },
+
+    postRender : function () {
+      var $eventContainer = this.$el.find(".interview-event");
+      var interviewEvent = new InterviewEvent(this.options);
+      $eventContainer.append(interviewEvent.render().$el);
     },
 
     getRelativeTime : function () {
