@@ -3,7 +3,7 @@
  */
 define(function (require) {
 
-  require("circliful");
+//  require("circliful");
   var Moment = require('moment');
   var BaseView = require('baseView');
   var ReviewItemListView = require("components/review_item_list/reviewItemListView");

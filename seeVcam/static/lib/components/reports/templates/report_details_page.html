@@ -23,12 +23,10 @@
            <div class="overall-rating col-md-8">
                <section id="skills">
                    <% ratings.each(function (rating) { %>
-                   <!-- this should dynamic -->
                    <div class="progress-container">
                        <progress value='<%- rating.get("rating")*20 %>'  max="100"></progress>
                        <span class="progress-text"><%=rating.get("question")%></span>
                    </div>
-
                    <% }); %>
                 </section>
            </div>

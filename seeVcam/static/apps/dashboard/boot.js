@@ -34,7 +34,7 @@ require.config({
     'jquery.textarea.autoresize' : "bower_components/jquery.textarea.autoresize/js/jquery.textarea.autoresize",
     'slimscroll': "bower_components/slimScroll/jquery.slimscroll",
     backbone : "bower_components/backbone/backbone",
-    "circliful" : "bower_components/circliful/js/jquery.circliful",
+//    "circliful" : "bower_components/circliful/js/jquery.circliful",
     'backbone.stickit' : "bower_components/backbone.stickit/backbone.stickit",
     "backbone"      : "bower_components/backbone/backbone",
     "underscore"    : "bower_components/underscore/underscore",
@@ -70,9 +70,9 @@ require.config({
       deps: ['backbone']
     },
 
-    "circliful" : {
-      deps: ["jquery"]
-    },
+//    "circliful" : {
+//      deps: ["jquery"]
+//    },
 
     "jquery-pjax":{
       deps : ["jquery"]
