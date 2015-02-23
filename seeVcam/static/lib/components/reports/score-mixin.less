@@ -1,60 +1,85 @@
-.circle(@size) {
-  content: "";
-  position: absolute;
-  border-radius: 50%;
-  left: ~'calc(50% - @{size-2})';
-  top: ~'calc(50% - @{size-2})';
-  width: @size;
-  height: @size;
-}
+.score-mixin(@circle-size: 120px;) {
 
-.score-mixin(@size: 200px;@background: #61a9dc;@progress-color: #fff;) {
-  @size-2: @size/2;
+  @circle-background: #61a9dc;
+  @circle-color: #fff;
+  @inset-size: @circle-size - 25px;
+  @inset-color: #007FC8;
+  @transition-length: 1s;
+  @percentage-color: #fff;
+  @percentage-font-size: 22px;
+  @percentage-text-width: 57px;
 
-  width: @size;
-  height: @size;
+  margin: 50px;
+  width: @circle-size;
+  height: @circle-size;
+
+  background-color: @circle-background;
   border-radius: 50%;
-  background-color: @background;
-  position: relative;
-  &.gt-50 {
-    background-color: @progress-color;
-    .score-progress {
-      clip: rect(0, @size/2, @size, 0);
-      .score-progress-fill {
-        clip: rect(0, @size, @size, @size/2);
-        background: @background;
+  .circle {
+    .mask, .fill, .shadow {
+      width: @circle-size;
+      height: @circle-size;
+      position: absolute;
+      border-radius: 50%;
+    }
+    .mask, .fill {
+      -webkit-backface-visibility: hidden;
+      transition: -webkit-transform @transition-length;
+      transition: -ms-transform @transition-length;
+      transition: transform @transition-length;
+      border-radius: 50%;
+    }
+    .mask {
+      clip: rect(0px, @circle-size, @circle-size, @circle-size/2);
+      .fill {
+        clip: rect(0px, @circle-size/2, @circle-size, 0px);
+        background-color: @circle-color;
       }
     }
   }
+  .inset {
+    width: @inset-size;
+    height: @inset-size;
+    position: absolute;
+    margin-left: (@circle-size - @inset-size)/2;
+    margin-top: (@circle-size - @inset-size)/2;
 
-  .score-progress {
-    .circle(@size);
-    clip: rect(0, @size, @size, @size/2);
-    .score-progress-fill {
-      .circle(@size);
-      clip: rect(0, @size/2, @size, 0);
-      background: @progress-color;
-      transform: rotate(60deg);
+    background-color: @inset-color;
+    border-radius: 50%;
+    .percentage {
+      width: @percentage-text-width;
+      position: absolute;
+      top: (@inset-size - @percentage-font-size) / 2;
+      left: (@inset-size - @percentage-text-width) / 2;
+      line-height: 1;
+      text-align: center;
+      color: @percentage-color;
+      font-weight: 800;
+      font-size: @percentage-font-size;
     }
   }
 
-  .score-percents {
-    .circle(@size / 1.15);
-    background: #007FC8;
-    text-align: center;
-    display: table;
-    color: @progress-color;
-    font-size: 20px;
-    span {
-      display: block;
-      font-size: 50px;
-      font-weight: bold;
-      line-height: 50px;
+  @i: 0;
+  @increment: 180deg / 100;
+  .loop (@i) when (@i <= 100) {
+    &[data-progress="@{i}"] {
+      .circle {
+        .mask.full, .fill {
+          -webkit-transform: rotate(@increment * @i);
+          -ms-transform: rotate(@increment * @i);
+          transform: rotate(@increment * @i);
+        }
+        .fill.fix {
+          -webkit-transform: rotate(@increment * @i * 2);
+          -ms-transform: rotate(@increment * @i * 2);
+          transform: rotate(@increment * @i * 2);
+        }
+      }
+      .inset .percentage:before {
+        content: "@{i}"
+      }
     }
+    .loop(@i + 1);
   }
-
-  .score-percents-wrapper {
-    display: table-cell;
-    vertical-align: middle;
-  }
+  .loop(@i);
 }
