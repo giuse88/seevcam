@@ -10,6 +10,7 @@ define(function (require) {
   var DocumentView = require("components/document_viewer/documentView");
   var File = require("models/file");
   var Timeline = require("components/timeline/timeline");
+  var Notes = require("components/notes/notesReadOnly");
 
   return BaseView.extend({
     className : "report-page",
@@ -24,7 +25,8 @@ define(function (require) {
         answers : this.renderAnswers,
         cv : this.renderCV,
         "job-description" : this.renderJobSpec,
-        history : this.renderTimeline
+        history : this.renderTimeline,
+        notes : this.renderNotes
       };
       BaseView.prototype.initialize.apply(this, arguments);
     },
@@ -86,6 +88,11 @@ define(function (require) {
 
     renderTimeline : function () {
       this.updateSubView(new Timeline(this.options));
+    },
+
+    renderNotes : function () {
+      debugger;
+      this.updateSubView(new Notes({model: this.options.notes}));
     },
 
     renderFile : function (id) {
