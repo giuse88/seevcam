@@ -43,11 +43,36 @@ define(function (require) {
     },
 
     renderScore : function () {
-			var torun = this.$el.find('.score')
-			var runit = function(torun) {
-				torun.attr('data-progress', 90);
+			var
+//				$fill = $('.score-progress-fill'),
+				$fill = this.$el.find('.score-progress-fill'),
+				$score = this.$el.find('.score'),
+				points = parseFloat($score.data('score')),
+				percent = points*10;
+				deg = 360 * percent / 100;
+			if (percent > 50) {
+				$score.addClass('gt-50');
 			}
-			setTimeout(runit(torun), 200);
+
+//			$fill.css('transform', 'rotate(' + deg + 'deg)');
+			$fill.animate(
+				{
+					'text-indent':0
+//					'transform': 'rotate(' + deg + 'deg)'
+//					'background-color': '#000'
+				},
+				{
+				step: function (now, fx) {
+					$fill.css('transform', 'rotate(' + deg + 'deg)');
+//					$(this).css('transform', 'rotate(' + deg + 'deg)');
+				},
+					complete: function(){
+						console.log("animation complete")
+					},
+					duration: 2000});
+
+//			this.$el.find('.score-progress-fill').animate({transform: 'rotate(' + deg + 'deg)'},{ duration: 2000 });
+			this.$el.find('.score-percents span').html(points);
     },
 
     renderOverallRating : function () {
