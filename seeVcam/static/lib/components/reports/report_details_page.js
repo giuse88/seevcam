@@ -57,12 +57,13 @@ define(function (require) {
 //			$fill.css('transform', 'rotate(' + deg + 'deg)');
 			$fill.animate(
 				{
-					'text-indent':0
+					'text-indent':0,
 //					'transform': 'rotate(' + deg + 'deg)'
-//					'background-color': '#000'
+					'background-color': '#000'
 				},
 				{
 				step: function (now, fx) {
+
 					$fill.css('transform', 'rotate(' + deg + 'deg)');
 //					$(this).css('transform', 'rotate(' + deg + 'deg)');
 				},
