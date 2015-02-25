@@ -1,6 +1,6 @@
 define(function (require) {
   var BaseView = require('baseView');
-  var EventView = require('./eventView');
+  var EventView = require('components/event/eventView');
 
   return BaseView.extend({
     template: require('text!./templates/event-list.html'),

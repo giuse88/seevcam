@@ -4,8 +4,7 @@ define(function (require) {
   var BaseView = require('baseView');
   var Navigator = require("navigator");
   var OverallRatingListView = require('./overallRatingListView');
-  var ReviewItemListView = require('./reviewItemListView');
-  var $ = require('jquery');
+  var ReviewItemListView = require('components/review_item_list/reviewItemListView');
 
   return BaseView.extend({
     className: 'review-page',
