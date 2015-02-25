@@ -1,7 +1,7 @@
 define(function (require) {
   var BaseView = require('baseView');
-  var TextArea = require('../controls/textArea');
-  var AnswerRating = require('../common/answerRating');
+  var TextArea = require('components/text_area/textArea');
+  var AnswerRating = require('components/answer_rating/answerRating');
 
   return BaseView.extend({
     template: require('text!./templates/answer.html'),
