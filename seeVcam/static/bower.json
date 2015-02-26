@@ -18,7 +18,7 @@
     "backbone": "1.1.2",
     "jquery-migrate": "~1.2.1",
     "fullcalendar": "~2.2.3",
-    "circliful": "~0.1.5",
+//    "circliful": "~0.1.5",
     "requirejs": "~2.1.15",
     "less": "~1.7.5",
     "jquery-file-upload": "~9.8.0",

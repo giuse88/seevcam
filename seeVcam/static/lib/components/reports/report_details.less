@@ -1,3 +1,5 @@
+@import "score-mixin";
+
 @box-height : 200px;
 @progress-color : #ffffff;
 @grey-tab: #7A7A7A;
@@ -10,8 +12,6 @@
     cursor: default;
   }
 
-
-  
   .tab {
     height: 40px;
     text-align: center;
@@ -30,7 +30,6 @@
   .margin-right-2 {
     margin-right: 2.5px;
   }
-
 
   .tab-title {
     padding:0;
@@ -130,7 +129,6 @@
     progress::-moz-progress-bar {
       background-color: @progress-color;
     }
-    
   }
 
   .report-inner-container {
@@ -142,5 +140,10 @@
   .rating-info,.rating-control {
     margin-top  : 8px;
   }
+
+.score{
+  .score-mixin(180px);
+  margin: 10px auto;
+}
 
 }
