@@ -12,7 +12,7 @@ define(function (require) {
       this.listenTo(this.model, 'sync', this.answerSaved, this);
 
       this.attachSubView('.answer', new TextArea({model: this.model, attribute: 'content'}));
-      this.attachSubView('.ratings-container', new AnswerRating({model: this.model, big: true}));
+      this.attachSubView('.ratings-container', new AnswerRating({model: this.model, big: true, edit:true}));
     },
 
     answerUpdated: function () {
