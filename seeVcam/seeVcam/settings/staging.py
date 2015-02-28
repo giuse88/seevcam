@@ -26,7 +26,7 @@ def get_config(setting, secrets=secrets):
 STATIC_ROOT = '/home/seevcam/app/seevcam/current/public/'
 STATIC_URL = '/'
 STATICFILES_DIRS = [
-    
+
 ]
 
 # SECURITY WARNING: keep the secret key used in production secret!

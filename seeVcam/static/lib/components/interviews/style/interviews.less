@@ -84,6 +84,7 @@
   .upcoming-interviews {
     .interview-item {
       .block-mixin(12, @green,@green);
+      .block-action();
       .container{
         .block-color(@white;@white;@white);
       }
@@ -100,7 +101,8 @@
 
       &.block .interview-item {
         .block-mixin(4);
-        .block-hover()
+        .block-hover();
+        .block-action();
       }
 
     }

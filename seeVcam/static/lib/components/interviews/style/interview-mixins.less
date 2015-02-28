@@ -54,16 +54,16 @@
   }
 }
 
-.block-hover(@color:@blue) {
+.block-hover(@color:@blue;) {
   .container {
     .smooth-hover();
     &:hover {
       .block-color(@white;@white;#ddd);
       background-color: @color;
       color: @white;
-      .action-icons {
-        display: block;
-      }
+//      .action-icons {
+//        display: block;
+//      }
     }
   }
 }
@@ -96,6 +96,16 @@
       border-top: 1px solid @time;
       color: @time;
     }
+}
+
+.block-action() {
+  .container {
+    &:hover {
+      .action-icons {
+        display: block;
+      }
+    }
+  }
 }
 
 .list-mixin(@columns:12) {
