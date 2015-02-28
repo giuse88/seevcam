@@ -5,7 +5,7 @@ define(function (require) {
   // container styles
     cssCont = {
       width: '100%',
-      height: '4px',
+      height: '3px',
       zIndex: 9999,
       top : '0'
     },
@@ -128,7 +128,7 @@ define(function (require) {
   };
 
   return new Nanobar({
-    bg: '#e45000',
+    bg: '#d14232',
     target: document.getElementById('nanobar-container'),
     id: 'seevcam-nanobar'
   });

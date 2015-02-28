@@ -11,12 +11,11 @@
   }
 
   .upper-bar {
-
-    margin-top: 15px;
-    margin-bottom: 15px;
+    height: 100px;
 
     .search-interview-form {
-      padding-left: 15px;
+    margin-top: 30px;
+    padding-left: 15px;
       position: relative;
 
       .search-input {
@@ -37,9 +36,8 @@
     }
 
     .interview-view-type {
-
+      margin-top: 30px;
       .tab-icons {
-        //        width: 140px;
         margin-left: auto;
         margin-right: auto;
         float: right;
@@ -78,6 +76,7 @@
       .block-mixin(12, @orange,@orange);
       .block-compact();
       .int-container{
+        margin-bottom: 0px;
         .block-color(@white;@white;@white);
       }
     }
@@ -100,13 +99,12 @@
           .list-mixin(12);
           .list-hover();
           .int-container{
-          padding-left: 0px;
-        }
+            padding-left: 0px;
+          }
         }
       }
 
       &.block {
-//        margin-left: -15px;
         .interview-item {
           .block-mixin(4);
           .block-hover();
