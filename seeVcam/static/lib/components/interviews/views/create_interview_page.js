@@ -136,7 +136,7 @@ define(function (require) {
     openCalendar: function() {
 
       var calendar =  new Calendar({
-        collection:window.cache.interviews,
+        collection:this.interviewCollection.getInterviews(),
         interview: this.dirtyInterview
       });
 

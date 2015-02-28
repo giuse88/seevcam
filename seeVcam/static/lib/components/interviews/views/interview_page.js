@@ -108,7 +108,7 @@ define(function (require) {
       this.removeActiveClass();
     	this.updateModeIcon("calendar");
       var calendarView = new Calendar({
-        collection:this.interviews,
+        collection:window.cache.interviews.getInterviews(),
         readOnly: true
       });
       this.updateNestedView(calendarView);

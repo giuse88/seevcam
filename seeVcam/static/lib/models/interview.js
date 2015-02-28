@@ -11,6 +11,10 @@ define(function(require) {
 
   return Backbone.DeepModel.extend({
 
+    defaults: {
+     overall_score : null
+    },
+
     url : function () {
       // TODO think a beeter solution or validate this on stackoverflow
       var url = "/dashboard/interviews/interviews/";
