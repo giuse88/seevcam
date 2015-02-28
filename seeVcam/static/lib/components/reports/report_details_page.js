@@ -62,7 +62,8 @@ define(function (require) {
         candidateEmail : interview.get("candidate.email"),
         interviewDate : this.formatDate(interview.get("start")),
         jobSpecification : this.options.jobSpecification,
-        ratings : this.options.ratings
+        ratings : this.options.ratings,
+        overall_score : interview.get("overall_score")
       }
     },
 
