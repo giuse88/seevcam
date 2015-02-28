@@ -1,5 +1,5 @@
 <div class="interview-item">
-  <div class="container">
+  <div class="int-container">
 
 <% if ( isInterview ) { %>
   <div class="action-icons">
@@ -12,6 +12,11 @@
     </div>
 <% if ( isInterview ) { %>
     <div class="interview-time">
+      <% if (isOpen ) { %>
+        <div class="interview-open-message">
+          <span class="start-interview-message"> Click to start interview </span>
+        </div>
+      <% } else { %>
         <p class="interview-date">
             <span class="date-string"><%= date_string %></span>
             <span class="date-day"><%= day %></span>
@@ -21,10 +26,11 @@
             <span class="date-year"><%= year %></span>
         </p>
         <p class="interview-hours"><%= time %></p>
+      <% } %>
     </div>
-<% } else  { %>
+ <%} else  { %>
     <div class="score">
-        <span class="number"> 5.0 </span>
+        <span class="number"> <%= overall_score || "NA" %> </span>
     </div>
 <% } %>
   </div>

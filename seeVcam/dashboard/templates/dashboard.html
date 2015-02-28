@@ -42,19 +42,27 @@
 
 <body>
 
+<div id="nanobar-container"></div>
+
 {% block navigation_bar %}
     {% include "dashboard-navigation.html" %}
 {% endblock navigation_bar %}
-
-<div id="nanobar-container"></div>
 
 <div id="content-wrap">
     <div id="container" class="container">
       <div class="row logo-loader">
         <div class="col-md-6 col-md-offset-3">
           <img alt="seeVcam" src="/static/images/logo-black.png">
-          <span>Loading... Please wait.</span>
         </div>
+        <span>
+          <div class="spinner">
+            <div class="rect1"></div>
+            <div class="rect2"></div>
+            <div class="rect3"></div>
+            <div class="rect4"></div>
+            <div class="rect5"></div>
+          </div>
+        </span>
       </div>
     </div>
 </div>

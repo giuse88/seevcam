@@ -2,16 +2,18 @@
   padding-left: 15px;
   padding-right: 15px;
 
-  textarea, input { outline: none; }
+  textarea, input {
+    outline: none;
+  }
 
   iframe {
     width: 100%;
     height: 100%;
   }
 
-  > .row {
-    height: 100%;
-  }
+//  > .row {
+//    height: 100%;
+//  }
 
   .event-list {
     li {
@@ -29,20 +31,20 @@
     right: 0;
 
     .content {
-      height: 100%;
-      padding: 25px 25px 50px 25px;
+      height: ~'calc(100% - 35px)';
+      padding: 0px 25px;
       > div {
         height: 100%;
       }
 
       .question-text {
         min-height: 125px;
-        width: 100%;
+//        width: 100%;
         background: @color3;
         font-size: 20px;
         color: @color5;
         padding: 30px 40px 30px 40px;
-        position: relative;
+//        position: relative;
 
         span {
           font-weight: bold;
@@ -51,19 +53,22 @@
         }
 
         .arrow {
+
           position: absolute;
           display: flex;
           vertical-align: middle;
-          height: 100%;
+          height: 50px;
           width: 50px;
-          top: 0;
+//          top: 0;
 
           &.right {
-            right: 0;
+            right: 20px;
+            top: 90px;
           }
 
           &.left {
-            left: 0;
+            left: 20px;
+            top: 90px
           }
 
           > span {
@@ -90,7 +95,7 @@
 
           &.current {
             margin-top: 0;
-            height: 45px !important;
+            height: 25px !important;
             background: @color3;
 
             &.answered:after {
@@ -158,6 +163,7 @@
         width: 100%;
         position: relative;
         height: 25%;
+        background: #dddddd;
 
         .ratings {
           top: -15px;
@@ -238,15 +244,15 @@
       }
 
       .notes-container {
-        width: 95%;
-        position: absolute;
-        height: 25%;
-        padding-right: 10px;
+//        width: 100%;
+//        position: absolute;
+        height: 30%;
+        padding: 0px 10px;
         margin-top: 10px;
-        padding-left: 10px;
+//        padding-left: 10px;
         border-top: 3px solid #22262f;
         background: #dddddd;
-        bottom:60px;
+//        bottom:60px;
 
         div {
           height: 100%;

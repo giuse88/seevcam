@@ -11,11 +11,11 @@
   }
 
   .upper-bar {
-
-    margin-top: 15px;
-    margin-bottom: 15px;
+    height: 100px;
 
     .search-interview-form {
+      margin-top: 30px;
+      padding-left: 15px;
       position: relative;
 
       .search-input {
@@ -36,9 +36,8 @@
     }
 
     .interview-view-type {
-
+      margin-top: 30px;
       .tab-icons {
-        //        width: 140px;
         margin-left: auto;
         margin-right: auto;
         float: right;
@@ -74,9 +73,18 @@
 
   .open-interview{
     .interview-item {
+      cursor: pointer;
       .block-mixin(12, @orange,@orange);
       .block-compact();
-      .container{
+      .int-container{
+        margin-bottom: 0px;
+        height: 95px;
+        h4{
+          margin: 0;
+        }
+        .interview-time{
+          margin-top: 15px;
+        }
         .block-color(@white;@white;@white);
       }
     }
@@ -85,24 +93,32 @@
     .interview-item {
       .block-mixin(12, @green,@green);
       .block-action();
-      .container{
+      .int-container{
         .block-color(@white;@white;@white);
       }
     }
   }
 
   .inner-content {
-
+    padding-right: 40px;
     .interview {
-      &.list .interview-item {
-        .list-mixin(12);
-        .list-hover()
+      &.list {
+        margin-left:15px;
+        .interview-item {
+          .list-mixin(12);
+          .list-hover();
+          .int-container{
+            padding-left: 0px;
+          }
+        }
       }
 
-      &.block .interview-item {
-        .block-mixin(4);
-        .block-hover();
-        .block-action();
+      &.block {
+        .interview-item {
+          .block-mixin(4);
+          .block-hover();
+          .block-action();
+        }
       }
 
     }
@@ -110,7 +126,10 @@
     .report {
       &.list .interview-item {
         .list-mixin();
-        .list-hover(@report-color)
+        .list-hover(@report-color);
+        .int-container{
+          padding-left: 0px;
+        }
       }
 
       &.block .interview-item {
