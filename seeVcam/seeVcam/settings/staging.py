@@ -26,9 +26,7 @@ def get_config(setting, secrets=secrets):
 STATIC_ROOT = '/home/seevcam/app/seevcam/current/public/'
 STATIC_URL = '/'
 STATICFILES_DIRS = [
-    ('bootstrap/css', os.path.join(BASE_DIR, 'static/bower_components/bootstrap/dist/css/')),
-    ('lib/login', os.path.join(BASE_DIR, 'static/client/login/css/')),
-    ('static/images/UI', os.path.join(BASE_DIR, 'static/images/UI/'))
+    
 ]
 
 # SECURITY WARNING: keep the secret key used in production secret!
