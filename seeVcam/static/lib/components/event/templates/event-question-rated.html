@@ -1,3 +1,4 @@
 <div class="feedback-event">
-    Your feedback on question <%= view.getQuestionNumber() %> is <span class="<%= view.getQuestionRatingClass(model.get('content').rating) %> icon-small"></span>
+    Your feedback on question <%= view.getQuestionNumber() %> is
+    <span class="<%= view.getQuestionRatingClass(JSON.parse(model.get('content')).rating) %> icon-small"></span>
 </div>
