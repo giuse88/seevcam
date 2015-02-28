@@ -1,5 +1,7 @@
-define(['../../bower_components/backbone/backbone'], function (Backbone) {
-  var Session = Backbone.Model.extend({
-  });
+define(function (require) {
+
+  var Backbone = require("backbone");
+
+  var Session = Backbone.Model.extend({});
   return new Session();
 });
