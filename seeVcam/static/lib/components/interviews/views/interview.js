@@ -53,12 +53,12 @@ define(function (require) {
     handleItemClick : function(event) {
       event.preventDefault();
       var router = window.app.router.InterviewsRouter;
-      if ( this.model.isOpen()) {
+      if ( this.options.isInterview && this.model.isOpen()) {
         router.goToInterviewRoom(this.model.getInterviewRoomURL());
-      } else if ( this.options.isReport) {
-        router.goToReports(this.model.get("id"), true);
-      } else {
+      } else if ( this.options.isInterview) {
         router.goToInterview(this.model.get("id"), true);
+      } else {
+        router.goToReports(this.model.get("id"), true);
       }
     },
 

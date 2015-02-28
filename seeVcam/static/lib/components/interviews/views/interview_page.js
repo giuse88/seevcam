@@ -79,7 +79,7 @@ define(function (require) {
       console.log("Searching...");
       var $target = $(e.currentTarget);
       var currentValue = $target.val();
-      this.nestedView.setCollection(this.interviews.filterByName(currentValue));
+      this.nestedView.setCollection(this.interviews.filterByNameOrJobSpecification(currentValue));
       this.$itemsContainer.html(this.nestedView.render().$el);
     },
 

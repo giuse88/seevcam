@@ -20,14 +20,15 @@ define(function(require){
         return this.get("start");
       },
 
-      filterByName: function (name) {
-        if (!name) {
+      filterByNameOrJobSpecification: function (key) {
+        if (!key) {
           return this;
         }
         var filtered = this.filter(function(interview) {
-          var fullName =  interview.getCandidateFullName();
-          fullName = fullName.toLowerCase();
-          return fullName.indexOf(name.toLowerCase()) > -1;
+          var fullName =  interview.getCandidateFullName().toLowerCase();
+          var jobPositionName = interview.get("job_position_name").toLowerCase();
+          var normalizedKey = key.toLowerCase();
+          return jobPositionName.indexOf(normalizedKey) > -1 || fullName.indexOf(key.toLowerCase()) > -1;
         });
         return new InterviewList(filtered);
       },
