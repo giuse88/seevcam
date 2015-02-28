@@ -9,7 +9,6 @@ require.config({
     // maps
     "models"        : "lib/models",
     "misc"          : "lib/misc",
-    "behaviors"     : "lib/behaviors",
     "components"    : "lib/components",
     "collections"   : "lib/collections",
     presenters    : "lib/presenters",
@@ -36,7 +35,6 @@ require.config({
     backbone : "bower_components/backbone/backbone",
     "circliful" : "bower_components/circliful/js/jquery.circliful",
     'backbone.stickit' : "bower_components/backbone.stickit/backbone.stickit",
-    "backbone"      : "bower_components/backbone/backbone",
     "underscore"    : "bower_components/underscore/underscore",
     "bootstrap"     : "bower_components/bootstrap/dist/js/bootstrap",
     "typeahead"     : "bower_components/typeahead.js/dist/typeahead.jquery",
