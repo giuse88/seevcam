@@ -34,12 +34,14 @@ define(function (require) {
         name : this.model.get("candidate.name"),
         surname : this.model.get("candidate.surname"),
         job_position  : this.model.get("job_position_name"),
+				overall_score: this.model.get("overall_score"),
         year : interviewStart.format("YYYY"),
         time : interviewStart.format("HH:mm"),
         day  : interviewStart.format("DD"),
         month : interviewStart.format("MM"),
         date_string : "",
         isInterview : this.options.isInterview,
+				isOpen: this.model.isOpen(),
         date_separator : "-"
       }
     },

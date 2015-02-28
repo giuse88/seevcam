@@ -12,7 +12,7 @@
       <% if ( isInterview ) { %>
         <div class="interview-time col-md-4"> <%= time %> </div>
       <% } else  { %>
-        <div class="score col-md-4"> 5.0 </div> <% } %>
+        <div class="score col-md-4"> <%= overall_score || "NA" %>  </div> <% } %>
     </div>
     <div class="interview-name col-md-5"> <%= name %>  <%= surname %> </div>
     <div class="interview-job col-md-4"> <%= job_position%> </div>
