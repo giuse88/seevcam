@@ -1,13 +1,17 @@
-import string, random
+import string
+import random
+
 from django.core.mail import send_mail
 from rest_framework import generics
 from opentok import OpenTok
+from django.conf import settings
+from django.db.models import Q
 
+from common.helpers.timezone import now_timezone
 from common.helpers.views_helper import set_company_info
 from interviews.models import Interview, JobPosition
 from interviews.serializers import InterviewSerializer, JobPositionSerializer
 from notes.models import Notes
-from django.conf import settings
 from overall_ratings.models import OverallRatingQuestion, OverallRating
 from questions.models import Question
 from questions.serializers import QuestionSerializer
@@ -31,10 +35,13 @@ class InterviewList(generics.ListCreateAPIView):
             self.send_email_to_user(obj)
 
     def get_queryset(self):
-        return Interview.objects.filter(owner=self.request.user.id).order_by('start')
+        owner = Q(owner=self.request.user.id)
+        interviews = Q(end__gt=now_timezone(), status=Interview.OPEN)
+        reports = Q(status=Interview.CLOSED)
+        return Interview.objects.filter(owner, interviews | reports).order_by('start')
 
-    #TODO this should be in the model done with signals
-    #private
+    # TODO this should be in the model done with signals
+    # private
     @staticmethod
     def create_interview_session():
         # this should be a singleton
@@ -42,7 +49,7 @@ class InterviewList(generics.ListCreateAPIView):
         session = opentok.create_session()
         return session.session_id
 
-    #private
+    # private
     @staticmethod
     def create_authentication_token():
         return ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(80))
