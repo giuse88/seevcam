@@ -162,7 +162,11 @@ define(function (require) {
     renderOpenInterview : function () {
       if ( this.interviews.first() && this.interviews.first().isOpen() )  {
         this.openInterviewModel = this.interviews.shift();
-        this.openInterviewView = new InterviewView({ model : this.openInterviewModel });
+        this.openInterviewView = new InterviewView({
+          model: this.openInterviewModel,
+          isInterview:true,
+          mode:"block"
+        });
         this.$openInterview.html(this.openInterviewView.render().$el);
       }
     },
