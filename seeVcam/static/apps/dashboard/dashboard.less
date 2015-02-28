@@ -41,11 +41,13 @@ hr {
 /* Adjusting Bootstrap classes */
 .logo-loader{
   text-align: center;
-  img {
-    max-width: 500px;
+  .spinner > div{
+    background-color: #666;
   }
-  span{
-    display: block;
+  img {
+    padding-left: 20px;
+    max-width: 300px;
+    margin-top: ~"calc(40% - 40.5px)";
   }
 }
 
@@ -192,3 +194,4 @@ select.form-control {
 @import "../../lib/components/interview_room/less/components/_tags";
 @import "../../lib/components/interview_room/less/components/_utils";
 @import "../../lib/components/interview_room/less/components/_buttons";
+@import "../../lib/components/loader/loader";
