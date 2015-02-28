@@ -101,11 +101,13 @@ class CandidateSerializerTest(TestCase):
                ' "status": "OPEN", ' \
                ' "job_position": 1,' \
                ' "job_position_name": "text",' \
+               ' "overall_score": null,'\
                ' "candidate": {"id": 1, "name": "giuseppe", "email": "test@test.com", "surname": "pes", "cv": 1},' \
                ' "catalogue": 1}'
         interview = Interview.objects.get(pk=1)
         serializer = InterviewSerializer(interview)
         data = serializer.data
+        print(JSONRenderer().render(data).decode("utf-8"))
         self.assertJSONEqual(JSONRenderer().render(data).decode("utf-8"), json)
 
     def test_interview_deserialization(self):
@@ -116,6 +118,7 @@ class CandidateSerializerTest(TestCase):
                b' "status": "OPEN", ' \
                b' "job_position": 1,' \
                b' "candidate": {"id": 1, "name": "giuseppe", "email": "test_1@test.com", "surname": "pes", "cv": 2},' \
+               b' "overall_score": 0,'\
                b' "catalogue": 1}'
         stream = BytesIO(json)
         data = JSONParser().parse(stream)
