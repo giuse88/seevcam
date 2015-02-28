@@ -31,8 +31,13 @@ define(function (require) {
     },
 
     onClickConclude: function () {
-      // set the interview scoere
-      this.model.get("interview").save({status : "CLOSED"}, {
+      var answers = this.model.get('answers');
+      this.model
+        .get("interview")
+        .save({
+          status : "CLOSED",
+          overall_score : answers.getOverallScore()
+        }, {
         patch:true,
         success : function () {
           Navigator.goToDashboard();
