@@ -2,7 +2,7 @@
 
   .make-md-column(@columns);
 
-  .container {
+  .int-container {
     background-color: @back-color;
     border-top: 7px solid @color;
     border-radius: 0px;
@@ -55,7 +55,7 @@
 }
 
 .block-hover(@color:@blue;) {
-  .container {
+  .int-container {
     .smooth-hover();
     &:hover {
       .block-color(@white;@white;#ddd);
@@ -66,7 +66,7 @@
 }
 
 .block-compact() {
-  .container {
+  .int-container {
     .header {
       h4 {
         margin-bottom: 0px;
@@ -97,7 +97,7 @@
 }
 
 .block-action() {
-  .container {
+  .int-container {
     &:hover {
       .action-icons {
         display: block;
@@ -109,7 +109,7 @@
 .list-mixin(@columns:12) {
   margin-bottom: 5px;
 
-  .container {
+  .int-container {
     background: @white;
     line-height: 30px;
 
@@ -152,7 +152,7 @@
 }
 
 .list-hover(@color:@blue) {
-  .container {
+  .int-container {
     .smooth-hover();
     &:hover {
       background: @color;

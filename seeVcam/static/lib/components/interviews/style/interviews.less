@@ -16,6 +16,7 @@
     margin-bottom: 15px;
 
     .search-interview-form {
+      padding-left: 15px;
       position: relative;
 
       .search-input {
@@ -76,7 +77,7 @@
     .interview-item {
       .block-mixin(12, @orange,@orange);
       .block-compact();
-      .container{
+      .int-container{
         .block-color(@white;@white;@white);
       }
     }
@@ -85,24 +86,32 @@
     .interview-item {
       .block-mixin(12, @green,@green);
       .block-action();
-      .container{
+      .int-container{
         .block-color(@white;@white;@white);
       }
     }
   }
 
   .inner-content {
-
     .interview {
-      &.list .interview-item {
-        .list-mixin(12);
-        .list-hover()
+      &.list {
+        margin-left:15px;
+        .interview-item {
+          .list-mixin(12);
+          .list-hover();
+          .int-container{
+          padding-left: 0px;
+        }
+        }
       }
 
-      &.block .interview-item {
-        .block-mixin(4);
-        .block-hover();
-        .block-action();
+      &.block {
+//        margin-left: -15px;
+        .interview-item {
+          .block-mixin(4);
+          .block-hover();
+          .block-action();
+        }
       }
 
     }
@@ -110,7 +119,10 @@
     .report {
       &.list .interview-item {
         .list-mixin();
-        .list-hover(@report-color)
+        .list-hover(@report-color);
+        .int-container{
+          padding-left: 0px;
+        }
       }
 
       &.block .interview-item {
