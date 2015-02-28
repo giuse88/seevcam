@@ -15,6 +15,7 @@ define(function(require){
   return  Backbone.Router.extend({
 
     routes: {
+      "(/)": "goToFirstPage",
       "interviews(/)": "interviews",
       "interviews/create(/)": "createInterview",
       "interviews/:interviewId(/)": "updateInterview"
@@ -142,6 +143,10 @@ define(function(require){
 
     goToInterviews: function(trigger){
       this.navigate("/interviews/", {trigger:!!trigger});
+    },
+
+    goToFirstPage: function () {
+      this.goToInterviews(true);
     },
 
     goToInterviewRoom: function(url){
