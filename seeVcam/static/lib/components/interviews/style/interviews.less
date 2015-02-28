@@ -73,11 +73,18 @@
 
   .open-interview{
     .interview-item {
+      cursor: pointer;
       .block-mixin(12, @orange,@orange);
       .block-compact();
       .int-container{
         margin-bottom: 0px;
         height: 95px;
+        h4{
+          margin: 0;
+        }
+        .interview-time{
+          margin-top: 15px;
+        }
         .block-color(@white;@white;@white);
       }
     }
@@ -93,6 +100,7 @@
   }
 
   .inner-content {
+    padding-right: 40px;
     .interview {
       &.list {
         margin-left:15px;
