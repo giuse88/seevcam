@@ -1,6 +1,6 @@
 define(function (require) {
   var BaseView = require('baseView');
-  var EventView = require('./eventView');
+  var EventView = require('components/event/eventView');
 
   return BaseView.extend({
     template: require('text!./templates/event-list.html'),
@@ -17,7 +17,12 @@ define(function (require) {
     },
 
     addEvent: function (event) {
-      this.attachSubView(this.listSelector, new EventView({model: event}));
+      var session = require('services/session');
+      this.attachSubView(this.listSelector, new EventView({
+        model: event,
+        questions : session.get('questions'),
+        answers : session.get("answers")
+      }));
 
       if (this.rendered) {
         this.scrollToBottom();

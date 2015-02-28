@@ -2,7 +2,7 @@ define(function (require) {
 
   var Backbone = require('backbone');
   var QuestionView = require("components/interview_room/interview/questionView");
-  var DocumentView = require('components/interview_room/controls/documentView');
+  var DocumentView = require('components/document_viewer/documentView');
   var ReviewPage = require('components/interview_room/review/reviewPage');
   var PresencePage = require('components/interview_room/presence/presencePage');
   var FullVideoPage = require("components/interview_room/presence/fullVideoPage");

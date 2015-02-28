@@ -1,15 +1,24 @@
 .review-page {
+
   background: @color2;
   min-height: 100%;
   padding: 0 30px 55px 30px;
   height: 100%;
+
+  .conclude-control {
+    margin-left: -15px;
+    z-index: 100
+  }
+}
+
+.review-item-list {
 
   .answer-row {
     padding-top: 30px;
     display: flex;
   }
 
-  .left-col, .right-col {
+  .left-col {
     width: 48%;
     display: inline-block;
   }
@@ -20,6 +29,8 @@
   }
 
   .right-col {
+    width: 50%;
+    display: inline-block;
     margin-top: 40px;
     font-size: 12px;
   }
@@ -151,9 +162,5 @@
       }
     }
   }
-
-  .conclude-control {
-    margin-left: -15px;
-    z-index: 100
-  }
 }
+

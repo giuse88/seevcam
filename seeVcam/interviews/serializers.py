@@ -95,4 +95,5 @@ class InterviewSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Interview
-        fields = ('id', 'start', 'end', 'status', 'job_position', 'candidate', 'catalogue', 'job_position_name')
+        fields = ('id', 'start', 'end', 'status',  'job_position', 'candidate', 'catalogue', 'job_position_name',
+                  'overall_score')

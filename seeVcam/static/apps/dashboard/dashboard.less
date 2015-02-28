@@ -1,5 +1,6 @@
 @import "../../bower_components/bootstrap/less/bootstrap";
 @import (inline) "../../bower_components/bootstrap/dist/css/bootstrap-theme.css";
+@import (inline) "../../bower_components/circliful/css/jquery.circliful.css";
 
 @import (inline) "../../lib/components/questions/questions.css";
 @import (inline) "../../lib/components/interviews/style/fullcalendar.css";
@@ -38,6 +39,17 @@ hr {
     margin-top: 20px;
 }
 /* Adjusting Bootstrap classes */
+.logo-loader{
+  text-align: center;
+  img {
+    max-width: 500px;
+  }
+  span{
+    display: block;
+  }
+}
+
+/** Adjusting Bootstrap classes */
 .container {
     /*max-width: 1000px;*/
     height: 100%;
@@ -166,3 +178,17 @@ select.form-control {
 @import "../../lib/components/interviews/style/create_interview";
 @import "../../lib/components/interviews/style/interviews";
 @import "../../lib/components/login/login";
+@import "../../lib/components/reports/report_details";
+@import "../../lib/components/interview_room/less/pages/_review";
+@import "../../lib/components/interview_room/less/components/_colors";
+@import "../../lib/components/interview_room/less/components/_icons";
+@import "../../lib/components/interview_room/less/layout/_slimscroll";
+@import "../../lib/components/interview_room/less/components/_tags";
+@import "../../lib/components/document_viewer/document_viewer";
+@import "../../lib/components/timeline/timeline";
+@import "../../lib/components/notes/notes";
+@import "../../lib/components/interview_room/less/views/_events";
+@import "../../lib/components/interview_room/less/components/_fonts";
+@import "../../lib/components/interview_room/less/components/_tags";
+@import "../../lib/components/interview_room/less/components/_utils";
+@import "../../lib/components/interview_room/less/components/_buttons";

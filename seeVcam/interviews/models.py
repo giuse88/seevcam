@@ -50,6 +50,7 @@ class Interview(UpdateCreateTimeStamp):
     candidate = models.ForeignKey(Candidate, null=False, blank=False)
     session_id = models.CharField(max_length=255, null=False, blank=False, default='UNKNOWN')
     token = models.CharField(max_length=255, null=False, blank=False, default='UNKNOWN')
+    overall_score = models.FloatField(null=True)
 
     @property
     def job_position_name(self):

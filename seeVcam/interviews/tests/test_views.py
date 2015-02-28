@@ -71,9 +71,11 @@ class InterviewViewTest(TestCase):
                           "end": "2015-05-04T13:20:34.0+0000",
                           "status": "OPEN",
                           "job_position": 1,
+                          "overall_score": 2,
                           "candidate": {"name": "giuseppe", "email": "test_1@test.com", "surname": "pes", "cv": cv.id},
                           "catalogue": 1}
         response = self.client.post("/dashboard/interviews/interviews/", interview_json, format='json')
+        print(response.content)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     def test_user_cannot_create_an_interview_with_incorrect_times(self):
@@ -101,6 +103,7 @@ class InterviewViewTest(TestCase):
                           "end": "2015-06-04T13:20:34.0+0000",
                           "status": "OPEN",
                           "job_position": 1,
+                          "overall_score": 2,
                           "candidate": {"name": "giuseppe", "email": "test_1@test.com", "surname": "pes", "cv": 2},
                           "catalogue": 1}
         response = self.client.put("/dashboard/interviews/interviews/1/", interview_json, format='json')
@@ -114,6 +117,7 @@ class InterviewViewTest(TestCase):
                      "start": "2015-06-04T12:20:34.0+0000",
                      "end": "2015-06-04T13:20:34.0+0000",
                      "status": "OPEN",
+                     "overall_score": 3,
                      "job_position": 1,
                      "candidate": {"name": "update", "email": "test_1@test.com", "surname": "pes", "cv": 2},
                      "catalogue": 1}

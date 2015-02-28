@@ -1,7 +1,7 @@
 define(function (require) {
   var BaseView = require('baseView');
   var AnswerPresenter = require('presenters/answerPresenter');
-  var AnswerRating = require('../common/answerRating');
+  var AnswerRating = require('components/answer_rating/answerRating');
 
   return BaseView.extend({
     className: 'rating',
@@ -11,10 +11,15 @@ define(function (require) {
       'click [data-rating-value]': 'onClickRating'
     },
 
+    initialize: function (options) {
+      this.options = options;
+      this.edit = options.edit;
+      BaseView.prototype.initialize.apply(this, arguments);
+    },
+
     setUp: function () {
       this.listenTo(this.model, 'change:rating', this.onChangeRating, this);
-
-      this.attachSubView('.ratings-container', new AnswerRating({model: this.model}));
+      this.attachSubView('.ratings-container', new AnswerRating({model: this.model, edit : this.edit}));
     },
 
     postRender: function () {
@@ -24,9 +29,11 @@ define(function (require) {
     onClickRating: function (e) {
       e.preventDefault();
       e.stopPropagation();
-
-      var newRating = parseInt($(e.currentTarget).data('rating-value'));
-      this.model.set('rating', newRating);
+      debugger;
+      if( this.edit ) {
+        var newRating = parseInt($(e.currentTarget).data('rating-value'));
+        this.model.set('rating', newRating);
+      }
     },
 
     onChangeRating: function () {

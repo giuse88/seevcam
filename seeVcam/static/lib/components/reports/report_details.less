@@ -1,0 +1,145 @@
+@box-height : 200px;
+@progress-color : #ffffff;
+@grey-tab: #7A7A7A;
+@dark-blue : #00436B;
+
+.report-page {
+  height: 100%;
+  
+  button, a{
+    cursor: default;
+  }
+
+
+  
+  .tab {
+    height: 40px;
+    text-align: center;
+    cursor: pointer;
+    line-height: 40px;
+    padding : 0;
+    color : @nav-bar-grey;
+    &:hover{
+      color : white;
+    }
+  }
+
+  .margin-left-2 {
+    margin-left: 2.5px;
+  }
+  .margin-right-2 {
+    margin-right: 2.5px;
+  }
+
+
+  .tab-title {
+    padding:0;
+  }
+  .candidate-info {
+
+    .candidate-info-details {
+      background-color: #afafaf;
+      height: @box-height;
+      padding-left: 40px;
+      p {
+        margin : 0;
+      }
+      .candidate-name{
+        padding-top: 30px;
+        font-size : 40px;
+        font-weight: 600;
+      }
+      .candidate-email {
+        margin-top: -10px;
+        font-size : 20px;
+      }
+      .interview-date{
+        margin-top: 20px;
+        font-size:17px;
+      }
+    }
+
+    .candidate-info-tabs {
+      .tab-title {
+        background-color: @grey-tab;
+       &.active {
+         color : white;
+         background-color: #afafaf;
+        }
+      }
+    }
+  }
+
+  .report-result {
+    .report-result-details {
+      background-color: @light-blue;
+      height: @box-height;
+      .result-circle {
+        width: 200px;
+        height: 200px;
+      }
+      .circle-text, .circle-info {
+        color: @progress-color;
+      }
+      .overall-results {
+        height: @box-height;
+      }
+    }
+    .result-tabs {
+      .tab-title {
+        background-color: @dark-blue;
+        &.active {
+          color : white;
+          background-color: @light-blue;
+        }
+      }
+    }
+  }
+
+  .progress-container {
+    position: relative;
+    margin-bottom: 10.5px;
+    margin-top: 11.5px;
+    height: 20px;
+    
+    span {
+      position: absolute;
+      top : 0;
+      left: 2%;
+      line-height: 20px;
+      font-size: 14px;
+      color : #000;
+    }
+
+    progress {
+      background-color: #f3f3f3;
+      border: 0;
+      height: 20px;
+      width: 100%;
+    }
+
+    progress::-webkit-progress-bar {
+      background-color: #61a9dc;
+    }
+
+    progress::-webkit-progress-value {
+      background-color: @progress-color;
+    }
+
+    progress::-moz-progress-bar {
+      background-color: @progress-color;
+    }
+    
+  }
+
+  .report-inner-container {
+    margin-top : 20px;
+    height: ~'calc(100% - 280px)';
+    margin-bottom: 20px;
+  }
+
+  .rating-info,.rating-control {
+    margin-top  : 8px;
+  }
+
+}

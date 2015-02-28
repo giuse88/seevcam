@@ -1,7 +1,7 @@
 define(function (require) {
   var BaseView = require('baseView');
-  var TextArea = require('../controls/textArea');
-  var AnswerRating = require('../common/answerRating');
+  var TextArea = require('components/text_area/textArea');
+  var AnswerRating = require('components/answer_rating/answerRating');
 
   return BaseView.extend({
     template: require('text!./templates/answer.html'),
@@ -12,7 +12,7 @@ define(function (require) {
       this.listenTo(this.model, 'sync', this.answerSaved, this);
 
       this.attachSubView('.answer', new TextArea({model: this.model, attribute: 'content'}));
-      this.attachSubView('.ratings-container', new AnswerRating({model: this.model, big: true}));
+      this.attachSubView('.ratings-container', new AnswerRating({model: this.model, big: true, edit:true}));
     },
 
     answerUpdated: function () {

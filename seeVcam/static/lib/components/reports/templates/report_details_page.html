@@ -1,0 +1,61 @@
+<div class="candidate-info col-md-4 col-md-offset-1">
+    <div class="candidate-info-details">
+        <div class="candidate-name">
+            <p> <%= candidateFullName %></p>
+        </div>
+        <div class="candidate-email"> <p> <%= candidateEmail %></p> </div>
+        <div class="interview-date"> <p>Interviewed on <b><%= interviewDate %></b></p> </div>
+    </div>
+    <div class="candidate-info-tabs row">
+        <span class="job-position-link tab col-md-6">
+            <p class="tab-title margin-right-2" data-link="job-description"> Job description </p>
+        </span>
+        <span class="cv-link tab col-md-6 ">
+            <p class="tab-title margin-left-2" data-link="cv">Curriculum vitae</p>
+        </span>
+    </div>
+</div>
+
+
+<div class="report-result col-md-6">
+    <div class="report-result-details" >
+        <div class="row">
+           <div class="overall-rating col-md-8">
+               <section id="skills">
+                   <% ratings.each(function (rating) { %>
+                   <!-- this should dynamic -->
+                   <div class="progress-container">
+                       <progress value='<%- rating.get("rating")*20 %>'  max="100"></progress>
+                       <span class="progress-text"><%=rating.get("question")%></span>
+                   </div>
+
+                   <% }); %>
+                </section>
+           </div>
+           <div class="overall-result col-md-4">
+               <div class="result-circle" data-startdegree="0" data-dimension="200"
+                    data-text="<%= overall_score || 'NA' %>"
+                    data-info="Overall" data-width="10" data-fontsize="50"
+                    data-percent="<%= (overall_score || 0) * 10 %>"
+                    data-fgcolor="#ffffff" data-bgcolor="#61a9dc"></div>
+           </div>
+        </div>
+    </div>
+    <div class="result-tabs row">
+        <span class="answers-link tab col-md-4" data-link="answers">
+            <p class="tab-title margin-right-2 active" data-link="answers">Answers</p>
+        </span>
+
+        <span class="history-link tab col-md-4" data-link="history">
+            <p class="tab-title margin-right-2 margin-left-2" data-link="history">History</p>
+        </span>
+
+        <span class="notes-link tab col-md-4" data-link="notes">
+            <p class="tab-title margin-left-2" data-link="notes">Notes</p>
+        </span>
+
+    </div>
+</div>
+<div class="clearfix"></div>
+
+<div class="report-inner-container col-md-10 col-md-offset-1"></div>

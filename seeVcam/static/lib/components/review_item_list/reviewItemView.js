@@ -9,14 +9,14 @@ define(function (require) {
 
     initialize: function (options) {
       this.question = options.question;
-
+      this.edit = options.edit;
       BaseView.prototype.initialize.apply(this, arguments);
     },
 
     setUp: function () {
-      this.attachSubView('.question-container', new QuestionView({model: this.question}));
-      this.attachSubView('.answer-container', new AnswerView({model: this.model, question: this.question}));
-      this.attachSubView('.rating-container', new RatingView({model: this.model}));
+      this.attachSubView('.question-container', new QuestionView({model: this.question, edit: this.edit}));
+      this.attachSubView('.answer-container', new AnswerView({model: this.model, question: this.question, edit : this.edit}));
+      this.attachSubView('.rating-container', new RatingView({model: this.model, edit : this.edit}));
     }
   });
 });

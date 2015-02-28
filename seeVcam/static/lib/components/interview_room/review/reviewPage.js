@@ -4,8 +4,7 @@ define(function (require) {
   var BaseView = require('baseView');
   var Navigator = require("navigator");
   var OverallRatingListView = require('./overallRatingListView');
-  var ReviewItemListView = require('./reviewItemListView');
-  var $ = require('jquery');
+  var ReviewItemListView = require('components/review_item_list/reviewItemListView');
 
   return BaseView.extend({
     className: 'review-page',
@@ -25,15 +24,6 @@ define(function (require) {
         allowCancel: false,
         footer: true
       });
-
-      var windowWidth = $(window).width();
-      this.$el.slimScroll({
-        height: 'auto',
-        position: 'right',
-        alwaysVisible: true,
-        railVisible: true,
-        distance: (windowWidth / 2 + windowWidth / 200) + 'px'
-      });
     },
 
     teardown: function () {
@@ -41,8 +31,13 @@ define(function (require) {
     },
 
     onClickConclude: function () {
-      // set the interview scoere
-      this.model.get("interview").save({status : "CLOSED"}, {
+      var answers = this.model.get('answers');
+      this.model
+        .get("interview")
+        .save({
+          status : "CLOSED",
+          overall_score : answers.getOverallScore()
+        }, {
         patch:true,
         success : function () {
           Navigator.goToDashboard();

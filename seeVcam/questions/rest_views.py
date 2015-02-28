@@ -2,6 +2,7 @@ from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 
 from django.db.models import Q
+from interviews.models import Interview
 from .models import QuestionCatalogue, Question
 from .serializers import QuestionCatalogueSerializer, QuestionSerializer
 from .permissions import IsOwner, IsCatalogueOwnerOrSeevcamScope, ReadOnly
@@ -77,3 +78,4 @@ class QuestionDetails(generics.RetrieveUpdateDestroyAPIView):
     def get_queryset(self):
         question_catalogue = self.kwargs['question_catalogue']
         return Question.objects.filter(question_catalogue=question_catalogue)
+
