@@ -282,7 +282,11 @@ define(function (require) {
         },
         done: function (e, data) {
           deleteOldFileIfAny();
-          $(containerClass +" .fileupload-container .errorlist ").empty();
+
+          $(containerClass +" .fileupload-container .errorlist ")
+            .removeClass("filled")
+            .empty();
+
           $.each(data.result.files, function (index, file) {
             // upload input form
             self.$el.find(containerClass + ' .file-id-input').val(file.id);
@@ -298,9 +302,11 @@ define(function (require) {
         }
       })
       .on('fileuploadprocessalways', function (e, data) {
-        var file = data.files[0],
-          node = $(containerClass +" .fileupload-container > .errorlist ");
+        var file = data.files[0];
+        var node = $(containerClass +" .fileupload-container > .errorlist ");
+        var errorList = $(containerClass +" .fileupload-container > .errorlist ");
         if (file.error) {
+          errorList.addClass("filled");
           node.html($('<li class="file-error"/>').text(file.error));
         }
       });
