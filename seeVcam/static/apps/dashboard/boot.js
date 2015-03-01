@@ -45,6 +45,7 @@ require.config({
     "moment"        : "bower_components/moment/moment",
     "notification"  : "lib/components/notification/notification",
     "utils"         : "lib/misc/utils",
+    "redactor"      : "bower_components/redactor/redactor/redactor",
     "nanobar"       : "lib/misc/nanobar",
     "backbone-modal" : "lib/misc/backbone-modal"
   },
@@ -87,7 +88,9 @@ require.config({
     "bootstrap": {
       deps: ["jquery"]
     },
-
+    "redactor" : {
+      deps: ["jquery"]
+    },
     "underscore": {
       deps: [],
       exports: "_"

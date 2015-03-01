@@ -34,6 +34,7 @@ require.config({
     'backbone.stickit' : "bower_components/backbone.stickit/backbone.stickit",
     "deep-model"    : "bower_components/backbone-deep-model/distribution/deep-model",
     'backbone-modal': "lib/misc/backbone-modal",
+    "redactor"      : "bower_components/redactor/redactor/redactor",
 
     // misc
     baseModel:    "lib/misc/baseModel",
@@ -75,6 +76,9 @@ require.config({
     },
     "deep-model": {
       deps:["backbone"]
+    },
+    "redactor" : {
+      deps: ["jquery"]
     }
   }
 });
