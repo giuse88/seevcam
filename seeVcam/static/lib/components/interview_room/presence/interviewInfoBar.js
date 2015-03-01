@@ -15,7 +15,8 @@ define(function (require) {
     getRenderContext: function() {
       return {
         model: this.model,
-        session : this.session
+        session : this.session,
+        candidateName : this.model.get("interview").getCandidateFullName()
       };
     }
 
