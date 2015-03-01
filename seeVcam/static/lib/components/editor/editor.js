@@ -34,7 +34,7 @@ define(function(require) {
 
     getRenderContext: function () {
       return {
-        placeholder : "Use this area to take your notes during the interview",
+        placeholder : this.options.placeholder || "",
         view : this
       }
     }

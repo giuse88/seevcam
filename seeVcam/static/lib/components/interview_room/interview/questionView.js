@@ -25,7 +25,10 @@ define(function (require) {
 
     setUp: function () {
       this.attachSubView('.answer-container', new AnswerView({model: this.answer}));
-      this.attachSubView('.notes-container', new Editor({model: this.notes}));
+      this.attachSubView('.notes-container', new Editor({
+        model: this.notes,
+        placeholder : "Use this area to take your notes during the interview..."
+      }));
       this.attachSubView('.question-navigation-container', new QuestionNavigationView({collection: this.questions, currentQuestion: this.model, answers: this.answers}));
     },
 
