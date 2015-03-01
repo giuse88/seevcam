@@ -1,7 +1,6 @@
 define(function (require) {
   var BaseView = require('baseView');
   var AnswerView = require('./answerView');
-//  var NotesView = require('./notesView');
   var Editor = require("components/editor/editor");
   var QuestionNavigationView = require('./questionNavigationView');
   var QuestionPresenter = require('presenters/questionPresenter');

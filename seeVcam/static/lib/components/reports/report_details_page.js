@@ -10,7 +10,7 @@ define(function (require) {
   var DocumentView = require("components/document_viewer/documentView");
   var File = require("models/file");
   var Timeline = require("components/timeline/timeline");
-  var Notes = require("components/notes/notesReadOnly");
+  var Editor = require("components/editor/editor");
 
   return BaseView.extend({
     className : "report-page",
@@ -92,8 +92,10 @@ define(function (require) {
     },
 
     renderNotes : function () {
-      debugger;
-      this.updateSubView(new Notes({model: this.options.notes}));
+      this.updateSubView(new Editor({
+        model: this.options.notes,
+        placeholder : "No notes taken during the interview"
+      }));
     },
 
     renderFile : function (id) {
