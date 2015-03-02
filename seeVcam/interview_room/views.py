@@ -49,6 +49,7 @@ class InterviewRoomViewExperimentEE(LoginRequired, TemplateView):
                                                   role=Roles.publisher)
         return context
 
+
 # ======================= END TO BE DELETED ========================
 
 
@@ -83,7 +84,7 @@ class InterviewRoomView(DetailView):
         real_open_time = interview.start - datetime.timedelta(minutes=settings.INTERVIEW_OPEN)
         real_close_time = interview.end + datetime.timedelta(minutes=settings.INTERVIEW_CLOSE)
         opened = now_timezone() >= real_open_time
-        closed = now_timezone() <= real_close_time and interview.status is not Interview.CLOSED
+        closed = now_timezone() <= real_close_time and (interview.status != Interview.CLOSED)
         return opened and closed
 
     def generate_opentok_token(self, session_id):
@@ -99,6 +100,5 @@ class IntervieweeView(TokenVerification, InterviewRoomView):
 
 
 class InterviewerView(LoginRequired, IsOwnerOr404, InterviewRoomView):
-
     def get_role(self):
         return "interviewer"
