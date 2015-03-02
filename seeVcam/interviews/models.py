@@ -12,6 +12,9 @@ class Candidate(UpdateCreateTimeStamp, CompanyInfo):
     email = models.EmailField(db_index=True, null=False, blank=False)
     cv = models.OneToOneField(UploadedFile, primary_key=False, null=False, blank=False, unique=True)
 
+    def __str__(self):
+        return "{0} {1} {2}".format(self.name, self.surname, self.email)
+
     class Meta:
         verbose_name = 'candidate'
         verbose_name_plural = 'candidates'
@@ -22,6 +25,9 @@ class JobPosition(UpdateCreateTimeStamp, CompanyInfo):
 
     position = models.CharField(max_length=255, null=False, blank=False)
     job_description = models.OneToOneField(UploadedFile, null=False, blank=False)
+
+    def __str__(self):
+        return "{0}".format(self.position)
 
     class Meta:
         verbose_name = 'job_position'
