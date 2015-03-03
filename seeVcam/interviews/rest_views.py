@@ -17,6 +17,14 @@ from questions.models import Question
 from questions.serializers import QuestionSerializer
 
 
+def send_email_to_user(interview):
+    text = "To access the interview click the following link: "
+    link = "http://staging.seevcam.com/interview/1/{id}/{token}".format(id=interview.id, token=interview.token)
+    candidate_email = interview.candidate.email
+    send_mail('seeVcam interview', text + link, 'info@seevcam.com', [candidate_email], fail_silently=False)
+
+
+
 class InterviewList(generics.ListCreateAPIView):
     serializer_class = InterviewSerializer
 
@@ -32,7 +40,7 @@ class InterviewList(generics.ListCreateAPIView):
             notes = Notes(interview=obj)
             notes.save()
             self.create_overall_ratings(obj)
-            self.send_email_to_user(obj)
+            send_email_to_user(obj)
 
     def get_queryset(self):
         owner = Q(owner=self.request.user.id)
@@ -60,13 +68,6 @@ class InterviewList(generics.ListCreateAPIView):
             rating = OverallRating(interview=interview, question=rating_question)
             rating.save()
 
-    @staticmethod
-    def send_email_to_user(interview):
-        text = "To access the interview click the following link: "
-        link = "http://staging.seevcam.com/interview/1/{id}/{token}".format(id=interview.id, token=interview.token)
-        candidate_email = interview.candidate.email
-        send_mail('seeVcam interview', text + link, 'info@seevcam.com', [candidate_email], fail_silently=False)
-
 
 class InterviewDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = InterviewSerializer
@@ -75,6 +76,9 @@ class InterviewDetail(generics.RetrieveUpdateDestroyAPIView):
         obj.owner = self.request.user
         set_company_info(obj.job_position, self.request.user.company, self.request.user)
         set_company_info(obj.candidate, self.request.user.company, self.request.user)
+
+    def post_save(self, obj, created=False):
+        send_email_to_user(obj)
 
     def get_queryset(self):
         return Interview.objects.filter(owner=self.request.user.id, status=Interview.OPEN)
