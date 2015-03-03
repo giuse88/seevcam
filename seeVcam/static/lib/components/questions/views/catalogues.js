@@ -134,7 +134,7 @@ define(function (require) {
       if (this.openedCatalogue) {
         this.openedCatalogue.close(false);
       }
-      this.openedCatalogue = new EditCatalogueView({catalogue: catalogue});
+      this.openedCatalogue = new EditCatalogueView({catalogue: catalogue, updateUrl : this.options.routing });
       this.options.routing && window.app.router.QuestionsRouter.goToCatalogue(catalogue.get("id"));
       console.log("Catalogue " + catalogue.getName() + " opened.");
     },

@@ -50,20 +50,22 @@
 
 <div id="content-wrap">
     <div id="container" class="container">
-      <div class="row logo-loader">
-        <div class="col-md-6 col-md-offset-3">
-          <img alt="seeVcam" src="/static/images/logo-black.png">
-        </div>
-        <span>
-          <div class="spinner">
-            <div class="rect1"></div>
-            <div class="rect2"></div>
-            <div class="rect3"></div>
-            <div class="rect4"></div>
-            <div class="rect5"></div>
-          </div>
-        </span>
-      </div>
+       {% block content %}
+            <div class="row logo-loader">
+                <div class="col-md-6 col-md-offset-3">
+                  <img alt="seeVcam" src="/static/images/logo-black.png">
+                </div>
+            <span>
+              <div class="spinner">
+                <div class="rect1"></div>
+                <div class="rect2"></div>
+                <div class="rect3"></div>
+                <div class="rect4"></div>
+                <div class="rect5"></div>
+              </div>
+            </span>
+           </div>
+       {% endblock content %}
     </div>
 </div>
 

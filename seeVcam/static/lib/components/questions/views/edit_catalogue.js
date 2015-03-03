@@ -17,13 +17,14 @@ define(function (require) {
           'keypress #question-text': 'newQuestionFromKeyboard',
           "blur .input-panel-heading": "updateCatalogueOnFocusOut",
           "keypress .input-panel-heading": "updateOnEnter",
-          "click .close-panel-heading": "close",
+          "click .close-panel-heading": "onClickClose",
           "click .delete-panel-heading": "deleteCatalogue"
       },
 
 
       initialize: function (options) {
           //
+          this.options = options;
           this.catalogue = options && options.catalogue;
           this.collection = this.catalogue.getOrCreateQuestions();
           this.questions = [];
@@ -39,6 +40,7 @@ define(function (require) {
           _.bindAll(this, 'updateCatalogueOnFocusOut');
           _.bindAll(this, 'renderEntireCollection');
           _.bindAll(this, 'close');
+          _.bindAll(this, 'onClickClose');
           _.bindAll(this, 'deleteCatalogue');
           _.bindAll(this, 'isValidCatalogueName');
           //
@@ -162,6 +164,10 @@ define(function (require) {
           this.$el.empty();
           this.stopListening();
           return this;
+      },
+
+      onClickClose : function () {
+        this.close(this.options.updateUrl);
       },
 
       close: function (updateUrl) {

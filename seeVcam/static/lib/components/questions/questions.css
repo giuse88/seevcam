@@ -467,7 +467,7 @@
     background-color: #0071bb;
     padding : 5px;
     margin: 0;
-    z-index: 10;
+    z-index: 9999;
 }
 
 .question-drag-helper.red {

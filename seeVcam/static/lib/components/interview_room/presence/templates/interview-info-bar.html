@@ -2,7 +2,7 @@
     <span class="left-border">
         <% if ( model.get("role") === "interviewer" ) { %>
             Candidate :
-            <span class="candidate-name white-text"> Giuseppe </span>
+            <span class="candidate-name white-text"> <%= candidateName %> </span>
         <% } else { %>
             <span class="candidate-name white-text"> Interviewer </span>
         <% } %>

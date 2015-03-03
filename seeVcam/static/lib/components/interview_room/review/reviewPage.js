@@ -15,7 +15,13 @@ define(function (require) {
     },
 
     setUp: function () {
-      this.attachSubView('.review-item-list-container', new ReviewItemListView({collection: this.model.get('answers'), questions: this.model.get('questions')}));
+      this.attachSubView('.review-item-list-container',
+        new ReviewItemListView({
+          collection: this.model.get('answers'),
+          questions: this.model.get('questions'),
+          edit : true
+        })
+      );
     },
 
     postRender: function () {

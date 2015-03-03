@@ -24,9 +24,10 @@ define(function (require) {
     }
 
     $(document).on('click', 'a[data-pjax="container"].profile-link', function(event) {
-      /* This is the router for the profile page */
+      var currentFragment = Backbone.history.fragment;
 
-      if (Backbone.history.fragment.indexOf(profileFragment) > -1) {
+      /* This is the router for the profile page */
+      if (currentFragment && currentFragment.indexOf(profileFragment) > -1) {
         event.preventDefault();
         return;
       }

@@ -93,6 +93,9 @@ class SeevcamUser(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name']
 
+    def __str__(self):
+        return self.get_full_name()
+
     class Meta:
         db_table = "users"
         verbose_name = _('user')

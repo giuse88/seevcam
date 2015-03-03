@@ -79,7 +79,7 @@ define(function (require) {
       console.log("Searching...");
       var $target = $(e.currentTarget);
       var currentValue = $target.val();
-      this.nestedView.setCollection(this.interviews.filterByName(currentValue));
+      this.nestedView.setCollection(this.interviews.filterByNameOrJobSpecification(currentValue));
       this.$itemsContainer.html(this.nestedView.render().$el);
     },
 
@@ -108,8 +108,8 @@ define(function (require) {
       this.removeActiveClass();
     	this.updateModeIcon("calendar");
       var calendarView = new Calendar({
-        collection:window.cache.interviews,
-        readOnly : true
+        collection:window.cache.interviews.getInterviews(),
+        readOnly: true
       });
       this.updateNestedView(calendarView);
       this.$itemsContainer.html(this.nestedView.render().$el);
@@ -162,7 +162,11 @@ define(function (require) {
     renderOpenInterview : function () {
       if ( this.interviews.first() && this.interviews.first().isOpen() )  {
         this.openInterviewModel = this.interviews.shift();
-        this.openInterviewView = new InterviewView({ model : this.openInterviewModel });
+        this.openInterviewView = new InterviewView({
+          model: this.openInterviewModel,
+          isInterview:true,
+          mode:"block"
+        });
         this.$openInterview.html(this.openInterviewView.render().$el);
       }
     },
