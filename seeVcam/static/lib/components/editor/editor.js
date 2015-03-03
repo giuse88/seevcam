@@ -23,7 +23,10 @@ define(function(require) {
 
     postRender: function () {
       var note = this.model;
+      var height = this.$el.height()-50;
       this.$el.find("textarea").redactor({
+        minHeight : height,
+        maxHeight : height,
         buttons : ['html', 'formatting', 'bold', 'italic', 'deleted', 'unorderedlist',
                     'orderedlist', 'outdent', 'indent','alignment', 'horizontalrule'],
         changeCallback: function() {
@@ -40,4 +43,5 @@ define(function(require) {
     }
 
   });
+
 });
