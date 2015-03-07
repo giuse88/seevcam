@@ -3,6 +3,7 @@ from django.contrib import admin
 from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
+from demo.create_demo import create_demo
 
 from .models import SeevcamUser
 
@@ -88,7 +89,7 @@ class SeevcamUserAdmin(UserAdmin):
     ordering = ('email',)
     filter_horizontal = ()
 
-    actions = ["delete_selected", "make_inactive", "make_active"]
+    actions = ["delete_selected", "make_inactive", "make_active", "make_demo"]
 
     def delete_selected(self, request, queryset):
         user_deleted = 0
@@ -96,20 +97,25 @@ class SeevcamUserAdmin(UserAdmin):
             obj.delete()
             user_deleted += 1
         self.message_user(request, message_user_format(user_deleted, "deleted"))
-
     delete_selected.short_description = "Delete selected users"
 
     def make_active(self, request, queryset):
         rows_updated = queryset.update(is_active=True)
         self.message_user(request, message_user_format(rows_updated, "activated"))
-
     make_active.short_description = "Activate selected users"
 
     def make_inactive(self, request, queryset):
         rows_updated = queryset.update(is_active=False)
         self.message_user(request, message_user_format(rows_updated, "deactivated"))
-
     make_inactive.short_description = "Deactivate selected users"
+
+    def make_demo(self, request, queryset):
+        user_updated = 0
+        for user in queryset:
+            create_demo(user)
+            user_updated += 1
+        self.message_user(request, message_user_format(user_updated, "populated"))
+    make_demo.short_description = "Created demo for selected users"
 
 
 admin.site.register(SeevcamUser, SeevcamUserAdmin)
