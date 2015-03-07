@@ -29,6 +29,12 @@ class UserCreationForm(forms.ModelForm):
             raise forms.ValidationError("Passwords don't match")
         return password2
 
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        if SeevcamUser.objects.filter(email=email).count() != 0:
+            raise forms.ValidationError("User %s already exist" % email)
+        return email
+
     def save(self, commit=True):
         user = super(UserCreationForm, self).save(commit=False)
         user.set_password(self.cleaned_data["password1"])
@@ -90,17 +96,21 @@ class SeevcamUserAdmin(UserAdmin):
             obj.delete()
             user_deleted += 1
         self.message_user(request, message_user_format(user_deleted, "deleted"))
+
     delete_selected.short_description = "Delete selected users"
 
     def make_active(self, request, queryset):
         rows_updated = queryset.update(is_active=True)
         self.message_user(request, message_user_format(rows_updated, "activated"))
+
     make_active.short_description = "Activate selected users"
 
     def make_inactive(self, request, queryset):
         rows_updated = queryset.update(is_active=False)
         self.message_user(request, message_user_format(rows_updated, "deactivated"))
+
     make_inactive.short_description = "Deactivate selected users"
+
 
 admin.site.register(SeevcamUser, SeevcamUserAdmin)
 admin.site.unregister(Group)
