@@ -12,7 +12,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from company_profile.models import Company
 from file_upload_service.models import UploadedFile
-from interviews.models import Candidate
+from interviews.models import Candidate, JobPosition, Interview
 from questions.models import QuestionCatalogue
 from userprofile.models import UserNotifications
 
@@ -121,6 +121,13 @@ class SeevcamUser(AbstractBaseUser, PermissionsMixin):
 
     def delete_candidates(self):
         Candidate.objects.filter(created_by=self).delete()
+
+    def delete_job_position(self):
+        JobPosition.objects.filter(created_by=self).delete()
+
+    def delete_interviews(self):
+        Interview.objects.filter(owener=self).delete()
+
 
 
 
