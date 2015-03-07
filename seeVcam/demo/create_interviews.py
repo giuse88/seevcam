@@ -51,8 +51,6 @@ def weekdays_generator(how_many_days):
 
 
 def generate_candidate(candidates):
-    if not hasattr(generate_candidate, "index"):
-        generate_candidate.index = 0
     candidate = candidates[generate_candidate.index]
     generate_candidate.index += 1
     return candidate
@@ -60,6 +58,7 @@ def generate_candidate(candidates):
 
 def create_interviews(user):
     user.delete_interviews()
+    generate_candidate.index = 0
     catalogues = create_catalogues(user)
     candidates = create_candidates(user)
     job_positions = create_job_positions(user)
