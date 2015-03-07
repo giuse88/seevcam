@@ -1,5 +1,7 @@
 from __future__ import unicode_literals
 import warnings
+from django.db.models.signals import pre_save, post_delete
+from django.dispatch import receiver
 
 import pytz
 
@@ -70,17 +72,16 @@ class SeevcamUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(_('email address'), max_length=254, unique=True, db_index=True)
 
     # User information
-    first_name = models.CharField(_('first name'), max_length=30, blank=True)
-    last_name = models.CharField(_('last name'), max_length=30, blank=True)
+    first_name = models.CharField(_('first name'), max_length=30, blank=False, null=False)
+    last_name = models.CharField(_('last name'), max_length=30, blank=False, null=False)
     is_staff = models.BooleanField(_('staff status'), default=False,
-                                   help_text=_('Designates whether the user can log into this admin '
-                                               'site.'))
+                                   help_text=_('Designates whether the user can log into this admin site.'))
     is_active = models.BooleanField(_('active'), default=True,
-                                    help_text=_('Designates whether this user should be treated as '
-                                                'active. Unselect this instead of deleting accounts.'))
+                                    help_text=_('Designates whether this user should be treated as active. '
+                                                'Unselect this instead of deleting accounts.'))
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
     # Location information
-    country = CountryField()
+    country = CountryField(default='GB')
     timezone = models.CharField(max_length=255, null=False, blank=False, choices=TIMEZONE_CHOICES,
                                 default='Europe/London')
     # link to external object
@@ -95,6 +96,19 @@ class SeevcamUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.get_full_name()
+
+    def save(self, *args, **kwargs):
+        if not self.notifications_id:
+            notifications = UserNotifications()
+            notifications.save()
+            self.notifications = notifications
+            self.notifications_id = notifications.id
+        super(SeevcamUser, self).save(*args, **kwargs)
+
+    def delete(self, using=None):
+        if self.notifications:
+            self.notifications.delete()
+        super(SeevcamUser, self).delete(using)
 
     class Meta:
         db_table = "users"
