@@ -34,9 +34,9 @@ valid_interview_slots = [
 def generate_random_index():
     interview_slot_index = []
     for x in range(0, INTERVIEWS_PER_DAY):
-        num = random.randint(0, len(valid_interview_slots))
+        num = random.randint(0, len(valid_interview_slots) - 1)
         while num in interview_slot_index:
-            num = random.randint(0, len(valid_interview_slots))
+            num = random.randint(0, len(valid_interview_slots) - 1)
         interview_slot_index.append(num)
     return interview_slot_index
 
@@ -61,19 +61,18 @@ def generate_candidate(candidates):
 
 
 def create_interviews(user):
-
     user.delete_interviews()
     catalogues = create_catalogues(user)
     candidates = create_candidates(user)
     job_positions = create_job_positions(user)
 
     def load_interview(day, time_slot):
-        job_position = job_positions[random.randint(0, len(job_positions))]
-        catalogue = catalogues[random.randint(0, len(catalogues))]
+        job_position = job_positions[random.randint(0, len(job_positions) - 1)]
+        catalogue = catalogues[random.randint(0, len(catalogues) - 1)]
         candidate = generate_candidate(candidates)
         formatted_day = day.strftime('%Y-%m-%d')
-        start = "%sT%s" % ( formatted_day, time_slot(0) )
-        end = "%sT%s" % ( formatted_day, time_slot(1) )
+        start = "%sT%s" % (formatted_day, time_slot[0])
+        end = "%sT%s" % (formatted_day, time_slot[1])
         create_interview(user, catalogue, candidate, job_position, start, end)
 
     def load_interviews_for_day(day):
