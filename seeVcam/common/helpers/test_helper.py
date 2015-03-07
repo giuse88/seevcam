@@ -43,8 +43,8 @@ def create_file(name="test.pdf", file_type='application/pdf'):
     return SimpleUploadedFile(name, binary_content, file_type)
 
 
-def create_uploaded_file(user):
-    uploaded_file = UploadedFile.objects.create_uploaded_file(create_file(), user)
+def create_uploaded_file(user, file=create_file(), type="cv"):
+    uploaded_file = UploadedFile.objects.create_uploaded_file(file, user, type)
     uploaded_file.save()
     return uploaded_file
 

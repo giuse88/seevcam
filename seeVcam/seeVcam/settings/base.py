@@ -36,6 +36,7 @@ LOCAL_APPS = (
     'answers',
     'overall_ratings',
     'file_upload_service',
+    'demo',
     'notes',
     'events',
     'reports'

@@ -24,8 +24,15 @@ class QuestionCatalogue(UpdateCreateTimeStamp):
     def isSeevcamScope(self):
         return self.catalogue_scope == QuestionCatalogue.SEEVCAM_SCOPE
 
-    def __unicode__(self):
+    def __str__(self):
         return self.catalogue_name
+
+    def __unicode__(self):
+        return self.__str__()
+
+    def delete(self, using=None):
+        Question.objects.filter(question_catalogue=self).delete()
+        super(QuestionCatalogue, self).delete(using)
 
     class Meta:
         db_table = "catalogues"
@@ -35,8 +42,11 @@ class Question(UpdateCreateTimeStamp):
     question_text = models.TextField(null=False, blank=False)
     question_catalogue = models.ForeignKey(QuestionCatalogue, null=False, blank=False)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.question_text
+
+    def __unicode__(self):
+        return self.__str__()
 
     class Meta:
         db_table = "questions"

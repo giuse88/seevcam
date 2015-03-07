@@ -11,6 +11,8 @@ from django.utils.http import urlquote
 from django.utils.translation import ugettext_lazy as _
 
 from company_profile.models import Company
+from file_upload_service.models import UploadedFile
+from questions.models import QuestionCatalogue
 from userprofile.models import UserNotifications
 
 TIMEZONE_CHOICES = [(tz, tz) for tz in pytz.all_timezones]
@@ -108,5 +110,12 @@ class SeevcamUser(AbstractBaseUser, PermissionsMixin):
 
     def email_user(self, subject, message, from_email=None):
         send_mail(subject, message, from_email, [self.email])
+
+    def delete_uploaded_files(self):
+        UploadedFile.objects.filter(created_by=self).delete()
+
+    def delete_catalogues(self):
+        QuestionCatalogue.objects.filter(catalogue_owner=self).delete()
+
 
 
