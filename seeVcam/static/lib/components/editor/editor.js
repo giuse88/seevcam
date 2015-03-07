@@ -23,7 +23,7 @@ define(function(require) {
 
     postRender: function () {
       var note = this.model;
-      var height = this.$el.height()-50;
+      var height = this.$el.height() - 32;
       this.$el.find("textarea").redactor({
         minHeight : height,
         maxHeight : height,
