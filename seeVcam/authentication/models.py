@@ -12,6 +12,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from company_profile.models import Company
 from file_upload_service.models import UploadedFile
+from interviews.models import Candidate
 from questions.models import QuestionCatalogue
 from userprofile.models import UserNotifications
 
@@ -52,6 +53,7 @@ class SeevcamUserManager(BaseUserManager):
         company, created = Company.objects.get_or_create(name="seevcam")
         return self._create_user(email, password, company, True, True,
                                  **extra_fields)
+
 
 
 class SeevcamUser(AbstractBaseUser, PermissionsMixin):
@@ -116,6 +118,9 @@ class SeevcamUser(AbstractBaseUser, PermissionsMixin):
 
     def delete_catalogues(self):
         QuestionCatalogue.objects.filter(catalogue_owner=self).delete()
+
+    def delete_candidates(self):
+        Candidate.objects.filter(created_by=self).delete()
 
 
 

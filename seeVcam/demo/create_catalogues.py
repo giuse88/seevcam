@@ -2,7 +2,6 @@ import os
 import yaml
 from questions.models import QuestionCatalogue, Question
 
-
 BASE = os.path.dirname(os.path.abspath(__file__))
 
 
