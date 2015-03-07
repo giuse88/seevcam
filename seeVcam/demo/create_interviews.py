@@ -6,12 +6,10 @@ from demo.create_candidates import create_candidates
 from demo.create_catalogues import create_catalogues
 from demo.create_job_positions import create_job_positions
 
-
-INTERVIEWS_PER_DAY = 7
-
 SATURDAY = 6
 SUNDAY = 7
 DAYS_TO_BE_POPULATED = 10
+INTERVIEWS_PER_DAY = 7
 
 valid_interview_slots = [
     ('09:00:00.000000+00:00', '10:00:00.000000+00:00'),
