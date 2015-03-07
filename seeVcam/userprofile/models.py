@@ -11,6 +11,10 @@ class UserNotifications(models.Model):
         verbose_name_plural = 'user_notifications'
         db_table = 'user_notifications'
 
+    def __str__(self):
+        username = self.user_notification_settings.get_full_name()
+        return "{0}'s notifications".format(username)
+
 
 class UserApplications(models.Model):
     class Meta:

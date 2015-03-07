@@ -1,22 +1,10 @@
 from __future__ import unicode_literals
-import warnings
-from django.db.models.signals import pre_save, post_delete
-from django.dispatch import receiver
 
 import pytz
-
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
-
-# Doesn't exist anymore in django 1.7
-try:
-    from django.contrib.auth.models import SiteProfileNotAvailable
-except ImportError:
-    # Dummy exception to keep the handling below identical
-    SiteProfileNotAvailable = ImportError
 
 from django_countries.fields import CountryField
 from django.utils import timezone
-from django.core.exceptions import ImproperlyConfigured
 from django.core.mail import send_mail
 from django.db import models
 from django.utils.http import urlquote
@@ -65,13 +53,8 @@ class SeevcamUserManager(BaseUserManager):
 
 
 class SeevcamUser(AbstractBaseUser, PermissionsMixin):
-    """
-    Seevcam awesome user model
-    """
-    # User identifier
     email = models.EmailField(_('email address'), max_length=254, unique=True, db_index=True)
 
-    # User information
     first_name = models.CharField(_('first name'), max_length=30, blank=False, null=False)
     last_name = models.CharField(_('last name'), max_length=30, blank=False, null=False)
     is_staff = models.BooleanField(_('staff status'), default=False,
@@ -80,19 +63,22 @@ class SeevcamUser(AbstractBaseUser, PermissionsMixin):
                                     help_text=_('Designates whether this user should be treated as active. '
                                                 'Unselect this instead of deleting accounts.'))
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
-    # Location information
     country = CountryField(default='GB')
     timezone = models.CharField(max_length=255, null=False, blank=False, choices=TIMEZONE_CHOICES,
                                 default='Europe/London')
-    # link to external object
-    notifications = models.ForeignKey(UserNotifications, null=False, blank=False,
-                                      related_name="user_notification_settings")
+    notifications = models.OneToOneField(UserNotifications, null=False, blank=False,
+                                         related_name="user_notification_settings")
     company = models.ForeignKey(Company, null=False, blank=False, related_name="user_company")
 
     objects = SeevcamUserManager()
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name']
+
+    class Meta:
+        db_table = "users"
+        verbose_name = _('user')
+        verbose_name_plural = _('users')
 
     def __str__(self):
         return self.get_full_name()
@@ -110,63 +96,17 @@ class SeevcamUser(AbstractBaseUser, PermissionsMixin):
             self.notifications.delete()
         super(SeevcamUser, self).delete(using)
 
-    class Meta:
-        db_table = "users"
-        verbose_name = _('user')
-        verbose_name_plural = _('users')
-
     def get_absolute_url(self):
-        return "/users/%s/" % urlquote(self.username)
+        return "/users/%s/" % urlquote(self.get_full_name())
 
     def get_full_name(self):
-        """
-        Returns the first_name plus the last_name, with a space in between.
-        """
         full_name = '%s %s' % (self.first_name, self.last_name)
         return full_name.strip()
 
     def get_short_name(self):
-        """
-        Returns the short name for the user
-        """
         return self.first_name
 
     def email_user(self, subject, message, from_email=None):
-        """
-        Sends an email to this User.
-        """
         send_mail(subject, message, from_email, [self.email])
 
-    def get_profile(self):
-        """
-        Returns site-specific profile for this user. Raises
-        SiteProfileNotAvailable if this site does not allow profiles.
-        """
-        warnings.warn("The use of AUTH_PROFILE_MODULE to define user profiles has been deprecated.",
-                      DeprecationWarning, stacklevel=2)
-        if not hasattr(self, '_profile_cache'):
-            from django.conf import settings
-
-            if not getattr(settings, 'AUTH_PROFILE_MODULE', False):
-                raise SiteProfileNotAvailable(
-                    'You need to set AUTH_PROFILE_MODULE in your project '
-                    'settings')
-            try:
-                app_label, model_name = settings.AUTH_PROFILE_MODULE.split('.')
-            except ValueError:
-                raise SiteProfileNotAvailable(
-                    'app_label and model_name should be separated by a dot in '
-                    'the AUTH_PROFILE_MODULE setting')
-            try:
-                model = models.get_model(app_label, model_name)
-                if model is None:
-                    raise SiteProfileNotAvailable(
-                        'Unable to load the profile model, check '
-                        'AUTH_PROFILE_MODULE in your project settings')
-                self._profile_cache = model._default_manager.using(
-                    self._state.db).get(user__id__exact=self.id)
-                self._profile_cache.user = self
-            except (ImportError, ImproperlyConfigured):
-                raise SiteProfileNotAvailable
-        return self._profile_cache
 

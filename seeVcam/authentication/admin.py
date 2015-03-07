@@ -7,9 +7,15 @@ from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from .models import SeevcamUser
 
 
+def message_user_format(rows_updated, action):
+    if rows_updated == 1:
+        message_bit = "1 user was"
+    else:
+        message_bit = "%s user were" % rows_updated
+    return "{0} successfully {1}".format(message_bit, action)
+
+
 class UserCreationForm(forms.ModelForm):
-    """A form for creating new users. Includes all the required
-    fields, plus a repeated password."""
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)
 
@@ -17,7 +23,6 @@ class UserCreationForm(forms.ModelForm):
         model = SeevcamUser
 
     def clean_password2(self):
-        # Check that the two password entries match
         password1 = self.cleaned_data.get("password1")
         password2 = self.cleaned_data.get("password2")
         if password1 and password2 and password1 != password2:
@@ -25,7 +30,6 @@ class UserCreationForm(forms.ModelForm):
         return password2
 
     def save(self, commit=True):
-        # Save the provided password in hashed format
         user = super(UserCreationForm, self).save(commit=False)
         user.set_password(self.cleaned_data["password1"])
         if commit:
@@ -34,11 +38,6 @@ class UserCreationForm(forms.ModelForm):
 
 
 class UserChangeForm(forms.ModelForm):
-    """A form for updating users. Includes all the fields on
-    the user, but replaces the password field with admin's
-    password hash display field.
-    """
-
     password = ReadOnlyPasswordHashField(label="Password",
                                          help_text=("Raw passwords are not stored, so there is no way to see "
                                                     "this user's password, but you can change the password "
@@ -82,6 +81,26 @@ class SeevcamUserAdmin(UserAdmin):
     search_fields = ('email', 'first_name', 'last_name')
     ordering = ('email',)
     filter_horizontal = ()
+
+    actions = ["delete_selected", "make_inactive", "make_active"]
+
+    def delete_selected(self, request, queryset):
+        user_deleted = 0
+        for obj in queryset:
+            obj.delete()
+            user_deleted += 1
+        self.message_user(request, message_user_format(user_deleted, "deleted"))
+    delete_selected.short_description = "Delete selected users"
+
+    def make_active(self, request, queryset):
+        rows_updated = queryset.update(is_active=True)
+        self.message_user(request, message_user_format(rows_updated, "activated"))
+    make_active.short_description = "Activate selected users"
+
+    def make_inactive(self, request, queryset):
+        rows_updated = queryset.update(is_active=False)
+        self.message_user(request, message_user_format(rows_updated, "deactivated"))
+    make_inactive.short_description = "Deactivate selected users"
 
 admin.site.register(SeevcamUser, SeevcamUserAdmin)
 admin.site.unregister(Group)
