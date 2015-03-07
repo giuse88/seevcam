@@ -1,9 +1,10 @@
 import datetime
+
 from django.conf import settings
 from django.core.files.uploadedfile import SimpleUploadedFile
 import pytz
-from answers.models import Answer
 
+from answers.models import Answer
 from authentication.models import SeevcamUser
 from company_profile.models import Company
 from interviews.models import Interview, Candidate, JobPosition
@@ -85,10 +86,12 @@ def create_overall_rating(interview, question):
     return overall_question
 
 
-def create_interview(user, catalogue, candidate, job_position):
+def create_interview(user, catalogue, candidate, job_position,
+                     start='2015-05-04T12:20:34.000343+00:00',
+                     end='2015-05-04T13:20:34.000343+00:00'):
     interview = Interview(status=Interview.OPEN,
-                          start='2015-05-04T12:20:34.000343+00:00',
-                          end='2015-05-04T13:20:34.000343+00:00',
+                          start=start,
+                          end=end,
                           catalogue=catalogue,
                           owner=user,
                           candidate=candidate,
@@ -103,5 +106,5 @@ def string_to_datetime(datetime_str):
 
 
 def login_user(client, email="test@test.com", password='test'):
-        client.post(settings.LOGIN_URL, {'username': email, 'password': password})
+    client.post(settings.LOGIN_URL, {'username': email, 'password': password})
 

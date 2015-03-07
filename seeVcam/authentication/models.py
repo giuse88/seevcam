@@ -122,11 +122,11 @@ class SeevcamUser(AbstractBaseUser, PermissionsMixin):
     def delete_candidates(self):
         Candidate.objects.filter(created_by=self).delete()
 
-    def delete_job_position(self):
+    def delete_job_positions(self):
         JobPosition.objects.filter(created_by=self).delete()
 
     def delete_interviews(self):
-        Interview.objects.filter(owener=self).delete()
+        Interview.objects.filter(owner=self).delete()
 
 
 
