@@ -7,17 +7,18 @@
               the position you are interviewing for. Start with the item farthest
               back and work up to the present."
   rating: 4
-
+  question_index : 0
 
 -
   question: "Why did you leave your last job?"
-  contant: "Stay positive regardless of the circumstances. Never refer to a major
+  content: "Stay positive regardless of the circumstances. Never refer to a major
               problem with management and never speak ill of supervisors, co-workers
               or the organization. If you do, you will be the one looking bad. Keep
               smiling and talk about leaving for a positive reason such as an
               opportunity, a chance to do something special or other forward-looking
               reasons."
   rating: 7
+  question_index : 1
 #
 #3. What experience do you have in this field?
 #Speak about specifics that relate to the position you are applying for.

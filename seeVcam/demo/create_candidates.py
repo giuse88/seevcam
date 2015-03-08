@@ -20,7 +20,6 @@ def load_candidate(user, full_name, cv):
 
 
 def create_candidates(user):
-    user.delete_candidates()
     document = open(os.path.join(BASE, 'fixtures/candidates.yml'), 'r')
     candidates = []
     for full_name in yaml.load(document):

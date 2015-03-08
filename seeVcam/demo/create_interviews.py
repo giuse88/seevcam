@@ -2,7 +2,9 @@ import random
 import datetime
 
 from common.helpers.test_helper import create_interview
+from demo.create_answers import create_answers
 from interviews.models import Interview
+from .create_notes import create_notes
 
 
 SATURDAY = 6
@@ -82,13 +84,13 @@ def populate_interviews(user, catalogues, candidates, job_positions, is_report=F
 
 
 def create_interviews(user, catalogues, candidates, job_positions):
-    user.delete_interviews()
     generate_candidate.index = 0
     return populate_interviews(user, catalogues, candidates, job_positions)
 
 
 def create_reports(user, catalogues, candidates, job_positions):
-    user.delete_reports()
     generate_candidate.index = 0
     reports = populate_interviews(user, catalogues, candidates, job_positions, True)
-
+    create_answers(user, reports)
+    create_notes(reports)
+    return reports

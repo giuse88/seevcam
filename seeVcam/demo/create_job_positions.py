@@ -12,7 +12,6 @@ def load_position(user, position, job_spec):
 
 
 def create_job_positions(user):
-    user.delete_job_positions()
     document = open(os.path.join(BASE, 'fixtures/job_positions.yml'), 'r')
     job_positions = []
     for position in yaml.load(document):

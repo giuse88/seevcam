@@ -20,6 +20,5 @@ def upload_job_spec(user):
 
 
 def file_upload(user):
-    user.delete_uploaded_files()
     return upload_cv(user), upload_job_spec(user)
 

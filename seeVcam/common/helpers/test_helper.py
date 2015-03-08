@@ -68,8 +68,8 @@ def create_answer(interview, question, content="This is an answer", rating=None)
     return answer
 
 
-def create_notes(content="notes test"):
-    notes = Notes(content=content)
+def create_notes(interview, content="notes test"):
+    notes = Notes(interview=interview, content=content)
     notes.save()
     return notes
 
