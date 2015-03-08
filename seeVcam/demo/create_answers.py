@@ -23,7 +23,7 @@ def select_question(report, question, delta):
 
 def rate_created(report, question, delta):
     rate = random.randint(1, 9)
-    content = '{"rating":%d, "question_id":%d}' % (question.id, rate)
+    content = '{"rating":%d, "question_id":%d}' % (rate, question.id)
     start = datetime.strptime(report.start, settings.DATE_INPUT_FORMATS[0])
     timestamp = start + timedelta(seconds=delta)
     event = Event(timestamp=timestamp, interview=report, type=Event.RATE_CREATED, content=content)
@@ -33,7 +33,7 @@ def rate_created(report, question, delta):
 
 def rate_updated(rate, report, question, delta):
     content = '{"new_rating":%d,"old_rating":%d, "question_id":%d}' \
-              % (question.id, random.randint(1, 9), rate)
+              % (random.randint(1, 9), rate, question.id)
     start = datetime.strptime(report.start, settings.DATE_INPUT_FORMATS[0])
     timestamp = start + timedelta(seconds=delta)
     event = Event(timestamp=timestamp, interview=report, type=Event.RATE_UPDATED, content=content)
