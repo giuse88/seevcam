@@ -88,8 +88,10 @@ def create_overall_rating(interview, question):
 
 def create_interview(user, catalogue, candidate, job_position,
                      start='2015-05-04T12:20:34.000343+00:00',
-                     end='2015-05-04T13:20:34.000343+00:00'):
-    interview = Interview(status=Interview.OPEN,
+                     end='2015-05-04T13:20:34.000343+00:00',
+                     status=Interview.OPEN
+                     ):
+    interview = Interview(status=status,
                           start=start,
                           end=end,
                           catalogue=catalogue,
