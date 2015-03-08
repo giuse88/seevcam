@@ -62,8 +62,8 @@ def create_job_position(user, company, job_description, position="test position"
     return job_position
 
 
-def create_answer(interview, question, content="This is an answer"):
-    answer = Answer(pk=1, interview=interview, question=question, content=content)
+def create_answer(interview, question, content="This is an answer", rating=None):
+    answer = Answer(interview=interview, question=question, content=content, rating=rating)
     answer.save()
     return answer
 
