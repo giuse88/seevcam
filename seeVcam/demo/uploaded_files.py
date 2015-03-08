@@ -11,12 +11,18 @@ def open_file(relative_path):
 
 def upload_cv(user):
     cv = open_file("fixtures/files/cv.pdf")
-    return utils.create_uploaded_file(user, cv, "cv")
+    uploaded_file = utils.create_uploaded_file(user, cv, "cv")
+    uploaded_file.original_name = "CurriculumVitae.pdf"
+    uploaded_file.save()
+    return uploaded_file
 
 
 def upload_job_spec(user):
     job = open_file("fixtures/files/job.pdf")
-    return utils.create_uploaded_file(user, job, "jobSpec")
+    uploaded_file = utils.create_uploaded_file(user, job, "jobSpec")
+    uploaded_file.original_name = "JobPosition.pdf"
+    uploaded_file.save()
+    return uploaded_file
 
 
 def file_upload(user):
