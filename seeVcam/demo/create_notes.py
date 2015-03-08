@@ -1,7 +1,4 @@
 import os
-
-import yaml
-
 from common.helpers import test_helper
 
 
