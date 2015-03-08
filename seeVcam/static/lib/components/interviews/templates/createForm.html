@@ -79,7 +79,14 @@
 
             <div class="interview-catalogue form-group ">
               <label for="catalogue">Catalogue :
-                <a class="interview-datetime open-create-catalogue" href="javascript:void(0)">(create a new catalogue)</a>
+                <a class="interview-datetime open-create-catalogue"
+                   lhref="javascript:void(0)">
+                    <% if ( !interview || !interview.catalogue ) { %>
+                        (create a new catalogue)
+                    <% } else { %>
+                        (edit this catalogue )
+                    <% } %>
+                </a>
               </label>
               <select class="form-control catalogue-selector" name="catalogue" required="true">
                 <% if ( !interview || !interview.catalogue ) { %>

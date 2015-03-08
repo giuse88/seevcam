@@ -78,8 +78,12 @@ define(function (require) {
         this.renderCatalogueSelector();
       }
 
+      var $selector = this.$el.find(".catalogue-selector");
+      var catalogueId = $selector.find("option:selected" ).val() || undefined;
+
       var catalogueView = new CataloguesView({
         collection:window.cache.catalogues,
+        catalogue : catalogueId,
         routing : false
       });
 
@@ -102,6 +106,8 @@ define(function (require) {
         .height("78%");
 
       modal.open(onOK.bind(this));
+
+      _.delay(catalogueView.afterRender,200);
 
     },
 
