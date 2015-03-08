@@ -84,7 +84,7 @@ define(function (require) {
     },
 
     renderJobSpec : function () {
-      this.renderFile(this.options.jobSpecification.id);
+      this.renderFile(this.options.jobSpecification.get("job_description"));
     },
 
     renderTimeline : function () {

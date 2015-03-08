@@ -55,7 +55,7 @@ def create_answers_for_report(report, catalogue, questions, answers):
 
 def create_events_for_reports(report, questions):
     delta = 100
-    for question in questions:
+    for question in reversed(questions):
         select_question(report, question, delta)
         rate = rate_created(report, question, delta + 40)
         rate_updated(rate, report, question, delta + 90)
