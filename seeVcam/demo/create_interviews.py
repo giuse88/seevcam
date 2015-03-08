@@ -3,6 +3,7 @@ import datetime
 
 from common.helpers.test_helper import create_interview
 from demo.create_answers import create_answers
+from demo.create_overall_rating import create_overall_ratings
 from interviews.models import Interview
 from .create_notes import create_notes
 
@@ -93,4 +94,5 @@ def create_reports(user, catalogues, candidates, job_positions):
     reports = populate_interviews(user, catalogues, candidates, job_positions, True)
     create_answers(user, reports)
     create_notes(reports)
+    create_overall_ratings(reports)
     return reports

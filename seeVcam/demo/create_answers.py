@@ -1,7 +1,8 @@
 import os
 import random
 import yaml
-from common.helpers.test_helper import create_catalogue, create_question, create_answer
+from common.helpers.test_helper import create_question, create_answer
+from .create_catalogues import create_catalogue
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 
@@ -19,7 +20,7 @@ def create_answers_for_report(report, catalogue, questions, answers):
 
 
 def create_answers(user, reports):
-    catalogue = create_catalogue(user, "Questions for Junior Software engineer")
+    catalogue = create_catalogue("Questions for Junior Software engineer", user)
     document = open(os.path.join(BASE, 'fixtures/answers.yml'), 'r')
     answers = yaml.load(document)
     questions = []
