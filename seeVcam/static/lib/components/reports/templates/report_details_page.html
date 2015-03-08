@@ -34,7 +34,7 @@
            </div>
            <div class="overall-result col-md-4">
                <div class="result-circle" data-startdegree="0" data-dimension="200"
-                    data-text="<%= overall_score || 'NA' %>"
+                    data-text="<%= ( overall_score && Number(overall_score).toFixed(1)) || 'NA' %>"
                     data-info="Overall" data-width="10" data-fontsize="50"
                     data-percent="<%= (overall_score || 0) * 10 %>"
                     data-fgcolor="#ffffff" data-bgcolor="#61a9dc"></div>

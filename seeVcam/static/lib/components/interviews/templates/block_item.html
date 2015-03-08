@@ -30,7 +30,7 @@
     </div>
  <%} else  { %>
     <div class="score">
-        <span class="number"> <%= overall_score || "NA" %> </span>
+        <span class="number"> <%= ( overall_score && Number(overall_score).toFixed(1) ) || 'NA' %> </span>
     </div>
 <% } %>
   </div>
