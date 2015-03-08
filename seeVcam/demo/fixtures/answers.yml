@@ -1,255 +1,100 @@
--
-  question: "Tell me about yourself"
-  content: "The most often asked question in interviews. You need to have a short
-              statement prepared in your mind. Be careful that it does not sound
-              rehearsed. Limit it to work-related items unless instructed otherwise.
-              Talk about things you have done and jobs you have held that relate to
-              the position you are interviewing for. Start with the item farthest
-              back and work up to the present."
+- question: "Tell me about yourself"
+  content: ""
   rating: 4
   question_index : 0
 
--
-  question: "Why did you leave your last job?"
-  content: "Stay positive regardless of the circumstances. Never refer to a major
-              problem with management and never speak ill of supervisors, co-workers
-              or the organization. If you do, you will be the one looking bad. Keep
-              smiling and talk about leaving for a positive reason such as an
-              opportunity, a chance to do something special or other forward-looking
-              reasons."
+- question: "Why did you leave your last job?"
+  content: "I left my job because it wasn't interesting and challeging. I'm looking for a stimulating and challenging
+            job which tests my abilities every day and helps me to improve. I think, the job your're offering is the
+            perfect fit for me."
   rating: 7
   question_index : 1
-#
-#3. What experience do you have in this field?
-#Speak about specifics that relate to the position you are applying for.
-#If you do not have specific experience, get as close as you can.
-#
-#4. Do you consider yourself successful?
-#You should always answer yes and briefly explain why. A good
-#explanation is that you have set goals, and you have met some and are
-#on track to achieve the others.
-#
-#5. What do co-workers say about you?
-#Be prepared with a quote or two from co-workers. Either a specific
-#statement or a paraphrase will work. Jill Clark, a co-worker at Smith
-#Company, always said I was the hardest workers she had ever known. It
-#is as powerful as Jill having said it at the interview herself.
-#
-#6. What do you know about this organization?
-#This question is one reason to do some research on the organization
-#before the interview. Find out where they have been and where they are
-#going. What are the current issues and who are the major players?
-#
-#7. What have you done to improve your knowledge in the last year?
-#Try to include improvement activities that relate to the job. A wide
-#variety of activities can be mentioned as positive self-improvement.
-#Have some good ones handy to mention.
-#
-#8. Are you applying for other jobs?
-#Be honest but do not spend a lot of time in this area. Keep the focus
-#on this job and what you can do for this organization. Anything else is
-#a distraction.
-#
-#9. Why do you want to work for this organization?
-#This may take some thought and certainly, should be based on the
-#research you have done on the organization. Sincerity is extremely
-#important here and will easily be sensed. Relate it to your long-term
-#career goals.
-#
-#10. Do you know anyone who works for us?
-#Be aware of the policy on relatives working for the organization. This
-#can affect your answer even though they asked about friends not
-#relatives. Be careful to mention a friend only if they are well thought
-#of.
-#
-#11. What kind of salary do you need?
-#A loaded question. A nasty little game that you will probably lose if
-#you answer first. So, do not answer it. Instead, say something like,
-#That’s a tough question. Can you tell me the range for this position?
-#In most cases, the interviewer, taken off guard, will tell you. If not,
-#say that it can depend on the details of the job. Then give a wide
-#range.
-#
-#12. Are you a team player?
-#You are, of course, a team player. Be sure to have examples ready.
-#Specifics that show you often perform for the good of the team rather
-#than for yourself are good evidence of your team attitude. Do not brag,
-#just say it in a matter-of-fact tone. This is a key point.
-#
-#13. How long would you expect to work for us if hired?
-#Specifics here are not good. Something like this should work: I’d like
-#it to be a long time. Or As long as we both feel I’m doing a good job.
-#
-#14. Have you ever had to fire anyone? How did you feel about that?
-#This is serious. Do not make light of it or in any way seem like you
-#like to fire people. At the same time, you will do it when it is the
-#right thing to do. When it comes to the organization versus the
-#individual who has created a harmful situation, you will protect the
-#organization. Remember firing is not the same as layoff or reduction in
-#force.
-#
-#15. What is your philosophy towards work?
-#The interviewer is not looking for a long or flowery dissertation here.
-#Do you have strong feelings that the job gets done? Yes. That’s the
-#type of answer that works best here. Short and positive, showing a
-#benefit to the organization.
-#
-#16. If you had enough money to retire right now, would you?
-#Answer yes if you would. But since you need to work, this is the type
-#of work you prefer. Do not say yes if you do not mean it.
-#
-#17. Have you ever been asked to leave a position?
-#If you have not, say no. If you have, be honest, brief and avoid saying
-#negative things about the people or organization involved.
-#
-#18. Explain how you would be an asset to this organization
-#You should be anxious for this question. It gives you a chance to
-#highlight your best points as they relate to the position being
-#discussed. Give a little advance thought to this relationship.
-#
-#19. Why should we hire you?
-#Point out how your assets meet what the organization needs. Do not
-#mention any other candidates to make a comparison.
-#
-#20. Tell me about a suggestion you have made
-#Have a good one ready. Be sure and use a suggestion that was accepted
-#and was then considered successful. One related to the type of work
-#applied for is a real plus.
-#
-#21. What irritates you about co-workers?
-#This is a trap question. Think real hard but fail to come up with
-#anything that irritates you. A short statement that you seem to get
-#along with folks is great.
-#
-#22. What is your greatest strength?
-#Numerous answers are good, just stay positive. A few good examples:
-#Your ability to prioritize, Your problem-solving skills, Your ability
-#to work under pressure, Your ability to focus on projects, Your
-#professional expertise, Your leadership skills, Your positive attitude
-#
-#23. Tell me about your dream job.
-#Stay away from a specific job. You cannot win. If you say the job you
-#are contending for is it, you strain credibility. If you say another
-#job is it, you plant the suspicion that you will be dissatisfied with
-#this position if hired. The best is to stay genetic and say something
-#like: A job where I love the work, like the people, can contribute and
-#can’t wait to get to work.
-#
-#24. Why do you think you would do well at this job?
-#Give several reasons and include skills, experience and interest.
-#
-#25. What are you looking for in a job?
-#See answer # 23
-#
-#26. What kind of person would you refuse to work with?
-#Do not be trivial. It would take disloyalty to the organization,
-#violence or lawbreaking to get you to object. Minor objections will
-#label you as a whiner.
-#
-#27. What is more important to you: the money or the work?
-#Money is always important, but the work is the most important. There is
-#no better answer.
-#
-#28. What would your previous supervisor say your strongest point is?
-#There are numerous good possibilities:
-#Loyalty, Energy, Positive attitude, Leadership, Team player, Expertise,
-#Initiative, Patience, Hard work, Creativity, Problem solver
-#
-#29. Tell me about a problem you had with a supervisor
-#Biggest trap of all. This is a test to see if you will speak ill of
-#your boss. If you fall for it and tell about a problem with a former
-#boss, you may well below the interview right there. Stay positive and
-#develop a poor memory about any trouble with a supervisor.
-#
-#30. What has disappointed you about a job?
-#Don’t get trivial or negative. Safe areas are few but can include:
-#Not enough of a challenge. You were laid off in a reduction Company did
-#not win a contract, which would have given you more responsibility.
-#
-#31. Tell me about your ability to work under pressure.
-#You may say that you thrive under certain types of pressure. Give an
-#example that relates to the type of position applied for.
-#
-#32. Do your skills match this job or another job more closely?
-#Probably this one. Do not give fuel to the suspicion that you may want
-#another job more than this one.
-#
-#33. What motivates you to do your best on the job?
-#This is a personal trait that only you can say, but good examples are:
-#Challenge, Achievement, Recognition
-#
-#34. Are you willing to work overtime? Nights? Weekends?
-#This is up to you. Be totally honest.
-#
-#35. How would you know you were successful on this job?
-#Several ways are good measures:
-#You set high standards for yourself and meet them. Your outcomes are a
-#success.Your boss tell you that you are successful
-#
-#36. Would you be willing to relocate if required?
-#You should be clear on this with your family prior to the interview if
-#you think there is a chance it may come up. Do not say yes just to get
-#the job if the real answer is no. This can create a lot of problems
-#later on in your career. Be honest at this point and save yourself
-#future grief.
-#
-#37. Are you willing to put the interests of the organization ahead ofyour own?
-#This is a straight loyalty and dedication question. Do not worry about
-#the deep ethical and philosophical implications. Just say yes.
-#
-#38. Describe your management style.
-#Try to avoid labels. Some of the more common labels, like progressive,
-#salesman or consensus, can have several meanings or descriptions
-#depending on which management expert you listen to. The situational
-#style is safe, because it says you will manage according to the
-#situation, instead of one size fits all.
-#
-#39. What have you learned from mistakes on the job?
-#Here you have to come up with something or you strain credibility. Make
-#it small, well intentioned mistake with a positive lesson learned. An
-#example would be working too far ahead of colleagues on a project and
-#thus throwing coordination off.
-#
-#40. Do you have any blind spots?
-#Trick question. If you know about blind spots, they are no longer blind
-#spots. Do not reveal any personal areas of concern here. Let them do
-#their own discovery on your bad points. Do not hand it to them.
-#
-#41. If you were hiring a person for this job, what would you look for?
-#Be careful to mention traits that are needed and that you have.
-#
-#42. Do you think you are overqualified for this position?
-#Regardless of your qualifications, state that you are very well
-#qualified for the position.
-#
-#43. How do you propose to compensate for your lack of experience?
-#First, if you have experience that the interviewer does not know about,
-#bring that up: Then, point out (if true) that you are a hard working
-#quick learner.
-#
-#44. What qualities do you look for in a boss?
-#Be generic and positive. Safe qualities are knowledgeable, a sense of
-#humor, fair, loyal to subordinates and holder of high standards. All
-#bosses think they have these traits.
-#
-#45. Tell me about a time when you helped resolve a dispute betweenothers.
-#Pick a specific incident. Concentrate on your problem solving technique
-#and not the dispute you settled.
-#
-#46. What position do you prefer on a team working on a project?
-#Be honest. If you are comfortable in different roles, point that out.
-#
-#47. Describe your work ethic.
-#Emphasize benefits to the organization. Things like, determination to
-#get the job done and work hard but enjoy your work are good.
-#
-#48. What has been your biggest professional disappointment?
-#Be sure that you refer to something that was beyond your control. Show
-#acceptance and no negative feelings.
-#
-#49. Tell me about the most fun you have had on the job.
-#Talk about having fun by accomplishing something for the organization.
-#
-#50. Do you have any questions for me?
-#Always have some questions prepared. Questions prepared where you will be an asset to the organization are good. How soon will I be able to be productive? and What type of projects will I be able to assist on? are
-#examples.
+  
+- question: "Particularly in regard to design and development, what are your duties as a mechanical engineer?"
+  content: "In my position I have now, about half of my time is devoted to counseling and registration and other issues
+            like that. About thirty to forty percent of my time is involved with teaching, doing preparation, helping
+            out in the labs, and helping students. About five to ten percent of my time is spent being involved in
+            academic committees and working with administrative items."
+  rating : 3
+  question_index : 2
+
+
+- question: "Do you do any research?"
+  content: "Most of my research is education-related. I have a grant from the National Science Foundation to put some
+          CNC machines in the student labs to teach students."
+  rating: 5
+  question_index: 3
+
+- question: "What types of research did you do before when you were an associate professor?"
+  content: "I worked primarily with acoustics and noise control, with my emphasis being in active noise and vibration
+           control. I worked with the aircraft fuselage and all of the vibrations and noises created in there and
+           limiting their effects on the cockpit. Of course, automobile engines are also very noisy being so close
+           to the driver. I also worked with compressors. I worked with really small compressors to really big
+           compressors. I worked on small refrigeration units using passive and active control techniques.
+           You'd be surprised at how big an issue refrigerator noise is overseas, in Europe and Asia with
+           their tight living conditions. I also worked with huge engine compressors of up to sixty horsepower.
+           That's really big for a university, you know. I also worked with reciprocating compressors, screw
+           compressors, scroll compressors, and rotary compressors."
+  rating: 5
+  question_index: 4
+
+- question: "What is the difference between designing for a new product versus an older product?"
+  content: "There are a lot of challenges no matter what the product. The military has been bringing old CH-47's in to be repaired. Boeing has been gutting them out, leaving just a shell, and completely replacing the interior equipment. All of the design used to be on paper. The new Boeing 777 was a paperless design. They did a fly-through on the computer to check for interferences and other problems. One of the big issues with the CH-47 was whether to recreate this on the computer. It's a difficult decision. It would make it a lot easier to make changes but it would take a lot longer. So they decided not to do it for this product."
+  rating: 9
+  question_index: 5
+
+- question: "What skills are necessary for a mechanical engineer to possess?"
+  content: "Number 1 is the technical skills. You've got to have those. Next are communication and teamwork skills. There is a need for intangibles to be successful. One of the big things at Boeing was timing. They had to pull together over 1,000,000 parts to make the 777. The engine had to come in at the right time to be connected to the fuselage, which had to be connected to other parts. I realized that what Boeing was doing was just a large-scale integration project. It requires a phenomenal amount of communication and scheduling. Being able to plan and schedule things is so important. You're always behind time, over budget, and have to get deliverables to the customer. You have to make a decision with incomplete information. It's a lot of gut feel and just making your best engineering judgement and taking your best shot."
+  rating: 2
+  question_index: 6
+
+- question: "What are the worst skills, or characteristics, for an engineer to have?"
+  content: "In some jobs, being highly individualistic can be a killer. Not in all jobs, but in some jobs. In a research environment, where an engineer can go off and do his own thing, that can be okay. But in the vast majority of jobs, not being strong in communication, and of course, technical skills, can have a very negative impact on your career. In fact, in a survey in the ASME magazine about two or three years ago, the top two skills employers wanted were communication skills and teamwork skills."
+  rating: 6
+  question_index: 7
+
+- question: "What is the difference between the academic world and industry? I know there are some similarities too, what are those?"
+  content: "In the academic world, people tend to be more reflective, more analytical, and less hands-on. That's not always the case, but it tends to be that way. It's partially because people who are attracted to this environment tend to be that way. In industry, the people tend to be more hands-on but the analytical skills tend to atrophy when not used. The academic environment cultivates those skills. But the environment is changing. There are more hands-on activities being added to the curriculum, along with some tighter links to industry. There is more of a need to be an entrepreneur and salesmen."
+  rating: 8
+  question_index: 8
+
+- question: "What is the typical day in the life of a mechanical engineer like?"
+  content: "A typical day varies radically for mechanical engineers depending on the job you have. A guy doing research is more independent, a guy doing customer service is dealing with people all day long, while a manager deals mainly with projects. It can really vary depending on what you want to do."
+  rating: 6
+  question_index: 9
+
+- question: "What can a person do to improve their situation?"
+  content: "The first thing is to define the company's best practices. Define the process and look for ways to improve the process, to make it more efficient. I think that's the idea behind the 9000 stuff, like ISO 9000 and QS 9000, to document the process. Unfortunately, some people just go through the motions, which is really a shame and a waste of time. You've got to take it seriously to do things the most efficient way. But I think the real key issue is getting people in areas they love to work. When you do that, the effort will be there. For example, I met a young engineer at Boeing who had been hired three times in the last three years by Boeing. She loved working with people and making decisions. Unfortunately, in her first two jobs she only made decisions once every two or three months and she hated it. Now they have her in a people where she's working with people and making decisions and she loves it. I think it's real important for companies to match people with what they love to do."
+  rating: 8
+  question_index: 10
+
+- question: "In general, what methods or criteria are used to evaluate mechanical engineers?"
+  content: "At Boeing, the backs of the engineer's badges have criteria that is wanted for the engineers to work on at Boeing. There are twelve things: technical skills, communications, teamwork, initiative, productivity, continuous quality improvement, customer satisfaction, innovation and creativity, integrity ' that's really become a big issue in industry, especially at Boeing when I was there with the merger and all, leadership, risk-taking, and developing people."
+  rating: 4
+  question_index: 11
+
+- question: "I find it interesting to see that risk-taking is on there. It seemed like that has never been encouraged at GM."
+  content: "Well, you can't just go taking incredible risks. They are calculated risks."
+  rating: 7
+  question_index: 12
+
+- question: "When designing a new product, what issues are typically given the most consideration?"
+  content: "Again, it varies depending on the product. First, you have to understand the customer and find a way to give them what they want. You have to get a sense of where the market is going. Take inline skates. They came out of nowhere and now they're selling four million skates a year. It was a local market in California and they took it national. Being able to see needs is very important and having the creativity to know how to meet them is the hard part."
+  rating: 3
+  question_index: 13
+
+- question: "Is the procedure for process development similar to that for products?"
+  content: "Yeah, I'd say they're similar. You need to do some benchmarking on what's out there to see where you stand and brainstorm to find what you can do."
+  rating: 5
+  question_index: 14
+
+- question: "How are design procedures developed and followed in corporations?"
+  content: "Wow, those procedures vary greatly and to tell you the truth, I don't think they're followed very tightly. Part of the problem is that I don't think they are stated explicitly. You don't want to be rigid, but you need to be efficient. You need to come up with a plan and extrapolate what you can based on your design. It's a real art at this stage. It needs to be tailored to what you are trying to accomplish. There are multiple approaches to this, but it really needs to be designed explicitly and improved from there."
+  rating: 4
+  question_index: 15
+
+- question: "What does a graduating mechanical engineer need to know that he probably does not know?"
+  content: "It's not so much what you don't know as much as it is what will change. The things you like to do now might now be what you like to do in the future. Interest change in time and there must be a willingness to change with them. I think another important thing to recognize for some students is that your whole life is not your job. It can be very easy to ignore other things, but I think the real key is balance. The ME program is very rigorous and everyone is working very hard, and as a result sometimes they don't recognize the need for balance."
+  rating: 8
+  question_index: 16
+

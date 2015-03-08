@@ -115,7 +115,7 @@ class SeevcamUserAdmin(UserAdmin):
             create_demo(user)
             user_updated += 1
         self.message_user(request, message_user_format(user_updated, "populated"))
-    make_demo.short_description = "Created demo for selected users"
+    make_demo.short_description = "Create demo for selected users"
 
 
 admin.site.register(SeevcamUser, SeevcamUserAdmin)

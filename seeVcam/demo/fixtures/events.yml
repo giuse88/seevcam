@@ -1,0 +1,10 @@
+- content: '{"new_rating":3,"old_rating":8,"question_id":XXXXX}'
+  type: RATE_UPDATED
+- content: {"question_id":XXXX}
+  type: QUESTION_SELECTED
+- content: {"question_id":XXXX}
+  type: QUESTION_SELECTED
+- content: {"question_id":XXXX}
+  type: QUESTION_SELECTED
+- content: {"question_id":XXXX}
+  type: QUESTION_SELECTED
