@@ -65,9 +65,11 @@ class Interview(UpdateCreateTimeStamp):
 
     @staticmethod
     def create_interview_session():
-        opentok = OpenTok(settings.OPENTOK_API_KEY, settings.OPENTOK_SECRET)
-        session = opentok.create_session()
-        return session.session_id
+        if settings.ENVIRONMENT != "TEST":
+            opentok = OpenTok(settings.OPENTOK_API_KEY, settings.OPENTOK_SECRET)
+            session = opentok.create_session()
+            return session.session_id
+        return "UNKNOWN"
 
     @staticmethod
     def create_authentication_token():
