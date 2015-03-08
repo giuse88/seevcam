@@ -62,14 +62,14 @@ def create_job_position(user, company, job_description, position="test position"
     return job_position
 
 
-def create_answer(interview, question, content="This is an answer"):
-    answer = Answer(pk=1, interview=interview, question=question, content=content)
+def create_answer(interview, question, content="This is an answer", rating=None):
+    answer = Answer(interview=interview, question=question, content=content, rating=rating)
     answer.save()
     return answer
 
 
-def create_notes(content="notes test"):
-    notes = Notes(content=content)
+def create_notes(interview, content="notes test"):
+    notes = Notes(interview=interview, content=content)
     notes.save()
     return notes
 
@@ -88,8 +88,10 @@ def create_overall_rating(interview, question):
 
 def create_interview(user, catalogue, candidate, job_position,
                      start='2015-05-04T12:20:34.000343+00:00',
-                     end='2015-05-04T13:20:34.000343+00:00'):
-    interview = Interview(status=Interview.OPEN,
+                     end='2015-05-04T13:20:34.000343+00:00',
+                     status=Interview.OPEN
+                     ):
+    interview = Interview(status=status,
                           start=start,
                           end=end,
                           catalogue=catalogue,

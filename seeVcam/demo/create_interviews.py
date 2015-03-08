@@ -2,9 +2,10 @@ import random
 import datetime
 
 from common.helpers.test_helper import create_interview
-from demo.create_candidates import create_candidates
-from demo.create_catalogues import create_catalogues
-from demo.create_job_positions import create_job_positions
+from demo.create_answers import create_answers
+from interviews.models import Interview
+from .create_notes import create_notes
+
 
 SATURDAY = 6
 SUNDAY = 7
@@ -39,7 +40,7 @@ def generate_random_index():
     return interview_slot_index
 
 
-def weekdays_generator(how_many_days):
+def weekdays_generator(how_many_days, delta_days=1):
     next = datetime.date.today()
     counter = 0
     while counter < how_many_days:
@@ -47,7 +48,7 @@ def weekdays_generator(how_many_days):
         if weekday != SATURDAY and weekday != SUNDAY:
             yield next
             counter += 1
-        next = next + datetime.timedelta(days=1)
+        next = next + datetime.timedelta(days=delta_days)
 
 
 def generate_candidate(candidates):
@@ -56,28 +57,40 @@ def generate_candidate(candidates):
     return candidate
 
 
-def create_interviews(user):
-    user.delete_interviews()
-    generate_candidate.index = 0
-    catalogues = create_catalogues(user)
-    candidates = create_candidates(user)
-    job_positions = create_job_positions(user)
+def populate_interviews(user, catalogues, candidates, job_positions, is_report=False):
+    interviews = []
 
     def load_interview(day, time_slot):
         job_position = job_positions[random.randint(0, len(job_positions) - 1)]
         catalogue = catalogues[random.randint(0, len(catalogues) - 1)]
         candidate = generate_candidate(candidates)
+        status = Interview.CLOSED if is_report else Interview.OPEN
         formatted_day = day.strftime('%Y-%m-%d')
         start = "%sT%s" % (formatted_day, time_slot[0])
         end = "%sT%s" % (formatted_day, time_slot[1])
-        create_interview(user, catalogue, candidate, job_position, start, end)
+        interviews.append(create_interview(user, catalogue, candidate, job_position, start, end, status))
 
     def load_interviews_for_day(day):
         for index in generate_random_index():
             load_interview(day, valid_interview_slots[index])
 
     def load_interviews():
-        for day in weekdays_generator(DAYS_TO_BE_POPULATED):
+        delta = -1 if is_report else 1
+        for day in weekdays_generator(DAYS_TO_BE_POPULATED, delta):
             load_interviews_for_day(day)
 
     load_interviews()
+    return interviews
+
+
+def create_interviews(user, catalogues, candidates, job_positions):
+    generate_candidate.index = 0
+    return populate_interviews(user, catalogues, candidates, job_positions)
+
+
+def create_reports(user, catalogues, candidates, job_positions):
+    generate_candidate.index = 0
+    reports = populate_interviews(user, catalogues, candidates, job_positions, True)
+    create_answers(user, reports)
+    create_notes(reports)
+    return reports

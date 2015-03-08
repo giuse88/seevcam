@@ -126,8 +126,10 @@ class SeevcamUser(AbstractBaseUser, PermissionsMixin):
         JobPosition.objects.filter(created_by=self).delete()
 
     def delete_interviews(self):
-        Interview.objects.filter(owner=self).delete()
+        Interview.objects.filter(owner=self, status=Interview.OPEN).delete()
 
+    def delete_reports(self):
+        Interview.objects.filter(owner=self, status=Interview.CLOSED).delete()
 
 
 

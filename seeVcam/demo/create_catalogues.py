@@ -33,5 +33,4 @@ def populate_catalogs(user):
 
 
 def create_catalogues(user):
-    user.delete_catalogues()
     return populate_catalogs(user)
