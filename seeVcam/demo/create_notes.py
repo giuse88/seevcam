@@ -1,8 +1,12 @@
 import os
 from common.helpers import test_helper
 
-
 BASE = os.path.dirname(os.path.abspath(__file__))
+
+
+def create_empty_notes(interviews):
+    for interview in interviews:
+        test_helper.create_notes(interview, "")
 
 
 def create_notes(reports):

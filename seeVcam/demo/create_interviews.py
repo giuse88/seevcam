@@ -5,7 +5,7 @@ from common.helpers.test_helper import create_interview
 from demo.create_answers import create_answers
 from demo.create_overall_rating import create_overall_ratings
 from interviews.models import Interview
-from .create_notes import create_notes
+from .create_notes import create_notes, create_empty_notes
 
 
 SATURDAY = 6
@@ -86,7 +86,9 @@ def populate_interviews(user, catalogues, candidates, job_positions, is_report=F
 
 def create_interviews(user, catalogues, candidates, job_positions):
     generate_candidate.index = 0
-    return populate_interviews(user, catalogues, candidates, job_positions)
+    interviews = populate_interviews(user, catalogues, candidates, job_positions)
+    create_empty_notes(interviews)
+    return interviews
 
 
 def create_reports(user, catalogues, candidates, job_positions):
