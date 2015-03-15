@@ -3,11 +3,13 @@ from django.contrib import admin
 from authentication.views import login_or_redirect
 from django.conf.urls.static import static
 from django.conf import settings
+from status.views import status
 
 admin.autodiscover()
 
 urlpatterns = patterns('',
                        url(r'^$', login_or_redirect, {'template_name': 'login.html'}, name="login"),
+                       url(r'^status/', status),
                        url(r'^admin/', include(admin.site.urls)),
                        url(r'^dashboard/', include('dashboard.urls')),
                        url(r'^interview/', include('interview_room.urls')),
