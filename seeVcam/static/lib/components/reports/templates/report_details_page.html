@@ -37,7 +37,11 @@
                     data-text="<%= ( overall_score && Number(overall_score).toFixed(1)) || 'NA' %>"
                     data-info="Overall" data-width="10" data-fontsize="50"
                     data-percent="<%= (overall_score || 0) * 10 %>"
-                    data-fgcolor="#ffffff" data-bgcolor="#61a9dc"></div>
+                    data-fgcolor="#ffffff" data-bgcolor="#61a9dc">
+               </div>
+               <div class="download-icon-container">
+                   <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
+               </div>
            </div>
         </div>
     </div>
