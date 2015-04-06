@@ -8,7 +8,8 @@ def create_overall_rating(report):
         overall_rating.save()
 
 
-def create_overall_ratings(reports):
+def create_overall_ratings(reports, populate=False):
     for report in reports:
         report.create_overall_ratings()
-        create_overall_rating(report)
+        if populate:
+            create_overall_rating(report)

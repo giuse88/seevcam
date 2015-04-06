@@ -88,6 +88,7 @@ def create_interviews(user, catalogues, candidates, job_positions):
     generate_candidate.index = 0
     interviews = populate_interviews(user, catalogues, candidates, job_positions)
     create_empty_notes(interviews)
+    create_overall_ratings(interviews)
     return interviews
 
 
@@ -96,5 +97,5 @@ def create_reports(user, catalogues, candidates, job_positions):
     reports = populate_interviews(user, catalogues, candidates, job_positions, True)
     create_answers(user, reports)
     create_notes(reports)
-    create_overall_ratings(reports)
+    create_overall_ratings(reports, True)
     return reports
