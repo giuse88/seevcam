@@ -4,7 +4,7 @@ from django.db import models
 from common.mixins.model import UpdateCreateTimeStamp, CompanyInfo
 from file_upload_service.models import UploadedFile
 from questions.models import QuestionCatalogue
-from opentok import OpenTok
+from opentok import OpenTok, MediaModes
 from django.conf import settings
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
@@ -67,7 +67,7 @@ class Interview(UpdateCreateTimeStamp):
     def create_interview_session():
         if settings.ENVIRONMENT != "TEST":
             opentok = OpenTok(settings.OPENTOK_API_KEY, settings.OPENTOK_SECRET)
-            session = opentok.create_session()
+            session = opentok.create_session(media_mode=MediaModes.routed)
             return session.session_id
         return "UNKNOWN"
 
