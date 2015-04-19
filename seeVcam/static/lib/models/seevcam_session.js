@@ -14,8 +14,10 @@ define(function (require) {
   };
 
   var videoDimension = {
-      width: 1280,
-      height: 720
+    width: 1280,
+    height: 720,
+    buttonDisplayMode : "auto",
+    videoDisabledDisplayMode:"on"
   };
 
   return Backbone.Model.extend({
@@ -76,6 +78,7 @@ define(function (require) {
       var publisherProperty = conf || this.get("publisherProperties");
       console.log("Init publisher with properties :  ", publisherProperty) ;
       this.publisher =  OT.initPublisher(domElementId, publisherProperty);
+      debugger;
       this.set('publisher', this.publisher);
       this.publisher
         .on("accessAllowed", this.accessToMediaGranted, this)

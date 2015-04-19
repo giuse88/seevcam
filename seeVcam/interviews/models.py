@@ -67,7 +67,7 @@ class Interview(UpdateCreateTimeStamp):
     def create_interview_session():
         if settings.ENVIRONMENT != "TEST":
             opentok = OpenTok(settings.OPENTOK_API_KEY, settings.OPENTOK_SECRET)
-            session = opentok.create_session(media_mode=MediaModes.routed)
+            session = opentok.create_session(media_mode=MediaModes.relayed)
             return session.session_id
         return "UNKNOWN"
 
