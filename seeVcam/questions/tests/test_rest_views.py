@@ -3,6 +3,7 @@ from rest_framework.test import APITestCase, APIRequestFactory, APIClient
 from unittest import skip
 
 from authentication.models import SeevcamUser
+from common.helpers.test_helper import create_company, create_user
 from questions.models import QuestionCatalogue, Question
 
 
@@ -18,9 +19,12 @@ class QuestionCatalogueViewTests(APITestCase):
         self.SEEVCAM_CATALOGUE_PATH = self.CATALOG_PATH + 'seevcam/'
         self.QUESTION_PATH_LIST = '/dashboard/questions/catalogue/{0}/list/'
         self.QUESTION_PATH_DETAILS = '/dashboard/questions/catalogue/{0}/list/{1}/'
-        self.user_1 = QuestionCatalogueViewTests._create_user('user_1')
-        self.user_2 = QuestionCatalogueViewTests._create_user('user_2')
-        self.admin = QuestionCatalogueViewTests._create_user('admin', True)
+        self.company = create_company()
+
+        self.user_1 = self._create_user('user_1@test.com')
+        self.user_2 = self._create_user('user_2@test.com')
+        self.admin = self._create_user('admin@test.com', True)
+
         QuestionCatalogueViewTests._create_catalogues(self.user_1, 10)
         QuestionCatalogueViewTests._create_catalogues(self.user_2, 5)
         QuestionCatalogueViewTests._create_catalogues(self.admin, 3, QuestionCatalogue.SEEVCAM_SCOPE)
@@ -235,9 +239,8 @@ class QuestionCatalogueViewTests(APITestCase):
     #                          PRIVATE                          #
     #############################################################
 
-    @staticmethod
-    def _create_user(username, admin=False):
-        user = SeevcamUser(username=username, email='tests@email.com')
+    def _create_user(self, email, admin=False):
+        user = create_user(self.company, email, 'test')
         user.is_staff = admin
         user.save()
         return user
